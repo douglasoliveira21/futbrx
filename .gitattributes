@@ -1,0 +1,4 @@
+# Third-party assets are verified by SHA-256 and byte size (frontend/tests/sources.test.mjs and
+# the credits files). Keep them byte-for-byte as committed, without end-of-line conversion,
+# so checkouts with core.autocrlf=true (Windows) do not change their hashes.
+frontend/public/assets/** -text

@@ -3570,286 +3570,6 @@ body {
 .athlete-detail .availability {
   color: #c6eb9b;
 }
-.tactics-room {
-  display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
-  gap: 24px;
-}
-.matchboard {
-  background: #101e2d;
-  border: 1px solid #ffffff18;
-  overflow: hidden;
-}
-.matchboard > header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 20px 25px;
-}
-.matchboard > header h2 {
-  font-size: 1.7rem;
-  text-transform: uppercase;
-  margin-top: 5px;
-}
-.matchboard > header > b {
-  font-size: 1.8rem;
-  color: #d2fa69;
-  font-family: "Bahnschrift Condensed", Impact, sans-serif;
-}
-.formation-field {
-  height: 590px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  padding: 25px 18px 20px;
-  background: repeating-linear-gradient(
-    0deg,
-    #193f35 0 65px,
-    #1c4939 65px 130px
-  );
-  border: 1px solid #adc4a050;
-  margin: 0 20px;
-  box-shadow: inset 0 0 70px #061a2860;
-}
-.formation-field::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  border-top: 1px solid #dae8c94d;
-}
-.formation-center {
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  border: 1px solid #dae8c94d;
-  border-radius: 50%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-.formation-box {
-  position: absolute;
-  width: 52%;
-  height: 60px;
-  border: 1px solid #dae8c94d;
-  left: 24%;
-}
-.formation-box.upper {
-  top: 0;
-  border-top: 0;
-}
-.formation-box.lower {
-  bottom: 0;
-  border-bottom: 0;
-}
-.formation-line {
-  display: flex;
-  justify-content: space-around;
-  gap: 6px;
-  position: relative;
-  z-index: 1;
-}
-.formation-player {
-  background: none;
-  border: 0;
-  color: white;
-  min-width: 0;
-  width: 95px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-}
-.formation-player .kit-portrait {
-  height: 74px;
-  width: 90px;
-  filter: drop-shadow(0 6px 4px #0006);
-  transition: transform 0.2s;
-}
-.formation-player > span {
-  padding: 3px 8px;
-  background: #071320c9;
-  font-size: 0.85rem;
-  white-space: nowrap;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.formation-player > small {
-  background: #0e1e2e;
-  padding: 3px 8px;
-  font-size: 0.65rem;
-  color: #a7bbc9;
-}
-.formation-player > small > b {
-  color: #d2fa69;
-  padding-left: 6px;
-}
-.formation-player.chosen .kit-portrait {
-  transform: translateY(-6px) scale(1.1);
-  filter: drop-shadow(0 0 9px #d2fa6970);
-}
-.formation-player.chosen > span {
-  background: #d2fa69;
-  color: #15210c;
-}
-.matchboard > footer {
-  margin: 0;
-  padding: 15px 20px;
-  font-size: 0.8rem;
-  color: #a1b4c5;
-  text-align: left;
-}
-.game-plan {
-  background: linear-gradient(145deg, #1a2b3e, #101c2b);
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  border: 1px solid #ffffff18;
-  align-self: start;
-}
-.game-plan h2 {
-  font-size: 2.4rem;
-  text-transform: uppercase;
-}
-.game-plan > label {
-  font-size: 0.8rem;
-  color: #b3c4d4;
-}
-.formation-options {
-  display: flex;
-  gap: 9px;
-}
-.formation-options button {
-  flex: 1;
-  padding: 15px 5px;
-  color: #afc1d0;
-  border: 1px solid #ffffff20;
-  background: #0b1826;
-  font-size: 1rem;
-  font-weight: 800;
-}
-.formation-options [aria-pressed="true"] {
-  background: #d2fa69;
-  border-color: #d2fa69;
-  color: #14210c;
-}
-.mentality-options {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.mentality-options button {
-  text-align: left;
-  padding: 16px;
-  color: #b8c9d6;
-  border: 1px solid #ffffff18;
-  background: #ffffff03;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.mentality-options b {
-  font-size: 1rem;
-}
-.mentality-options span {
-  font-size: 0.8rem;
-  line-height: 1.5;
-  color: #8ca5ba;
-}
-.mentality-options [aria-pressed="true"] {
-  border-left: 3px solid #d2fa69;
-  background: #d2fa690d;
-  color: #def5b1;
-}
-.game-plan > .muted {
-  font-size: 0.8rem;
-  line-height: 1.7;
-}
-.plan-status {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  border-top: 1px solid #ffffff14;
-  padding-top: 18px;
-}
-.plan-status strong {
-  color: #d2fa69;
-  font-size: 1.8rem;
-}
-.plan-status span {
-  color: #99afc2;
-  font-size: 0.8rem;
-}
-.bench-room {
-  grid-column: 1/-1;
-  padding: 24px;
-  border: 1px solid #ffffff18;
-  background: #122031;
-}
-.bench-room h2 {
-  font-size: 1.8rem;
-  text-transform: uppercase;
-  margin: 6px 0;
-}
-.bench-room header p {
-  color: #8da7bd;
-  font-size: 0.85rem;
-}
-.bench-cards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 20px;
-}
-.bench-athlete {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  padding: 14px;
-  background: #1a2c3e;
-  border: 1px solid #ffffff14;
-  text-align: left;
-  color: #e4edf4;
-}
-.bench-athlete:not(:disabled):hover {
-  border-color: #d2fa69;
-}
-.bench-athlete:disabled {
-  opacity: 0.6;
-  cursor: default;
-}
-.bench-rating {
-  color: #d2fa69;
-  font-size: 1.5rem;
-  font-weight: 850;
-}
-.bench-rating small {
-  display: block;
-  color: #a8bfd0;
-  font-size: 0.6rem;
-}
-.bench-athlete > div {
-  flex: 1;
-}
-.bench-athlete > div b {
-  font-size: 0.8rem;
-}
-.bench-athlete > div small {
-  display: block;
-  margin-top: 4px;
-  font-size: 0.7rem;
-  color: #92a9bc;
-}
-.bench-athlete > span:last-child {
-  font-size: 0.65rem;
-  color: #bad78f;
-}
 .market-card-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -3933,24 +3653,6 @@ body {
   .market-card-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .tactics-room {
-    grid-template-columns: minmax(0, 1fr) 290px;
-  }
-  .game-plan {
-    padding: 20px;
-  }
-  .bench-cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .formation-player {
-    width: 78px;
-  }
-  .formation-player > span {
-    font-size: 0.75rem;
-  }
-  .formation-player .kit-portrait {
-    width: 75px;
-  }
 }
 @media (max-width: 950px) {
   .locker-layout {
@@ -3962,15 +3664,6 @@ body {
   }
   .market-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .tactics-room {
-    grid-template-columns: 1fr;
-  }
-  .game-plan {
-    grid-row: 2;
-  }
-  .formation-field {
-    height: 560px;
   }
   .locker-summary {
     gap: 18px;
@@ -4082,38 +3775,6 @@ body {
     font-size: 0.7rem;
     padding: 8px;
   }
-  .bench-cards {
-    grid-template-columns: 1fr;
-  }
-  .formation-field {
-    margin: 0 10px;
-    padding: 25px 4px 15px;
-    height: 520px;
-  }
-  .formation-player {
-    width: 64px;
-  }
-  .formation-player .kit-portrait {
-    width: 64px;
-    height: 65px;
-  }
-  .formation-player > span {
-    max-width: 70px;
-    font-size: 0.7rem;
-    padding-inline: 4px;
-  }
-  .formation-player > small {
-    font-size: 0.6rem;
-  }
-  .matchboard > header {
-    padding: 18px;
-  }
-  .matchboard > header h2 {
-    font-size: 1.4rem;
-  }
-  .matchboard > header > b {
-    font-size: 1.5rem;
-  }
 }
 
 .scheduled-substitutions {
@@ -4153,19 +3814,11 @@ body {
 .athlete-top > span {
   font-size: 0.8rem;
 }
-.game-plan > label,
-.game-plan > .muted,
-.mentality-options span {
-  font-size: 0.875rem;
-}
 @media (max-width: 600px) {
   .athlete-bottom {
     font-size: 0.7rem;
   }
   .scout-card dd {
-    font-size: 0.875rem;
-  }
-  .bench-athlete > div b {
     font-size: 0.875rem;
   }
 }
@@ -4238,7 +3891,6 @@ body {
 .tactical-instructions summary { cursor:pointer; color:#d2fa69; }
 @media(max-width:600px){.tactical-selects{grid-template-columns:1fr}.tactical-instructions{padding:12px}}
 .coach-quick{display:flex;flex-wrap:wrap;gap:8px}.coach-comparison{overflow-x:auto;border:1px solid #ffffff20;border-radius:8px;padding:12px}.coach-comparison-row{display:grid;grid-template-columns:minmax(130px,1fr) repeat(2,minmax(100px,1fr));gap:10px;padding:6px;border-bottom:1px solid #ffffff10;font-size:.85rem}.coach-comparison-row strong{overflow-wrap:anywhere}
-
 
 .futbrx-logo {
   display: block;

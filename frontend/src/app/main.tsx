@@ -85,7 +85,7 @@ const TrainingCenter = lazy(
   () => import("../features/training/TrainingCenter"),
 );
 const SquadRoom = lazy(() => import("../features/sports/SquadRoom"));
-const TacticsRoom = lazy(() => import("../features/sports/TacticsRoom"));
+const TacticsDesk = lazy(() => import("../features/tactics/TacticsDesk"));
 const SportsCenter = lazy(() => import("../features/sports/SportsCenter"));
 const Match3D = lazy(() => import("../features/match3d/Match3D"));
 const AdminCatalog = lazy(() => import("../features/catalog/AdminCatalog"));
@@ -615,7 +615,7 @@ function Module({
     return (
       <>
         <Suspense fallback={<p className="empty">Abrindo prancheta…</p>}>
-          <TacticsRoom c={c} action={action} busy={busy} />
+          <TacticsDesk c={c} busy={busy} />
         </Suspense>
         <details className="scheduled-substitutions">
           <summary>Substituições programadas e reposição automática</summary>

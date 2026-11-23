@@ -1,0 +1,58 @@
+/* The match tactical desk, embedded in the "Táticas" page instead of a full-screen dialog. */
+.tactical-desk.desk-embedded {
+  min-height: 0;
+  border: 1px solid var(--desk-line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.desk-plan-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--desk-line);
+  background: linear-gradient(90deg, #0d2036, #0b192b);
+}
+.desk-plan-match {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.desk-plan-match strong {
+  font: 800 1.35rem/1.1 "Arial Narrow", "Bahnschrift Condensed", Impact, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.desk-plan-match > span {
+  color: var(--desk-muted);
+  font-weight: 700;
+}
+.desk-plan-match .crest {
+  width: 30px;
+  height: 34px;
+}
+.desk-plan-head > small {
+  color: var(--desk-muted);
+  flex: 1;
+}
+.desk-plan-state {
+  padding: 5px 12px;
+  border: 1px solid var(--desk-line);
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--desk-green);
+}
+.desk-plan-state.is-dirty {
+  color: #efbd31;
+  border-color: #efbd3180;
+}
+.desk-embedded .desk-feed span {
+  min-width: 0;
+}
+.desk-tactic-controls .button {
+  white-space: normal;
+  line-height: 1.2;
+}

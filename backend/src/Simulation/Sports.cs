@@ -46,6 +46,20 @@ public static class Sports
         if (outgoing == null || incoming == null || !outgoing.Starter || incoming.Starter || !Eligible(incoming)) throw new GameRuleException("Escolha um titular e um reserva disponível do seu elenco.");
         if ((outgoing.Position == "GOL") != (incoming.Position == "GOL")) throw new GameRuleException("Troque o goleiro por outro goleiro.");
         outgoing.Starter = false; incoming.Starter = true; g.Substitutions.Clear(); RefreshBench(g);
+        // The incoming player takes over the tactical slot and individual role of the one who left,
+        // as a substitution during the match does.
+        var plan = g.TacticalPlan;
+        if (plan.Positions?.TryGetValue(outgoingId, out var point) == true)
+        {
+            var positions = new Dictionary<int, TacticalPoint>(plan.Positions); positions.Remove(outgoingId); positions[incomingId] = point;
+            plan = plan with { Positions = positions };
+        }
+        if (plan.Roles?.TryGetValue(outgoingId, out var role) == true)
+        {
+            var roles = new Dictionary<int, string>(plan.Roles); roles.Remove(outgoingId); roles[incomingId] = role;
+            plan = plan with { Roles = roles };
+        }
+        g.TacticalPlan = plan;
     }
     public static MatchTeam BuildTeam(GameState g, string club)
     {

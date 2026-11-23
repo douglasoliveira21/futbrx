@@ -79,6 +79,7 @@ export default function TacticalPitch({
   editable,
   disabled,
   setPlan,
+  liveOverlays = true,
 }: {
   players: DeskPlayer[];
   frames: ReplayFrame[];
@@ -92,6 +93,8 @@ export default function TacticalPitch({
   editable: boolean;
   disabled: boolean;
   setPlan: (plan: TacticalPlan) => void;
+  // Before the match there are no recorded frames, so only the overlays drawn from the plan apply.
+  liveOverlays?: boolean;
 }) {
   const [mode, setMode] = useState("Plano Tático");
   const [selected, select] = useState<number>();
@@ -427,7 +430,7 @@ export default function TacticalPitch({
               onChange={(event) => setOverlay(event.target.value)}
             >
               <option value="">Sem sobreposição</option>
-              {overlays.map((view) => (
+              {(liveOverlays ? overlays : overlays.slice(positionViews.length, -1)).map((view) => (
                 <option key={view}>{view}</option>
               ))}
             </select>

@@ -4,6 +4,7 @@ for(const height of [.11,.24,.5,1.4,2.44])assert.equal(replayBallHeight('positio
 assert.equal(replayBallHeight('positional-v10',.24),.11,'legacy replay keeps its old visual origin');
 assert.equal(replayBallHeight('positional-v11',-.1),.11,'renderer keeps the ball above the ground');
 for(const height of [.11,.24,.5,1.4,2.44])assert.equal(replayBallHeight('positional-v12',height),height,'V12 preserves the recorded physical centre');
+for(const height of [.11,.24,.5,1.4,2.44])assert.equal(replayBallHeight('positional-v13',height),height,'V13 preserves the recorded physical centre');
 console.log('PASS: V11 reproduz altura física sem deslocamento legado; versões antigas preservam apresentação.');
 const frame=(second,x)=>({second,players:[{id:1,team:0,x,z:0,yaw:0,action:'run'}],ball:{x,y:.24,z:0}});
 const frames=[frame(0,0),frame(6,12),frame(12,18)];

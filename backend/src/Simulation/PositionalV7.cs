@@ -9,6 +9,9 @@ public static class PositionalV7
     public const int Duration = 90 * 60;
     // V1–V6 remain frozen. V7 records coach commands and explicit halftime.
     public const int TimeScale = 12;
+    // V13 throw-in model: about 13 m/s of horizontal speed, 8-16 m/s at release, up to 25 m.
+    public const double MaxThrowInDistance = 25;
+    public static double ThrowInFlightSeconds(double distance) => Math.Clamp(distance / 13, .6, 2.0);
     const int Tick = 2;
     static int FlightTicks(double distance, double metresPerSecond) => Math.Clamp((int)Math.Ceiling(distance / metresPerSecond * TimeScale / Tick) * Tick, 6, 48);
     sealed class Agent(MatchPlayer player, int team, int slot, double x, double z)
@@ -35,7 +38,7 @@ public static class PositionalV7
     static double Rating(MatchPlayer p) => p.Rating * (.65 + .35 * p.Fitness / 100.0);
 
     public static MatchReplay Run(MatchSetup setup, int seed, bool captureFrames) => Stream(setup, seed, captureFrames).Last().Replay;
-    public static IEnumerable<Checkpoint> Stream(MatchSetup setup, int seed, bool captureFrames = true,FootballBrain? intelligence=null,bool delayedKeeper=false,bool physicalShots=false,bool continuousContacts=false)
+    public static IEnumerable<Checkpoint> Stream(MatchSetup setup, int seed, bool captureFrames = true,FootballBrain? intelligence=null,bool delayedKeeper=false,bool physicalShots=false,bool continuousContacts=false,bool realisticThrowIns=false)
     {
         if (setup.EngineVersion != Version) throw new GameRuleException("Versão do motor não suportada para esta reprodução.");
         if (setup.Home.Players.Count != 11 || setup.Away.Players.Count != 11) throw new GameRuleException("Uma partida exige duas equipes de onze jogadores.");
@@ -855,13 +858,23 @@ public static class PositionalV7
                         }
                         if (physicalShots && pendingPhysicalRestart is BallRestart restartType)
                         {
-                            var intended=agents.Where(a=>a.Active && a.Team==possession && a.Index!=carrier)
-                                .OrderBy(a=>Math.Pow(a.X-flight.TargetX,2)+Math.Pow(a.Z-flight.TargetZ,2)).First();
-                            double travel=restartType==BallRestart.Corner?1.6:restartType==BallRestart.ThrowIn?1.0:
+                            var mates=agents.Where(a=>a.Active && a.Team==possession && a.Index!=carrier).ToList();
+                            double FromSpot(Agent a)=>Math.Sqrt(Math.Pow(a.X-ballX,2)+Math.Pow(a.Z-ballZ,2));
+                            // V13: a throw-in reaches a team-mate within throwing range, never a player 30-50 m away.
+                            var restartTargets=realisticThrowIns && restartType==BallRestart.ThrowIn
+                                ? (mates.Any(a=>FromSpot(a)<=MaxThrowInDistance) ? mates.Where(a=>FromSpot(a)<=MaxThrowInDistance).ToList() : mates.OrderBy(FromSpot).ThenBy(a=>a.Index).Take(1).ToList())
+                                : mates;
+                            var intended=restartTargets.OrderBy(a=>Math.Pow(a.X-flight.TargetX,2)+Math.Pow(a.Z-flight.TargetZ,2)).First();
+                            // With nobody in range the throw still goes towards the chosen team-mate, but lands at
+                            // most MaxThrowInDistance away and becomes a contested ball.
+                            double aimX=intended.X,aimZ=intended.Z,throwDistance=FromSpot(intended);
+                            if(realisticThrowIns && restartType==BallRestart.ThrowIn && throwDistance>MaxThrowInDistance)
+                            {aimX=ballX+(intended.X-ballX)*MaxThrowInDistance/throwDistance;aimZ=ballZ+(intended.Z-ballZ)*MaxThrowInDistance/throwDistance;throwDistance=MaxThrowInDistance;}
+                            double travel=restartType==BallRestart.Corner?1.6:restartType==BallRestart.ThrowIn?(realisticThrowIns?ThrowInFlightSeconds(throwDistance):1.0):
                                 teams[possession].Plan?.BuildShort==false?1.8:1.0;
                             double launchY=restartType==BallRestart.ThrowIn?1.95:BallPhysics.Radius;
                             double endHeight=restartType==BallRestart.Corner?1.4:.24;
-                            physicalBall=BallDelivery.Launch(new(ballX,launchY,ballZ),new(intended.X,endHeight,intended.Z),travel);
+                            physicalBall=BallDelivery.Launch(new(ballX,launchY,ballZ),new(aimX,endHeight,aimZ),travel);
                             touchingPlayers.Clear();
                             physicalContact=RecordContact(owner.Player.Id,possession,"cobrança",second,ballX,launchY,ballZ,restartType.ToString());
                             Event(second,"restart_taken",possession,owner.Player.Id,"Cobrança executada: "+restartType+".",intended.Player.Id);

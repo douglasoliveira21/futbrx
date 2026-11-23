@@ -3,7 +3,7 @@ import type { ReplayFrame } from "../../services/api";
 export function replayBallHeight(version:string,height:number) {
   // V11+ records the physical centre in metres. Older replays used a .24 m
   // visual origin and retain their existing presentation correction.
-  return version==="positional-v11"||version==="positional-v12" ? Math.max(.11,height) : Math.max(.11,height-.13*Math.max(0,1-(height-.24)/.5));
+  return ["positional-v11","positional-v12","positional-v13"].includes(version) ? Math.max(.11,height) : Math.max(.11,height-.13*Math.max(0,1-(height-.24)/.5));
 }
 
 export function framePair(frames: ReplayFrame[], second: number) {

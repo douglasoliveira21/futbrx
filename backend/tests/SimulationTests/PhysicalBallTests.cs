@@ -153,7 +153,7 @@ public static class PhysicalBallTests
         var legacyStill=LongestStill(browserFixture);
         var currentSetup=validationSetup with{EngineVersion=PositionalV12.Version};
         var current=Enumerable.Range(117,4).Select(seed=>MatchSimulation.Run(currentSetup,seed,true)).ToList();
-        Check(MatchSimulation.Version==PositionalV12.Version && current.All(r=>r.EngineVersion==PositionalV12.Version),"Novas partidas usam positional-v12");
+        Check(current.All(r=>r.EngineVersion==PositionalV12.Version),"Replays positional-v12 continuam no próprio motor");
         Check(legacyStill>=3,"V11 permanece congelada, inclusive a bola suspensa da semente 117 ("+legacyStill+" quadros)");
         Check(current.All(r=>LongestStill(r)<3),"V12: bola desviada no ar não fica suspensa entre jogadores");
         // Two quick deflections (ball off one player into a neighbour) are legitimate; three or more
@@ -169,6 +169,27 @@ public static class PhysicalBallTests
         Check(current.All(r=>LongestDeflectionChain(r)<=2),"V12: não há cadeia de três ou mais desvios a cada passo");
         Check(current.All(r=>r.Events.Where(e=>e.Type=="rebound"&&e.Text.StartsWith("A bola desvia em")).All(e=>e.Player!=0)),"V12: desvio de passe não é narrado como finalização");
         Check(JsonSerializer.Serialize(current[0],Game.Json)==JsonSerializer.Serialize(MatchSimulation.Run(currentSetup,117,true),Game.Json),"V12 é determinística para a mesma semente");
+        // V13: throw-ins are released at a human speed to a team-mate within throwing range.
+        // Range is the drag-free landing distance (ball centre back to .24 m) from the release velocity.
+        static List<(double Speed,double Range)> ThrowIns(MatchReplay replay)=>replay.Frames
+            .Where(f=>f.LastContact is {Type:"cobrança",Origin:"ThrowIn"} c && c.Second==f.Second && f.BallVelocity!=null)
+            .Select(f=>{
+                var v=f.BallVelocity!;var c=f.LastContact!;
+                double flightTime=(v.Y+Math.Sqrt(v.Y*v.Y+2*9.81*(c.Y-.24)))/9.81;
+                return (Math.Sqrt(v.X*v.X+v.Y*v.Y+v.Z*v.Z),flightTime*Math.Sqrt(v.X*v.X+v.Z*v.Z));
+            }).ToList();
+        var throwSetup=validationSetup with{EngineVersion=PositionalV13.Version};
+        var throwMatches=Enumerable.Range(117,8).Select(seed=>MatchSimulation.Run(throwSetup,seed,true)).ToList();
+        var legacyThrows=current.SelectMany(ThrowIns).ToList();
+        var throws=throwMatches.SelectMany(ThrowIns).ToList();
+        Check(MatchSimulation.Version==PositionalV13.Version && throwMatches.All(r=>r.EngineVersion==PositionalV13.Version),"Novas partidas usam positional-v13");
+        Check(legacyThrows.Any(t=>t.Speed>25),"V12 permanece congelada com os laterais de 1 s de voo");
+        Check(throws.Count>=10,"Partidas V13 têm laterais físicos suficientes para medir ("+throws.Count+")");
+        Check(throws.All(t=>t.Speed is >=6 and <=17),"V13: lateral sai entre 6 e 17 m/s (máx. "+throws.Max(t=>t.Speed).ToString("F1")+" m/s)");
+        Check(throws.All(t=>t.Range<=PositionalV7.MaxThrowInDistance+1),"V13: lateral não passa de 25 m de alcance (máx. "+throws.Max(t=>t.Range).ToString("F1")+" m)");
+        Check(legacyThrows.Any(t=>t.Range>PositionalV7.MaxThrowInDistance+5),"V12 mantém os laterais longos e retos originais");
+        Check(PositionalV7.ThrowInFlightSeconds(2)==.6 && PositionalV7.ThrowInFlightSeconds(13)==1 && PositionalV7.ThrowInFlightSeconds(60)==2,"V13: tempo de voo do lateral cresce com a distância, com limites");
+        Check(JsonSerializer.Serialize(throwMatches[0],Game.Json)==JsonSerializer.Serialize(MatchSimulation.Run(throwSetup,117,true),Game.Json),"V13 é determinística para a mesma semente");
     }
 }
 

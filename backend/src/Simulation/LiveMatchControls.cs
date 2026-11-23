@@ -34,7 +34,13 @@ public static class LiveMatchControls
         {
             if(!Tactics.Formations.Contains(formation)||!(setup.EngineVersion is PositionalV10.Version or PositionalV11.Version ? Tactics.Mentalities : Tactics.LegacyMentalities).Contains(mentality))throw new GameRuleException("Estratégia inválida.");
             if(setup.EngineVersion is not (PositionalV9.Version or PositionalV10.Version or PositionalV11.Version)&&(plan!=null||formation=="4-2-3-1"))throw new GameRuleException("As instruções avançadas estão disponíveis nas novas partidas.");
-            if(plan!=null)Tactics.ValidatePlan(plan,team.Players.Concat(team.Bench??[]).Select(p=>p.Id));
+            if(plan!=null)
+            {
+                // O plano da carreira pode citar atletas fora dos relacionados; eles não participam da partida.
+                var roster=team.Players.Concat(team.Bench??[]).Select(p=>p.Id).ToHashSet();
+                plan=plan with{Roles=plan.Roles?.Where(r=>roster.Contains(r.Key)).ToDictionary(),Positions=plan.Positions?.Where(r=>roster.Contains(r.Key)).ToDictionary()};
+                Tactics.ValidatePlan(plan,roster);
+            }
             commands.Add(new(second,team.Id,"tactics",formation,mentality,AtHalfTime:live.HalfTimeAwaiting,Plan:plan));
         }
         else if(type=="substitution")

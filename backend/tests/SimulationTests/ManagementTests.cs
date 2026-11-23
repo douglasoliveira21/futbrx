@@ -57,11 +57,11 @@ public static class ManagementTests
         var offseason = Game.New("pal"); offseason.Round = 39; var offseasonPlayer = offseason.Market[0];
         Check(!TransferMarket.Quote(offseason, offseasonPlayer.Id, "inbound", 1).Available && TransferMarket.Quote(offseason, offseasonPlayer.Id, "inbound", 2).Available, "Contrato no intervalo entre temporadas precisa cobrir o ano seguinte");
         var end = Game.New("pal"); for (int i = 0; i < 38; i++) Game.Advance(end);
-        var expiring = end.Squad.Where(p => end.Contracts[p.Id].EndSeason == end.Season).ToArray(); var oldFixtures = JsonSerializer.Serialize(end.Fixtures); balance = end.Balance;
+        var expiring = end.Squad.Where(p => end.Contracts[p.Id].EndSeason == end.Season).ToArray(); var oldFixtures = JsonSerializer.Serialize(end.Fixtures); balance = end.Balance; var ledgerBefore = end.Ledger.Count;
         end.Life!.Competitions.Clear(); TransferMarket.NextSeason(end);
         Check(end.Season == 2027 && end.Round == 1 && end.PastSeasons.Count == 1 && end.PastSeasons[0].Table.All(t => t.Played == 38), "Nova temporada arquiva classificação completa");
         Check(JsonSerializer.Serialize(end.PastSeasons[0].Fixtures) == oldFixtures && end.Fixtures.All(f => f.HomeGoals == null), "Partidas antigas preservadas e novo calendário independente");
-        Check(expiring.All(p => !end.Squad.Contains(p) && end.Market.Contains(p) && !end.Contracts[p.Id].Active) && end.Balance == balance, "Vencimentos liberam atletas sem receita fictícia ou reinício de caixa");
+        Check(expiring.All(p => !end.Squad.Contains(p) && end.Market.Contains(p) && !end.Contracts[p.Id].Active) && end.Ledger.Skip(ledgerBefore).All(l => l.Amount <= 0) && end.Balance == balance + end.Ledger.Skip(ledgerBefore).Sum(l => l.Amount), "Vencimentos liberam atletas sem receita fictícia ou reinício de caixa");
         var legacy = Game.New("pal"); legacy.ManagementVersion = 0; legacy.Contracts.Clear(); legacy.ClubBalances.Clear(); legacy.OpponentSquads.Clear(); legacy.Market = Game.Players(100).Take(12).ToList(); var oldCash = legacy.Balance;
         var career = new Career { State = Snapshot(legacy) }; var upgraded = Game.Read(career);
         var all = upgraded.Squad.Concat(upgraded.Market).Concat(upgraded.OpponentSquads.Values.SelectMany(s => s)).ToArray();

@@ -111,8 +111,8 @@ export default function MatchManagement({
   const last = commands.filter((c) => c.type === "tactics").at(-1);
   const [formation, setFormation] = useState(last?.formation ?? team.formation),
     [mentality, setMentality] = useState(last?.mentality ?? team.mentality);
-  const [outgoing, setOutgoing] = useState(0),
-    [incoming, setIncoming] = useState(0),
+  const [outgoing, setOutgoing] = useState(-1),
+    [incoming, setIncoming] = useState(-1),
     [notice, setNotice] = useState("");
   const [draft, setDraft] = useState<
     { outPlayerId: number; inPlayerId: number }[]
@@ -616,7 +616,7 @@ export default function MatchManagement({
               if (list === "bench") setIncoming(p.id);
               else {
                 setOutgoing(p.id);
-                setIncoming(0);
+                setIncoming(-1);
                 setList("bench");
                 setPositionFilter("");
               }
@@ -672,8 +672,8 @@ export default function MatchManagement({
     try {
       if (await control({ type: "substitutions", substitutions: changes })) {
         setDraft([]);
-        setOutgoing(0);
-        setIncoming(0);
+        setOutgoing(-1);
+        setIncoming(-1);
         setNotice("Trocas confirmadas e enviadas ao motor da partida.");
       }
     } finally {
@@ -698,10 +698,10 @@ export default function MatchManagement({
             disabled={tacticBusy}
             onChange={(e) => {
               setOutgoing(Number(e.target.value));
-              setIncoming(0);
+              setIncoming(-1);
             }}
           >
-            <option value={0}>Escolha quem sai</option>
+            <option value={-1}>Escolha quem sai</option>
             {fieldOptions.map((p) => (
               <option key={p.id} value={p.id}>
                 {number(p.id)} · {p.name}
@@ -719,7 +719,7 @@ export default function MatchManagement({
             disabled={tacticBusy}
             onChange={(e) => setIncoming(Number(e.target.value))}
           >
-            <option value={0}>Escolha quem entra</option>
+            <option value={-1}>Escolha quem entra</option>
             {bench.map((p) => (
               <option key={p.id} value={p.id}>
                 {number(p.id)} · {p.name}
@@ -751,8 +751,8 @@ export default function MatchManagement({
               return;
             }
             setDraft(next);
-            setOutgoing(0);
-            setIncoming(0);
+            setOutgoing(-1);
+            setIncoming(-1);
             setList("field");
             setNotice(
               "Troca preparada. Confirme a lista para enviá-la à partida.",
@@ -866,11 +866,11 @@ export default function MatchManagement({
         <div>
           <Button
             variant="outline"
-            disabled={tacticBusy || (!draft.length && !outgoing && !incoming)}
+            disabled={tacticBusy || (!draft.length && outgoing < 0 && incoming < 0)}
             onClick={() => {
               setDraft([]);
-              setOutgoing(0);
-              setIncoming(0);
+              setOutgoing(-1);
+              setIncoming(-1);
               setList("field");
               setPositionFilter("");
               setNotice("Seleção de trocas cancelada.");

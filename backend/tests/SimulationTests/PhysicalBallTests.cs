@@ -182,7 +182,7 @@ public static class PhysicalBallTests
         var throwMatches=Enumerable.Range(117,8).Select(seed=>MatchSimulation.Run(throwSetup,seed,true)).ToList();
         var legacyThrows=current.SelectMany(ThrowIns).ToList();
         var throws=throwMatches.SelectMany(ThrowIns).ToList();
-        Check(MatchSimulation.Version==PositionalV13.Version && throwMatches.All(r=>r.EngineVersion==PositionalV13.Version),"Novas partidas usam positional-v13");
+        Check(throwMatches.All(r=>r.EngineVersion==PositionalV13.Version),"Replays positional-v13 continuam no próprio motor");
         Check(legacyThrows.Any(t=>t.Speed>25),"V12 permanece congelada com os laterais de 1 s de voo");
         Check(throws.Count>=10,"Partidas V13 têm laterais físicos suficientes para medir ("+throws.Count+")");
         Check(throws.All(t=>t.Speed is >=6 and <=17),"V13: lateral sai entre 6 e 17 m/s (máx. "+throws.Max(t=>t.Speed).ToString("F1")+" m/s)");
@@ -190,6 +190,31 @@ public static class PhysicalBallTests
         Check(legacyThrows.Any(t=>t.Range>PositionalV7.MaxThrowInDistance+5),"V12 mantém os laterais longos e retos originais");
         Check(PositionalV7.ThrowInFlightSeconds(2)==.6 && PositionalV7.ThrowInFlightSeconds(13)==1 && PositionalV7.ThrowInFlightSeconds(60)==2,"V13: tempo de voo do lateral cresce com a distância, com limites");
         Check(JsonSerializer.Serialize(throwMatches[0],Game.Json)==JsonSerializer.Serialize(MatchSimulation.Run(throwSetup,117,true),Game.Json),"V13 é determinística para a mesma semente");
+        // V14: when a throw-in is awarded, outfield team-mates come short so the taker has a receiver.
+        // Measured on the release frame: closest outfield team-mate (never the keeper), intended receiver
+        // and preparation time from the throw-in being awarded to the release, in clock seconds.
+        static List<(double Nearest,double Receiver,int Wait)> ThrowInSupport(MatchReplay replay)=>replay.Events
+            .Where(e=>e.Type=="restart_taken" && e.Text.EndsWith("ThrowIn."))
+            .Select(e=>{
+                var f=replay.Frames.Last(f=>f.Second<=e.Second);var taker=f.Players.First(p=>p.Id==e.Player);
+                double From(PlayerPose p)=>Math.Sqrt(Math.Pow(p.X-f.Ball.X,2)+Math.Pow(p.Z-f.Ball.Z,2));
+                var mates=f.Players.Where(p=>p.Active && p.Team==taker.Team && p.Id!=taker.Id).ToList();
+                var awarded=replay.Events.Last(t=>t.Type=="throw_in" && t.Second<=e.Second);
+                return (mates.Where(p=>p.Position!="GOL").Min(From),From(mates.First(p=>p.Id==e.RelatedPlayer)),e.Second-awarded.Second);
+            }).ToList();
+        var supportSetup=validationSetup with{EngineVersion=PositionalV14.Version};
+        var supportMatches=Enumerable.Range(117,8).Select(seed=>MatchSimulation.Run(supportSetup,seed,true)).ToList();
+        var legacySupport=throwMatches.SelectMany(ThrowInSupport).ToList();
+        var support=supportMatches.SelectMany(ThrowInSupport).ToList();
+        Check(MatchSimulation.Version==PositionalV14.Version && supportMatches.All(r=>r.EngineVersion==PositionalV14.Version),"Novas partidas usam positional-v14");
+        Check(legacySupport.Count(t=>t.Nearest<=20)*4<legacySupport.Count,"V13 permanece congelada, com companheiros longe do lateral ("+legacySupport.Count(t=>t.Nearest<=20)+" de "+legacySupport.Count+" a até 20 m)");
+        Check(support.Count>=10,"Partidas V14 têm laterais físicos suficientes para medir ("+support.Count+")");
+        Check(support.Count(t=>t.Nearest<=15)*4>=support.Count*3,"V14: na maioria dos laterais um jogador de linha se oferece a até 15 m ("+support.Count(t=>t.Nearest<=15)+" de "+support.Count+")");
+        Check(support.Count(t=>t.Receiver<=20)*3>=support.Count*2,"V14: a maioria dos laterais vai para um receptor a até 20 m ("+support.Count(t=>t.Receiver<=20)+" de "+support.Count+")");
+        Check(support.All(t=>t.Wait>=36 && t.Wait<=PositionalV7.ThrowInMaxPreparation),"V14: preparação do lateral entre 36 e "+PositionalV7.ThrowInMaxPreparation+" s de relógio (máx. "+support.Max(t=>t.Wait)+" s)");
+        var supportThrows=supportMatches.SelectMany(ThrowIns).ToList();
+        Check(supportThrows.All(t=>t.Speed is >=6 and <=17 && t.Range<=PositionalV7.MaxThrowInDistance+1),"V14 mantém a força e o alcance realistas dos laterais V13");
+        Check(JsonSerializer.Serialize(supportMatches[0],Game.Json)==JsonSerializer.Serialize(MatchSimulation.Run(supportSetup,117,true),Game.Json),"V14 é determinística para a mesma semente");
     }
 }
 

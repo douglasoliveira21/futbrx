@@ -12,6 +12,12 @@ public static class PositionalV7
     // V13 throw-in model: about 13 m/s of horizontal speed, 8-16 m/s at release, up to 25 m.
     public const double MaxThrowInDistance = 25;
     public static double ThrowInFlightSeconds(double distance) => Math.Clamp(distance / 13, .6, 2.0);
+    // V14 throw-in support: offsets from the throw-in spot (metres along the line, metres infield).
+    public static readonly (double Along, double Inside) ThrowInLineSupport = (9, 6), ThrowInInfieldSupport = (4, 11);
+    // Planning speed for the supporters' run plus time to settle, and the longest preparation
+    // in clock seconds (96 = 8 physical seconds, a normal throw-in routine).
+    const double ThrowInSupportRunSpeed = 6, ThrowInSupportSettleSeconds = 1;
+    public const int ThrowInMaxPreparation = 96;
     const int Tick = 2;
     static int FlightTicks(double distance, double metresPerSecond) => Math.Clamp((int)Math.Ceiling(distance / metresPerSecond * TimeScale / Tick) * Tick, 6, 48);
     sealed class Agent(MatchPlayer player, int team, int slot, double x, double z)
@@ -38,7 +44,7 @@ public static class PositionalV7
     static double Rating(MatchPlayer p) => p.Rating * (.65 + .35 * p.Fitness / 100.0);
 
     public static MatchReplay Run(MatchSetup setup, int seed, bool captureFrames) => Stream(setup, seed, captureFrames).Last().Replay;
-    public static IEnumerable<Checkpoint> Stream(MatchSetup setup, int seed, bool captureFrames = true,FootballBrain? intelligence=null,bool delayedKeeper=false,bool physicalShots=false,bool continuousContacts=false,bool realisticThrowIns=false)
+    public static IEnumerable<Checkpoint> Stream(MatchSetup setup, int seed, bool captureFrames = true,FootballBrain? intelligence=null,bool delayedKeeper=false,bool physicalShots=false,bool continuousContacts=false,bool realisticThrowIns=false,bool throwInSupport=false)
     {
         if (setup.EngineVersion != Version) throw new GameRuleException("Versão do motor não suportada para esta reprodução.");
         if (setup.Home.Players.Count != 11 || setup.Away.Players.Count != 11) throw new GameRuleException("Uma partida exige duas equipes de onze jogadores.");
@@ -89,6 +95,32 @@ public static class PositionalV7
         }
         Agent Nearest(int team, double x, double z) => agents.Where(a => a.Active && a.Team == team && a.Slot > 0).MinBy(a => Math.Pow(a.X - x, 2) + Math.Pow(a.Z - z, 2))!;
         void EnsureCarrier() { if (!agents[carrier].Active) { carrier = Nearest(possession, ballX, ballZ).Index; decisionAt += 4; } }
+        // V14: when a throw-in is awarded, the two closest outfield team-mates offer short
+        // options (one down the line, one infield) and the taker waits until they can arrive.
+        var throwSupport=new Dictionary<int,(double X,double Z)>();
+        void PrepareThrowInSupport(int second)
+        {
+            throwSupport.Clear();
+            if(!throwInSupport || throwCarrier<0 || physicalRestartSpot is not Position3 spot) return;
+            double direction=(possession==0?1:-1)*(second>=halfEnd?-1:1),inside=-Math.Sign(spot.Z);
+            // Near a corner flag the line option goes back towards the halfway line instead.
+            double lineX=Math.Abs(spot.X+direction*ThrowInLineSupport.Along)>51.5?spot.X-direction*ThrowInLineSupport.Along:spot.X+direction*ThrowInLineSupport.Along;
+            var points=new[]{(X:lineX,Z:spot.Z+inside*ThrowInLineSupport.Inside),(X:ClampX(spot.X-direction*ThrowInInfieldSupport.Along),Z:spot.Z+inside*ThrowInInfieldSupport.Inside)};
+            var supporters=agents.Where(a=>a.Active && a.Team==possession && a.Slot>0 && a.Index!=throwCarrier)
+                .OrderBy(a=>Math.Pow(a.X-spot.X,2)+Math.Pow(a.Z-spot.Z,2)).ThenBy(a=>a.Index).Take(2).ToList();
+            if(supporters.Count==0) return;
+            double Run(Agent a,(double X,double Z) p)=>Math.Sqrt(Math.Pow(a.X-p.X,2)+Math.Pow(a.Z-p.Z,2));
+            // The closest supporter takes the point nearest to him; the other one takes what is left.
+            var first=points.MinBy(p=>Run(supporters[0],p));
+            throwSupport[supporters[0].Index]=first;
+            if(supporters.Count>1) throwSupport[supporters[1].Index]=points.First(p=>p!=first);
+            double shortestRun=throwSupport.Min(s=>Run(agents[s.Key],s.Value));
+            int ready=second+(int)Math.Ceiling((shortestRun/ThrowInSupportRunSpeed+ThrowInSupportSettleSeconds)*TimeScale/Tick)*Tick;
+            int release=Math.Clamp(ready,throwRelease,second+ThrowInMaxPreparation);
+            if(release==throwRelease) return;
+            throwRelease=release; kickoffUntil=release; decisionAt=release;
+            Pose(agents[throwCarrier],"throw_in",throwRelease,throwRelease+24);
+        }
         bool Replace(Agent outgoing, MatchPlayer incoming, int second, string reason, bool halfTimeChange = false)
         {
             if (!halfTimeChange && second != halfEnd && !substitutionStops[outgoing.Team].Contains(second) && substitutionStops[outgoing.Team].Count >= 3) return false;
@@ -415,6 +447,7 @@ public static class PositionalV7
                                 pendingPhysicalRestart=BallRestart.ThrowIn;
                                 physicalRestartSpot=new(ballX,1.95,Math.Sign(ballZ)*34);
                                 kickoffUntil=throwRelease; decisionAt=kickoffUntil; offsideExempt=true;
+                                PrepareThrowInSupport(second);
                                 physicalBall=null; flight=null; Capture(second); continue;
                             }
                             carrier=possession*11; EnsureCarrier();
@@ -502,7 +535,7 @@ public static class PositionalV7
                         kickoffUntil = throwRelease; decisionAt = kickoffUntil; offsideExempt = true;
                         // A pass leaving the touchline must use the same physical
                         // throw delivery as a shot or deflection leaving it.
-                        if (physicalShots) { pendingPhysicalRestart = BallRestart.ThrowIn; physicalRestartSpot=new(ballX,1.95,Math.Sign(ballZ)*34); }
+                        if (physicalShots) { pendingPhysicalRestart = BallRestart.ThrowIn; physicalRestartSpot=new(ballX,1.95,Math.Sign(ballZ)*34); PrepareThrowInSupport(second); }
                     }
                     else if (flight.Result is "save" or "miss")
                     {
@@ -665,7 +698,8 @@ public static class PositionalV7
                     targetZ = targetZ * .35 + markedPlayer.Z * .65;
                 }
                 if (a.Team == possession && a.Slot > 0 && a.Index != carrier && flight == null) targetX = direction * Math.Min(targetX * direction, Math.Max(attackingLine, ballX * direction) - .8);
-                if (kickoffUntil > second) { targetX = a.Index == carrier ? a.X : slot.X; targetZ = a.Index == carrier ? a.Z : slot.Z; }
+                var supporting=throwInSupport && pendingPhysicalRestart==BallRestart.ThrowIn && kickoffUntil>second && a.Team==possession && throwSupport.ContainsKey(a.Index);
+                if (kickoffUntil > second) { targetX = a.Index == carrier ? a.X : slot.X; targetZ = a.Index == carrier ? a.Z : slot.Z; if (supporting) (targetX,targetZ)=throwSupport[a.Index]; }
                 else if (a == agents[carrier] && flight == null) { targetX = a.X + direction * 10; targetZ = a.Z * .92; }
                 else if (a == nearestDefender) { targetX = ballX - direction * 2; targetZ = ballZ; }
                 else if (flight?.Recipient == a.Index) { targetX = flight.TargetX; targetZ = flight.TargetZ; }
@@ -674,7 +708,7 @@ public static class PositionalV7
                 var dx = ClampX(targetX) - a.X; var dz = ClampZ(targetZ) - a.Z;
                 var distance = Math.Sqrt(dx * dx + dz * dz);
                 var fatigue = Math.Clamp(1 - secondsPlayed.GetValueOrDefault(a.Player.Id) / 5400.0 * .16, .75, 1);
-                var sprint = a.Index == carrier || a == nearestDefender || flight?.Recipient == a.Index;
+                var sprint = a.Index == carrier || a == nearestDefender || flight?.Recipient == a.Index || supporting;
                 var topSpeed = (sprint ? 6.3 + Rating(a.Player) / 65 : 3.5 + Rating(a.Player) / 110) * fatigue;
                 if(intelligence!=null)topSpeed=intelligence.TopSpeed(ObserveAgent(a),intelligentTarget?.Sprint??sprint);
                 var physicalDelta = Tick / (double)TimeScale;

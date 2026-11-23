@@ -32,8 +32,8 @@ public static class LiveMatchControls
         }
         if(type=="tactics")
         {
-            if(!Tactics.Formations.Contains(formation)||!(setup.EngineVersion is PositionalV10.Version or PositionalV11.Version or PositionalV12.Version or PositionalV13.Version ? Tactics.Mentalities : Tactics.LegacyMentalities).Contains(mentality))throw new GameRuleException("Estratégia inválida.");
-            if(setup.EngineVersion is not (PositionalV9.Version or PositionalV10.Version or PositionalV11.Version or PositionalV12.Version or PositionalV13.Version)&&(plan!=null||formation=="4-2-3-1"))throw new GameRuleException("As instruções avançadas estão disponíveis nas novas partidas.");
+            if(!Tactics.Formations.Contains(formation)||!(setup.EngineVersion is PositionalV10.Version or PositionalV11.Version or PositionalV12.Version or PositionalV13.Version or PositionalV14.Version ? Tactics.Mentalities : Tactics.LegacyMentalities).Contains(mentality))throw new GameRuleException("Estratégia inválida.");
+            if(setup.EngineVersion is not (PositionalV9.Version or PositionalV10.Version or PositionalV11.Version or PositionalV12.Version or PositionalV13.Version or PositionalV14.Version)&&(plan!=null||formation=="4-2-3-1"))throw new GameRuleException("As instruções avançadas estão disponíveis nas novas partidas.");
             if(plan!=null)
             {
                 // O plano da carreira pode citar atletas fora dos relacionados; eles não participam da partida.

@@ -1,0 +1,1117 @@
+{
+  "season": 2026,
+  "asOf": "2026-11-23",
+  "status": "pesquisa automática; aguardando conferência manual",
+  "sources": {
+    "A": "https://www.cbf.com.br/futebol-brasileiro/times/campeonato-brasileiro/serie-a/2026 (lista já conferida em clubs.json); cidades e estados conferir",
+    "B": "https://pt.wikipedia.org/wiki/Campeonato_Brasileiro_de_Futebol_de_2026_-_S%C3%A9rie_B",
+    "C": "https://pt.wikipedia.org/wiki/Campeonato_Brasileiro_de_Futebol_de_2026_-_S%C3%A9rie_C",
+    "D": "https://pt.wikipedia.org/wiki/Campeonato_Brasileiro_de_Futebol_de_2026_-_S%C3%A9rie_D"
+  },
+  "notes": [
+    "A Série D de 2026 tem 96 clubes (ampliada de 64), segundo a página; os grupos A1 a A16 ainda não foram lidos.",
+    "Nomes são os usados na tabela de participantes (abreviações); o nome completo oficial ainda precisa ser registrado.",
+    "Clubes com o campo check foram lidos de resumo automático, não do texto da tabela.",
+    "Cores, força e escudo ainda não definidos para B, C e D."
+  ],
+  "clubs": [
+    {
+      "id": "pal",
+      "series": "A",
+      "name": "Palmeiras",
+      "city": "São Paulo",
+      "uf": "SP"
+    },
+    {
+      "id": "fla",
+      "series": "A",
+      "name": "Flamengo",
+      "city": "Rio de Janeiro",
+      "uf": "RJ"
+    },
+    {
+      "id": "bot",
+      "series": "A",
+      "name": "Botafogo",
+      "city": "Rio de Janeiro",
+      "uf": "RJ"
+    },
+    {
+      "id": "cor",
+      "series": "A",
+      "name": "Corinthians",
+      "city": "São Paulo",
+      "uf": "SP"
+    },
+    {
+      "id": "sao",
+      "series": "A",
+      "name": "São Paulo",
+      "city": "São Paulo",
+      "uf": "SP"
+    },
+    {
+      "id": "san",
+      "series": "A",
+      "name": "Santos",
+      "city": "Santos",
+      "uf": "SP"
+    },
+    {
+      "id": "flu",
+      "series": "A",
+      "name": "Fluminense",
+      "city": "Rio de Janeiro",
+      "uf": "RJ"
+    },
+    {
+      "id": "vas",
+      "series": "A",
+      "name": "Vasco da Gama",
+      "city": "Rio de Janeiro",
+      "uf": "RJ"
+    },
+    {
+      "id": "gre",
+      "series": "A",
+      "name": "Grêmio",
+      "city": "Porto Alegre",
+      "uf": "RS"
+    },
+    {
+      "id": "int",
+      "series": "A",
+      "name": "Internacional",
+      "city": "Porto Alegre",
+      "uf": "RS"
+    },
+    {
+      "id": "cru",
+      "series": "A",
+      "name": "Cruzeiro",
+      "city": "Belo Horizonte",
+      "uf": "MG"
+    },
+    {
+      "id": "cam",
+      "series": "A",
+      "name": "Atlético-MG",
+      "city": "Belo Horizonte",
+      "uf": "MG"
+    },
+    {
+      "id": "bah",
+      "series": "A",
+      "name": "Bahia",
+      "city": "Salvador",
+      "uf": "BA"
+    },
+    {
+      "id": "cap",
+      "series": "A",
+      "name": "Athletico-PR",
+      "city": "Curitiba",
+      "uf": "PR"
+    },
+    {
+      "id": "ctb",
+      "series": "A",
+      "name": "Coritiba",
+      "city": "Curitiba",
+      "uf": "PR"
+    },
+    {
+      "id": "cha",
+      "series": "A",
+      "name": "Chapecoense",
+      "city": "Chapecó",
+      "uf": "SC"
+    },
+    {
+      "id": "rem",
+      "series": "A",
+      "name": "Remo",
+      "city": "Belém",
+      "uf": "PA"
+    },
+    {
+      "id": "vit",
+      "series": "A",
+      "name": "Vitória",
+      "city": "Salvador",
+      "uf": "BA"
+    },
+    {
+      "id": "mir",
+      "series": "A",
+      "name": "Mirassol",
+      "city": "Mirassol",
+      "uf": "SP"
+    },
+    {
+      "id": "rbb",
+      "series": "A",
+      "name": "Red Bull Bragantino",
+      "city": "Bragança Paulista",
+      "uf": "SP"
+    },
+    {
+      "id": "america-mg-mg",
+      "series": "B",
+      "name": "América-MG",
+      "city": "Belo Horizonte",
+      "uf": "MG"
+    },
+    {
+      "id": "athletic-mg",
+      "series": "B",
+      "name": "Athletic",
+      "city": "São João del-Rei",
+      "uf": "MG"
+    },
+    {
+      "id": "atletico-go-go",
+      "series": "B",
+      "name": "Atlético-GO",
+      "city": "Goiânia",
+      "uf": "GO"
+    },
+    {
+      "id": "avai-sc",
+      "series": "B",
+      "name": "Avaí",
+      "city": "Florianópolis",
+      "uf": "SC"
+    },
+    {
+      "id": "botafogo-sp-sp",
+      "series": "B",
+      "name": "Botafogo-SP",
+      "city": "Ribeirão Preto",
+      "uf": "SP"
+    },
+    {
+      "id": "ceara-ce",
+      "series": "B",
+      "name": "Ceará",
+      "city": "Fortaleza",
+      "uf": "CE"
+    },
+    {
+      "id": "crb-al",
+      "series": "B",
+      "name": "CRB",
+      "city": "Maceió",
+      "uf": "AL"
+    },
+    {
+      "id": "criciuma-sc",
+      "series": "B",
+      "name": "Criciúma",
+      "city": "Criciúma",
+      "uf": "SC"
+    },
+    {
+      "id": "cuiaba-mt",
+      "series": "B",
+      "name": "Cuiabá",
+      "city": "Cuiabá",
+      "uf": "MT"
+    },
+    {
+      "id": "fortaleza-ce",
+      "series": "B",
+      "name": "Fortaleza",
+      "city": "Fortaleza",
+      "uf": "CE"
+    },
+    {
+      "id": "goias-go",
+      "series": "B",
+      "name": "Goiás",
+      "city": "Goiânia",
+      "uf": "GO"
+    },
+    {
+      "id": "juventude-rs",
+      "series": "B",
+      "name": "Juventude",
+      "city": "Caxias do Sul",
+      "uf": "RS"
+    },
+    {
+      "id": "londrina-pr",
+      "series": "B",
+      "name": "Londrina",
+      "city": "Londrina",
+      "uf": "PR"
+    },
+    {
+      "id": "nautico-pe",
+      "series": "B",
+      "name": "Náutico",
+      "city": "Recife",
+      "uf": "PE"
+    },
+    {
+      "id": "novorizontino-sp",
+      "series": "B",
+      "name": "Novorizontino",
+      "city": "Novo Horizonte",
+      "uf": "SP"
+    },
+    {
+      "id": "operario-pr-pr",
+      "series": "B",
+      "name": "Operário-PR",
+      "city": "Ponta Grossa",
+      "uf": "PR"
+    },
+    {
+      "id": "ponte-preta-sp",
+      "series": "B",
+      "name": "Ponte Preta",
+      "city": "Campinas",
+      "uf": "SP"
+    },
+    {
+      "id": "sao-bernardo-sp",
+      "series": "B",
+      "name": "São Bernardo",
+      "city": "São Bernardo do Campo",
+      "uf": "SP"
+    },
+    {
+      "id": "sport-pe",
+      "series": "B",
+      "name": "Sport",
+      "city": "Recife",
+      "uf": "PE"
+    },
+    {
+      "id": "vila-nova-go",
+      "series": "B",
+      "name": "Vila Nova",
+      "city": "Goiânia",
+      "uf": "GO",
+      "check": "linha lida apenas de resumo automático da página; confirmar"
+    },
+    {
+      "id": "amazonas-am",
+      "series": "C",
+      "name": "Amazonas",
+      "city": "Manaus",
+      "uf": "AM"
+    },
+    {
+      "id": "anapolis-go",
+      "series": "C",
+      "name": "Anápolis",
+      "city": "Anápolis",
+      "uf": "GO"
+    },
+    {
+      "id": "barra-sc-sc",
+      "series": "C",
+      "name": "Barra-SC",
+      "city": "Balneário Camboriú",
+      "uf": "SC"
+    },
+    {
+      "id": "botafogo-pb-pb",
+      "series": "C",
+      "name": "Botafogo-PB",
+      "city": "João Pessoa",
+      "uf": "PB"
+    },
+    {
+      "id": "brusque-sc",
+      "series": "C",
+      "name": "Brusque",
+      "city": "Brusque",
+      "uf": "SC"
+    },
+    {
+      "id": "caxias-rs",
+      "series": "C",
+      "name": "Caxias",
+      "city": "Caxias do Sul",
+      "uf": "RS"
+    },
+    {
+      "id": "confianca-se",
+      "series": "C",
+      "name": "Confiança",
+      "city": "Aracaju",
+      "uf": "SE"
+    },
+    {
+      "id": "ferroviaria-sp",
+      "series": "C",
+      "name": "Ferroviária",
+      "city": "Araraquara",
+      "uf": "SP"
+    },
+    {
+      "id": "figueirense-sc",
+      "series": "C",
+      "name": "Figueirense",
+      "city": "Florianópolis",
+      "uf": "SC"
+    },
+    {
+      "id": "floresta-ce",
+      "series": "C",
+      "name": "Floresta",
+      "city": "Fortaleza",
+      "uf": "CE"
+    },
+    {
+      "id": "guarani-sp",
+      "series": "C",
+      "name": "Guarani",
+      "city": "Campinas",
+      "uf": "SP"
+    },
+    {
+      "id": "inter-de-limeira-sp",
+      "series": "C",
+      "name": "Inter de Limeira",
+      "city": "Limeira",
+      "uf": "SP"
+    },
+    {
+      "id": "itabaiana-se",
+      "series": "C",
+      "name": "Itabaiana",
+      "city": "Itabaiana",
+      "uf": "SE"
+    },
+    {
+      "id": "ituano-sp",
+      "series": "C",
+      "name": "Ituano",
+      "city": "Itu",
+      "uf": "SP"
+    },
+    {
+      "id": "maranhao-ma",
+      "series": "C",
+      "name": "Maranhão",
+      "city": "São Luís",
+      "uf": "MA"
+    },
+    {
+      "id": "maringa-pr",
+      "series": "C",
+      "name": "Maringá",
+      "city": "Maringá",
+      "uf": "PR"
+    },
+    {
+      "id": "paysandu-pa",
+      "series": "C",
+      "name": "Paysandu",
+      "city": "Belém",
+      "uf": "PA"
+    },
+    {
+      "id": "santa-cruz-pe",
+      "series": "C",
+      "name": "Santa Cruz",
+      "city": "Recife",
+      "uf": "PE"
+    },
+    {
+      "id": "volta-redonda-rj",
+      "series": "C",
+      "name": "Volta Redonda",
+      "city": "Volta Redonda",
+      "uf": "RJ"
+    },
+    {
+      "id": "ypiranga-de-erechim-rs",
+      "series": "C",
+      "name": "Ypiranga de Erechim",
+      "city": "Erechim",
+      "uf": "RS"
+    },
+    {
+      "id": "abc-rn",
+      "series": "D",
+      "name": "ABC",
+      "city": "Natal",
+      "uf": "RN"
+    },
+    {
+      "id": "abecat-go",
+      "series": "D",
+      "name": "ABECAT",
+      "city": "Ouvidor",
+      "uf": "GO"
+    },
+    {
+      "id": "agua-santa-sp",
+      "series": "D",
+      "name": "Água Santa",
+      "city": "Diadema",
+      "uf": "SP"
+    },
+    {
+      "id": "aguia-de-maraba-pa",
+      "series": "D",
+      "name": "Águia de Marabá",
+      "city": "Marabá",
+      "uf": "PA"
+    },
+    {
+      "id": "altos-pi",
+      "series": "D",
+      "name": "Altos",
+      "city": "Altos",
+      "uf": "PI"
+    },
+    {
+      "id": "america-rj",
+      "series": "D",
+      "name": "America",
+      "city": "Rio de Janeiro",
+      "uf": "RJ"
+    },
+    {
+      "id": "america-de-natal-rn",
+      "series": "D",
+      "name": "América de Natal",
+      "city": "Natal",
+      "uf": "RN"
+    },
+    {
+      "id": "aparecidense-go",
+      "series": "D",
+      "name": "Aparecidense",
+      "city": "Aparecida de Goiânia",
+      "uf": "GO"
+    },
+    {
+      "id": "araguaina-to",
+      "series": "D",
+      "name": "Araguaína",
+      "city": "Araguaína",
+      "uf": "TO"
+    },
+    {
+      "id": "asa-al",
+      "series": "D",
+      "name": "ASA",
+      "city": "Arapiraca",
+      "uf": "AL"
+    },
+    {
+      "id": "atletico-cearense-ce",
+      "series": "D",
+      "name": "Atlético Cearense",
+      "city": "Fortaleza",
+      "uf": "CE"
+    },
+    {
+      "id": "atletico-de-alagoinhas-ba",
+      "series": "D",
+      "name": "Atlético de Alagoinhas",
+      "city": "Alagoinhas",
+      "uf": "BA"
+    },
+    {
+      "id": "azuriz-pr",
+      "series": "D",
+      "name": "Azuriz",
+      "city": "Pato Branco",
+      "uf": "PR"
+    },
+    {
+      "id": "betim-futebol-mg",
+      "series": "D",
+      "name": "Betim Futebol",
+      "city": "Betim",
+      "uf": "MG"
+    },
+    {
+      "id": "brasil-de-pelotas-rs",
+      "series": "D",
+      "name": "Brasil de Pelotas",
+      "city": "Pelotas",
+      "uf": "RS"
+    },
+    {
+      "id": "brasiliense-df",
+      "series": "D",
+      "name": "Brasiliense",
+      "city": "Taguatinga",
+      "uf": "DF"
+    },
+    {
+      "id": "blumenau-sc",
+      "series": "D",
+      "name": "Blumenau",
+      "city": "Blumenau",
+      "uf": "SC"
+    },
+    {
+      "id": "capital-df-df",
+      "series": "D",
+      "name": "Capital-DF",
+      "city": "Paranoá",
+      "uf": "DF"
+    },
+    {
+      "id": "ceilandia-df",
+      "series": "D",
+      "name": "Ceilândia",
+      "city": "Ceilândia",
+      "uf": "DF"
+    },
+    {
+      "id": "central-pe",
+      "series": "D",
+      "name": "Central",
+      "city": "Caruaru",
+      "uf": "PE"
+    },
+    {
+      "id": "cianorte-pr",
+      "series": "D",
+      "name": "Cianorte",
+      "city": "Cianorte",
+      "uf": "PR"
+    },
+    {
+      "id": "crac-go",
+      "series": "D",
+      "name": "CRAC",
+      "city": "Catalão",
+      "uf": "GO"
+    },
+    {
+      "id": "csa-al",
+      "series": "D",
+      "name": "CSA",
+      "city": "Maceió",
+      "uf": "AL"
+    },
+    {
+      "id": "cse-al",
+      "series": "D",
+      "name": "CSE",
+      "city": "Palmeira dos Índios",
+      "uf": "AL"
+    },
+    {
+      "id": "decisao-goiana-pe",
+      "series": "D",
+      "name": "Decisão Goiana",
+      "city": "Goiana",
+      "uf": "PE"
+    },
+    {
+      "id": "democrata-gv-mg",
+      "series": "D",
+      "name": "Democrata GV",
+      "city": "Governador Valadares",
+      "uf": "MG"
+    },
+    {
+      "id": "fc-cascavel-pr",
+      "series": "D",
+      "name": "FC Cascavel",
+      "city": "Cascavel",
+      "uf": "PR"
+    },
+    {
+      "id": "ferroviario-ce",
+      "series": "D",
+      "name": "Ferroviário",
+      "city": "Fortaleza",
+      "uf": "CE"
+    },
+    {
+      "id": "fluminense-pi-pi",
+      "series": "D",
+      "name": "Fluminense-PI",
+      "city": "Teresina",
+      "uf": "PI"
+    },
+    {
+      "id": "galvez-ac",
+      "series": "D",
+      "name": "Galvez",
+      "city": "Rio Branco",
+      "uf": "AC"
+    },
+    {
+      "id": "gama-df",
+      "series": "D",
+      "name": "Gama",
+      "city": "Gama",
+      "uf": "DF"
+    },
+    {
+      "id": "gas-rr",
+      "series": "D",
+      "name": "GAS",
+      "city": "Boa Vista",
+      "uf": "RR"
+    },
+    {
+      "id": "gazin-porto-velho-ro",
+      "series": "D",
+      "name": "Gazin Porto Velho",
+      "city": "Porto Velho",
+      "uf": "RO"
+    },
+    {
+      "id": "goiatuba-go",
+      "series": "D",
+      "name": "Goiatuba",
+      "city": "Goiatuba",
+      "uf": "GO"
+    },
+    {
+      "id": "guapore-ro",
+      "series": "D",
+      "name": "Guaporé",
+      "city": "Rolim de Moura",
+      "uf": "RO"
+    },
+    {
+      "id": "guarany-de-bage-rs",
+      "series": "D",
+      "name": "Guarany de Bagé",
+      "city": "Bagé",
+      "uf": "RS"
+    },
+    {
+      "id": "humaita-ac",
+      "series": "D",
+      "name": "Humaitá",
+      "city": "Porto Acre",
+      "uf": "AC"
+    },
+    {
+      "id": "iape-ma",
+      "series": "D",
+      "name": "IAPE",
+      "city": "São Luís",
+      "uf": "MA"
+    },
+    {
+      "id": "iguatu-ce",
+      "series": "D",
+      "name": "Iguatu",
+      "city": "Iguatu",
+      "uf": "CE"
+    },
+    {
+      "id": "imperatriz-ma",
+      "series": "D",
+      "name": "Imperatriz",
+      "city": "Imperatriz",
+      "uf": "MA"
+    },
+    {
+      "id": "independencia-ac",
+      "series": "D",
+      "name": "Independência",
+      "city": "Rio Branco",
+      "uf": "AC"
+    },
+    {
+      "id": "inhumas-go",
+      "series": "D",
+      "name": "Inhumas",
+      "city": "Inhumas",
+      "uf": "GO"
+    },
+    {
+      "id": "ivinhema-ms",
+      "series": "D",
+      "name": "Ivinhema",
+      "city": "Ivinhema",
+      "uf": "MS"
+    },
+    {
+      "id": "jacuipense-ba",
+      "series": "D",
+      "name": "Jacuipense",
+      "city": "Riachão do Jacuípe",
+      "uf": "BA"
+    },
+    {
+      "id": "joinville-sc",
+      "series": "D",
+      "name": "Joinville",
+      "city": "Joinville",
+      "uf": "SC"
+    },
+    {
+      "id": "juazeirense-ba",
+      "series": "D",
+      "name": "Juazeirense",
+      "city": "Juazeiro",
+      "uf": "BA"
+    },
+    {
+      "id": "lagarto-se",
+      "series": "D",
+      "name": "Lagarto",
+      "city": "Lagarto",
+      "uf": "SE"
+    },
+    {
+      "id": "laguna-rn",
+      "series": "D",
+      "name": "Laguna",
+      "city": "Tibau do Sul",
+      "uf": "RN"
+    },
+    {
+      "id": "luverdense-mt",
+      "series": "D",
+      "name": "Luverdense",
+      "city": "Lucas do Rio Verde",
+      "uf": "MT"
+    },
+    {
+      "id": "madureira-rj",
+      "series": "D",
+      "name": "Madureira",
+      "city": "Rio de Janeiro",
+      "uf": "RJ"
+    },
+    {
+      "id": "maguary-pe",
+      "series": "D",
+      "name": "Maguary",
+      "city": "Bonito",
+      "uf": "PE"
+    },
+    {
+      "id": "manauara-am",
+      "series": "D",
+      "name": "Manauara",
+      "city": "Manaus",
+      "uf": "AM"
+    },
+    {
+      "id": "manaus-am",
+      "series": "D",
+      "name": "Manaus",
+      "city": "Manaus",
+      "uf": "AM"
+    },
+    {
+      "id": "maracana-ce-ce",
+      "series": "D",
+      "name": "Maracanã-CE",
+      "city": "Maracanaú",
+      "uf": "CE"
+    },
+    {
+      "id": "marcilio-dias-sc",
+      "series": "D",
+      "name": "Marcílio Dias",
+      "city": "Itajaí",
+      "uf": "SC"
+    },
+    {
+      "id": "marica-rj",
+      "series": "D",
+      "name": "Maricá",
+      "city": "Maricá",
+      "uf": "RJ"
+    },
+    {
+      "id": "mixto-mt",
+      "series": "D",
+      "name": "Mixto",
+      "city": "Cuiabá",
+      "uf": "MT"
+    },
+    {
+      "id": "monte-roraima-rr",
+      "series": "D",
+      "name": "Monte Roraima",
+      "city": "Boa Vista",
+      "uf": "RR"
+    },
+    {
+      "id": "moto-club-ma",
+      "series": "D",
+      "name": "Moto Club",
+      "city": "São Luís",
+      "uf": "MA"
+    },
+    {
+      "id": "nacional-am-am",
+      "series": "D",
+      "name": "Nacional-AM",
+      "city": "Manaus",
+      "uf": "AM"
+    },
+    {
+      "id": "noroeste-sp",
+      "series": "D",
+      "name": "Noroeste",
+      "city": "Bauru",
+      "uf": "SP"
+    },
+    {
+      "id": "nova-iguacu-rj",
+      "series": "D",
+      "name": "Nova Iguaçu",
+      "city": "Nova Iguaçu",
+      "uf": "RJ"
+    },
+    {
+      "id": "operario-ms-ms",
+      "series": "D",
+      "name": "Operário-MS",
+      "city": "Campo Grande",
+      "uf": "MS"
+    },
+    {
+      "id": "operario-vg-mt",
+      "series": "D",
+      "name": "Operário VG",
+      "city": "Várzea Grande",
+      "uf": "MT"
+    },
+    {
+      "id": "oratorio-ap",
+      "series": "D",
+      "name": "Oratório",
+      "city": "Macapá",
+      "uf": "AP"
+    },
+    {
+      "id": "parnahyba-pi",
+      "series": "D",
+      "name": "Parnahyba",
+      "city": "Parnaíba",
+      "uf": "PI"
+    },
+    {
+      "id": "piaui-pi",
+      "series": "D",
+      "name": "Piauí",
+      "city": "Teresina",
+      "uf": "PI"
+    },
+    {
+      "id": "porto-ba-ba",
+      "series": "D",
+      "name": "Porto-BA",
+      "city": "Porto Seguro",
+      "uf": "BA"
+    },
+    {
+      "id": "portuguesa-sp",
+      "series": "D",
+      "name": "Portuguesa",
+      "city": "São Paulo",
+      "uf": "SP"
+    },
+    {
+      "id": "portuguesa-rj-rj",
+      "series": "D",
+      "name": "Portuguesa-RJ",
+      "city": "Rio de Janeiro",
+      "uf": "RJ"
+    },
+    {
+      "id": "pouso-alegre-mg",
+      "series": "D",
+      "name": "Pouso Alegre",
+      "city": "Pouso Alegre",
+      "uf": "MG"
+    },
+    {
+      "id": "primavera-mt-mt",
+      "series": "D",
+      "name": "Primavera-MT",
+      "city": "Primavera do Leste",
+      "uf": "MT"
+    },
+    {
+      "id": "real-noroeste-es",
+      "series": "D",
+      "name": "Real Noroeste",
+      "city": "Águia Branca",
+      "uf": "ES"
+    },
+    {
+      "id": "retro-pe",
+      "series": "D",
+      "name": "Retrô",
+      "city": "Camaragibe",
+      "uf": "PE"
+    },
+    {
+      "id": "rio-branco-es-es",
+      "series": "D",
+      "name": "Rio Branco-ES",
+      "city": "Vitória",
+      "uf": "ES"
+    },
+    {
+      "id": "sampaio-correa-ma",
+      "series": "D",
+      "name": "Sampaio Corrêa",
+      "city": "São Luís",
+      "uf": "MA"
+    },
+    {
+      "id": "sampaio-correa-rj-rj",
+      "series": "D",
+      "name": "Sampaio Corrêa-RJ",
+      "city": "Saquarema",
+      "uf": "RJ"
+    },
+    {
+      "id": "santa-catarina-sc",
+      "series": "D",
+      "name": "Santa Catarina",
+      "city": "Rio do Sul",
+      "uf": "SC"
+    },
+    {
+      "id": "sao-jose-rs-rs",
+      "series": "D",
+      "name": "São José-RS",
+      "city": "Porto Alegre",
+      "uf": "RS"
+    },
+    {
+      "id": "sao-joseense-pr",
+      "series": "D",
+      "name": "São Joseense",
+      "city": "São José dos Pinhais",
+      "uf": "PR"
+    },
+    {
+      "id": "sao-luiz-rs",
+      "series": "D",
+      "name": "São Luiz",
+      "city": "Ijuí",
+      "uf": "RS"
+    },
+    {
+      "id": "sao-raimundo-rr-rr",
+      "series": "D",
+      "name": "São Raimundo-RR",
+      "city": "Boa Vista",
+      "uf": "RR"
+    },
+    {
+      "id": "sergipe-se",
+      "series": "D",
+      "name": "Sergipe",
+      "city": "Aracaju",
+      "uf": "SE"
+    },
+    {
+      "id": "serra-branca-pb",
+      "series": "D",
+      "name": "Serra Branca",
+      "city": "Campina Grande",
+      "uf": "PB"
+    },
+    {
+      "id": "sousa-pb",
+      "series": "D",
+      "name": "Sousa",
+      "city": "Sousa",
+      "uf": "PB"
+    },
+    {
+      "id": "tirol-ce",
+      "series": "D",
+      "name": "Tirol",
+      "city": "Fortaleza",
+      "uf": "CE"
+    },
+    {
+      "id": "tocantinopolis-to",
+      "series": "D",
+      "name": "Tocantinópolis",
+      "city": "Tocantinópolis",
+      "uf": "TO"
+    },
+    {
+      "id": "tombense-mg",
+      "series": "D",
+      "name": "Tombense",
+      "city": "Tombos",
+      "uf": "MG"
+    },
+    {
+      "id": "trem-ap",
+      "series": "D",
+      "name": "Trem",
+      "city": "Macapá",
+      "uf": "AP"
+    },
+    {
+      "id": "treze-pb",
+      "series": "D",
+      "name": "Treze",
+      "city": "Campina Grande",
+      "uf": "PB"
+    },
+    {
+      "id": "tuna-luso-pa",
+      "series": "D",
+      "name": "Tuna Luso",
+      "city": "Belém",
+      "uf": "PA"
+    },
+    {
+      "id": "uberlandia-mg",
+      "series": "D",
+      "name": "Uberlândia",
+      "city": "Uberlândia",
+      "uf": "MG",
+      "check": "linha lida apenas de resumo automático da página; confirmar"
+    },
+    {
+      "id": "uniao-mt-mt",
+      "series": "D",
+      "name": "União-MT",
+      "city": "Rondonópolis",
+      "uf": "MT",
+      "check": "linha lida apenas de resumo automático da página; confirmar"
+    },
+    {
+      "id": "velo-clube-sp",
+      "series": "D",
+      "name": "Velo Clube",
+      "city": "Rio Claro",
+      "uf": "SP",
+      "check": "linha lida apenas de resumo automático da página; confirmar"
+    },
+    {
+      "id": "vitoria-es-es",
+      "series": "D",
+      "name": "Vitória-ES",
+      "city": "Vitória",
+      "uf": "ES",
+      "check": "linha lida apenas de resumo automático da página; confirmar"
+    },
+    {
+      "id": "xv-de-piracicaba-sp",
+      "series": "D",
+      "name": "XV de Piracicaba",
+      "city": "Piracicaba",
+      "uf": "SP",
+      "check": "linha lida apenas de resumo automático da página; confirmar"
+    }
+  ]
+}

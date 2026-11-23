@@ -1,0 +1,10 @@
+SELECT ?id ?club ?person ?personLabel ?birth ?positionLabel ?start ?end ?statement WHERE {
+VALUES (?id ?club) { ("fla" <http://www.wikidata.org/entity/Q17479>) ("int" <http://www.wikidata.org/entity/Q80845>) ("san" <http://www.wikidata.org/entity/Q80955>) ("pal" <http://www.wikidata.org/entity/Q80964>) ("flu" <http://www.wikidata.org/entity/Q80987>) ("bah" <http://www.wikidata.org/entity/Q198032>) ("ctb" <http://www.wikidata.org/entity/Q478317>) ("cap" <http://www.wikidata.org/entity/Q506832>) ("rbb" <http://www.wikidata.org/entity/Q541744>) ("rem" <http://www.wikidata.org/entity/Q2552872>) ("mir" <http://www.wikidata.org/entity/Q2622870>) ("vas" <http://www.wikidata.org/entity/Q5014111>) }
+?person p:P54 ?statement;wdt:P569 ?birth;wdt:P413 ?position.
+?statement ps:P54 ?club;pq:P580 ?start. OPTIONAL {?statement pq:P582 ?end}
+FILTER(?birth>="1986-01-01T00:00:00Z"^^xsd:dateTime&&?birth<="2011-01-01T00:00:00Z"^^xsd:dateTime)
+FILTER(?start<="2026-11-21T23:59:59Z"^^xsd:dateTime)
+FILTER(!BOUND(?end)||?end>="2026-11-21T00:00:00Z"^^xsd:dateTime)
+FILTER NOT EXISTS {?person p:P54 ?other. ?other ps:P54 ?otherClub;pq:P580 ?newStart. OPTIONAL {?other pq:P582 ?newEnd} ?otherClub wdt:P31/wdt:P279* wd:Q476028.
+FILTER(?otherClub!=?club&&?newStart>?start&&?newStart<="2026-11-21T00:00:00Z"^^xsd:dateTime) FILTER(!BOUND(?newEnd)||?newEnd>="2026-11-21T00:00:00Z"^^xsd:dateTime)}
+SERVICE wikibase:label {bd:serviceParam wikibase:language "pt,en"}}

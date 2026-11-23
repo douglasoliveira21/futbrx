@@ -1,0 +1,11 @@
+JOGADOR FORNECIDO PELO USUÁRIO
+
+Origem: soccer_player_rigged.fbx, indicado pelo usuário para uso neste jogo local.
+SHA-256 do FBX: cd1163df1bb15be6a0b156aee4ff667ad906fb715a854872c1b5710492a5eb09
+Geometria, rig e texturas originais preservados. Não foi deduzida licença de redistribuição pública nem aplicada licença CC0 ao modelo fornecido.
+Transformações: orientação/escala, conversão para glTF, adaptação de vinte clipes, UVs equivalentes e atributos para cores de uniformes.
+Locomoção derivada dos três clipes CC0 de Quaternius já incorporados; movimentos de futebol autorais do projeto. Fonte/licença desses componentes em LICENSE.txt e SOURCE-LICENSE-CC0.txt.
+As cores são aplicadas pelo renderer, sem sobrescrever a textura original.
+Arquivo e hashes das texturas em user-player.json.
+
+Pacote Mocap_Pack_05_Soccer fornecido pelo usuário: retargeting e recortes usados localmente. Licença original de redistribuição não informada; não reclassificado como CC0. Arquivos, hashes e tempos em mocap-manifest.json.

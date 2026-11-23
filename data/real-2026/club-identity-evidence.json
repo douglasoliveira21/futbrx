@@ -1,0 +1,293 @@
+{
+  "head": {
+    "vars": [
+      "id",
+      "club",
+      "article"
+    ]
+  },
+  "results": {
+    "bindings": [
+      {
+        "id": {
+          "type": "literal",
+          "value": "cor"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q35933"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/SC_Corinthians_Paulista"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "fla"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q17479"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/CR_Flamengo"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "sao"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q38568"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/S%C3%A3o_Paulo_FC"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "int"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q80845"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/SC_Internacional"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "san"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q80955"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/Santos_FC"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "bah"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q198032"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/Esporte_Clube_Bahia"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "gre"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q221695"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/Gr%C3%AAmio_FBPA"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "bot"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q80958"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/Botafogo_FR"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "cam"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q270995"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/Clube_Atl%C3%A9tico_Mineiro"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "vit"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q274465"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/Esporte_Clube_Vit%C3%B3ria"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "cha"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q2536715"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/Associa%C3%A7%C3%A3o_Chapecoense_de_Futebol"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "rem"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q2552872"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/Clube_do_Remo"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "mir"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q2622870"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/Mirassol_Futebol_Clube"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "vas"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q5014111"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/CR_Vasco_da_Gama"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "pal"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q80964"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/SE_Palmeiras"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "flu"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q80987"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/Fluminense_FC"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "cru"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q188277"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/Cruzeiro_EC"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "ctb"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q478317"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/Coritiba_Foot_Ball_Club"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "cap"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q506832"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/Club_Athletico_Paranaense"
+        }
+      },
+      {
+        "id": {
+          "type": "literal",
+          "value": "rbb"
+        },
+        "club": {
+          "type": "uri",
+          "value": "http://www.wikidata.org/entity/Q541744"
+        },
+        "article": {
+          "type": "uri",
+          "value": "https://en.wikipedia.org/wiki/Red_Bull_Bragantino"
+        }
+      }
+    ]
+  }
+}

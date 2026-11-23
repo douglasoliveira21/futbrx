@@ -1,0 +1,2670 @@
+{
+  "season": 2026,
+  "source": "https://github.com/openfootball/south-america/blob/master/brazil/2026_br1.txt",
+  "license": "CC0-1.0",
+  "retrievedOn": "2026-11-21",
+  "sourceSha256": "abfe3b76ab0c59464c0547479dd2d8d905553e3dadfc91f4c644fbad5bdf36f6",
+  "notice": "Calendário comunitário baseado na tabela de 2026. Não é feed oficial ao vivo. Datas futuras podem mudar; horários ausentes ficam sem confirmação. Resultados reais não são importados.",
+  "fixtures": [
+    {
+      "round": 1,
+      "home": "bot",
+      "away": "cru",
+      "date": "2026-01-29",
+      "kickoff": "2026-01-29T21:30:00-03:00"
+    },
+    {
+      "round": 1,
+      "home": "cam",
+      "away": "pal",
+      "date": "2026-01-28",
+      "kickoff": "2026-01-28T19:00:00-03:00"
+    },
+    {
+      "round": 1,
+      "home": "cha",
+      "away": "san",
+      "date": "2026-01-28",
+      "kickoff": "2026-01-28T20:00:00-03:00"
+    },
+    {
+      "round": 1,
+      "home": "cor",
+      "away": "bah",
+      "date": "2026-01-28",
+      "kickoff": "2026-01-28T20:00:00-03:00"
+    },
+    {
+      "round": 1,
+      "home": "ctb",
+      "away": "rbb",
+      "date": "2026-01-28",
+      "kickoff": "2026-01-28T19:00:00-03:00"
+    },
+    {
+      "round": 1,
+      "home": "flu",
+      "away": "gre",
+      "date": "2026-01-28",
+      "kickoff": "2026-01-28T19:30:00-03:00"
+    },
+    {
+      "round": 1,
+      "home": "int",
+      "away": "cap",
+      "date": "2026-01-28",
+      "kickoff": "2026-01-28T19:00:00-03:00"
+    },
+    {
+      "round": 1,
+      "home": "mir",
+      "away": "vas",
+      "date": "2026-01-29",
+      "kickoff": "2026-01-29T20:00:00-03:00"
+    },
+    {
+      "round": 1,
+      "home": "sao",
+      "away": "fla",
+      "date": "2026-01-28",
+      "kickoff": "2026-01-28T21:30:00-03:00"
+    },
+    {
+      "round": 1,
+      "home": "vit",
+      "away": "rem",
+      "date": "2026-01-28",
+      "kickoff": "2026-01-28T19:00:00-03:00"
+    },
+    {
+      "round": 2,
+      "home": "bah",
+      "away": "flu",
+      "date": "2026-02-05",
+      "kickoff": "2026-02-05T19:00:00-03:00"
+    },
+    {
+      "round": 2,
+      "home": "cap",
+      "away": "cor",
+      "date": "2026-02-19",
+      "kickoff": "2026-02-19T19:30:00-03:00"
+    },
+    {
+      "round": 2,
+      "home": "cru",
+      "away": "ctb",
+      "date": "2026-02-05",
+      "kickoff": "2026-02-05T21:30:00-03:00"
+    },
+    {
+      "round": 2,
+      "home": "fla",
+      "away": "int",
+      "date": "2026-02-04",
+      "kickoff": "2026-02-04T19:00:00-03:00"
+    },
+    {
+      "round": 2,
+      "home": "gre",
+      "away": "bot",
+      "date": "2026-02-04",
+      "kickoff": "2026-02-04T21:30:00-03:00"
+    },
+    {
+      "round": 2,
+      "home": "pal",
+      "away": "vit",
+      "date": "2026-02-04",
+      "kickoff": "2026-02-04T21:30:00-03:00"
+    },
+    {
+      "round": 2,
+      "home": "rbb",
+      "away": "cam",
+      "date": "2026-02-04",
+      "kickoff": "2026-02-04T19:00:00-03:00"
+    },
+    {
+      "round": 2,
+      "home": "rem",
+      "away": "mir",
+      "date": "2026-02-04",
+      "kickoff": "2026-02-04T20:00:00-03:00"
+    },
+    {
+      "round": 2,
+      "home": "san",
+      "away": "sao",
+      "date": "2026-02-04",
+      "kickoff": "2026-02-04T20:00:00-03:00"
+    },
+    {
+      "round": 2,
+      "home": "vas",
+      "away": "cha",
+      "date": "2026-02-05",
+      "kickoff": "2026-02-05T20:00:00-03:00"
+    },
+    {
+      "round": 3,
+      "home": "cam",
+      "away": "rem",
+      "date": "2026-02-11",
+      "kickoff": "2026-02-11T20:00:00-03:00"
+    },
+    {
+      "round": 3,
+      "home": "cap",
+      "away": "san",
+      "date": "2026-02-12",
+      "kickoff": "2026-02-12T19:00:00-03:00"
+    },
+    {
+      "round": 3,
+      "home": "cha",
+      "away": "ctb",
+      "date": "2026-02-11",
+      "kickoff": "2026-02-11T19:00:00-03:00"
+    },
+    {
+      "round": 3,
+      "home": "cor",
+      "away": "rbb",
+      "date": "2026-02-12",
+      "kickoff": "2026-02-12T20:00:00-03:00"
+    },
+    {
+      "round": 3,
+      "home": "flu",
+      "away": "bot",
+      "date": "2026-02-12",
+      "kickoff": "2026-02-12T19:30:00-03:00"
+    },
+    {
+      "round": 3,
+      "home": "int",
+      "away": "pal",
+      "date": "2026-02-12",
+      "kickoff": "2026-02-12T21:30:00-03:00"
+    },
+    {
+      "round": 3,
+      "home": "mir",
+      "away": "cru",
+      "date": "2026-02-11",
+      "kickoff": "2026-02-11T19:00:00-03:00"
+    },
+    {
+      "round": 3,
+      "home": "sao",
+      "away": "gre",
+      "date": "2026-02-11",
+      "kickoff": "2026-02-11T21:30:00-03:00"
+    },
+    {
+      "round": 3,
+      "home": "vas",
+      "away": "bah",
+      "date": "2026-02-11",
+      "kickoff": "2026-02-11T21:30:00-03:00"
+    },
+    {
+      "round": 3,
+      "home": "vit",
+      "away": "fla",
+      "date": "2026-02-10",
+      "kickoff": "2026-02-10T21:30:00-03:00"
+    },
+    {
+      "round": 4,
+      "home": "bah",
+      "away": "cha",
+      "date": "2026-07-17",
+      "kickoff": "2026-07-17T19:30:00-03:00"
+    },
+    {
+      "round": 4,
+      "home": "bot",
+      "away": "vit",
+      "date": "2026-07-23",
+      "kickoff": "2026-07-23T19:30:00-03:00"
+    },
+    {
+      "round": 4,
+      "home": "cru",
+      "away": "cor",
+      "date": "2026-02-25",
+      "kickoff": "2026-02-25T20:00:00-03:00"
+    },
+    {
+      "round": 4,
+      "home": "ctb",
+      "away": "sao",
+      "date": "2026-02-25",
+      "kickoff": "2026-02-25T19:30:00-03:00"
+    },
+    {
+      "round": 4,
+      "home": "fla",
+      "away": "mir",
+      "date": "2026-09-02",
+      "kickoff": "2026-09-02T19:30:00-03:00"
+    },
+    {
+      "round": 4,
+      "home": "gre",
+      "away": "cam",
+      "date": "2026-02-25",
+      "kickoff": "2026-02-25T21:30:00-03:00"
+    },
+    {
+      "round": 4,
+      "home": "pal",
+      "away": "flu",
+      "date": "2026-02-25",
+      "kickoff": "2026-02-25T21:30:00-03:00"
+    },
+    {
+      "round": 4,
+      "home": "rbb",
+      "away": "cap",
+      "date": "2026-02-25",
+      "kickoff": "2026-02-25T19:00:00-03:00"
+    },
+    {
+      "round": 4,
+      "home": "rem",
+      "away": "int",
+      "date": "2026-02-25",
+      "kickoff": "2026-02-25T19:00:00-03:00"
+    },
+    {
+      "round": 4,
+      "home": "san",
+      "away": "vas",
+      "date": "2026-02-26",
+      "kickoff": "2026-02-26T19:00:00-03:00"
+    },
+    {
+      "round": 5,
+      "home": "bah",
+      "away": "vit",
+      "date": "2026-03-11",
+      "kickoff": "2026-03-11T20:00:00-03:00"
+    },
+    {
+      "round": 5,
+      "home": "cam",
+      "away": "int",
+      "date": "2026-03-11",
+      "kickoff": "2026-03-11T19:00:00-03:00"
+    },
+    {
+      "round": 5,
+      "home": "cap",
+      "away": "bot",
+      "date": "2026-03-29",
+      "kickoff": "2026-03-29T19:30:00-03:00"
+    },
+    {
+      "round": 5,
+      "home": "cor",
+      "away": "ctb",
+      "date": "2026-03-11",
+      "kickoff": "2026-03-11T21:30:00-03:00"
+    },
+    {
+      "round": 5,
+      "home": "fla",
+      "away": "cru",
+      "date": "2026-03-11",
+      "kickoff": "2026-03-11T21:30:00-03:00"
+    },
+    {
+      "round": 5,
+      "home": "gre",
+      "away": "rbb",
+      "date": "2026-03-12",
+      "kickoff": "2026-03-12T21:30:00-03:00"
+    },
+    {
+      "round": 5,
+      "home": "mir",
+      "away": "san",
+      "date": "2026-03-10",
+      "kickoff": "2026-03-10T21:30:00-03:00"
+    },
+    {
+      "round": 5,
+      "home": "rem",
+      "away": "flu",
+      "date": "2026-03-12",
+      "kickoff": "2026-03-12T19:00:00-03:00"
+    },
+    {
+      "round": 5,
+      "home": "sao",
+      "away": "cha",
+      "date": "2026-03-12",
+      "kickoff": "2026-03-12T20:00:00-03:00"
+    },
+    {
+      "round": 5,
+      "home": "vas",
+      "away": "pal",
+      "date": "2026-03-12",
+      "kickoff": "2026-03-12T19:30:00-03:00"
+    },
+    {
+      "round": 6,
+      "home": "bot",
+      "away": "fla",
+      "date": "2026-03-14",
+      "kickoff": "2026-03-14T20:30:00-03:00"
+    },
+    {
+      "round": 6,
+      "home": "cha",
+      "away": "gre",
+      "date": "2026-03-16",
+      "kickoff": "2026-03-16T20:00:00-03:00"
+    },
+    {
+      "round": 6,
+      "home": "cru",
+      "away": "vas",
+      "date": "2026-03-15",
+      "kickoff": "2026-03-15T20:30:00-03:00"
+    },
+    {
+      "round": 6,
+      "home": "ctb",
+      "away": "rem",
+      "date": "2026-03-15",
+      "kickoff": "2026-03-15T18:30:00-03:00"
+    },
+    {
+      "round": 6,
+      "home": "flu",
+      "away": "cap",
+      "date": "2026-03-15",
+      "kickoff": "2026-03-15T16:00:00-03:00"
+    },
+    {
+      "round": 6,
+      "home": "int",
+      "away": "bah",
+      "date": "2026-03-15",
+      "kickoff": "2026-03-15T16:00:00-03:00"
+    },
+    {
+      "round": 6,
+      "home": "pal",
+      "away": "mir",
+      "date": "2026-03-15",
+      "kickoff": "2026-03-15T18:30:00-03:00"
+    },
+    {
+      "round": 6,
+      "home": "rbb",
+      "away": "sao",
+      "date": "2026-03-15",
+      "kickoff": "2026-03-15T20:30:00-03:00"
+    },
+    {
+      "round": 6,
+      "home": "san",
+      "away": "cor",
+      "date": "2026-03-15",
+      "kickoff": "2026-03-15T16:00:00-03:00"
+    },
+    {
+      "round": 6,
+      "home": "vit",
+      "away": "cam",
+      "date": "2026-03-14",
+      "kickoff": "2026-03-14T18:30:00-03:00"
+    },
+    {
+      "round": 7,
+      "home": "bah",
+      "away": "rbb",
+      "date": "2026-03-18",
+      "kickoff": "2026-03-18T19:00:00-03:00"
+    },
+    {
+      "round": 7,
+      "home": "cam",
+      "away": "sao",
+      "date": "2026-03-18",
+      "kickoff": "2026-03-18T20:00:00-03:00"
+    },
+    {
+      "round": 7,
+      "home": "cap",
+      "away": "cru",
+      "date": "2026-03-18",
+      "kickoff": "2026-03-18T19:30:00-03:00"
+    },
+    {
+      "round": 7,
+      "home": "cha",
+      "away": "cor",
+      "date": "2026-03-19",
+      "kickoff": "2026-03-19T21:30:00-03:00"
+    },
+    {
+      "round": 7,
+      "home": "fla",
+      "away": "rem",
+      "date": "2026-03-19",
+      "kickoff": "2026-03-19T20:00:00-03:00"
+    },
+    {
+      "round": 7,
+      "home": "gre",
+      "away": "vit",
+      "date": "2026-03-19",
+      "kickoff": "2026-03-19T19:00:00-03:00"
+    },
+    {
+      "round": 7,
+      "home": "mir",
+      "away": "ctb",
+      "date": "2026-03-18",
+      "kickoff": "2026-03-18T20:00:00-03:00"
+    },
+    {
+      "round": 7,
+      "home": "pal",
+      "away": "bot",
+      "date": "2026-03-18",
+      "kickoff": "2026-03-18T19:00:00-03:00"
+    },
+    {
+      "round": 7,
+      "home": "san",
+      "away": "int",
+      "date": "2026-03-18",
+      "kickoff": "2026-03-18T21:30:00-03:00"
+    },
+    {
+      "round": 7,
+      "home": "vas",
+      "away": "flu",
+      "date": "2026-03-18",
+      "kickoff": "2026-03-18T21:30:00-03:00"
+    },
+    {
+      "round": 8,
+      "home": "cap",
+      "away": "ctb",
+      "date": "2026-03-22",
+      "kickoff": "2026-03-22T16:00:00-03:00"
+    },
+    {
+      "round": 8,
+      "home": "cor",
+      "away": "fla",
+      "date": "2026-03-22",
+      "kickoff": "2026-03-22T20:30:00-03:00"
+    },
+    {
+      "round": 8,
+      "home": "cru",
+      "away": "san",
+      "date": "2026-03-22",
+      "kickoff": "2026-03-22T16:00:00-03:00"
+    },
+    {
+      "round": 8,
+      "home": "flu",
+      "away": "cam",
+      "date": "2026-03-21",
+      "kickoff": "2026-03-21T18:30:00-03:00"
+    },
+    {
+      "round": 8,
+      "home": "int",
+      "away": "cha",
+      "date": "2026-03-22",
+      "kickoff": "2026-03-22T18:30:00-03:00"
+    },
+    {
+      "round": 8,
+      "home": "rbb",
+      "away": "bot",
+      "date": "2026-03-21",
+      "kickoff": "2026-03-21T16:00:00-03:00"
+    },
+    {
+      "round": 8,
+      "home": "rem",
+      "away": "bah",
+      "date": "2026-03-22",
+      "kickoff": "2026-03-22T16:00:00-03:00"
+    },
+    {
+      "round": 8,
+      "home": "sao",
+      "away": "pal",
+      "date": "2026-03-21",
+      "kickoff": "2026-03-21T21:00:00-03:00"
+    },
+    {
+      "round": 8,
+      "home": "vas",
+      "away": "gre",
+      "date": "2026-03-22",
+      "kickoff": "2026-03-22T16:00:00-03:00"
+    },
+    {
+      "round": 8,
+      "home": "vit",
+      "away": "mir",
+      "date": "2026-03-22",
+      "kickoff": "2026-03-22T18:30:00-03:00"
+    },
+    {
+      "round": 9,
+      "home": "bah",
+      "away": "cap",
+      "date": "2026-04-01",
+      "kickoff": "2026-04-01T20:00:00-03:00"
+    },
+    {
+      "round": 9,
+      "home": "bot",
+      "away": "mir",
+      "date": "2026-04-01",
+      "kickoff": "2026-04-01T19:30:00-03:00"
+    },
+    {
+      "round": 9,
+      "home": "cha",
+      "away": "cam",
+      "date": "2026-04-02",
+      "kickoff": "2026-04-02T19:00:00-03:00"
+    },
+    {
+      "round": 9,
+      "home": "cru",
+      "away": "vit",
+      "date": "2026-04-01",
+      "kickoff": "2026-04-01T20:00:00-03:00"
+    },
+    {
+      "round": 9,
+      "home": "ctb",
+      "away": "vas",
+      "date": "2026-04-01",
+      "kickoff": "2026-04-01T20:30:00-03:00"
+    },
+    {
+      "round": 9,
+      "home": "flu",
+      "away": "cor",
+      "date": "2026-04-01",
+      "kickoff": "2026-04-01T21:30:00-03:00"
+    },
+    {
+      "round": 9,
+      "home": "int",
+      "away": "sao",
+      "date": "2026-04-01",
+      "kickoff": "2026-04-01T19:30:00-03:00"
+    },
+    {
+      "round": 9,
+      "home": "pal",
+      "away": "gre",
+      "date": "2026-04-02",
+      "kickoff": "2026-04-02T21:30:00-03:00"
+    },
+    {
+      "round": 9,
+      "home": "rbb",
+      "away": "fla",
+      "date": "2026-04-02",
+      "kickoff": "2026-04-02T21:30:00-03:00"
+    },
+    {
+      "round": 9,
+      "home": "san",
+      "away": "rem",
+      "date": "2026-04-02",
+      "kickoff": "2026-04-02T19:00:00-03:00"
+    },
+    {
+      "round": 10,
+      "home": "bah",
+      "away": "pal",
+      "date": "2026-04-05",
+      "kickoff": "2026-04-05T19:30:00-03:00"
+    },
+    {
+      "round": 10,
+      "home": "cam",
+      "away": "cap",
+      "date": "2026-04-05",
+      "kickoff": "2026-04-05T17:30:00-03:00"
+    },
+    {
+      "round": 10,
+      "home": "cha",
+      "away": "vit",
+      "date": "2026-04-05",
+      "kickoff": "2026-04-05T16:00:00-03:00"
+    },
+    {
+      "round": 10,
+      "home": "cor",
+      "away": "int",
+      "date": "2026-04-05",
+      "kickoff": "2026-04-05T19:30:00-03:00"
+    },
+    {
+      "round": 10,
+      "home": "ctb",
+      "away": "flu",
+      "date": "2026-04-04",
+      "kickoff": "2026-04-04T20:30:00-03:00"
+    },
+    {
+      "round": 10,
+      "home": "fla",
+      "away": "san",
+      "date": "2026-04-05",
+      "kickoff": "2026-04-05T17:30:00-03:00"
+    },
+    {
+      "round": 10,
+      "home": "gre",
+      "away": "rem",
+      "date": "2026-04-05",
+      "kickoff": "2026-04-05T20:30:00-03:00"
+    },
+    {
+      "round": 10,
+      "home": "mir",
+      "away": "rbb",
+      "date": "2026-04-05",
+      "kickoff": "2026-04-05T20:00:00-03:00"
+    },
+    {
+      "round": 10,
+      "home": "sao",
+      "away": "cru",
+      "date": "2026-04-04",
+      "kickoff": "2026-04-04T18:30:00-03:00"
+    },
+    {
+      "round": 10,
+      "home": "vas",
+      "away": "bot",
+      "date": "2026-04-04",
+      "kickoff": "2026-04-04T21:00:00-03:00"
+    },
+    {
+      "round": 11,
+      "home": "bot",
+      "away": "ctb",
+      "date": "2026-04-12",
+      "kickoff": "2026-04-12T16:00:00-03:00"
+    },
+    {
+      "round": 11,
+      "home": "cap",
+      "away": "cha",
+      "date": "2026-04-12",
+      "kickoff": "2026-04-12T11:00:00-03:00"
+    },
+    {
+      "round": 11,
+      "home": "cor",
+      "away": "pal",
+      "date": "2026-04-12",
+      "kickoff": "2026-04-12T18:30:00-03:00"
+    },
+    {
+      "round": 11,
+      "home": "cru",
+      "away": "rbb",
+      "date": "2026-04-12",
+      "kickoff": "2026-04-12T18:30:00-03:00"
+    },
+    {
+      "round": 11,
+      "home": "flu",
+      "away": "fla",
+      "date": "2026-04-12",
+      "kickoff": "2026-04-12T18:00:00-03:00"
+    },
+    {
+      "round": 11,
+      "home": "int",
+      "away": "gre",
+      "date": "2026-04-11",
+      "kickoff": "2026-04-11T20:30:00-03:00"
+    },
+    {
+      "round": 11,
+      "home": "mir",
+      "away": "bah",
+      "date": "2026-04-11",
+      "kickoff": "2026-04-11T18:30:00-03:00"
+    },
+    {
+      "round": 11,
+      "home": "rem",
+      "away": "vas",
+      "date": "2026-04-11",
+      "kickoff": "2026-04-11T16:30:00-03:00"
+    },
+    {
+      "round": 11,
+      "home": "san",
+      "away": "cam",
+      "date": "2026-04-11",
+      "kickoff": "2026-04-11T20:00:00-03:00"
+    },
+    {
+      "round": 11,
+      "home": "vit",
+      "away": "sao",
+      "date": "2026-04-11",
+      "kickoff": "2026-04-11T16:30:00-03:00"
+    },
+    {
+      "round": 12,
+      "home": "cha",
+      "away": "bot",
+      "date": "2026-04-18",
+      "kickoff": "2026-04-18T18:30:00-03:00"
+    },
+    {
+      "round": 12,
+      "home": "cru",
+      "away": "gre",
+      "date": "2026-04-18",
+      "kickoff": "2026-04-18T20:30:00-03:00"
+    },
+    {
+      "round": 12,
+      "home": "ctb",
+      "away": "cam",
+      "date": "2026-04-19",
+      "kickoff": "2026-04-19T16:00:00-03:00"
+    },
+    {
+      "round": 12,
+      "home": "fla",
+      "away": "bah",
+      "date": "2026-04-19",
+      "kickoff": "2026-04-19T19:30:00-03:00"
+    },
+    {
+      "round": 12,
+      "home": "int",
+      "away": "mir",
+      "date": "2026-04-19",
+      "kickoff": "2026-04-19T11:00:00-03:00"
+    },
+    {
+      "round": 12,
+      "home": "pal",
+      "away": "cap",
+      "date": "2026-04-19",
+      "kickoff": "2026-04-19T18:30:00-03:00"
+    },
+    {
+      "round": 12,
+      "home": "rbb",
+      "away": "rem",
+      "date": "2026-04-19",
+      "kickoff": "2026-04-19T18:30:00-03:00"
+    },
+    {
+      "round": 12,
+      "home": "san",
+      "away": "flu",
+      "date": "2026-04-19",
+      "kickoff": "2026-04-19T16:00:00-03:00"
+    },
+    {
+      "round": 12,
+      "home": "vas",
+      "away": "sao",
+      "date": "2026-04-18",
+      "kickoff": "2026-04-18T18:30:00-03:00"
+    },
+    {
+      "round": 12,
+      "home": "vit",
+      "away": "cor",
+      "date": "2026-04-18",
+      "kickoff": "2026-04-18T20:00:00-03:00"
+    },
+    {
+      "round": 13,
+      "home": "bah",
+      "away": "san",
+      "date": "2026-04-25",
+      "kickoff": "2026-04-25T18:30:00-03:00"
+    },
+    {
+      "round": 13,
+      "home": "bot",
+      "away": "int",
+      "date": "2026-04-25",
+      "kickoff": "2026-04-25T18:30:00-03:00"
+    },
+    {
+      "round": 13,
+      "home": "cam",
+      "away": "fla",
+      "date": "2026-04-26",
+      "kickoff": "2026-04-26T20:30:00-03:00"
+    },
+    {
+      "round": 13,
+      "home": "cap",
+      "away": "vit",
+      "date": "2026-04-26",
+      "kickoff": "2026-04-26T18:30:00-03:00"
+    },
+    {
+      "round": 13,
+      "home": "cor",
+      "away": "vas",
+      "date": "2026-04-26",
+      "kickoff": "2026-04-26T16:00:00-03:00"
+    },
+    {
+      "round": 13,
+      "home": "flu",
+      "away": "cha",
+      "date": "2026-04-26",
+      "kickoff": "2026-04-26T20:30:00-03:00"
+    },
+    {
+      "round": 13,
+      "home": "gre",
+      "away": "ctb",
+      "date": "2026-04-26",
+      "kickoff": "2026-04-26T16:00:00-03:00"
+    },
+    {
+      "round": 13,
+      "home": "rbb",
+      "away": "pal",
+      "date": "2026-04-26",
+      "kickoff": "2026-04-26T18:30:00-03:00"
+    },
+    {
+      "round": 13,
+      "home": "rem",
+      "away": "cru",
+      "date": "2026-04-25",
+      "kickoff": "2026-04-25T18:30:00-03:00"
+    },
+    {
+      "round": 13,
+      "home": "sao",
+      "away": "mir",
+      "date": "2026-04-25",
+      "kickoff": "2026-04-25T21:00:00-03:00"
+    },
+    {
+      "round": 14,
+      "home": "bot",
+      "away": "rem",
+      "date": "2026-05-02",
+      "kickoff": "2026-05-02T16:00:00-03:00"
+    },
+    {
+      "round": 14,
+      "home": "cap",
+      "away": "gre",
+      "date": "2026-05-02",
+      "kickoff": "2026-05-02T20:30:00-03:00"
+    },
+    {
+      "round": 14,
+      "home": "cha",
+      "away": "rbb",
+      "date": "2026-05-03",
+      "kickoff": "2026-05-03T18:30:00-03:00"
+    },
+    {
+      "round": 14,
+      "home": "cru",
+      "away": "cam",
+      "date": "2026-05-02",
+      "kickoff": "2026-05-02T21:00:00-03:00"
+    },
+    {
+      "round": 14,
+      "home": "fla",
+      "away": "vas",
+      "date": "2026-05-03",
+      "kickoff": "2026-05-03T16:00:00-03:00"
+    },
+    {
+      "round": 14,
+      "home": "int",
+      "away": "flu",
+      "date": "2026-05-03",
+      "kickoff": "2026-05-03T18:30:00-03:00"
+    },
+    {
+      "round": 14,
+      "home": "mir",
+      "away": "cor",
+      "date": "2026-05-03",
+      "kickoff": "2026-05-03T20:30:00-03:00"
+    },
+    {
+      "round": 14,
+      "home": "pal",
+      "away": "san",
+      "date": "2026-05-02",
+      "kickoff": "2026-05-02T18:30:00-03:00"
+    },
+    {
+      "round": 14,
+      "home": "sao",
+      "away": "bah",
+      "date": "2026-05-03",
+      "kickoff": "2026-05-03T16:00:00-03:00"
+    },
+    {
+      "round": 14,
+      "home": "vit",
+      "away": "ctb",
+      "date": "2026-05-02",
+      "kickoff": "2026-05-02T18:30:00-03:00"
+    },
+    {
+      "round": 15,
+      "home": "bah",
+      "away": "cru",
+      "date": "2026-05-09",
+      "kickoff": "2026-05-09T21:00:00-03:00"
+    },
+    {
+      "round": 15,
+      "home": "cam",
+      "away": "bot",
+      "date": "2026-05-10",
+      "kickoff": "2026-05-10T16:00:00-03:00"
+    },
+    {
+      "round": 15,
+      "home": "cor",
+      "away": "sao",
+      "date": "2026-05-10",
+      "kickoff": "2026-05-10T18:30:00-03:00"
+    },
+    {
+      "round": 15,
+      "home": "ctb",
+      "away": "int",
+      "date": "2026-05-09",
+      "kickoff": "2026-05-09T16:00:00-03:00"
+    },
+    {
+      "round": 15,
+      "home": "flu",
+      "away": "vit",
+      "date": "2026-05-09",
+      "kickoff": "2026-05-09T18:00:00-03:00"
+    },
+    {
+      "round": 15,
+      "home": "gre",
+      "away": "fla",
+      "date": "2026-05-10",
+      "kickoff": "2026-05-10T19:30:00-03:00"
+    },
+    {
+      "round": 15,
+      "home": "mir",
+      "away": "cha",
+      "date": "2026-05-10",
+      "kickoff": "2026-05-10T18:30:00-03:00"
+    },
+    {
+      "round": 15,
+      "home": "rem",
+      "away": "pal",
+      "date": "2026-05-10",
+      "kickoff": "2026-05-10T17:40:00-03:00"
+    },
+    {
+      "round": 15,
+      "home": "san",
+      "away": "rbb",
+      "date": "2026-05-10",
+      "kickoff": "2026-05-10T18:30:00-03:00"
+    },
+    {
+      "round": 15,
+      "home": "vas",
+      "away": "cap",
+      "date": "2026-05-10",
+      "kickoff": "2026-05-10T20:30:00-03:00"
+    },
+    {
+      "round": 16,
+      "home": "bah",
+      "away": "gre",
+      "date": "2026-05-17",
+      "kickoff": "2026-05-17T16:00:00-03:00"
+    },
+    {
+      "round": 16,
+      "home": "bot",
+      "away": "cor",
+      "date": "2026-05-17",
+      "kickoff": "2026-05-17T16:00:00-03:00"
+    },
+    {
+      "round": 16,
+      "home": "cam",
+      "away": "mir",
+      "date": "2026-05-16",
+      "kickoff": "2026-05-16T18:30:00-03:00"
+    },
+    {
+      "round": 16,
+      "home": "cap",
+      "away": "fla",
+      "date": "2026-05-17",
+      "kickoff": "2026-05-17T19:30:00-03:00"
+    },
+    {
+      "round": 16,
+      "home": "cha",
+      "away": "rem",
+      "date": "2026-05-17",
+      "kickoff": "2026-05-17T18:30:00-03:00"
+    },
+    {
+      "round": 16,
+      "home": "flu",
+      "away": "sao",
+      "date": "2026-05-16",
+      "kickoff": "2026-05-16T19:00:00-03:00"
+    },
+    {
+      "round": 16,
+      "home": "int",
+      "away": "vas",
+      "date": "2026-05-16",
+      "kickoff": "2026-05-16T18:30:00-03:00"
+    },
+    {
+      "round": 16,
+      "home": "pal",
+      "away": "cru",
+      "date": "2026-05-16",
+      "kickoff": "2026-05-16T21:00:00-03:00"
+    },
+    {
+      "round": 16,
+      "home": "rbb",
+      "away": "vit",
+      "date": "2026-05-17",
+      "kickoff": "2026-05-17T18:30:00-03:00"
+    },
+    {
+      "round": 16,
+      "home": "san",
+      "away": "ctb",
+      "date": "2026-05-17",
+      "kickoff": "2026-05-17T11:00:00-03:00"
+    },
+    {
+      "round": 17,
+      "home": "cor",
+      "away": "cam",
+      "date": "2026-05-24",
+      "kickoff": "2026-05-24T18:30:00-03:00"
+    },
+    {
+      "round": 17,
+      "home": "cru",
+      "away": "cha",
+      "date": "2026-05-24",
+      "kickoff": "2026-05-24T16:00:00-03:00"
+    },
+    {
+      "round": 17,
+      "home": "ctb",
+      "away": "bah",
+      "date": "2026-05-25",
+      "kickoff": "2026-05-25T20:00:00-03:00"
+    },
+    {
+      "round": 17,
+      "home": "fla",
+      "away": "pal",
+      "date": "2026-05-23",
+      "kickoff": "2026-05-23T21:00:00-03:00"
+    },
+    {
+      "round": 17,
+      "home": "gre",
+      "away": "san",
+      "date": "2026-05-23",
+      "kickoff": "2026-05-23T19:00:00-03:00"
+    },
+    {
+      "round": 17,
+      "home": "mir",
+      "away": "flu",
+      "date": "2026-05-23",
+      "kickoff": "2026-05-23T19:00:00-03:00"
+    },
+    {
+      "round": 17,
+      "home": "rem",
+      "away": "cap",
+      "date": "2026-05-24",
+      "kickoff": "2026-05-24T16:00:00-03:00"
+    },
+    {
+      "round": 17,
+      "home": "sao",
+      "away": "bot",
+      "date": "2026-05-23",
+      "kickoff": "2026-05-23T17:00:00-03:00"
+    },
+    {
+      "round": 17,
+      "home": "vas",
+      "away": "rbb",
+      "date": "2026-05-24",
+      "kickoff": "2026-05-24T20:30:00-03:00"
+    },
+    {
+      "round": 17,
+      "home": "vit",
+      "away": "int",
+      "date": "2026-05-23",
+      "kickoff": "2026-05-23T17:00:00-03:00"
+    },
+    {
+      "round": 18,
+      "home": "bah",
+      "away": "bot",
+      "date": "2026-05-30",
+      "kickoff": "2026-05-30T17:30:00-03:00"
+    },
+    {
+      "round": 18,
+      "home": "cap",
+      "away": "mir",
+      "date": "2026-05-30",
+      "kickoff": "2026-05-30T16:00:00-03:00"
+    },
+    {
+      "round": 18,
+      "home": "cru",
+      "away": "flu",
+      "date": "2026-05-31",
+      "kickoff": "2026-05-31T20:30:00-03:00"
+    },
+    {
+      "round": 18,
+      "home": "fla",
+      "away": "ctb",
+      "date": "2026-05-30",
+      "kickoff": "2026-05-30T16:00:00-03:00"
+    },
+    {
+      "round": 18,
+      "home": "gre",
+      "away": "cor",
+      "date": "2026-05-30",
+      "kickoff": "2026-05-30T17:30:00-03:00"
+    },
+    {
+      "round": 18,
+      "home": "pal",
+      "away": "cha",
+      "date": "2026-05-31",
+      "kickoff": "2026-05-31T16:00:00-03:00"
+    },
+    {
+      "round": 18,
+      "home": "rbb",
+      "away": "int",
+      "date": "2026-05-31",
+      "kickoff": "2026-05-31T11:00:00-03:00"
+    },
+    {
+      "round": 18,
+      "home": "rem",
+      "away": "sao",
+      "date": "2026-05-31",
+      "kickoff": "2026-05-31T20:30:00-03:00"
+    },
+    {
+      "round": 18,
+      "home": "san",
+      "away": "vit",
+      "date": "2026-05-30",
+      "kickoff": "2026-05-30T20:00:00-03:00"
+    },
+    {
+      "round": 18,
+      "home": "vas",
+      "away": "cam",
+      "date": "2026-05-31",
+      "kickoff": "2026-05-31T16:00:00-03:00"
+    },
+    {
+      "round": 19,
+      "home": "bot",
+      "away": "san",
+      "date": "2026-07-16",
+      "kickoff": "2026-07-16T19:30:00-03:00"
+    },
+    {
+      "round": 19,
+      "home": "cam",
+      "away": "bah",
+      "date": "2026-07-21",
+      "kickoff": "2026-07-21T19:30:00-03:00"
+    },
+    {
+      "round": 19,
+      "home": "cha",
+      "away": "fla",
+      "date": "2026-07-22",
+      "kickoff": "2026-07-22T21:30:00-03:00"
+    },
+    {
+      "round": 19,
+      "home": "cor",
+      "away": "rem",
+      "date": "2026-07-23",
+      "kickoff": "2026-07-23T19:30:00-03:00"
+    },
+    {
+      "round": 19,
+      "home": "ctb",
+      "away": "pal",
+      "date": "2026-07-22",
+      "kickoff": "2026-07-22T19:30:00-03:00"
+    },
+    {
+      "round": 19,
+      "home": "flu",
+      "away": "rbb",
+      "date": "2026-07-17",
+      "kickoff": "2026-07-17T20:00:00-03:00"
+    },
+    {
+      "round": 19,
+      "home": "int",
+      "away": "cru",
+      "date": "2026-07-22",
+      "kickoff": "2026-07-22T21:30:00-03:00"
+    },
+    {
+      "round": 19,
+      "home": "mir",
+      "away": "gre",
+      "date": "2026-07-17",
+      "kickoff": "2026-07-17T20:00:00-03:00"
+    },
+    {
+      "round": 19,
+      "home": "sao",
+      "away": "cap",
+      "date": "2026-07-22",
+      "kickoff": "2026-07-22T21:30:00-03:00"
+    },
+    {
+      "round": 19,
+      "home": "vit",
+      "away": "vas",
+      "date": "2026-07-16",
+      "kickoff": "2026-07-16T19:30:00-03:00"
+    },
+    {
+      "round": 20,
+      "home": "bah",
+      "away": "cor",
+      "date": "2026-07-26",
+      "kickoff": "2026-07-26T16:00:00-03:00"
+    },
+    {
+      "round": 20,
+      "home": "cap",
+      "away": "int",
+      "date": "2026-07-25",
+      "kickoff": "2026-07-25T18:30:00-03:00"
+    },
+    {
+      "round": 20,
+      "home": "cru",
+      "away": "bot",
+      "date": "2026-07-26",
+      "kickoff": "2026-07-26T16:00:00-03:00"
+    },
+    {
+      "round": 20,
+      "home": "fla",
+      "away": "sao",
+      "date": "2026-07-26",
+      "kickoff": "2026-07-26T18:30:00-03:00"
+    },
+    {
+      "round": 20,
+      "home": "gre",
+      "away": "flu",
+      "date": "2026-07-26",
+      "kickoff": "2026-07-26T18:30:00-03:00"
+    },
+    {
+      "round": 20,
+      "home": "pal",
+      "away": "cam",
+      "date": "2026-07-26",
+      "kickoff": "2026-07-26T19:30:00-03:00"
+    },
+    {
+      "round": 20,
+      "home": "rbb",
+      "away": "ctb",
+      "date": "2026-07-26",
+      "kickoff": "2026-07-26T18:30:00-03:00"
+    },
+    {
+      "round": 20,
+      "home": "rem",
+      "away": "vit",
+      "date": "2026-07-26",
+      "kickoff": "2026-07-26T19:30:00-03:00"
+    },
+    {
+      "round": 20,
+      "home": "san",
+      "away": "cha",
+      "date": "2026-07-25",
+      "kickoff": "2026-07-25T18:30:00-03:00"
+    },
+    {
+      "round": 20,
+      "home": "vas",
+      "away": "mir",
+      "date": "2026-07-25",
+      "kickoff": "2026-07-25T20:30:00-03:00"
+    },
+    {
+      "round": 21,
+      "home": "bot",
+      "away": "gre",
+      "date": "2026-09-16",
+      "kickoff": "2026-09-16T19:30:00-03:00"
+    },
+    {
+      "round": 21,
+      "home": "cam",
+      "away": "rbb",
+      "date": "2026-10-03",
+      "kickoff": "2026-10-03T18:30:00-03:00"
+    },
+    {
+      "round": 21,
+      "home": "cha",
+      "away": "vas",
+      "date": "2026-07-29",
+      "kickoff": null
+    },
+    {
+      "round": 21,
+      "home": "cor",
+      "away": "cap",
+      "date": "2026-07-30",
+      "kickoff": "2026-07-30T19:30:00-03:00"
+    },
+    {
+      "round": 21,
+      "home": "ctb",
+      "away": "cru",
+      "date": "2026-07-30",
+      "kickoff": "2026-07-30T21:30:00-03:00"
+    },
+    {
+      "round": 21,
+      "home": "flu",
+      "away": "bah",
+      "date": "2026-07-29",
+      "kickoff": "2026-07-29T21:30:00-03:00"
+    },
+    {
+      "round": 21,
+      "home": "int",
+      "away": "fla",
+      "date": "2026-07-29",
+      "kickoff": "2026-07-29T19:30:00-03:00"
+    },
+    {
+      "round": 21,
+      "home": "mir",
+      "away": "rem",
+      "date": "2026-07-29",
+      "kickoff": "2026-07-29T19:30:00-03:00"
+    },
+    {
+      "round": 21,
+      "home": "sao",
+      "away": "san",
+      "date": "2026-10-02",
+      "kickoff": "2026-10-02T20:00:00-03:00"
+    },
+    {
+      "round": 21,
+      "home": "vit",
+      "away": "pal",
+      "date": "2026-07-29",
+      "kickoff": "2026-07-29T21:30:00-03:00"
+    },
+    {
+      "round": 22,
+      "home": "bah",
+      "away": "vas",
+      "date": "2026-08-09",
+      "kickoff": "2026-08-09T16:00:00-03:00"
+    },
+    {
+      "round": 22,
+      "home": "bot",
+      "away": "flu",
+      "date": "2026-08-08",
+      "kickoff": "2026-08-08T21:00:00-03:00"
+    },
+    {
+      "round": 22,
+      "home": "cru",
+      "away": "mir",
+      "date": "2026-08-09",
+      "kickoff": "2026-08-09T11:00:00-03:00"
+    },
+    {
+      "round": 22,
+      "home": "ctb",
+      "away": "cha",
+      "date": "2026-08-08",
+      "kickoff": "2026-08-08T20:30:00-03:00"
+    },
+    {
+      "round": 22,
+      "home": "fla",
+      "away": "vit",
+      "date": "2026-08-09",
+      "kickoff": "2026-08-09T19:30:00-03:00"
+    },
+    {
+      "round": 22,
+      "home": "gre",
+      "away": "sao",
+      "date": "2026-08-08",
+      "kickoff": "2026-08-08T16:00:00-03:00"
+    },
+    {
+      "round": 22,
+      "home": "pal",
+      "away": "int",
+      "date": "2026-08-09",
+      "kickoff": "2026-08-09T16:00:00-03:00"
+    },
+    {
+      "round": 22,
+      "home": "rbb",
+      "away": "cor",
+      "date": "2026-08-09",
+      "kickoff": "2026-08-09T18:30:00-03:00"
+    },
+    {
+      "round": 22,
+      "home": "rem",
+      "away": "cam",
+      "date": "2026-08-08",
+      "kickoff": "2026-08-08T18:30:00-03:00"
+    },
+    {
+      "round": 22,
+      "home": "san",
+      "away": "cap",
+      "date": "2026-08-09",
+      "kickoff": "2026-08-09T18:30:00-03:00"
+    },
+    {
+      "round": 23,
+      "home": "cam",
+      "away": "gre",
+      "date": "2026-08-16",
+      "kickoff": "2026-08-16T16:00:00-03:00"
+    },
+    {
+      "round": 23,
+      "home": "cap",
+      "away": "rbb",
+      "date": "2026-08-15",
+      "kickoff": "2026-08-15T18:30:00-03:00"
+    },
+    {
+      "round": 23,
+      "home": "cha",
+      "away": "bah",
+      "date": "2026-08-16",
+      "kickoff": "2026-08-16T11:00:00-03:00"
+    },
+    {
+      "round": 23,
+      "home": "cor",
+      "away": "cru",
+      "date": "2026-08-16",
+      "kickoff": "2026-08-16T19:30:00-03:00"
+    },
+    {
+      "round": 23,
+      "home": "flu",
+      "away": "pal",
+      "date": "2026-08-15",
+      "kickoff": "2026-08-15T16:30:00-03:00"
+    },
+    {
+      "round": 23,
+      "home": "int",
+      "away": "rem",
+      "date": "2026-08-17",
+      "kickoff": "2026-08-17T20:00:00-03:00"
+    },
+    {
+      "round": 23,
+      "home": "mir",
+      "away": "fla",
+      "date": "2026-08-16",
+      "kickoff": "2026-08-16T18:30:00-03:00"
+    },
+    {
+      "round": 23,
+      "home": "sao",
+      "away": "ctb",
+      "date": "2026-08-15",
+      "kickoff": "2026-08-15T21:00:00-03:00"
+    },
+    {
+      "round": 23,
+      "home": "vas",
+      "away": "san",
+      "date": "2026-08-16",
+      "kickoff": "2026-08-16T16:00:00-03:00"
+    },
+    {
+      "round": 23,
+      "home": "vit",
+      "away": "bot",
+      "date": "2026-08-16",
+      "kickoff": "2026-08-16T18:30:00-03:00"
+    },
+    {
+      "round": 24,
+      "home": "bot",
+      "away": "cap",
+      "date": "2026-08-24",
+      "kickoff": "2026-08-24T20:00:00-03:00"
+    },
+    {
+      "round": 24,
+      "home": "cha",
+      "away": "sao",
+      "date": "2026-08-23",
+      "kickoff": "2026-08-23T18:30:00-03:00"
+    },
+    {
+      "round": 24,
+      "home": "cru",
+      "away": "fla",
+      "date": "2026-08-22",
+      "kickoff": "2026-08-22T20:30:00-03:00"
+    },
+    {
+      "round": 24,
+      "home": "ctb",
+      "away": "cor",
+      "date": "2026-08-23",
+      "kickoff": "2026-08-23T19:30:00-03:00"
+    },
+    {
+      "round": 24,
+      "home": "flu",
+      "away": "rem",
+      "date": "2026-08-22",
+      "kickoff": "2026-08-22T16:00:00-03:00"
+    },
+    {
+      "round": 24,
+      "home": "int",
+      "away": "cam",
+      "date": "2026-08-22",
+      "kickoff": "2026-08-22T18:30:00-03:00"
+    },
+    {
+      "round": 24,
+      "home": "pal",
+      "away": "vas",
+      "date": "2026-08-23",
+      "kickoff": "2026-08-23T16:00:00-03:00"
+    },
+    {
+      "round": 24,
+      "home": "rbb",
+      "away": "gre",
+      "date": "2026-08-23",
+      "kickoff": "2026-08-23T16:00:00-03:00"
+    },
+    {
+      "round": 24,
+      "home": "san",
+      "away": "mir",
+      "date": "2026-08-23",
+      "kickoff": "2026-08-23T18:30:00-03:00"
+    },
+    {
+      "round": 24,
+      "home": "vit",
+      "away": "bah",
+      "date": "2026-08-23",
+      "kickoff": "2026-08-23T16:00:00-03:00"
+    },
+    {
+      "round": 25,
+      "home": "bah",
+      "away": "int",
+      "date": "2026-08-30",
+      "kickoff": "2026-08-30T19:30:00-03:00"
+    },
+    {
+      "round": 25,
+      "home": "cam",
+      "away": "vit",
+      "date": "2026-08-29",
+      "kickoff": "2026-08-29T18:30:00-03:00"
+    },
+    {
+      "round": 25,
+      "home": "cap",
+      "away": "flu",
+      "date": "2026-08-30",
+      "kickoff": "2026-08-30T11:00:00-03:00"
+    },
+    {
+      "round": 25,
+      "home": "cor",
+      "away": "san",
+      "date": "2026-08-30",
+      "kickoff": "2026-08-30T16:00:00-03:00"
+    },
+    {
+      "round": 25,
+      "home": "fla",
+      "away": "bot",
+      "date": "2026-08-30",
+      "kickoff": "2026-08-30T16:00:00-03:00"
+    },
+    {
+      "round": 25,
+      "home": "gre",
+      "away": "cha",
+      "date": "2026-08-30",
+      "kickoff": "2026-08-30T18:30:00-03:00"
+    },
+    {
+      "round": 25,
+      "home": "mir",
+      "away": "pal",
+      "date": "2026-08-30",
+      "kickoff": "2026-08-30T18:30:00-03:00"
+    },
+    {
+      "round": 25,
+      "home": "rem",
+      "away": "ctb",
+      "date": "2026-08-31",
+      "kickoff": "2026-08-31T20:00:00-03:00"
+    },
+    {
+      "round": 25,
+      "home": "sao",
+      "away": "rbb",
+      "date": "2026-08-29",
+      "kickoff": "2026-08-29T20:00:00-03:00"
+    },
+    {
+      "round": 25,
+      "home": "vas",
+      "away": "cru",
+      "date": "2026-08-29",
+      "kickoff": "2026-08-29T21:20:00-03:00"
+    },
+    {
+      "round": 26,
+      "home": "bot",
+      "away": "pal",
+      "date": "2026-09-06",
+      "kickoff": "2026-09-06T18:30:00-03:00"
+    },
+    {
+      "round": 26,
+      "home": "cor",
+      "away": "cha",
+      "date": "2026-09-06",
+      "kickoff": "2026-09-06T19:30:00-03:00"
+    },
+    {
+      "round": 26,
+      "home": "cru",
+      "away": "cap",
+      "date": "2026-09-06",
+      "kickoff": "2026-09-06T16:00:00-03:00"
+    },
+    {
+      "round": 26,
+      "home": "ctb",
+      "away": "mir",
+      "date": "2026-09-06",
+      "kickoff": "2026-09-06T11:00:00-03:00"
+    },
+    {
+      "round": 26,
+      "home": "flu",
+      "away": "vas",
+      "date": "2026-09-05",
+      "kickoff": "2026-09-05T21:00:00-03:00"
+    },
+    {
+      "round": 26,
+      "home": "int",
+      "away": "san",
+      "date": "2026-09-06",
+      "kickoff": "2026-09-06T16:00:00-03:00"
+    },
+    {
+      "round": 26,
+      "home": "rbb",
+      "away": "bah",
+      "date": "2026-09-05",
+      "kickoff": "2026-09-05T16:00:00-03:00"
+    },
+    {
+      "round": 26,
+      "home": "rem",
+      "away": "fla",
+      "date": "2026-09-06",
+      "kickoff": "2026-09-06T16:00:00-03:00"
+    },
+    {
+      "round": 26,
+      "home": "sao",
+      "away": "cam",
+      "date": "2026-09-05",
+      "kickoff": "2026-09-05T18:30:00-03:00"
+    },
+    {
+      "round": 26,
+      "home": "vit",
+      "away": "gre",
+      "date": "2026-09-07",
+      "kickoff": "2026-09-07T20:00:00-03:00"
+    },
+    {
+      "round": 27,
+      "home": "bah",
+      "away": "rem",
+      "date": "2026-09-14",
+      "kickoff": "2026-09-14T20:00:00-03:00"
+    },
+    {
+      "round": 27,
+      "home": "bot",
+      "away": "rbb",
+      "date": "2026-09-12",
+      "kickoff": "2026-09-12T20:30:00-03:00"
+    },
+    {
+      "round": 27,
+      "home": "cam",
+      "away": "flu",
+      "date": "2026-09-12",
+      "kickoff": "2026-09-12T16:00:00-03:00"
+    },
+    {
+      "round": 27,
+      "home": "cha",
+      "away": "int",
+      "date": "2026-09-12",
+      "kickoff": "2026-09-12T17:00:00-03:00"
+    },
+    {
+      "round": 27,
+      "home": "ctb",
+      "away": "cap",
+      "date": "2026-09-11",
+      "kickoff": "2026-09-11T21:00:00-03:00"
+    },
+    {
+      "round": 27,
+      "home": "fla",
+      "away": "cor",
+      "date": "2026-09-13",
+      "kickoff": "2026-09-13T17:30:00-03:00"
+    },
+    {
+      "round": 27,
+      "home": "gre",
+      "away": "vas",
+      "date": "2026-09-12",
+      "kickoff": "2026-09-12T16:00:00-03:00"
+    },
+    {
+      "round": 27,
+      "home": "mir",
+      "away": "vit",
+      "date": "2026-09-13",
+      "kickoff": "2026-09-13T16:00:00-03:00"
+    },
+    {
+      "round": 27,
+      "home": "pal",
+      "away": "sao",
+      "date": "2026-09-12",
+      "kickoff": "2026-09-12T18:30:00-03:00"
+    },
+    {
+      "round": 27,
+      "home": "san",
+      "away": "cru",
+      "date": "2026-09-12",
+      "kickoff": "2026-09-12T21:00:00-03:00"
+    },
+    {
+      "round": 28,
+      "home": "cam",
+      "away": "cha",
+      "date": "2026-09-19",
+      "kickoff": "2026-09-19T16:00:00-03:00"
+    },
+    {
+      "round": 28,
+      "home": "cap",
+      "away": "bah",
+      "date": "2026-09-20",
+      "kickoff": "2026-09-20T19:30:00-03:00"
+    },
+    {
+      "round": 28,
+      "home": "cor",
+      "away": "flu",
+      "date": "2026-09-20",
+      "kickoff": "2026-09-20T16:00:00-03:00"
+    },
+    {
+      "round": 28,
+      "home": "fla",
+      "away": "rbb",
+      "date": "2026-09-20",
+      "kickoff": "2026-09-20T18:30:00-03:00"
+    },
+    {
+      "round": 28,
+      "home": "gre",
+      "away": "pal",
+      "date": "2026-09-20",
+      "kickoff": "2026-09-20T11:00:00-03:00"
+    },
+    {
+      "round": 28,
+      "home": "mir",
+      "away": "bot",
+      "date": "2026-09-19",
+      "kickoff": "2026-09-19T17:00:00-03:00"
+    },
+    {
+      "round": 28,
+      "home": "rem",
+      "away": "san",
+      "date": "2026-09-19",
+      "kickoff": "2026-09-19T18:30:00-03:00"
+    },
+    {
+      "round": 28,
+      "home": "sao",
+      "away": "int",
+      "date": "2026-09-19",
+      "kickoff": "2026-09-19T21:00:00-03:00"
+    },
+    {
+      "round": 28,
+      "home": "vas",
+      "away": "ctb",
+      "date": "2026-09-19",
+      "kickoff": "2026-09-19T20:30:00-03:00"
+    },
+    {
+      "round": 28,
+      "home": "vit",
+      "away": "cru",
+      "date": "2026-09-20",
+      "kickoff": "2026-09-20T16:00:00-03:00"
+    },
+    {
+      "round": 29,
+      "home": "bot",
+      "away": "vas",
+      "date": "2026-10-07",
+      "kickoff": "2026-10-07T20:30:00-03:00"
+    },
+    {
+      "round": 29,
+      "home": "cap",
+      "away": "cam",
+      "date": "2026-10-08",
+      "kickoff": "2026-10-08T20:00:00-03:00"
+    },
+    {
+      "round": 29,
+      "home": "cru",
+      "away": "sao",
+      "date": "2026-10-07",
+      "kickoff": "2026-10-07T21:30:00-03:00"
+    },
+    {
+      "round": 29,
+      "home": "flu",
+      "away": "ctb",
+      "date": "2026-10-08",
+      "kickoff": "2026-10-08T21:30:00-03:00"
+    },
+    {
+      "round": 29,
+      "home": "int",
+      "away": "cor",
+      "date": "2026-10-07",
+      "kickoff": "2026-10-07T19:30:00-03:00"
+    },
+    {
+      "round": 29,
+      "home": "pal",
+      "away": "bah",
+      "date": "2026-10-08",
+      "kickoff": "2026-10-08T21:30:00-03:00"
+    },
+    {
+      "round": 29,
+      "home": "rbb",
+      "away": "mir",
+      "date": "2026-10-07",
+      "kickoff": "2026-10-07T19:30:00-03:00"
+    },
+    {
+      "round": 29,
+      "home": "rem",
+      "away": "gre",
+      "date": "2026-10-07",
+      "kickoff": "2026-10-07T19:30:00-03:00"
+    },
+    {
+      "round": 29,
+      "home": "san",
+      "away": "fla",
+      "date": "2026-10-08",
+      "kickoff": "2026-10-08T19:30:00-03:00"
+    },
+    {
+      "round": 29,
+      "home": "vit",
+      "away": "cha",
+      "date": "2026-10-07",
+      "kickoff": "2026-10-07T20:00:00-03:00"
+    },
+    {
+      "round": 30,
+      "home": "bah",
+      "away": "mir",
+      "date": "2026-10-11",
+      "kickoff": "2026-10-11T19:30:00-03:00"
+    },
+    {
+      "round": 30,
+      "home": "cam",
+      "away": "san",
+      "date": "2026-10-11",
+      "kickoff": "2026-10-11T16:00:00-03:00"
+    },
+    {
+      "round": 30,
+      "home": "cha",
+      "away": "cap",
+      "date": "2026-10-12",
+      "kickoff": "2026-10-12T19:30:00-03:00"
+    },
+    {
+      "round": 30,
+      "home": "ctb",
+      "away": "bot",
+      "date": "2026-10-11",
+      "kickoff": "2026-10-11T19:30:00-03:00"
+    },
+    {
+      "round": 30,
+      "home": "fla",
+      "away": "flu",
+      "date": "2026-10-11",
+      "kickoff": "2026-10-11T17:30:00-03:00"
+    },
+    {
+      "round": 30,
+      "home": "gre",
+      "away": "int",
+      "date": "2026-10-11",
+      "kickoff": "2026-10-11T17:30:00-03:00"
+    },
+    {
+      "round": 30,
+      "home": "pal",
+      "away": "cor",
+      "date": "2026-10-11",
+      "kickoff": "2026-10-11T17:30:00-03:00"
+    },
+    {
+      "round": 30,
+      "home": "rbb",
+      "away": "cru",
+      "date": "2026-10-12",
+      "kickoff": "2026-10-12T21:00:00-03:00"
+    },
+    {
+      "round": 30,
+      "home": "sao",
+      "away": "vit",
+      "date": "2026-10-10",
+      "kickoff": "2026-10-10T21:00:00-03:00"
+    },
+    {
+      "round": 30,
+      "home": "vas",
+      "away": "rem",
+      "date": "2026-10-10",
+      "kickoff": "2026-10-10T17:00:00-03:00"
+    },
+    {
+      "round": 31,
+      "home": "bah",
+      "away": "fla",
+      "date": "2026-10-17",
+      "kickoff": null
+    },
+    {
+      "round": 31,
+      "home": "bot",
+      "away": "cha",
+      "date": "2026-10-17",
+      "kickoff": null
+    },
+    {
+      "round": 31,
+      "home": "cam",
+      "away": "ctb",
+      "date": "2026-10-17",
+      "kickoff": null
+    },
+    {
+      "round": 31,
+      "home": "cap",
+      "away": "pal",
+      "date": "2026-10-17",
+      "kickoff": null
+    },
+    {
+      "round": 31,
+      "home": "cor",
+      "away": "vit",
+      "date": "2026-10-17",
+      "kickoff": null
+    },
+    {
+      "round": 31,
+      "home": "flu",
+      "away": "san",
+      "date": "2026-10-17",
+      "kickoff": null
+    },
+    {
+      "round": 31,
+      "home": "gre",
+      "away": "cru",
+      "date": "2026-10-17",
+      "kickoff": null
+    },
+    {
+      "round": 31,
+      "home": "mir",
+      "away": "int",
+      "date": "2026-10-17",
+      "kickoff": null
+    },
+    {
+      "round": 31,
+      "home": "rem",
+      "away": "rbb",
+      "date": "2026-10-17",
+      "kickoff": null
+    },
+    {
+      "round": 31,
+      "home": "sao",
+      "away": "vas",
+      "date": "2026-10-17",
+      "kickoff": null
+    },
+    {
+      "round": 32,
+      "home": "cha",
+      "away": "flu",
+      "date": "2026-10-24",
+      "kickoff": null
+    },
+    {
+      "round": 32,
+      "home": "cru",
+      "away": "rem",
+      "date": "2026-10-24",
+      "kickoff": null
+    },
+    {
+      "round": 32,
+      "home": "ctb",
+      "away": "gre",
+      "date": "2026-10-24",
+      "kickoff": null
+    },
+    {
+      "round": 32,
+      "home": "fla",
+      "away": "cam",
+      "date": "2026-10-24",
+      "kickoff": null
+    },
+    {
+      "round": 32,
+      "home": "int",
+      "away": "bot",
+      "date": "2026-10-24",
+      "kickoff": null
+    },
+    {
+      "round": 32,
+      "home": "mir",
+      "away": "sao",
+      "date": "2026-10-24",
+      "kickoff": null
+    },
+    {
+      "round": 32,
+      "home": "pal",
+      "away": "rbb",
+      "date": "2026-10-24",
+      "kickoff": null
+    },
+    {
+      "round": 32,
+      "home": "san",
+      "away": "bah",
+      "date": "2026-10-24",
+      "kickoff": null
+    },
+    {
+      "round": 32,
+      "home": "vas",
+      "away": "cor",
+      "date": "2026-10-24",
+      "kickoff": null
+    },
+    {
+      "round": 32,
+      "home": "vit",
+      "away": "cap",
+      "date": "2026-10-24",
+      "kickoff": null
+    },
+    {
+      "round": 33,
+      "home": "bah",
+      "away": "sao",
+      "date": "2026-10-28",
+      "kickoff": null
+    },
+    {
+      "round": 33,
+      "home": "cam",
+      "away": "cru",
+      "date": "2026-10-28",
+      "kickoff": null
+    },
+    {
+      "round": 33,
+      "home": "cor",
+      "away": "mir",
+      "date": "2026-10-28",
+      "kickoff": null
+    },
+    {
+      "round": 33,
+      "home": "ctb",
+      "away": "vit",
+      "date": "2026-10-28",
+      "kickoff": null
+    },
+    {
+      "round": 33,
+      "home": "flu",
+      "away": "int",
+      "date": "2026-10-28",
+      "kickoff": null
+    },
+    {
+      "round": 33,
+      "home": "gre",
+      "away": "cap",
+      "date": "2026-10-28",
+      "kickoff": null
+    },
+    {
+      "round": 33,
+      "home": "rbb",
+      "away": "cha",
+      "date": "2026-10-28",
+      "kickoff": null
+    },
+    {
+      "round": 33,
+      "home": "rem",
+      "away": "bot",
+      "date": "2026-10-28",
+      "kickoff": null
+    },
+    {
+      "round": 33,
+      "home": "san",
+      "away": "pal",
+      "date": "2026-10-28",
+      "kickoff": null
+    },
+    {
+      "round": 33,
+      "home": "vas",
+      "away": "fla",
+      "date": "2026-10-28",
+      "kickoff": null
+    },
+    {
+      "round": 34,
+      "home": "bot",
+      "away": "cam",
+      "date": "2026-11-04",
+      "kickoff": null
+    },
+    {
+      "round": 34,
+      "home": "cap",
+      "away": "vas",
+      "date": "2026-11-04",
+      "kickoff": null
+    },
+    {
+      "round": 34,
+      "home": "cha",
+      "away": "mir",
+      "date": "2026-11-04",
+      "kickoff": null
+    },
+    {
+      "round": 34,
+      "home": "cru",
+      "away": "bah",
+      "date": "2026-11-04",
+      "kickoff": null
+    },
+    {
+      "round": 34,
+      "home": "fla",
+      "away": "gre",
+      "date": "2026-11-04",
+      "kickoff": null
+    },
+    {
+      "round": 34,
+      "home": "int",
+      "away": "ctb",
+      "date": "2026-11-04",
+      "kickoff": null
+    },
+    {
+      "round": 34,
+      "home": "pal",
+      "away": "rem",
+      "date": "2026-11-04",
+      "kickoff": null
+    },
+    {
+      "round": 34,
+      "home": "rbb",
+      "away": "san",
+      "date": "2026-11-04",
+      "kickoff": null
+    },
+    {
+      "round": 34,
+      "home": "sao",
+      "away": "cor",
+      "date": "2026-11-04",
+      "kickoff": null
+    },
+    {
+      "round": 34,
+      "home": "vit",
+      "away": "flu",
+      "date": "2026-11-04",
+      "kickoff": null
+    },
+    {
+      "round": 35,
+      "home": "cor",
+      "away": "bot",
+      "date": "2026-11-18",
+      "kickoff": null
+    },
+    {
+      "round": 35,
+      "home": "cru",
+      "away": "pal",
+      "date": "2026-11-18",
+      "kickoff": null
+    },
+    {
+      "round": 35,
+      "home": "ctb",
+      "away": "san",
+      "date": "2026-11-18",
+      "kickoff": null
+    },
+    {
+      "round": 35,
+      "home": "fla",
+      "away": "cap",
+      "date": "2026-11-18",
+      "kickoff": null
+    },
+    {
+      "round": 35,
+      "home": "gre",
+      "away": "bah",
+      "date": "2026-11-18",
+      "kickoff": null
+    },
+    {
+      "round": 35,
+      "home": "mir",
+      "away": "cam",
+      "date": "2026-11-18",
+      "kickoff": null
+    },
+    {
+      "round": 35,
+      "home": "rem",
+      "away": "cha",
+      "date": "2026-11-18",
+      "kickoff": null
+    },
+    {
+      "round": 35,
+      "home": "sao",
+      "away": "flu",
+      "date": "2026-11-18",
+      "kickoff": null
+    },
+    {
+      "round": 35,
+      "home": "vas",
+      "away": "int",
+      "date": "2026-11-18",
+      "kickoff": null
+    },
+    {
+      "round": 35,
+      "home": "vit",
+      "away": "rbb",
+      "date": "2026-11-18",
+      "kickoff": null
+    },
+    {
+      "round": 36,
+      "home": "bah",
+      "away": "ctb",
+      "date": "2026-11-21",
+      "kickoff": null
+    },
+    {
+      "round": 36,
+      "home": "bot",
+      "away": "sao",
+      "date": "2026-11-21",
+      "kickoff": null
+    },
+    {
+      "round": 36,
+      "home": "cam",
+      "away": "cor",
+      "date": "2026-11-21",
+      "kickoff": null
+    },
+    {
+      "round": 36,
+      "home": "cap",
+      "away": "rem",
+      "date": "2026-11-21",
+      "kickoff": null
+    },
+    {
+      "round": 36,
+      "home": "cha",
+      "away": "cru",
+      "date": "2026-11-21",
+      "kickoff": null
+    },
+    {
+      "round": 36,
+      "home": "flu",
+      "away": "mir",
+      "date": "2026-11-21",
+      "kickoff": null
+    },
+    {
+      "round": 36,
+      "home": "int",
+      "away": "vit",
+      "date": "2026-11-21",
+      "kickoff": null
+    },
+    {
+      "round": 36,
+      "home": "pal",
+      "away": "fla",
+      "date": "2026-11-21",
+      "kickoff": null
+    },
+    {
+      "round": 36,
+      "home": "rbb",
+      "away": "vas",
+      "date": "2026-11-21",
+      "kickoff": null
+    },
+    {
+      "round": 36,
+      "home": "san",
+      "away": "gre",
+      "date": "2026-11-21",
+      "kickoff": null
+    },
+    {
+      "round": 37,
+      "home": "bot",
+      "away": "bah",
+      "date": "2026-11-28",
+      "kickoff": null
+    },
+    {
+      "round": 37,
+      "home": "cam",
+      "away": "vas",
+      "date": "2026-11-28",
+      "kickoff": null
+    },
+    {
+      "round": 37,
+      "home": "cha",
+      "away": "pal",
+      "date": "2026-11-28",
+      "kickoff": null
+    },
+    {
+      "round": 37,
+      "home": "cor",
+      "away": "gre",
+      "date": "2026-11-28",
+      "kickoff": null
+    },
+    {
+      "round": 37,
+      "home": "ctb",
+      "away": "fla",
+      "date": "2026-11-28",
+      "kickoff": null
+    },
+    {
+      "round": 37,
+      "home": "flu",
+      "away": "cru",
+      "date": "2026-11-28",
+      "kickoff": null
+    },
+    {
+      "round": 37,
+      "home": "int",
+      "away": "rbb",
+      "date": "2026-11-28",
+      "kickoff": null
+    },
+    {
+      "round": 37,
+      "home": "mir",
+      "away": "cap",
+      "date": "2026-11-28",
+      "kickoff": null
+    },
+    {
+      "round": 37,
+      "home": "sao",
+      "away": "rem",
+      "date": "2026-11-28",
+      "kickoff": null
+    },
+    {
+      "round": 37,
+      "home": "vit",
+      "away": "san",
+      "date": "2026-11-28",
+      "kickoff": null
+    },
+    {
+      "round": 38,
+      "home": "bah",
+      "away": "cam",
+      "date": "2026-12-02",
+      "kickoff": null
+    },
+    {
+      "round": 38,
+      "home": "cap",
+      "away": "sao",
+      "date": "2026-12-02",
+      "kickoff": null
+    },
+    {
+      "round": 38,
+      "home": "cru",
+      "away": "int",
+      "date": "2026-12-02",
+      "kickoff": null
+    },
+    {
+      "round": 38,
+      "home": "fla",
+      "away": "cha",
+      "date": "2026-12-02",
+      "kickoff": null
+    },
+    {
+      "round": 38,
+      "home": "gre",
+      "away": "mir",
+      "date": "2026-12-02",
+      "kickoff": null
+    },
+    {
+      "round": 38,
+      "home": "pal",
+      "away": "ctb",
+      "date": "2026-12-02",
+      "kickoff": null
+    },
+    {
+      "round": 38,
+      "home": "rbb",
+      "away": "flu",
+      "date": "2026-12-02",
+      "kickoff": null
+    },
+    {
+      "round": 38,
+      "home": "rem",
+      "away": "cor",
+      "date": "2026-12-02",
+      "kickoff": null
+    },
+    {
+      "round": 38,
+      "home": "san",
+      "away": "bot",
+      "date": "2026-12-02",
+      "kickoff": null
+    },
+    {
+      "round": 38,
+      "home": "vas",
+      "away": "vit",
+      "date": "2026-12-02",
+      "kickoff": null
+    }
+  ]
+}

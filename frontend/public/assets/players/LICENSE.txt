@@ -1,0 +1,9 @@
+FOOTBALLER.GLB — ESCOPO DOS COMPONENTES
+
+Rig e clipes Football_Run, Football_Sprint e Football_Walk: derivados da Universal Animation Library de Quaternius, CC0 1.0. Texto original em SOURCE-LICENSE-CC0.txt.
+Fonte: https://quaternius.com/packs/universalanimationlibrary.html
+
+Geometria humana (incluindo rosto, cabelo, uniforme, chuteiras e luvas), materiais adaptados e outros 17 clipes Football_*: criados neste projeto. Este arquivo não concede licença adicional sobre a arte original do projeto nem a dedica ao domínio público.
+Sem likeness de atletas reais, escudos ou endosso de clubes.
+
+Detalhes e hashes em /data/asset-credits.json.

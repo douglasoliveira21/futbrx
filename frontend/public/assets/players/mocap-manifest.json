@@ -1,0 +1,180 @@
+{
+  "sources": [
+    {
+      "action": "throw_in",
+      "clip": "Football_ThrowIn",
+      "file": "07_Throw_In",
+      "start": 5.75,
+      "end": 7.75,
+      "contact": 6.67,
+      "sourceDuration": 7.9666666984558105,
+      "sha256": "b1a25811f637766e359a25595e3071ab0fa02e14a60ff7f125b41df4dce64b6d",
+      "duration": 2,
+      "contactOffset": 0.9199999999999999
+    },
+    {
+      "action": "pass",
+      "clip": "Football_Pass",
+      "file": "08_Side_Foot_Kick",
+      "start": 1.1,
+      "end": 1.98,
+      "contact": 1.42,
+      "sourceDuration": 4.516666889190674,
+      "sha256": "6a1e3353798d2e47e1700a4a6e00a0dbead60802ca2941825dedbaecf9440964",
+      "duration": 0.8799999999999999,
+      "contactOffset": 0.31999999999999984
+    },
+    {
+      "action": "shot",
+      "clip": "Football_Shot",
+      "file": "09_Power_Kick",
+      "start": 2.08,
+      "end": 3.2,
+      "contact": 2.58,
+      "sourceDuration": 4.449999809265137,
+      "sha256": "f120c45ab5186ebc3c30ae640ce97b88cecf08e3cda69201dd354437b26fcbc5",
+      "duration": 1.12,
+      "contactOffset": 0.5
+    },
+    {
+      "action": "penalty_kick",
+      "clip": "Football_Penalty",
+      "file": "10_Penalty_Kick_01",
+      "start": 5.45,
+      "end": 7.2,
+      "contact": 6.55,
+      "sourceDuration": 10.550000190734863,
+      "sha256": "0c5f7085d533313a171efb648889cef4e147c9fd576046cfc0e00a80c8f15642",
+      "duration": 1.75,
+      "contactOffset": 1.0999999999999996
+    },
+    {
+      "action": "celebrate",
+      "clip": "Football_Celebrate",
+      "file": "12_Goal_Celebration_01",
+      "start": 0.2,
+      "end": 3.45,
+      "sourceDuration": 3.4833333492279053,
+      "sha256": "1abc8bf2588c8e9e48ff960284add3b806957da73607b63edbecbafa14cf14c7",
+      "duration": 3.25
+    },
+    {
+      "action": "celebrate_2",
+      "clip": "Football_Celebrate2",
+      "file": "13_Goal_Celebration_02",
+      "start": 0.2,
+      "end": 3.5,
+      "sourceDuration": 3.5333333015441895,
+      "sha256": "c7e24fee13598b406cbb978042b94d948e36031c4b2cc1e941cca2510c004966",
+      "duration": 3.3
+    },
+    {
+      "action": "celebrate_3",
+      "clip": "Football_Celebrate3",
+      "file": "14_Goal_Celebration_03",
+      "start": 0.2,
+      "end": 3.15,
+      "sourceDuration": 3.183333396911621,
+      "sha256": "a842925f44863aac00ae83e3ccf6a1ec8d37c677f48142000a1006f2f27a905b",
+      "duration": 2.9499999999999997
+    },
+    {
+      "action": "dive_left",
+      "clip": "Football_SaveLeft",
+      "file": "15_Goalkeeper_Save_01",
+      "start": 4.65,
+      "end": 6.15,
+      "contact": 5.25,
+      "translate": true,
+      "sourceDuration": 7.183333396911621,
+      "sha256": "06b42bba7a9e590e4514dadda164b451f04e6d62e59fa6f63e035a492486f37f",
+      "duration": 1.5,
+      "contactOffset": 0.5999999999999996
+    },
+    {
+      "action": "dive_right",
+      "clip": "Football_SaveRight",
+      "file": "15_Goalkeeper_Save_01",
+      "start": 4.65,
+      "end": 6.15,
+      "contact": 5.25,
+      "translate": true,
+      "mirror": true,
+      "sourceDuration": 7.183333396911621,
+      "sha256": "06b42bba7a9e590e4514dadda164b451f04e6d62e59fa6f63e035a492486f37f",
+      "duration": 1.5,
+      "contactOffset": 0.5999999999999996
+    },
+    {
+      "action": "dive_low",
+      "clip": "Football_SaveLow",
+      "file": "17_Goalkeeper_Save_03",
+      "start": 6.15,
+      "end": 8.7,
+      "contact": 7.15,
+      "sourceDuration": 8.916666984558105,
+      "sha256": "a5b1c7b06f8263d0afe1d3e60ad9fa610c2a897b9a451d3b7c09ddccc75ea306",
+      "duration": 2.549999999999999,
+      "contactOffset": 1
+    },
+    {
+      "action": "defend",
+      "clip": "Football_Defend",
+      "file": "18_Defending_01",
+      "start": 0.25,
+      "end": 6.2,
+      "sourceDuration": 6.25,
+      "sha256": "045f985e1def4907e64d3c5aec26d2a19b26b606b9f380b319013a07b3576df9",
+      "duration": 5.95
+    },
+    {
+      "action": "challenge",
+      "clip": "Football_Challenge",
+      "file": "18_Defending_01",
+      "start": 3.5,
+      "end": 4.8,
+      "contact": 4,
+      "sourceDuration": 6.25,
+      "sha256": "045f985e1def4907e64d3c5aec26d2a19b26b606b9f380b319013a07b3576df9",
+      "duration": 1.2999999999999998,
+      "contactOffset": 0.5
+    },
+    {
+      "action": "yellow_card",
+      "clip": "Football_YellowCard",
+      "file": "20_Yellow_Card",
+      "start": 0.18,
+      "end": 2.85,
+      "contact": 0.72,
+      "sourceDuration": 2.883333444595337,
+      "sha256": "0ce57fd139ff8f3bbd688a51c462d0ada915da5c00d1efaec7c4800eca3230de",
+      "duration": 2.67,
+      "contactOffset": 0.54
+    },
+    {
+      "action": "red_card",
+      "clip": "Football_RedCard",
+      "file": "21_Yellow_And_Red_Card",
+      "start": 2.35,
+      "end": 5.25,
+      "contact": 3,
+      "sourceDuration": 5.733333587646484,
+      "sha256": "12fd6bdb1952a3d78dd0ded9dce1a4d15a9b653c6e26e4df274538ceca5bb0c0",
+      "duration": 2.9,
+      "contactOffset": 0.6499999999999999
+    },
+    {
+      "action": "second_yellow_card",
+      "clip": "Football_SecondYellow",
+      "file": "21_Yellow_And_Red_Card",
+      "start": 0.18,
+      "end": 5.3,
+      "contact": 0.8,
+      "redAt": 2.55,
+      "sourceDuration": 5.733333587646484,
+      "sha256": "12fd6bdb1952a3d78dd0ded9dce1a4d15a9b653c6e26e4df274538ceca5bb0c0",
+      "duration": 5.12,
+      "contactOffset": 0.6200000000000001
+    }
+  ]
+}

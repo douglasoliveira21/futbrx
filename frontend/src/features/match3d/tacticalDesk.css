@@ -1,0 +1,878 @@
+.tactical-desk {
+  --desk-green: #00e676;
+  --desk-line: #273b52;
+  --desk-muted: #a7b3c3;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: #07111f;
+  color: #f5f7fa;
+  font-size: 14px;
+}
+.dialog-native:has(.tactical-desk) {
+  inset: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+}
+.tactical-desk button,
+.tactical-desk select,
+.tactical-desk input:not([type="checkbox"]) {
+  color: inherit;
+  font: inherit;
+  background: #14253a;
+  border: 1px solid var(--desk-line);
+  border-radius: 7px;
+  min-width: 0;
+}
+.tactical-desk button {
+  min-height: 35px;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+.tactical-desk button:disabled {
+  opacity: 0.52;
+  cursor: default;
+}
+.tactical-desk button:focus-visible,
+.tactical-desk summary:focus-visible {
+  outline: 2px solid var(--desk-green);
+  outline-offset: 2px;
+}
+.tactical-desk button[aria-pressed="true"] {
+  background: #063d2b;
+  border-color: var(--desk-green);
+}
+.tactical-desk button.button:not(.button-outline) {
+  font-weight: 800;
+}
+.desk-toolbar {
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 4px 18px;
+  min-height: 60px;
+  background: #080f1b;
+  border-bottom: 1px solid var(--desk-line);
+}
+.desk-toolbar > strong {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  line-height: 1.1;
+  font-size: 17px;
+}
+.desk-toolbar > strong svg,
+.desk-toolbar em {
+  color: #f2c94c;
+}
+.desk-toolbar em {
+  display: block;
+  font-style: normal;
+}
+.desk-toolbar nav {
+  display: flex;
+  align-items: stretch;
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+}
+.desk-toolbar nav button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  background: transparent;
+  border-color: transparent;
+  min-height: 45px;
+}
+.desk-toolbar nav .desk-live {
+  color: var(--desk-green);
+  background: #063025;
+  border-bottom: 2px solid var(--desk-green);
+}
+.desk-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.desk-tools details {
+  position: relative;
+}
+.desk-tools summary {
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  cursor: pointer;
+  list-style: none;
+}
+.desk-tools details > div {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 230px;
+  padding: 12px;
+  background: #14253a;
+  border: 1px solid var(--desk-line);
+  border-radius: 8px;
+  white-space: normal;
+}
+.desk-tools > span {
+  padding: 7px 10px;
+  background: #14253a;
+  border-radius: 6px;
+}
+.desk-score {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(10px, 3vw, 48px);
+  min-height: 132px;
+  padding: 12px 20px;
+  background:
+    linear-gradient(90deg, #06111b4a, #07111fe8 37%, #07111fe8 63%, #06111b4a),
+    url("/assets/tactical-stadium.png") center 87% / cover;
+  border-bottom: 1px solid var(--desk-line);
+}
+.desk-score h2 {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin: 0;
+  min-width: 0;
+  font-size: clamp(14px, 1.7vw, 28px);
+}
+.desk-score h2:first-child {
+  justify-content: flex-end;
+  text-align: right;
+}
+.desk-badge {
+  flex: none;
+  width: clamp(30px, 5vw, 76px);
+  height: clamp(35px, 5.5vw, 82px);
+  object-fit: contain;
+}
+.desk-monogram {
+  display: grid;
+  place-items: center;
+  background: #102136;
+  border: 2px solid;
+  border-radius: 12px 12px 45% 45%;
+  font-size: clamp(10px, 1.2vw, 18px);
+}
+.desk-score-center {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 4px;
+}
+.desk-score-center strong {
+  font-size: clamp(30px, 4vw, 56px);
+  line-height: 1.06;
+  padding: 0 16px 4px;
+  background: #101e2ed0;
+  border-radius: 10px;
+}
+.desk-score-center span {
+  color: var(--desk-green);
+  font-weight: 800;
+  border-radius: 24px;
+  background: #063428;
+  padding: 5px 12px;
+}
+.desk-layout {
+  display: grid;
+  flex: 1;
+  grid-template-columns: minmax(0, 16fr) minmax(0, 36fr) minmax(0, 28fr) minmax(
+      0,
+      20fr
+    );
+  gap: 8px;
+  padding: 8px 12px;
+  align-items: stretch;
+}
+.desk-panel {
+  min-width: 0;
+  padding: 12px;
+  background: #0b192b;
+  border: 1px solid var(--desk-line);
+  border-radius: 10px;
+}
+.desk-panel h3 {
+  margin: 0 0 9px;
+  font-size: 17px;
+}
+.desk-panel h4 {
+  margin: 8px 0 0;
+  font-size: 15px;
+}
+.desk-tactics,
+.desk-players,
+.desk-exchanges {
+  overflow: auto;
+  max-height: max(490px, calc(100dvh - 315px));
+}
+.desk-tactic-controls,
+.desk-changes,
+.desk-confirm,
+.desk-exchanges {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+.desk-tactic-controls label,
+.desk-changes label,
+.desk-individual label {
+  display: grid;
+  gap: 4px;
+}
+.tactical-desk select,
+.tactical-desk input:not([type="checkbox"]) {
+  width: 100%;
+  padding: 7px;
+}
+.desk-mentality {
+  color: var(--desk-green);
+  font-weight: 700;
+}
+.desk-mentality select {
+  background: #063d2b;
+  color: #fff;
+}
+.desk-style {
+  display: grid;
+  gap: 4px;
+}
+.desk-style button,
+.desk-changes .button,
+.desk-confirm .button,
+.desk-quick button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tactical-desk .desk-check {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+}
+.desk-check input {
+  accent-color: var(--desk-green);
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+.desk-tactic-controls > .button,
+.desk-changes > .button,
+.desk-confirm > div > .button:last-child {
+  background: var(--desk-green);
+  color: #041e13;
+  border-color: var(--desk-green);
+  font-weight: 800;
+  justify-content: center;
+}
+.desk-saved {
+  display: block;
+  width: 100%;
+}
+.tactical-desk summary {
+  cursor: pointer;
+}
+.desk-tabs {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 9px;
+}
+.desk-tabs button {
+  flex: 1;
+  padding-inline: 4px;
+  font-weight: 700;
+  font-size: 12px;
+}
+.desk-field {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.desk-pitch {
+  position: relative;
+  flex: 1;
+  min-height: 425px;
+  overflow: hidden;
+  border: 2px solid #ecf3db;
+  border-radius: 5px;
+  background: repeating-linear-gradient(
+    0deg,
+    #2f7c17 0%,
+    #2f7c17 10%,
+    #388b19 10%,
+    #388b19 20%
+  );
+  box-shadow: inset 0 0 40px #1a400e80;
+}
+.desk-pitch::before {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  border-top: 2px solid #ecf3dbb0;
+}
+.desk-center-circle {
+  position: absolute;
+  width: 24%;
+  height: 20%;
+  inset: 40% auto auto 38%;
+  border: 2px solid #ecf3dbb0;
+  border-radius: 50%;
+}
+.desk-area,
+.desk-small-area {
+  position: absolute;
+  width: 58%;
+  height: 17%;
+  left: 21%;
+  border: 2px solid #ecf3dbb0;
+}
+.desk-small-area {
+  width: 26%;
+  height: 7%;
+  left: 37%;
+}
+.desk-pitch .top {
+  top: -2px;
+}
+.desk-pitch .bottom {
+  bottom: -2px;
+}
+.tactical-desk .desk-player {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: grid;
+  justify-items: center;
+  gap: 1px;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+.tactical-desk .desk-player[aria-pressed="true"] {
+  background: transparent;
+  z-index: 1;
+}
+.desk-kit {
+  display: inline-grid;
+  place-items: center;
+  width: 45px;
+  height: 36px;
+  clip-path: polygon(
+    0 18%,
+    30% 0,
+    40% 7%,
+    60% 7%,
+    70% 0,
+    100% 18%,
+    90% 49%,
+    77% 44%,
+    77% 100%,
+    23% 100%,
+    23% 44%,
+    10% 49%
+  );
+  background:
+    linear-gradient(
+      90deg,
+      #0008,
+      transparent 40%,
+      #fff3 50%,
+      transparent 63%,
+      #0008
+    ),
+    var(--kit);
+  color: white;
+  text-shadow:
+    0 1px 3px #000,
+    0 0 2px #000;
+  font-weight: 900;
+  filter: contrast(1.12);
+}
+.desk-player[aria-pressed="true"] .desk-kit {
+  box-shadow: inset 0 0 0 4px #f2c94c;
+}
+.desk-player-name {
+  padding: 3px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+  background: #041a15ee;
+  white-space: nowrap;
+  max-width: 108px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.desk-player-name i {
+  display: inline-block;
+  width: 5px;
+  height: 8px;
+  margin-left: 4px;
+  background: #f2c94c;
+}
+.desk-player-name b {
+  color: #ff6565;
+  margin-left: 3px;
+}
+.desk-selection,
+.desk-individual {
+  padding: 8px;
+}
+.desk-selection p {
+  margin: 4px 0;
+}
+.desk-selection dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+.desk-selection dl div {
+  display: flex;
+  justify-content: space-between;
+}
+.desk-individual {
+  display: grid;
+  gap: 8px;
+  max-height: 480px;
+  overflow: auto;
+}
+.desk-filters {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 6px;
+  font-size: 11px;
+}
+.desk-roster-head,
+.tactical-desk .desk-roster-row {
+  display: grid;
+  grid-template-columns:
+    minmax(65px, 1fr) minmax(32px, auto) minmax(49px, auto)
+    32px;
+  gap: 5px;
+  align-items: center;
+  text-align: left;
+}
+.desk-roster-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 8px 5px;
+  background: #14253a;
+  color: var(--desk-muted);
+  font-size: 11px;
+}
+.tactical-desk .desk-roster-row {
+  width: 100%;
+  border-radius: 0;
+  border-width: 0 0 1px;
+  padding: 7px 5px;
+  background: #0b192b;
+  font-size: 12px;
+}
+.tactical-desk .desk-roster-row > span:first-child {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 5px;
+}
+.desk-roster-row strong {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.desk-roster-row .desk-kit {
+  width: 24px;
+  height: 21px;
+  font-size: 9px;
+  flex: none;
+}
+.desk-position {
+  text-align: center;
+  padding: 3px;
+  border-radius: 4px;
+  background: #164b75;
+  font-size: 10px;
+}
+.desk-position[data-position="GOL"] {
+  background: #504219;
+}
+.desk-position[data-position="ATA"] {
+  background: #651f1c;
+}
+.desk-position[data-position="MEI"] {
+  background: #135231;
+}
+.desk-condition {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.desk-condition i {
+  border: 2px solid;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.desk-confirm > div {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.desk-confirm p {
+  margin: 0;
+  color: var(--desk-muted);
+  font-size: 12px;
+}
+.desk-change {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  align-items: center;
+  border-top: 1px solid var(--desk-line);
+  padding: 5px 0;
+}
+.desk-change > div {
+  display: grid;
+  gap: 4px;
+}
+.desk-out,
+.desk-in {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+}
+.desk-out {
+  color: #ff6767;
+}
+.desk-in {
+  color: var(--desk-green);
+}
+.desk-feed {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 6px 12px;
+  margin: 4px 18px;
+  background: #102035;
+  border: 1px solid var(--desk-line);
+  border-radius: 8px;
+}
+.desk-feed > svg,
+.desk-feed > b {
+  color: var(--desk-green);
+  flex: none;
+}
+.desk-feed span {
+  flex: 1;
+}
+.desk-bottom {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 18px 12px;
+}
+.desk-quick,
+.desk-visual {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.desk-quick {
+  flex: 1;
+  overflow-x: auto;
+}
+.desk-quick button,
+.desk-quick strong {
+  white-space: nowrap;
+  flex: none;
+}
+.desk-quick strong {
+  margin-right: 6px;
+}
+.desk-visual button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+.desk-statistics,
+.desk-history {
+  flex: 1;
+  margin: 8px 12px;
+}
+.desk-statistics > div {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  text-align: center;
+  padding: 11px;
+  border-bottom: 1px solid var(--desk-line);
+}
+.desk-layout.desk-expanded {
+  grid-template-columns: minmax(0, 660px);
+  justify-content: center;
+}
+.desk-expanded > :not(.desk-field) {
+  display: none;
+}
+@media (max-width: 1320px) {
+  .desk-toolbar {
+    gap: 6px;
+    padding-inline: 8px;
+  }
+  .desk-toolbar nav button {
+    padding-inline: 6px;
+    font-size: 12px;
+  }
+  .desk-panel {
+    padding: 8px;
+  }
+  .desk-visual button span {
+    display: none;
+  }
+}
+@media (max-width: 1020px) {
+  .desk-toolbar {
+    flex-wrap: wrap;
+  }
+  .desk-toolbar nav {
+    order: 3;
+    flex-basis: 100%;
+  }
+  .desk-tools {
+    margin-left: auto;
+  }
+  .desk-layout {
+    grid-template-columns: 1fr 1fr;
+  }
+  .desk-tactics,
+  .desk-players,
+  .desk-exchanges {
+    max-height: none;
+  }
+}
+@media (max-width: 620px) {
+  .desk-layout,
+  .desk-layout.desk-expanded {
+    grid-template-columns: 1fr;
+  }
+  .desk-field {
+    order: -1;
+  }
+  .desk-pitch {
+    min-height: 365px;
+  }
+  .desk-score {
+    padding-inline: 7px;
+    gap: 6px;
+    min-height: 92px;
+  }
+  .desk-score h2 {
+    gap: 4px;
+  }
+  .desk-score-center span {
+    font-size: 10px;
+  }
+  .desk-bottom {
+    flex-wrap: wrap;
+  }
+  .desk-quick {
+    flex-basis: 100%;
+  }
+  .desk-tools > span {
+    display: none;
+  }
+  .desk-feed {
+    margin-inline: 8px;
+  }
+}
+
+.preset-editor {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.preset-controls {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+.preset-controls label {
+  display: grid;
+  gap: 6px;
+}
+.preset-controls input,
+.preset-controls select,
+.preset-controls button {
+  background: #102436;
+  color: #eef7fc;
+  border: 1px solid #536a7a;
+  border-radius: 6px;
+  padding: 10px;
+  min-width: 0;
+}
+.preset-editor .desk-player {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+@media (max-width: 900px) {
+  .preset-editor {
+    grid-template-columns: 1fr;
+  }
+}
+.desk-toolbar nav {
+  flex-direction: row;
+}
+.tactical-desk .desk-tactic-controls > .button,
+.tactical-desk .desk-changes > .button,
+.tactical-desk .desk-confirm > div > .button:last-child {
+  background: var(--desk-green);
+  color: #041e13;
+}
+.tactical-desk .desk-roster-row[aria-pressed="true"] {
+  background: #063d2b;
+  box-shadow: inset 0 0 0 1px var(--desk-green);
+}
+.tactical-desk .desk-quick .button.outline,
+.tactical-desk .desk-confirm .button.outline {
+  background: #14253a;
+  color: #f5f7fa;
+  border: 1px solid var(--desk-line);
+}
+.desk-bottom {
+  margin: 0;
+}
+.desk-mobile-tabs {
+  display: none;
+}
+.desk-overlay {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 6px;
+  font-size: 12px;
+}
+.desk-overlay select {
+  width: auto;
+  flex: 1;
+}
+.desk-heat {
+  position: absolute;
+  width: 12.5%;
+  height: 10%;
+  background: radial-gradient(
+    ellipse,
+    #ffac29 8%,
+    #f23b20ad 43%,
+    transparent 75%
+  );
+  pointer-events: none;
+}
+.desk-player-name small {
+  margin-left: 4px;
+  padding: 1px 3px;
+  border-radius: 3px;
+  background: #f2c94c;
+  color: #07111f;
+}
+.desk-player-name small[data-band="good"] {
+  background: #00e676;
+}
+.desk-player-name small[data-band="low"] {
+  background: #ff6767;
+}
+@media (min-width: 1021px) {
+  .desk-layout {
+    grid-template-rows: minmax(0, 1fr);
+    height: max(515px, calc(100dvh - 310px));
+    flex: none;
+  }
+  .desk-field {
+    overflow: auto;
+  }
+  .desk-bottom {
+    min-height: 60px;
+  }
+}
+@media (max-width: 620px) {
+  .desk-mobile-tabs {
+    display: flex;
+    padding: 8px 12px 0;
+    margin: 0;
+  }
+  .desk-layout[data-mobile="Plano"]:not(.desk-expanded) > :not(.desk-tactics),
+  .desk-layout[data-mobile="Campo"]:not(.desk-expanded) > :not(.desk-field),
+  .desk-layout[data-mobile="Jogadores"]:not(.desk-expanded)
+    > :not(.desk-players),
+  .desk-layout[data-mobile="Trocas"]:not(.desk-expanded)
+    > :not(.desk-exchanges) {
+    display: none;
+  }
+}
+@media (max-width: 620px) {
+  .tactical-desk .desk-bottom {
+    padding-inline: 8px;
+    justify-content: flex-start;
+  }
+  .tactical-desk .desk-quick {
+    flex: 0 1 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+  .tactical-desk .desk-visual {
+    margin-left: auto;
+  }
+}
+.desk-zones,
+.desk-lanes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.desk-zones {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+}
+.desk-zones span {
+  padding: 8px;
+  background: #0e253827;
+  border: 1px dashed #ffffff99;
+}
+.desk-cover {
+  position: absolute;
+  width: 21%;
+  height: 14%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #95edff;
+  border-radius: 50%;
+  background: #60d9ff42;
+  pointer-events: none;
+}
+.desk-lanes line {
+  stroke: #fff7a3;
+  stroke-width: 0.55;
+  stroke-dasharray: 1 0.6;
+}
+.desk-overlay-caption {
+  margin: 4px 0;
+  font-size: 12px;
+}
+
+.desk-toolbar > .futbrx-logo {
+  height: 50px;
+  flex: none;
+}

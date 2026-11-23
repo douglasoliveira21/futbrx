@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+const base=process.env.API_URL??'http://127.0.0.1:5080/api';
+async function call(path,body,token,cookie){const r=await fetch(base+path,{method:body===undefined?'GET':'POST',headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{}),...(cookie?{Cookie:cookie}:{})},body:body===undefined?undefined:JSON.stringify(body)});return {status:r.status,cookie:r.headers.get('set-cookie')?.split(';')[0],data:await r.json().catch(()=>null)};}
+const email=`smoke-${Date.now()}@example.test`;
+const one=await call('/auth/register',{email,password:'Smoke-password-123!',name:'Teste'});assert.equal(one.status,200);const t=one.data.token;
+assert.equal((await call('/careers/')).status,401);
+const created=await call('/careers/',{name:'Integração',clubId:'pal'},t);assert.equal(created.status,200);const id=created.data.id;
+const second=await call('/auth/register',{email:'other-'+email,password:'Smoke-password-123!',name:'Outra conta'});assert.equal(second.status,200);
+assert.equal((await call('/careers/'+id,undefined,second.data.token)).status,404);
+assert.equal((await call('/careers/'+id+'/actions',{type:'advance',revision:1},second.data.token)).status,404);
+let c=(await call('/careers/'+id,undefined,t)).data;assert.equal(c.state.fixtures.length,380);
+const initialYouth=await call(`/careers/${id}/youth/`,undefined,t);assert.equal(initialYouth.status,200);assert.equal(initialYouth.data.academy.length,6);
+const revision=c.revision;
+assert.equal((await call(`/careers/${id}/actions`,{type:'advance',revision},t)).status,400);
+const started=await call(`/careers/${id}/live/start`,{revision},t); assert.equal(started.status,200);
+const live=started.data; assert.equal(live.fixture.homeGoals,null); assert.equal(live.preparedState,undefined);
+assert.equal((await call(`/careers/${id}/live/finish`,{id:live.id},t)).status,400);
+assert.equal((await call(`/careers/${id}/live/tick`,{id:live.id,playing:true},second.data.token)).status,404);
+const tick=await call(`/careers/${id}/live/tick`,{id:live.id,playing:true},t); assert.equal(tick.status,200);
+assert(tick.data.replay.frames.every(f=>f.second===0)); assert.equal(tick.data.complete,false);
+c=(await call('/careers/'+id,undefined,t)).data; assert.equal(c.state.round,1);
+assert(c.state.fixtures.every(f=>f.homeGoals===null)); assert.equal(c.state.liveMatch.id,live.id);
+assert.equal((await call(`/careers/${id}/actions`,{revision:c.revision,type:'tactics',value:'4-4-2',extra:'Ofensiva'},t)).status,400);
+assert.equal((await call(`/careers/${id}/matches/1/${live.fixture.home}/replay`,undefined,t)).status,404);
+
+const refreshed=await call('/auth/refresh',{},undefined,one.cookie);assert.equal(refreshed.status,200);
+assert.equal((await call('/auth/refresh',{},undefined,one.cookie)).status,401);
+assert.equal((await call('/auth/logout',{},undefined,refreshed.cookie)).status,204);
+assert.equal((await call('/auth/refresh',{},undefined,refreshed.cookie)).status,401);
+console.log('PASS: autenticação, isolamento, transmissão sem salto, placar futuro protegido, retomada, tática congelada, refresh e logout.');

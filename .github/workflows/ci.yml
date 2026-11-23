@@ -1,0 +1,36 @@
+name: Verify
+on: [push, pull_request]
+jobs:
+ checks:
+  runs-on: ubuntu-latest
+  services:
+   postgres:
+    image: postgres:17-alpine
+    env: {POSTGRES_USER: manager, POSTGRES_PASSWORD: test-only-password, POSTGRES_DB: brasileirao}
+    ports: ["5432:5432"]
+    options: --health-cmd "pg_isready -U manager" --health-interval 5s --health-timeout 5s --health-retries 10
+  steps:
+   - uses: actions/checkout@v4
+   - uses: actions/setup-node@v4
+     with: {node-version: 24}
+   - uses: actions/setup-dotnet@v4
+     with: {dotnet-version: '10.0.x'}
+   - run: npm ci && npm run build
+     working-directory: frontend
+   - run: dotnet run --project backend/tests/SimulationTests
+   - run: dotnet run --project backend/tests/ApiTests
+   - run: node --experimental-strip-types frontend/tests/playback.test.mjs
+   - run: node --experimental-strip-types frontend/tests/presentation.test.mjs
+   - run: node --experimental-strip-types frontend/tests/sources.test.mjs
+   - run: python scripts/data/test_reviewed_catalog.py
+   - name: Integration against PostgreSQL
+     env:
+      Jwt__Key: ci-only-key-at-least-32-characters-long
+      ConnectionStrings__Game: Host=localhost;Database=brasileirao;Username=manager;Password=test-only-password
+      Database__Migrate: 'true'
+      ASPNETCORE_URLS: http://127.0.0.1:5080
+     run: |
+      dotnet run --no-launch-profile --project backend/src/Api > /tmp/api.log 2>&1 &
+      trap 'kill $!' EXIT
+      for i in $(seq 1 30); do curl -fsS http://127.0.0.1:5080/api/health && break || sleep 2; done
+      node backend/tests/api-smoke.mjs

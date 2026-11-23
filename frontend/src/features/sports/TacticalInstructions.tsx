@@ -1,0 +1,11 @@
+import type { MatchPlayer, TacticalPlan } from "../../services/api";
+
+export const defaultTacticalPlan:TacticalPlan={style:"Equilibrado",pressure:"Média",width:"Normal",buildShort:true,overlap:false,shootMore:false,avoidFouls:false,offsideTrap:false,attackSide:"Ambos",roles:{}};
+export default function TacticalInstructions({plan,onChange,players,disabled=false}:{plan:TacticalPlan;onChange:(p:TacticalPlan)=>void;players:Pick<MatchPlayer,"id"|"name"|"position">[];disabled?:boolean}){
+ const set=(key:keyof TacticalPlan,value:string|boolean)=>onChange({...plan,[key]:value});
+ return <fieldset className="tactical-instructions" disabled={disabled}><legend>Instruções da equipe</legend><div className="tactical-selects">
+  {([['style','Estilo de jogo',['Equilibrado','Posse','Contra-ataque','Direto']],['pressure','Pressão',['Baixa','Média','Alta']],['width','Amplitude',['Fechada','Normal','Aberta']],['attackSide','Corredor preferencial',['Ambos','Esquerda','Direita']]] as const).map(([key,label,options])=><label key={key}>{label}<select value={plan[key]} onChange={e=>set(key,e.target.value)}>{options.map(x=><option key={x}>{x}</option>)}</select></label>)}
+ </div><div className="tactical-checks">{([['buildShort','Sair jogando curto'],['overlap','Ultrapassagens dos laterais'],['shootMore','Finalizar mais'],['avoidFouls','Evitar faltas'],['offsideTrap','Linha de impedimento']] as const).map(([key,label])=><label key={key}><input type="checkbox" checked={plan[key]} onChange={e=>set(key,e.target.checked)}/>{label}</label>)}</div>
+ <details><summary>Instruções individuais</summary><div className="individual-instructions">{players.map(p=><label key={p.id}>{p.name} · {p.position}<select aria-label={`Instrução de ${p.name}`} value={plan.roles?.[p.id]??'Livre'} onChange={e=>onChange({...plan,roles:{...plan.roles,[p.id]:e.target.value}})}>{(p.position==='GOL'?['Livre','Apoio']:['Livre','Apoio','Infiltrar','Pivô','Falso nove','Ultrapassar','Marcar','Cobertura']).map(role=><option key={role}>{role}</option>)}</select></label>)}</div></details>
+ <p className="muted">Pressão alta acelera o desgaste. Os movimentos dependem do espaço, da condição e das características dos atletas.</p></fieldset>
+}

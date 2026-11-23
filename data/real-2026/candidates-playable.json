@@ -1,0 +1,411 @@
+{
+  "asOf": "2026-11-21",
+  "source": "Wikidata CC0; vínculos candidatos sem revisão individual",
+  "players": [
+    {
+      "clubId": "bah",
+      "id": 112877211,
+      "name": "Alejo Véliz",
+      "position": "ZAG",
+      "age": 23,
+      "start": "2026-07-01",
+      "source": "http://www.wikidata.org/entity/statement/Q112877211-9b2cf2e4-49e3-077c-c23e-65a0e0659e2d"
+    },
+    {
+      "clubId": "bot",
+      "id": 15214940,
+      "name": "Alex Telles",
+      "position": "ATA",
+      "age": 33,
+      "start": "2024-09-03",
+      "source": "http://www.wikidata.org/entity/statement/Q15214940-dbb68f80-46e6-9f95-8fc4-7aaf7c608b4c"
+    },
+    {
+      "clubId": "cam",
+      "id": 137242,
+      "name": "Bernard",
+      "position": "LAT",
+      "age": 34,
+      "start": "2024-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q137242-4340f438-4246-2520-b2c4-1aab8170d865"
+    },
+    {
+      "clubId": "cam",
+      "id": 18891568,
+      "name": "Vitor Hugo Franchescoli de Souza",
+      "position": "MEI",
+      "age": 35,
+      "start": "2026-01-09",
+      "source": "http://www.wikidata.org/entity/statement/Q18891568-775A7DF5-A6BD-4D95-8F30-7137404DD480"
+    },
+    {
+      "clubId": "cam",
+      "id": 19709176,
+      "name": "Gustavo Scarpa",
+      "position": "ATA",
+      "age": 32,
+      "start": "2024-01-11",
+      "source": "http://www.wikidata.org/entity/statement/Q19709176-7075C4E6-568B-49E4-9469-819D04C41CDA"
+    },
+    {
+      "clubId": "cap",
+      "id": 20015578,
+      "name": "Luis Manuel Orejuela",
+      "position": "MEI",
+      "age": 31,
+      "start": "2022-09-01",
+      "source": "http://www.wikidata.org/entity/statement/Q20015578-8e707bf8-439b-0647-50f6-74342af0ab97"
+    },
+    {
+      "clubId": "cap",
+      "id": 101084011,
+      "name": "Lucas Esquivel",
+      "position": "MEI",
+      "age": 25,
+      "start": "2023-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q101084011-3e110bdc-4ce3-cefc-9884-20d73296b6da"
+    },
+    {
+      "clubId": "cor",
+      "id": 144616,
+      "name": "Zakaria Labyad",
+      "position": "ATA",
+      "age": 33,
+      "start": "2026-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q144616-4da8a8f7-4d83-0c51-001b-5bb419fc2554"
+    },
+    {
+      "clubId": "cor",
+      "id": 1155889,
+      "name": "André Carrillo",
+      "position": "LAT",
+      "age": 35,
+      "start": "2024-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q1155889-c9483022-4517-d27e-b702-223673ba09f8"
+    },
+    {
+      "clubId": "cor",
+      "id": 14602686,
+      "name": "Gabriel Paulista",
+      "position": "MEI",
+      "age": 36,
+      "start": "2026-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q14602686-04f857d8-4ac9-0345-d3be-005ad05f0d3c"
+    },
+    {
+      "clubId": "cru",
+      "id": 1341709,
+      "name": "Dudu",
+      "position": "ATA",
+      "age": 34,
+      "start": "2025-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q1341709-dfc363bb-42b9-91e4-15cf-9f5df8076a6a"
+    },
+    {
+      "clubId": "cru",
+      "id": 15831118,
+      "name": "Matheus Pereira",
+      "position": "LAT",
+      "age": 30,
+      "start": "2023-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q15831118-854e0fcf-4e57-9b6e-f128-060e88b9eaa5"
+    },
+    {
+      "clubId": "cru",
+      "id": 18617137,
+      "name": "Gerson",
+      "position": "ATA",
+      "age": 29,
+      "start": "2026-01-10",
+      "source": "http://www.wikidata.org/entity/statement/Q18617137-69657CBE-3919-4F14-80BB-5BB69A9FBAE8"
+    },
+    {
+      "clubId": "cru",
+      "id": 110253575,
+      "name": "Camila Gomes",
+      "position": "GOL",
+      "age": 25,
+      "start": "2024-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q110253575-02ab66bb-4a71-48f9-e618-21602dbfd674"
+    },
+    {
+      "clubId": "cru",
+      "id": 131110894,
+      "name": "Néiser Villarreal",
+      "position": "ZAG",
+      "age": 21,
+      "start": "2026-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q131110894-831b616c-4a23-0ddf-fc18-4e6450418b8e"
+    },
+    {
+      "clubId": "ctb",
+      "id": 2073247,
+      "name": "Rodrigo Moledo",
+      "position": "MEI",
+      "age": 39,
+      "start": "2025-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q2073247-10404753-687b-4719-b48b-bdfd9f4d5b51"
+    },
+    {
+      "clubId": "ctb",
+      "id": 101230488,
+      "name": "Breno Lopes",
+      "position": "ZAG",
+      "age": 30,
+      "start": "2026-01-15",
+      "source": "http://www.wikidata.org/entity/statement/Q101230488-f0cb9de0-4df0-25a5-00af-b5e93237891d"
+    },
+    {
+      "clubId": "fla",
+      "id": 19362872,
+      "name": "Jorge Carrascal",
+      "position": "LAT",
+      "age": 28,
+      "start": "2025-08-02",
+      "source": "http://www.wikidata.org/entity/statement/Q19362872-dc7e4ba3-4808-fd30-882e-842ccfc853f0"
+    },
+    {
+      "clubId": "flu",
+      "id": 15696665,
+      "name": "Luciano Acosta",
+      "position": "ATA",
+      "age": 32,
+      "start": "2025-08-01",
+      "source": "http://www.wikidata.org/entity/statement/Q15696665-4203ae4b-4024-523a-5356-05d3d5a9baa9"
+    },
+    {
+      "clubId": "flu",
+      "id": 19968627,
+      "name": "Yony Andrés González Copete",
+      "position": "ATA",
+      "age": 32,
+      "start": "2023-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q19968627-1b9d268c-4bda-b0b9-7ebc-27b94e0ff272"
+    },
+    {
+      "clubId": "flu",
+      "id": 20735677,
+      "name": "Jefferson Savarino",
+      "position": "ATA",
+      "age": 30,
+      "start": "2026-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q20735677-a7a24f90-4880-2183-35a4-f7c75292a1cd"
+    },
+    {
+      "clubId": "gre",
+      "id": 1707749,
+      "name": "Edenilson",
+      "position": "ATA",
+      "age": 36,
+      "start": "2024-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q1707749-cb2db2e4-4f06-f25b-14b9-7f0cdb5afec7"
+    },
+    {
+      "clubId": "gre",
+      "id": 16553648,
+      "name": "Cristian Pavón",
+      "position": "LAT",
+      "age": 30,
+      "start": "2024-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q16553648-a92d2ff1-4dc9-69f5-adaa-bd36f5e79a4b"
+    },
+    {
+      "clubId": "gre",
+      "id": 123422089,
+      "name": "Lucas Camilo",
+      "position": "ATA",
+      "age": 20,
+      "start": "2023-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q123422089-42303df8-4f39-3305-53c0-af76dd7e8df2"
+    },
+    {
+      "clubId": "int",
+      "id": 10856523,
+      "name": "Antonio Sanabria",
+      "position": "ZAG",
+      "age": 30,
+      "start": "2026-08-01",
+      "source": "http://www.wikidata.org/entity/statement/Q10856523-e6495296-4b7a-20c5-4b75-2cacd105acfa"
+    },
+    {
+      "clubId": "int",
+      "id": 15543156,
+      "name": "Niclas Eliasson",
+      "position": "ATA",
+      "age": 30,
+      "start": "2026-08-17",
+      "source": "http://www.wikidata.org/entity/statement/Q15543156-BCEFC1C0-A31D-42AA-858C-4FFCD8AB3F9C"
+    },
+    {
+      "clubId": "int",
+      "id": 17086753,
+      "name": "Sergio Rochet",
+      "position": "GOL",
+      "age": 33,
+      "start": "2023-07-13",
+      "source": "http://www.wikidata.org/entity/statement/Q17086753-0F8A47C5-AE7A-43A8-B52A-319F10E3DBC5"
+    },
+    {
+      "clubId": "int",
+      "id": 20716703,
+      "name": "Wesley Moraes",
+      "position": "ZAG",
+      "age": 30,
+      "start": "2022-01-07",
+      "source": "http://www.wikidata.org/entity/statement/Q20716703-41787526-491f-1eb7-8097-8c6ed412d895"
+    },
+    {
+      "clubId": "int",
+      "id": 110882015,
+      "name": "Matheus Cunha Queiroz",
+      "position": "GOL",
+      "age": 25,
+      "start": "2026-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q110882015-10603413-4014-eb9e-c122-960f2bd8752b"
+    },
+    {
+      "clubId": "pal",
+      "id": 14755607,
+      "name": "Lucas Evangelista Santana de Oliveira",
+      "position": "ATA",
+      "age": 31,
+      "start": "2025-03-14",
+      "source": "http://www.wikidata.org/entity/statement/Q14755607-1DD7AD4A-112D-4FCB-A788-59C9856AC1DA"
+    },
+    {
+      "clubId": "pal",
+      "id": 17619350,
+      "name": "Andreas Pereira",
+      "position": "ATA",
+      "age": 30,
+      "start": "2025-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q17619350-c421f9bc-4773-7ed8-d11b-753b556c1731"
+    },
+    {
+      "clubId": "pal",
+      "id": 110160871,
+      "name": "Ramón Sosa",
+      "position": "ATA",
+      "age": 27,
+      "start": "2025-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q110160871-3b2490e8-4579-0b08-0d9a-f3d3b6a6d102"
+    },
+    {
+      "clubId": "pal",
+      "id": 111016177,
+      "name": "Vitor Roque",
+      "position": "ZAG",
+      "age": 21,
+      "start": "2025-02-28",
+      "source": "http://www.wikidata.org/entity/statement/Q111016177-881d9e67-4daa-50c7-0b45-060087af21dc"
+    },
+    {
+      "clubId": "pal",
+      "id": 119152074,
+      "name": "Riquelme Fillipi",
+      "position": "ZAG",
+      "age": 20,
+      "start": "2024-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q119152074-30c874b1-4913-8c15-8877-11594aeaccbf"
+    },
+    {
+      "clubId": "rbb",
+      "id": 106638309,
+      "name": "José Hurtado",
+      "position": "MEI",
+      "age": 24,
+      "start": "2022-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q106638309-23c43c7d-4309-10dd-5246-9c9e9155b700"
+    },
+    {
+      "clubId": "san",
+      "id": 142794,
+      "name": "Neymar",
+      "position": "LAT",
+      "age": 34,
+      "start": "2025-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q142794-6acf87f0-4972-b425-241a-06c64c9513a2"
+    },
+    {
+      "clubId": "san",
+      "id": 2035459,
+      "name": "Willian Arão",
+      "position": "ATA",
+      "age": 34,
+      "start": "2025-07-01",
+      "source": "http://www.wikidata.org/entity/statement/Q2035459-1bb5504f-4f07-82ef-0878-f4c362357fed"
+    },
+    {
+      "clubId": "san",
+      "id": 13646572,
+      "name": "Gabigol",
+      "position": "ZAG",
+      "age": 30,
+      "start": "2026-01-01",
+      "source": "http://www.wikidata.org/entity/statement/Q13646572-9ce14c29-4b06-a4eb-db74-aa67f158c35b"
+    },
+    {
+      "clubId": "san",
+      "id": 20048828,
+      "name": "Rodinei",
+      "position": "MEI",
+      "age": 34,
+      "start": "2026-09-02",
+      "source": "http://www.wikidata.org/entity/statement/Q20048828-3C2CC981-93C5-43C3-A1B0-AA6D3088C01F"
+    },
+    {
+      "clubId": "sao",
+      "id": 15131398,
+      "name": "Wendell Nascimento Borges",
+      "position": "ATA",
+      "age": 33,
+      "start": "2025-01-31",
+      "source": "http://www.wikidata.org/entity/statement/Q15131398-509C5BC4-B8C2-4997-8297-63BE7D7539DD"
+    },
+    {
+      "clubId": "vas",
+      "id": 1900000000,
+      "name": "Léo Jardim",
+      "position": "GOL",
+      "age": 27,
+      "source": "https://ge.globo.com/google/amp/futebol/times/vasco/noticia/2026/11/03/relacionados-do-vasco-gomez-viaja-para-enfrentar-o-athletico-marino-e-desfalque.ghtml",
+      "ageEstimated": true
+    },
+    {
+      "clubId": "cha",
+      "id": 1900000001,
+      "name": "Hyoran",
+      "position": "MEI",
+      "age": 27,
+      "source": "https://ge.globo.com/google/amp/sc/futebol/times/chapecoense/noticia/2026/10/30/saiba-quais-sao-os-atletas-da-chapecoense-com-contrato-para-a-proxima-temporada.ghtml",
+      "ageEstimated": true
+    },
+    {
+      "clubId": "rem",
+      "id": 1900000002,
+      "name": "Marcelo Rangel",
+      "position": "GOL",
+      "age": 27,
+      "source": "https://ge.globo.com/pa/futebol/times/remo/noticia/2026/11/19/remo-tem-10-jogadores-com-contrato-para-2027-veja-a-lista.ghtml",
+      "ageEstimated": true
+    },
+    {
+      "clubId": "vit",
+      "id": 1900000003,
+      "name": "Lucas Arcanjo",
+      "position": "GOL",
+      "age": 27,
+      "source": "https://ge.globo.com/google/amp/ba/futebol/times/vitoria/noticia/2026/11/06/relacionados-mateus-silva-luan-candido-e-jamerson-reforcam-o-vitoria-contra-o-fluminense.ghtml",
+      "ageEstimated": true
+    },
+    {
+      "clubId": "mir",
+      "id": 1900000004,
+      "name": "Neto Moura",
+      "position": "MEI",
+      "age": 27,
+      "source": "https://ge.globo.com/google/amp/sp/tem-esporte/futebol/times/mirassol/noticia/2026/11/21/escalacao-do-mirassol-guanaes-perde-edson-carioca-e-neto-moura-para-o-jogo-contra-o-fluminense.ghtml",
+      "ageEstimated": true
+    }
+  ]
+}

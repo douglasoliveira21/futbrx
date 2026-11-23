@@ -1,0 +1,75 @@
+{
+  "assets": [
+    {
+      "id": "crowd",
+      "title": "Soccer Stadium 01.wav",
+      "author": "Sandermotions",
+      "source": "https://freesound.org/people/Sandermotions/sounds/494351/",
+      "audioSource": "https://cdn.freesound.org/previews/494/494351_1402315-hq.mp3",
+      "path": "/assets/audio/crowd.mp3",
+      "licence": "CC0-1.0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "reviewedOn": "2026-11-21",
+      "format": "Public MP3 player preview, unchanged",
+      "bytes": 737568,
+      "sha256": "17b406a82eae21d37fd9c8deaa2e0c059874c114dc769649727b6005ea220478"
+    },
+    {
+      "id": "goal",
+      "title": "Goal.wav",
+      "playbackEdit": "Playback starts at 5.65 s (crowd roar), ends at 12 s; 5 ms fade-in and 250 ms fade-out. Original MP3 unchanged.",
+      "author": "Sandermotions",
+      "source": "https://freesound.org/people/Sandermotions/sounds/494352/",
+      "audioSource": "https://cdn.freesound.org/previews/494/494352_1402315-hq.mp3",
+      "path": "/assets/audio/goal.mp3",
+      "licence": "CC0-1.0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "reviewedOn": "2026-11-21",
+      "format": "Public MP3 player preview, unchanged",
+      "bytes": 345408,
+      "sha256": "b5b88913f70fa84ae1235d0c944d3ceee4894a18bf04dc20dbc1c774a1a6dc95"
+    },
+    {
+      "id": "near-miss",
+      "title": "Soccer stadium Oehh.wav",
+      "author": "Sandermotions",
+      "source": "https://freesound.org/people/Sandermotions/sounds/494362/",
+      "audioSource": "https://cdn.freesound.org/previews/494/494362_1402315-hq.mp3",
+      "path": "/assets/audio/near-miss.mp3",
+      "licence": "CC0-1.0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "reviewedOn": "2026-11-21",
+      "format": "Public MP3 player preview, unchanged",
+      "bytes": 215232,
+      "sha256": "1c75d7dcb4833427e7a403275f9dda815c3e8e3a19f723e892d2bf46dd882768"
+    },
+    {
+      "id": "kick",
+      "title": "Soccer Ball Kick",
+      "author": "bittermelonheart",
+      "source": "https://freesound.org/people/bittermelonheart/sounds/555042/",
+      "audioSource": "https://cdn.freesound.org/previews/555/555042_11910076-hq.mp3",
+      "path": "/assets/audio/kick.mp3",
+      "licence": "CC0-1.0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "reviewedOn": "2026-11-21",
+      "format": "Public MP3 player preview, unchanged",
+      "bytes": 21504,
+      "sha256": "7b5b6bd8f7567832c98f030e94783dba04108d74fef42fb24d5b2bbf1abb3949"
+    },
+    {
+      "id": "whistle",
+      "title": "Referee whistle sound.wav",
+      "author": "Rosa-Orenes256",
+      "source": "https://freesound.org/people/Rosa-Orenes256/sounds/538422/",
+      "audioSource": "https://cdn.freesound.org/previews/538/538422_11966684-hq.mp3",
+      "path": "/assets/audio/whistle.mp3",
+      "licence": "CC0-1.0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "reviewedOn": "2026-11-21",
+      "format": "Public MP3 player preview, unchanged",
+      "bytes": 16320,
+      "sha256": "1bc56409d3439a16fd54bc8fa83affb7e2bc69519b15ac49979d924e895910bf"
+    }
+  ]
+}

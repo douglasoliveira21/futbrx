@@ -1,0 +1,175 @@
+{
+  "batchcomplete": "",
+  "query": {
+    "pages": {
+      "29048661": {
+        "pageid": 29048661,
+        "ns": 6,
+        "title": "File:Clube de Regatas do Flamengo logo.svg",
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/9/96/Clube_de_Regatas_do_Flamengo_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Clube_de_Regatas_do_Flamengo_logo.svg",
+            "descriptionshorturl": "https://commons.wikimedia.org/wiki/Special:Redirect/page/29048661",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2026-09-19 03:59:10",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "Clube de Regatas do Flamengo logo",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "With trademark|PD textlogo|Files allowed to be overwritten by everyone|SVG text logos|Black, red, white logos|SVG association football logos of Brazil|TOO-Brazil|CR Flamengo logos",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "This is the logo of Clube de Regatas do Flamengo, a Brazilian sports club based in Rio de Janeiro.",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "1930s<div style=\"display: none;\">date QS:P,+1930-00-00T00:00:00Z/8</div>",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "SVG based on <a rel=\"nofollow\" class=\"external text\" href=\"http://www.flamengo.com.br/\">club logo</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "Clube de Regatas do Flamengo",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "Public domain",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Public domain",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "false",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Copyrighted": {
+                "value": "False",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "trademarked",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "pd",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      "23139213": {
+        "pageid": 23139213,
+        "ns": 6,
+        "title": "File:Palmeiras logo.svg",
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/1/10/Palmeiras_logo.svg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Palmeiras_logo.svg",
+            "descriptionshorturl": "https://commons.wikimedia.org/wiki/Special:Redirect/page/23139213",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2012-12-11 13:29:47",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "Palmeiras logo",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "With trademark|PD textlogo|SVG text logos|Green and white logos|Logos of Sociedade Esportiva Palmeiras|TOO-Brazil",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "The logo of Sociedade Esportiva Palmeiras, a Brazilian sports club.",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "2010",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "Vector extracted from <a rel=\"nofollow\" class=\"external free\" href=\"http://assessoria.palmeiras.com.br/IMAGENS/Palmeiras_Manual-Identidade-Visual.pdf\">http://assessoria.palmeiras.com.br/IMAGENS/Palmeiras_Manual-Identidade-Visual.pdf</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "Sociedade Esportiva Palmeiras",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "Public domain",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Public domain",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "false",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Copyrighted": {
+                "value": "False",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "trademarked",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "pd",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "season": 2026,
+  "asOf": "2026-11-21",
+  "source": "https://www.cbf.com.br/futebol-brasileiro/times/campeonato-brasileiro/serie-a/2026",
+  "clubs": [
+    {
+      "id": "pal",
+      "name": "Palmeiras",
+      "short": "PAL",
+      "color": "#176b3a",
+      "wikipedia": "https://en.wikipedia.org/wiki/SE_Palmeiras",
+      "strength": 70
+    },
+    {
+      "id": "fla",
+      "name": "Flamengo",
+      "short": "FLA",
+      "color": "#bf2033",
+      "wikipedia": "https://en.wikipedia.org/wiki/CR_Flamengo",
+      "strength": 70
+    },
+    {
+      "id": "bot",
+      "name": "Botafogo",
+      "short": "BOT",
+      "color": "#eeeeee",
+      "wikipedia": "https://en.wikipedia.org/wiki/Botafogo_FR",
+      "strength": 70
+    },
+    {
+      "id": "cor",
+      "name": "Corinthians",
+      "short": "COR",
+      "color": "#dddddd",
+      "wikipedia": "https://en.wikipedia.org/wiki/SC_Corinthians_Paulista",
+      "strength": 70
+    },
+    {
+      "id": "sao",
+      "name": "São Paulo",
+      "short": "SAO",
+      "color": "#d32c36",
+      "wikipedia": "https://en.wikipedia.org/wiki/S%C3%A3o_Paulo_FC",
+      "strength": 70
+    },
+    {
+      "id": "san",
+      "name": "Santos",
+      "short": "SAN",
+      "color": "#fafafa",
+      "wikipedia": "https://en.wikipedia.org/wiki/Santos_FC",
+      "strength": 70
+    },
+    {
+      "id": "flu",
+      "name": "Fluminense",
+      "short": "FLU",
+      "color": "#9b3458",
+      "wikipedia": "https://en.wikipedia.org/wiki/Fluminense_FC",
+      "strength": 70
+    },
+    {
+      "id": "vas",
+      "name": "Vasco",
+      "short": "VAS",
+      "color": "#bbbbbb",
+      "wikipedia": "https://en.wikipedia.org/wiki/CR_Vasco_da_Gama",
+      "strength": 70
+    },
+    {
+      "id": "gre",
+      "name": "Grêmio",
+      "short": "GRE",
+      "color": "#4ba8dc",
+      "wikipedia": "https://en.wikipedia.org/wiki/Gr%C3%AAmio_FBPA",
+      "strength": 70
+    },
+    {
+      "id": "int",
+      "name": "Internacional",
+      "short": "INT",
+      "color": "#d62639",
+      "wikipedia": "https://en.wikipedia.org/wiki/SC_Internacional",
+      "strength": 70
+    },
+    {
+      "id": "cru",
+      "name": "Cruzeiro",
+      "short": "CRU",
+      "color": "#3766c8",
+      "wikipedia": "https://en.wikipedia.org/wiki/Cruzeiro_EC",
+      "strength": 70
+    },
+    {
+      "id": "cam",
+      "name": "Atlético-MG",
+      "short": "CAM",
+      "color": "#cccccc",
+      "wikipedia": "https://en.wikipedia.org/wiki/Clube_Atl%C3%A9tico_Mineiro",
+      "strength": 70
+    },
+    {
+      "id": "bah",
+      "name": "Bahia",
+      "short": "BAH",
+      "color": "#337acf",
+      "wikipedia": "https://en.wikipedia.org/wiki/Esporte_Clube_Bahia",
+      "strength": 70
+    },
+    {
+      "id": "cap",
+      "name": "Athletico-PR",
+      "short": "CAP",
+      "color": "#cd2f36",
+      "wikipedia": "https://en.wikipedia.org/wiki/Club_Athletico_Paranaense",
+      "strength": 70
+    },
+    {
+      "id": "ctb",
+      "name": "Coritiba",
+      "short": "CTB",
+      "color": "#27814c",
+      "wikipedia": "https://en.wikipedia.org/wiki/Coritiba_Foot_Ball_Club",
+      "strength": 70
+    },
+    {
+      "id": "cha",
+      "name": "Chapecoense",
+      "short": "CHA",
+      "color": "#25985a",
+      "wikipedia": "https://en.wikipedia.org/wiki/Associa%C3%A7%C3%A3o_Chapecoense_de_Futebol",
+      "strength": 70
+    },
+    {
+      "id": "rem",
+      "name": "Remo",
+      "short": "REM",
+      "color": "#23427c",
+      "wikipedia": "https://en.wikipedia.org/wiki/Clube_do_Remo",
+      "strength": 70
+    },
+    {
+      "id": "vit",
+      "name": "Vitória",
+      "short": "VIT",
+      "color": "#d72f3a",
+      "wikipedia": "https://en.wikipedia.org/wiki/Esporte_Clube_Vit%C3%B3ria",
+      "strength": 70
+    },
+    {
+      "id": "mir",
+      "name": "Mirassol",
+      "short": "MIR",
+      "color": "#dac552",
+      "wikipedia": "https://en.wikipedia.org/wiki/Mirassol_Futebol_Clube",
+      "strength": 70
+    },
+    {
+      "id": "rbb",
+      "name": "Red Bull Bragantino",
+      "short": "RBB",
+      "color": "#eeeeee",
+      "wikipedia": "https://en.wikipedia.org/wiki/Red_Bull_Bragantino",
+      "strength": 70
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#080e20"/><stop offset="1" stop-color="#203c4d"/></linearGradient><linearGradient id="grass" x2="0" y2="1"><stop stop-color="#377745"/><stop offset="1" stop-color="#082c27"/></linearGradient><radialGradient id="glow"><stop stop-color="#e5faff" stop-opacity=".65"/><stop offset="1" stop-color="#bfe9ff" stop-opacity="0"/></radialGradient><pattern id="fans" width="16" height="13" patternUnits="userSpaceOnUse"><rect width="16" height="13" fill="#1a2e40"/><circle cx="4" cy="5" r="2.1" fill="#8aafac"/><circle cx="12" cy="10" r="1.8" fill="#526d85"/></pattern><pattern id="stripes" width="160" height="140" patternUnits="userSpaceOnUse"><path d="M0 0h80v140H0z" fill="#c9eea1" opacity=".05"/></pattern></defs>
+<path fill="url(#sky)" d="M0 0h1600v900H0z"/>
+<ellipse cx="800" cy="510" rx="1050" ry="300" fill="#050d19"/><path d="M-100 405Q800 20 1700 405L1560 625Q800 340 40 625z" fill="url(#fans)"/>
+<path d="M-100 405Q800 20 1700 405M-100 435Q800 70 1700 435M-100 475Q800 130 1700 475M-100 520Q800 190 1700 520" fill="none" stroke="#304553" stroke-width="8"/>
+<path d="M-100 386Q800 -30 1700 386" fill="none" stroke="#101c2d" stroke-width="95"/><path d="M-100 386Q800 -30 1700 386" fill="none" stroke="#72a1b7" stroke-opacity=".35" stroke-width="3"/>
+<path d="M0 625Q800 335 1600 625v275H0z" fill="url(#grass)"/><path d="M0 625Q800 335 1600 625v275H0z" fill="url(#stripes)"/>
+<path d="M245 795l330-270h450l330 270zM800 525v270M360 700h880" fill="none" stroke="#d5edce" stroke-opacity=".4" stroke-width="3"/><ellipse cx="800" cy="644" rx="100" ry="30" fill="none" stroke="#d5edce" stroke-opacity=".4" stroke-width="3"/>
+<path d="M0 603Q800 315 1600 603" fill="none" stroke="#c9ff57" stroke-opacity=".8" stroke-width="9"/>
+<g fill="url(#glow)"><ellipse cx="220" cy="230" rx="300" ry="260"/><ellipse cx="1380" cy="230" rx="300" ry="260"/><ellipse cx="800" cy="110" rx="250" ry="180"/></g>
+<g fill="#e9fbff"><path d="M105 212l205-52 4 15-205 53zM1290 160l205 52-4 16-205-53zM705 93h190v12H705z"/></g>
+</svg>

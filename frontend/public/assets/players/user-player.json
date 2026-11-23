@@ -1,0 +1,50 @@
+{
+  "source": {
+    "source": "User supplied soccer_player_rigged.fbx",
+    "sourceSha256": "cd1163df1bb15be6a0b156aee4ff667ad906fb715a854872c1b5710492a5eb09",
+    "retargetedClips": 20,
+    "mappedBones": 22,
+    "heightMetres": 1.83,
+    "jerseyFrontZ": 0.13060572643062332,
+    "jerseyBackZ": -0.1520615622551371
+  },
+  "bytes": 2329276,
+  "sha256": "b9b367a295428dbc5a8ae98a188ebf6aac87e35b73b9e7155ff42fc9cb486e89",
+  "triangles": 8901,
+  "clips": [
+    "Football_Run",
+    "Football_Sprint",
+    "Football_Walk",
+    "Football_Idle",
+    "Football_Dribble",
+    "Football_Pass",
+    "Football_Shot",
+    "Football_Cross",
+    "Football_Header",
+    "Football_KeeperReady",
+    "Football_Catch",
+    "Football_SaveLeft",
+    "Football_SaveRight",
+    "Football_Celebrate",
+    "Football_Tackle",
+    "Football_Fall",
+    "Football_Stumble",
+    "Football_Shield",
+    "Football_Challenge",
+    "Football_AirDuel"
+  ],
+  "textures": [
+    {
+      "slot": "map",
+      "path": "/assets/players/user-player-basecolor.jpg",
+      "sha256": "31eda7346e70903c3349bd2ea50a644b156d4e53ade3c73179d81f0c9a46ca6e",
+      "bytes": 358429
+    },
+    {
+      "slot": "normalMap",
+      "path": "/assets/players/user-player-normal.png",
+      "sha256": "ba409ebd5b514e4260dc16c4c0d02c61e52bff6f1d84cde4c5b990de1722aa00",
+      "bytes": 1485441
+    }
+  ]
+}

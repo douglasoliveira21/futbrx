@@ -1,0 +1,59 @@
+{
+  "source": {
+    "source": "User supplied soccer_player_rigged.fbx",
+    "sourceSha256": "cd1163df1bb15be6a0b156aee4ff667ad906fb715a854872c1b5710492a5eb09",
+    "retargetedClips": 29,
+    "mappedBones": 22,
+    "heightMetres": 1.83,
+    "jerseyFrontZ": 0.13060572643062332,
+    "jerseyBackZ": -0.1520615622551371
+  },
+  "bytes": 2865424,
+  "sha256": "b8dfe29234d59bde0ff44e5ebd3733874502852d1eea8b1cd05b059be96dfe5b",
+  "triangles": 8901,
+  "clips": [
+    "Football_Run",
+    "Football_Sprint",
+    "Football_Walk",
+    "Football_Idle",
+    "Football_Dribble",
+    "Football_Cross",
+    "Football_Header",
+    "Football_KeeperReady",
+    "Football_Catch",
+    "Football_Tackle",
+    "Football_Fall",
+    "Football_Stumble",
+    "Football_Shield",
+    "Football_AirDuel",
+    "Football_ThrowIn",
+    "Football_Pass",
+    "Football_Shot",
+    "Football_Penalty",
+    "Football_Celebrate",
+    "Football_Celebrate2",
+    "Football_Celebrate3",
+    "Football_SaveLeft",
+    "Football_SaveRight",
+    "Football_SaveLow",
+    "Football_Defend",
+    "Football_Challenge",
+    "Football_YellowCard",
+    "Football_RedCard",
+    "Football_SecondYellow"
+  ],
+  "textures": [
+    {
+      "slot": "map",
+      "path": "/assets/players/user-player-basecolor.jpg",
+      "sha256": "31eda7346e70903c3349bd2ea50a644b156d4e53ade3c73179d81f0c9a46ca6e",
+      "bytes": 358429
+    },
+    {
+      "slot": "normalMap",
+      "path": "/assets/players/user-player-normal.png",
+      "sha256": "ba409ebd5b514e4260dc16c4c0d02c61e52bff6f1d84cde4c5b990de1722aa00",
+      "bytes": 1485441
+    }
+  ]
+}

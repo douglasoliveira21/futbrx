@@ -1,0 +1,127 @@
+{
+  "asOf": "2026-11-21",
+  "status": "review-required",
+  "lastCompleteFetch": "timed-out; previous cache preserved",
+  "clubs": [
+    {
+      "id": "pal",
+      "name": "Palmeiras",
+      "evidenceRows": 42,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "fla",
+      "name": "Flamengo",
+      "evidenceRows": 46,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "bot",
+      "name": "Botafogo",
+      "evidenceRows": 0,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "cor",
+      "name": "Corinthians",
+      "evidenceRows": 0,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "sao",
+      "name": "São Paulo",
+      "evidenceRows": 0,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "san",
+      "name": "Santos",
+      "evidenceRows": 40,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "flu",
+      "name": "Fluminense",
+      "evidenceRows": 31,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "vas",
+      "name": "Vasco",
+      "evidenceRows": 29,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "gre",
+      "name": "Grêmio",
+      "evidenceRows": 0,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "int",
+      "name": "Internacional",
+      "evidenceRows": 42,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "cru",
+      "name": "Cruzeiro",
+      "evidenceRows": 0,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "cam",
+      "name": "Atlético-MG",
+      "evidenceRows": 0,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "bah",
+      "name": "Bahia",
+      "evidenceRows": 14,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "cap",
+      "name": "Athletico-PR",
+      "evidenceRows": 48,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "ctb",
+      "name": "Coritiba",
+      "evidenceRows": 42,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "cha",
+      "name": "Chapecoense",
+      "evidenceRows": 0,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "rem",
+      "name": "Remo",
+      "evidenceRows": 4,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "vit",
+      "name": "Vitória",
+      "evidenceRows": 0,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "mir",
+      "name": "Mirassol",
+      "evidenceRows": 2,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "rbb",
+      "name": "Bragantino",
+      "evidenceRows": 12,
+      "status": "current-membership-and-position-review-required"
+    }
+  ]
+}

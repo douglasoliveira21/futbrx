@@ -1,0 +1,76 @@
+{
+  "version": "0.13",
+  "retrieved": "2026-11-21",
+  "assets": [
+    {
+      "name": "Jogador humano estilizado e biblioteca de futebol",
+      "path": "/assets/players/footballer.glb",
+      "author": "Brasileirão Manager 3D; locomoção e rig de Quaternius",
+      "source": "https://quaternius.com/packs/universalanimationlibrary.html",
+      "downloadMirror": "https://github.com/Seyamalam/blood-league-kickoff/tree/main/public/assets/vendor/quaternius",
+      "license": "Componentes com licenças distintas; consulte LICENSE.txt",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "licenseFile": "/assets/players/LICENSE.txt",
+      "sha256": "c887ee51d595594c7646fde34028bfca76c94ed6c01dfafb5249def1d25cb8f7",
+      "bytes": 1902988,
+      "notes": "Geometria humana original com rosto, dedos, costuras, três cabelos, uniforme e luvas. 20 clipes: 17 coreografias originais de futebol/contato e 3 de locomoção CC0. Sem likeness de atletas reais ou captura de movimento.",
+      "sourceSha256": "4c748767741a3e495d89667b9a218b690ba9810b9517a12e960780e3ca72c4e9",
+      "components": [
+        {
+          "name": "Rig e 3 clipes de locomoção (corrida, sprint e caminhada)",
+          "author": "Quaternius",
+          "license": "CC0-1.0",
+          "licenseFile": "/assets/players/SOURCE-LICENSE-CC0.txt"
+        },
+        {
+          "name": "Geometria humana e 17 clipes Football_* de futebol e contato",
+          "author": "Brasileirão Manager 3D",
+          "license": "Arte original do projeto; sem concessão adicional de direitos por este manifesto"
+        }
+      ]
+    },
+    {
+      "name": "Estádio e áudio espacial",
+      "author": "Brasileirão Manager 3D",
+      "license": "Criados no projeto",
+      "notes": "Geometria e materiais procedurais originais. Cinco gravações CC0 de estádio com autores, fontes e hashes em /assets/audio/credits.json."
+    },
+    {
+      "name": "Jogador FBX fornecido pelo usuário — modelo usado nas partidas",
+      "path": "/assets/players/user-footballer.glb",
+      "author": "Modelo e texturas fornecidos pelo usuário; autoria original não informada",
+      "license": "Direitos originais do FBX preservados; uso local solicitado pelo usuário",
+      "licenseFile": "/assets/players/USER-MODEL.txt",
+      "sha256": "b9b367a295428dbc5a8ae98a188ebf6aac87e35b73b9e7155ff42fc9cb486e89",
+      "bytes": 2329276,
+      "notes": "Geometria, rig e duas texturas extraídos do FBX sem substituição do rosto. Vinte clipes adaptados do modelo anterior. Recoloração do uniforme no renderer, cores distintas de goleiros e alternativa visitante em conflito.",
+      "components": [
+        {
+          "name": "Modelo e texturas FBX",
+          "author": "Não informado no arquivo fornecido",
+          "license": "Não reclassificado como CC0"
+        },
+        {
+          "name": "Locomoção",
+          "author": "Quaternius; retargeting no projeto",
+          "license": "CC0-1.0"
+        },
+        {
+          "name": "Clipes específicos de futebol",
+          "author": "Brasileirão Manager 3D",
+          "license": "Arte original do projeto"
+        }
+      ]
+    },
+    {
+      "name": "Jogador fornecido com captura de movimentos de futebol",
+      "path": "/assets/players/user-footballer-mocap.glb",
+      "author": "Modelo e pacote Mocap_Pack_05_Soccer fornecidos pelo usuário; retargeting no projeto",
+      "license": "Direitos dos arquivos originais preservados; uso local solicitado pelo usuário",
+      "licenseFile": "/assets/players/USER-MODEL.txt",
+      "sha256": "b8dfe29234d59bde0ff44e5ebd3733874502852d1eea8b1cd05b059be96dfe5b",
+      "bytes": 2865424,
+      "notes": "29 clipes. Espera inicial removida das defesas, lateral espelhada, contatos ajustados. Fontes e hashes em /assets/players/mocap-manifest.json. A disponibilização pública depende de verificar a licença original do pacote."
+    }
+  ]
+}

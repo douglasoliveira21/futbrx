@@ -1,0 +1,354 @@
+[
+  {
+    "id": {
+      "type": "literal",
+      "value": "fla"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q17479"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Clube de Regatas do Flamengo"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "int"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q80845"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Sport Club Internacional"
+    },
+    "logo": {
+      "type": "uri",
+      "value": "http://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20do%20Sport%20Club%20Internacional.svg"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "san"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q80955"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Santos Futebol Clube"
+    },
+    "logo": {
+      "type": "uri",
+      "value": "http://commons.wikimedia.org/wiki/Special:FilePath/Santos%20Futebol%20Clube%20logo%20%28with%20stars%20and%20crown%29.png"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "pal"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q80964"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Sociedade Esportiva Palmeiras"
+    },
+    "logo": {
+      "type": "uri",
+      "value": "http://commons.wikimedia.org/wiki/Special:FilePath/Palmeiras%20logo.svg"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "flu"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q80987"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Fluminense Football Club"
+    },
+    "logo": {
+      "type": "uri",
+      "value": "http://commons.wikimedia.org/wiki/Special:FilePath/Fluminense%20logo.gif"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "bah"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q198032"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Esporte Clube Bahia"
+    },
+    "logo": {
+      "type": "uri",
+      "value": "http://commons.wikimedia.org/wiki/Special:FilePath/Esporte%20Clube%20Bahia%20logo.svg"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "ctb"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q478317"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Coritiba Foot Ball Club"
+    },
+    "logo": {
+      "type": "uri",
+      "value": "http://commons.wikimedia.org/wiki/Special:FilePath/ECFC1.png"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "cap"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q506832"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Club Athletico Paranaense"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "rbb"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q541744"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Red Bull Bragantino"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "rem"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q2552872"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Clube do Remo"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "mir"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q2622870"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Mirassol Futebol Clube"
+    },
+    "logo": {
+      "type": "uri",
+      "value": "http://commons.wikimedia.org/wiki/Special:FilePath/Mirassol%20FC%20logo.png"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "vas"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q5014111"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Club de Regatas Vasco da Gama"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "cor"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q35933"
+    },
+    "logo": {
+      "type": "uri",
+      "value": "http://commons.wikimedia.org/wiki/Special:FilePath/Corinthians23022007%20%28cropped%29.jpg"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Sport Club Corinthians Paulista"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "sao"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q38568"
+    },
+    "logo": {
+      "type": "uri",
+      "value": "http://commons.wikimedia.org/wiki/Special:FilePath/S%C3%A3o%20Paulo%20Futebol%20Clube%20logo%20%282022%29.svg"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "São Paulo Futebol Clube"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "bot"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q80958"
+    },
+    "logo": {
+      "type": "uri",
+      "value": "http://commons.wikimedia.org/wiki/Special:FilePath/Botafogo%20de%20Futebol%20e%20Regatas%20logo.svg"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Botafogo de Futebol e Regatas"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "cru"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q188277"
+    },
+    "logo": {
+      "type": "uri",
+      "value": "http://commons.wikimedia.org/wiki/Special:FilePath/Cruzeiro%20Esporte%20Clube%20%28logo%29.svg"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Cruzeiro Esporte Clube"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "gre"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q221695"
+    },
+    "logo": {
+      "type": "uri",
+      "value": "http://commons.wikimedia.org/wiki/Special:FilePath/Gremio%20logo.svg"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Grêmio Foot-Ball Porto Alegrense"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "cam"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q270995"
+    },
+    "logo": {
+      "type": "uri",
+      "value": "http://commons.wikimedia.org/wiki/Special:FilePath/Clube%20Atl%C3%A9tico%20Mineiro%20logo.svg"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Clube Atlético Mineiro"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "vit"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q274465"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Esporte Clube Vitória"
+    }
+  },
+  {
+    "id": {
+      "type": "literal",
+      "value": "cha"
+    },
+    "club": {
+      "type": "uri",
+      "value": "http://www.wikidata.org/entity/Q2536715"
+    },
+    "clubLabel": {
+      "xml:lang": "pt",
+      "type": "literal",
+      "value": "Associação Chapecoense de Futebol"
+    }
+  }
+]

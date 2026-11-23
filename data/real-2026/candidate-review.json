@@ -1,0 +1,151 @@
+{
+  "asOf": "2026-11-21",
+  "source": "https://www.wikidata.org/",
+  "license": "CC0-1.0",
+  "status": "review-required; no real playable release published",
+  "rows": 1820,
+  "identitiesRetrieved": 500,
+  "providerNotice": "HTTP 429 while retrieving identities; requests stopped. Candidate memberships are not current-club approval.",
+  "clubs": [
+    {
+      "id": "pal",
+      "name": "Palmeiras",
+      "candidates": 117,
+      "withIdentity": 38,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "fla",
+      "name": "Flamengo",
+      "candidates": 161,
+      "withIdentity": 47,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "bot",
+      "name": "Botafogo",
+      "candidates": 92,
+      "withIdentity": 31,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "cor",
+      "name": "Corinthians",
+      "candidates": 106,
+      "withIdentity": 26,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "sao",
+      "name": "São Paulo",
+      "candidates": 97,
+      "withIdentity": 28,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "san",
+      "name": "Santos",
+      "candidates": 103,
+      "withIdentity": 36,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "flu",
+      "name": "Fluminense",
+      "candidates": 93,
+      "withIdentity": 35,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "vas",
+      "name": "Vasco",
+      "candidates": 74,
+      "withIdentity": 28,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "gre",
+      "name": "Grêmio",
+      "candidates": 119,
+      "withIdentity": 45,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "int",
+      "name": "Internacional",
+      "candidates": 94,
+      "withIdentity": 43,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "cru",
+      "name": "Cruzeiro",
+      "candidates": 93,
+      "withIdentity": 35,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "cam",
+      "name": "Atlético-MG",
+      "candidates": 80,
+      "withIdentity": 19,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "bah",
+      "name": "Bahia",
+      "candidates": 53,
+      "withIdentity": 21,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "cap",
+      "name": "Athletico-PR",
+      "candidates": 116,
+      "withIdentity": 38,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "ctb",
+      "name": "Coritiba",
+      "candidates": 100,
+      "withIdentity": 33,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "cha",
+      "name": "Chapecoense",
+      "candidates": 40,
+      "withIdentity": 16,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "rem",
+      "name": "Remo",
+      "candidates": 9,
+      "withIdentity": 1,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "vit",
+      "name": "Vitória",
+      "candidates": 51,
+      "withIdentity": 15,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "mir",
+      "name": "Mirassol",
+      "candidates": 11,
+      "withIdentity": 7,
+      "status": "current-membership-and-position-review-required"
+    },
+    {
+      "id": "rbb",
+      "name": "Bragantino",
+      "candidates": 31,
+      "withIdentity": 6,
+      "status": "current-membership-and-position-review-required"
+    }
+  ]
+}

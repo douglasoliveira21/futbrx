@@ -1000,18 +1000,6 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
             <span className="manager-avatar">
               {user.slice(0, 2).toUpperCase()}
             </span>
-            <Button
-              disabled={
-                m.isPending ||
-                startMatch.isPending ||
-                (c.state.round > 38 && !c.state.nextCup) ||
-                c.state.board?.dismissed
-              }
-              onClick={() => action("advance")}
-            >
-              {startMatch.isPending ? "Abrindo estádio…" : "Jogar partida"}
-              <Play size={15} fill="currentColor" />
-            </Button>
           </div>
         </header>
         {notifications && (

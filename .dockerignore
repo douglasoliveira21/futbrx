@@ -4,6 +4,13 @@
 **/obj
 .git
 .env
+.env.*
+!.env.example
 .nuget
 .runtime
+.tools
+backups
+**/*.db
+**/*.db-*
+**/*.sqlite*
 **/appsettings.Development.json

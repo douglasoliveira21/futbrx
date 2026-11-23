@@ -1,0 +1,37 @@
+name: EasyPanel containers
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  containers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      POSTGRES_PASSWORD: container-test-only-password
+      JWT_KEY: container-test-only-jwt-key-with-at-least-32-characters
+      API_URL: http://127.0.0.1:18080/api
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Validate Compose and build actual Docker images
+        run: |
+          docker compose -f compose.easypanel.yml -f infrastructure/docker/compose.ci.yml config --quiet
+          docker compose -f compose.easypanel.yml -f infrastructure/docker/compose.ci.yml build
+      - name: Start production stack and wait for proxy/API/database
+        run: docker compose -f compose.easypanel.yml -f infrastructure/docker/compose.ci.yml up -d --wait --wait-timeout 300
+      - name: Verify static page, SPA, assets and production-only routing
+        run: |
+          curl --fail http://127.0.0.1:18080/
+          curl --fail http://127.0.0.1:18080/visual
+          curl --fail --output /dev/null http://127.0.0.1:18080/assets/players/user-footballer-mocap.glb
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:18080/api/development/simulation-v11)" = "404"
+      - name: Register, authenticate, persist career and exercise a live match through Nginx
+        run: node backend/tests/api-smoke.mjs
+      - name: Container logs
+        if: always()
+        run: docker compose -f compose.easypanel.yml -f infrastructure/docker/compose.ci.yml logs --no-color --tail=100
+      - name: Remove disposable CI containers and test database
+        if: always()
+        run: docker compose -f compose.easypanel.yml -f infrastructure/docker/compose.ci.yml down --volumes

@@ -1,5 +1,11 @@
 # futbrx
 
+## Deploy no EasyPanel
+
+Use o arquivo **`compose.easypanel.yml`**, com Build Path `/`, branch `main` e domínio apontando para `web`, porta interna `80`. Banco, API e frontend são criados juntos; HTTPS é gerenciado pelo painel. Preencha as duas variáveis secretas antes do primeiro deploy.
+
+**[Tutorial passo a passo para iniciantes](docs/EASYPANEL.md)**. O workflow **EasyPanel containers** verifica o build das imagens e o acesso à API através do Nginx.
+
 Versão incremental 0.16 de um manager de futebol 100% web. React 19 + TypeScript + Vite, API ASP.NET Core 10, EF Core e PostgreSQL. O jogador usa somente o navegador; as ferramentas abaixo são para desenvolvimento e hospedagem.
 
 Carreira de treinador com contratos, reputação, ultimatos, desemprego, vagas, entrevistas, propostas, negociações e mercado ativo da IA. A troca de clube exige uma proposta oficial válida. [Fluxos, persistência e balanceamento da versão 0.16](RELEASE-0.16.md).

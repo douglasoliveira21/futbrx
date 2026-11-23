@@ -7,11 +7,11 @@ public static class PositionalV8
 {
     public const string Version="positional-v8";
     public static MatchReplay Run(MatchSetup setup,int seed,bool captureFrames)=>Stream(setup,seed,captureFrames).Last().Replay;
-    public static IEnumerable<Checkpoint> Stream(MatchSetup setup,int seed,bool captureFrames=true,FootballBrain? intelligence=null,bool delayedKeeper=false,bool physicalShots=false)
+    public static IEnumerable<Checkpoint> Stream(MatchSetup setup,int seed,bool captureFrames=true,FootballBrain? intelligence=null,bool delayedKeeper=false,bool physicalShots=false,bool continuousContacts=false)
     {
         if(setup.EngineVersion!=Version)throw new GameRuleException("Versão do motor inválida.");
         MatchReplay? final=null;
-        foreach(var step in PositionalV7.Stream(setup with{EngineVersion=PositionalV7.Version},seed,captureFrames,intelligence,delayedKeeper,physicalShots)){
+        foreach(var step in PositionalV7.Stream(setup with{EngineVersion=PositionalV7.Version},seed,captureFrames,intelligence,delayedKeeper,physicalShots,continuousContacts)){
             var replay=step.Replay with{EngineVersion=Version,Setup=setup};
             if(step.Finished&&setup.Knockout&&replay.HomeGoals==replay.AwayGoals){final=replay;break;}
             yield return step with{Replay=replay};

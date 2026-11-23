@@ -136,6 +136,39 @@ public static class PhysicalBallTests
         Check(restartContacts.Any(c=>c.Origin=="Corner") && restartContacts.Where(c=>c.Origin=="Corner").All(c=>Math.Pow(52.5-Math.Abs(c.X),2)+Math.Pow(34-Math.Abs(c.Z),2)<=1),"Escanteio físico é executado dentro do quarto de círculo, sem deriva do cobrador");
         Check(restartContacts.Any(c=>c.Origin=="GoalKick") && restartContacts.Where(c=>c.Origin=="GoalKick").All(c=>Math.Abs(c.X)>=47 && Math.Abs(c.X)<=52.5 && Math.Abs(c.Z)<=9.16),"Tiro de meta físico é executado dentro da área de meta");
         Check(restartContacts.Where(c=>c.Origin=="ThrowIn").All(c=>Math.Abs(Math.Abs(c.Z)-34)<.001 && c.Y>1.8),"Lateral físico parte das mãos sobre a linha, sem saída artificial antes de entrar em campo");
+        // V12: a deflected ball keeps moving instead of hovering while players converge on it.
+        static int LongestStill(MatchReplay replay)
+        {
+            int longest=0,run=0;
+            foreach(var (a,b) in replay.Frames.Zip(replay.Frames.Skip(1)))
+            {
+                // Only live play counts: a ball held for a throw-in, or resting in the net while the goal is
+                // checked, is expected to stay still.
+                static bool Live(ReplayFrame f)=>f.Diagnostics is {State:"in_play",Restart:null} && Math.Abs(f.Ball.X)<52.5;
+                bool still=Live(a) && Live(b) && a.Ball.Y>.5 &&Math.Abs(a.Ball.X-b.Ball.X)<1e-6 && Math.Abs(a.Ball.Y-b.Ball.Y)<1e-6 && Math.Abs(a.Ball.Z-b.Ball.Z)<1e-6;
+                run=still?run+1:0;longest=Math.Max(longest,run);
+            }
+            return longest;
+        }
+        var legacyStill=LongestStill(browserFixture);
+        var currentSetup=validationSetup with{EngineVersion=PositionalV12.Version};
+        var current=Enumerable.Range(117,4).Select(seed=>MatchSimulation.Run(currentSetup,seed,true)).ToList();
+        Check(MatchSimulation.Version==PositionalV12.Version && current.All(r=>r.EngineVersion==PositionalV12.Version),"Novas partidas usam positional-v12");
+        Check(legacyStill>=3,"V11 permanece congelada, inclusive a bola suspensa da semente 117 ("+legacyStill+" quadros)");
+        Check(current.All(r=>LongestStill(r)<3),"V12: bola desviada no ar não fica suspensa entre jogadores");
+        // Two quick deflections (ball off one player into a neighbour) are legitimate; three or more
+        // consecutive per-tick deflections were the V11 hovering symptom.
+        static int LongestDeflectionChain(MatchReplay replay)
+        {
+            var rebounds=replay.Events.Where(e=>e.Type=="rebound").ToList();
+            int longest=rebounds.Count>0?1:0,chain=1;
+            for(int i=1;i<rebounds.Count;i++){chain=rebounds[i].Second-rebounds[i-1].Second<=2?chain+1:1;longest=Math.Max(longest,chain);}
+            return longest;
+        }
+        Check(LongestDeflectionChain(browserFixture)>=3,"V11 mantém a cadeia de desvios registrada na semente 117");
+        Check(current.All(r=>LongestDeflectionChain(r)<=2),"V12: não há cadeia de três ou mais desvios a cada passo");
+        Check(current.All(r=>r.Events.Where(e=>e.Type=="rebound"&&e.Text.StartsWith("A bola desvia em")).All(e=>e.Player!=0)),"V12: desvio de passe não é narrado como finalização");
+        Check(JsonSerializer.Serialize(current[0],Game.Json)==JsonSerializer.Serialize(MatchSimulation.Run(currentSetup,117,true),Game.Json),"V12 é determinística para a mesma semente");
     }
 }
 

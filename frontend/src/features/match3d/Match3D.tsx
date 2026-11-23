@@ -762,6 +762,7 @@ export default function Match3D({
       "positional-v9",
       "positional-v10",
       "positional-v11",
+      "positional-v12",
     ].includes(replay.data?.engineVersion ?? "")
       ? 12
       : 1;

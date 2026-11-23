@@ -118,7 +118,7 @@ export default function MatchManagement({
     { outPlayerId: number; inPlayerId: number }[]
   >([]);
   const [sending, setSending] = useState(false);
-  const advanced = ["positional-v9", "positional-v10", "positional-v11"].includes(
+  const advanced = ["positional-v9", "positional-v10", "positional-v11", "positional-v12"].includes(
     setup.engineVersion,
   );
   const [plan, setPlan] = useState(
@@ -221,7 +221,7 @@ export default function MatchManagement({
   const name = (id: number) =>
     [...team.players, ...(team.bench ?? [])].find((p) => p.id === id)?.name ??
     String(id);
-  const latestEngine = ["positional-v10","positional-v11"].includes(setup.engineVersion);
+  const latestEngine = ["positional-v10","positional-v11","positional-v12"].includes(setup.engineVersion);
   const resume = async () => {
     if (busy || sending || draft.length > 0) return;
     if (halftime && !(await control({ type: "second_half" }))) return;

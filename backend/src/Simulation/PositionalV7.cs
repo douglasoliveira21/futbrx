@@ -35,7 +35,7 @@ public static class PositionalV7
     static double Rating(MatchPlayer p) => p.Rating * (.65 + .35 * p.Fitness / 100.0);
 
     public static MatchReplay Run(MatchSetup setup, int seed, bool captureFrames) => Stream(setup, seed, captureFrames).Last().Replay;
-    public static IEnumerable<Checkpoint> Stream(MatchSetup setup, int seed, bool captureFrames = true,FootballBrain? intelligence=null,bool delayedKeeper=false,bool physicalShots=false)
+    public static IEnumerable<Checkpoint> Stream(MatchSetup setup, int seed, bool captureFrames = true,FootballBrain? intelligence=null,bool delayedKeeper=false,bool physicalShots=false,bool continuousContacts=false)
     {
         if (setup.EngineVersion != Version) throw new GameRuleException("Versão do motor não suportada para esta reprodução.");
         if (setup.Home.Players.Count != 11 || setup.Away.Players.Count != 11) throw new GameRuleException("Uma partida exige duas equipes de onze jogadores.");
@@ -318,7 +318,24 @@ public static class PositionalV7
                         double normalSpeed=physicalBall.VX*nx+physicalBall.VZ*nz;
                         if(normalSpeed<0){physicalBall.VX-=1.48*normalSpeed*nx;physicalBall.VZ-=1.48*normalSpeed*nz;}
                         physicalBall.VY = Math.Max(physicalBall.VY, 1.2);
-                        Event(second, "rebound", blocker.Team, blocker.Player.Id, blocker.Slot == 0 ? "O goleiro espalma a finalização." : "Finalização desviada pela defesa.");
+                        if(continuousContacts)
+                        {
+                            // V12: the deflected ball uses the rest of the tick. Without this, a ball that starts
+                            // a tick touching a player collides at fraction 0, returns to its previous position and
+                            // can hover while players converge on it.
+                            // If the remainder would cross a goal line, keep the contact point so the next tick's
+                            // goal-line check still sees the crossing.
+                            double remainingSeconds=(1-fraction)*Tick/(double)TimeScale;
+                            var probe=new BallPhysics(ballX,ballY,ballZ,physicalBall.VX,physicalBall.VY,physicalBall.VZ,physicalBall.Spin);
+                            probe.AdvanceInPitch(remainingSeconds);
+                            if(Math.Abs(probe.X)<52.5-BallPhysics.Radius)
+                            {
+                                physicalBall.AdvanceInPitch(remainingSeconds);
+                                ballX=physicalBall.X;ballY=physicalBall.Y;ballZ=physicalBall.Z;
+                            }
+                        }
+                        bool deflectedPass=continuousContacts && blocker.Slot>0 && flight.Delivery is "physical_pass" or "physical_cross";
+                        Event(second, "rebound", blocker.Team, blocker.Player.Id, blocker.Slot == 0 ? "O goleiro espalma a finalização." : deflectedPass ? $"A bola desvia em {blocker.Player.Name}." : "Finalização desviada pela defesa.");
                         Pose(blocker, blocker.Slot == 0 ? "dive_low" : "challenge", second, second+12);
                         flight = flight with { Start=second };
                         Capture(second);

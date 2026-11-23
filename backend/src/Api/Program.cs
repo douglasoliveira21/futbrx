@@ -64,8 +64,8 @@ app.MapSportsEndpoints();
 app.MapLiveMatchEndpoints();
 if (app.Environment.IsDevelopment())
 {
-    app.MapGet("/api/development/simulation-v11", (Microsoft.Extensions.Caching.Memory.IMemoryCache cache, int? seed) =>
-        cache.GetOrCreate($"v11-browser-validation-{seed??117}", entry =>
+    app.MapGet("/api/development/simulation-v11", (Microsoft.Extensions.Caching.Memory.IMemoryCache cache, int? seed, string? engine) =>
+        cache.GetOrCreate($"{(engine == "v11" ? "v11" : "current")}-browser-validation-{seed??117}", entry =>
         {
             entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30);
             var game = Game.New("pal");
@@ -73,7 +73,7 @@ if (app.Environment.IsDevelopment())
             // change its opening fixture between API processes.
             var fixture = game.Fixtures.Single(f => f.Home == "fla" && f.Away == "pal");
             fixture.Seed = seed??117;
-            fixture.Setup = new MatchSetup(PositionalV11.Version,
+            fixture.Setup = new MatchSetup(engine == "v11" ? PositionalV11.Version : MatchSimulation.Version,
                 Tactics.Team(fixture.Home, fixture.Home == game.ClubId ? game.Squad : game.OpponentSquads[fixture.Home], "4-3-3", "Equilibrada"),
                 Tactics.Team(fixture.Away, fixture.Away == game.ClubId ? game.Squad : game.OpponentSquads[fixture.Away], "4-4-2", "Equilibrada"));
             var replay = MatchSimulation.Run(fixture.Setup, fixture.Seed, true);

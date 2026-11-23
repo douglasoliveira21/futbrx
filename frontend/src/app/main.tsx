@@ -8,9 +8,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { type ColumnDef } from "@tanstack/react-table";
 import { FutbrxLogo } from "../components/FutbrxLogo";
-import { DataTable } from "../components/DataTable";
 
 import {
   LayoutDashboard,
@@ -26,7 +24,6 @@ import {
   Building2,
   ChartNoAxesCombined,
   History,
-  ChevronRight,
   Bell,
   Menu,
   LogOut,
@@ -35,12 +32,10 @@ import {
   Shield,
   Check,
   Play,
-  Target,
   Flag,
-  Settings2,
 } from "lucide-react";
 import i18n from "i18next";
-import { initReactI18next, useTranslation } from "react-i18next";
+import { initReactI18next } from "react-i18next";
 import {
   api,
   setToken,
@@ -49,7 +44,6 @@ import {
   type Career,
   type Club,
   type Player,
-  type Row,
   type Fixture,
   type DataRelease,
   type BroadcastSession,
@@ -58,6 +52,8 @@ import { StadiumAudio } from "../features/match3d/StadiumAudio";
 import { useIdentity } from "../hooks/useIdentity";
 import { useUI } from "../stores/ui";
 import { Button } from "../components/ui/button";
+import { Crest } from "../components/Crest";
+import CoachHub from "../features/home/CoachHub";
 import "../styles/index.css";
 i18n.use(initReactI18next).init({
   lng: "pt-BR",
@@ -129,53 +125,6 @@ const nav = [
   ["visual", "Estúdio do jogador", Users],
   ["gestao-avancada", "Gestão avançada", ArrowLeftRight],
 ] as const;
-function Crest({ club, size = "" }: { club?: Club; size?: string }) {
-  const credits = useQuery<{
-    clubs: { clubId: string; status: string; path: string | null }[];
-  }>({
-    queryKey: ["crest-credits"],
-    queryFn: async () => {
-      const r = await fetch("/data/crest-credits.json");
-      if (!r.ok) throw new Error("Créditos indisponíveis");
-      return r.json();
-    },
-    staleTime: Infinity,
-  });
-  const [failed, setFailed] = useState(false);
-  const crest = credits.data?.clubs.find(
-    (c) => c.clubId === club?.id && c.status === "included",
-  );
-  if (crest?.path && !failed)
-    return (
-      <span className={"crest " + size}>
-        <img
-          src={crest.path}
-          alt={"Escudo de " + club?.name}
-          title="Créditos e licença em Dados e licenças"
-          style={{
-            width: size === "large" ? 54 : 30,
-            height: size === "large" ? 58 : 34,
-            objectFit: "contain",
-          }}
-          onError={() => setFailed(true)}
-        />
-      </span>
-    );
-
-  return (
-    <span
-      className={"crest " + size}
-      style={{ "--club": club?.color ?? "#17d994" } as React.CSSProperties}
-    >
-      <Shield
-        size={size === "large" ? 51 : 27}
-        fill="currentColor"
-        strokeWidth={1}
-      />
-      <b>{club?.short ?? "BM"}</b>
-    </span>
-  );
-}
 function Panel({
   title,
   tag,
@@ -501,45 +450,6 @@ type Action = (
   extra?: string,
   playerId?: number,
 ) => void;
-function Standings({ c, compact = false }: { c: Career; compact?: boolean }) {
-  const cols: ColumnDef<Row, any>[] = [
-    {
-      id: "rank",
-      header: "#",
-      cell: (x) =>
-        c.table.findIndex((r) => r.club.id === x.row.original.club.id) + 1,
-    },
-    {
-      accessorKey: "club.name",
-      header: "Clube",
-      cell: (x) => (
-        <span
-          className={
-            x.row.original.club.id === c.state.clubId
-              ? "team-name my-team"
-              : "team-name"
-          }
-        >
-          <Crest club={x.row.original.club} />
-          {x.row.original.club.name}
-        </span>
-      ),
-    },
-    {
-      accessorKey: "points",
-      header: "PTS",
-      cell: (x) => <strong>{x.getValue()}</strong>,
-    },
-    { accessorKey: "played", header: "J" },
-    { accessorKey: "wins", header: "V" },
-    { accessorKey: "draws", header: "E" },
-    { accessorKey: "losses", header: "D" },
-    { accessorKey: "difference", header: "SG" },
-  ];
-  return (
-    <DataTable data={compact ? c.table.slice(0, 6) : c.table} columns={cols} />
-  );
-}
 function FixtureLine({
   f,
   c,
@@ -591,273 +501,6 @@ function FixtureLine({
         </Button>
       )}
     </div>
-  );
-}
-function Dashboard({
-  c,
-  onReplay,
-  onPlay,
-  busy,
-}: {
-  c: Career;
-  onReplay: (f: Fixture) => void;
-  onPlay: () => void;
-  busy: boolean;
-}) {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const g = c.state;
-  const club = g.clubs.find((x) => x.id === g.clubId)!;
-  const next =
-    g.nextCup ??
-    g.fixtures.find(
-      (f) =>
-        f.round === g.round && (f.home === g.clubId || f.away === g.clubId),
-    );
-  const last = g.fixtures
-    .filter(
-      (f) =>
-        f.homeGoals !== null && (f.home === g.clubId || f.away === g.clubId),
-    )
-    .slice(-5);
-  const rank = c.table.findIndex((x) => x.club.id === g.clubId) + 1;
-  const stat = c.table.find((x) => x.club.id === g.clubId)!;
-  return (
-    <>
-      <div className="page-heading">
-        <div>
-          <span className="eyebrow">SEU CLUBE. SUA HISTÓRIA.</span>
-          <h1>{next ? "Dia de jogo" : "Fim de temporada"}</h1>
-          <p>{t("welcome")}</p>
-        </div>
-        <span className="season-pill">
-          <Flag size={14} /> Temporada {g.season}
-        </span>
-      </div>
-      <div className="dashboard-grid">
-        <section className="hero">
-          <div className="hero-copy">
-            <span className="eyebrow">
-              BRASILEIRÃO SÉRIE {g.division ?? "A"} · {Math.min(g.round, 38)}ª
-              RODADA
-            </span>
-            <h2>
-              {next ? "A noite é nossa." : "Uma temporada para"}
-              <br />
-              <span>{next ? "Faça história." : "ficar na história."}</span>
-            </h2>
-            <p>
-              {next
-                ? "Onze em campo. Uma torcida inteira com você. Prepare seu time para o próximo duelo."
-                : "Confira a classificação e prepare seu clube para o próximo ano."}
-            </p>
-            <Button
-              disabled={busy}
-              onClick={() => (next ? onPlay() : navigate("/competicoes"))}
-            >
-              {next
-                ? busy
-                  ? "Abrindo estádio…"
-                  : "Entrar em campo"
-                : "Ver classificação"}
-              <Settings2 size={16} />
-            </Button>
-          </div>
-          <div className="hero-field">
-            <div className="field-lines">
-              <div />
-              <i />
-              <span />
-            </div>
-            <div className="stadium-light light-one" />
-            <div className="stadium-light light-two" />
-            <Crest club={club} size="large" />
-            <span className="hero-caption">
-              {club.name.toUpperCase()}
-              <small>RAÇA EM CAMPO. VISÃO NO COMANDO.</small>
-            </span>
-          </div>
-        </section>
-        <Panel
-          title="Próximo duelo"
-          tag={<span className="tag">SÉRIE {g.division ?? "A"}</span>}
-          className="next-match"
-        >
-          {next ? (
-            <>
-              <p className="match-meta">
-                RODADA {next.round} ·{" "}
-                {next.date
-                  ? new Date(next.date + "T12:00:00Z").toLocaleDateString(
-                      "pt-BR",
-                      { day: "2-digit", month: "long", timeZone: "UTC" },
-                    )
-                  : "Data a definir"}
-              </p>
-              <div className="versus">
-                <div>
-                  <Crest
-                    club={g.clubs.find((x) => x.id === next.home)}
-                    size="large"
-                  />
-                  <b>{g.clubs.find((x) => x.id === next.home)?.name}</b>
-                </div>
-                <span>VS</span>
-                <div>
-                  <Crest
-                    club={g.clubs.find((x) => x.id === next.away)}
-                    size="large"
-                  />
-                  <b>{g.clubs.find((x) => x.id === next.away)?.name}</b>
-                </div>
-              </div>
-              <p className="match-meta">
-                <Flag size={13} /> Campeonato Brasileiro · Turno{" "}
-                {g.round <= 19 ? "1" : "2"}
-              </p>
-              <Button variant="outline" onClick={() => navigate("/calendario")}>
-                Ver calendário
-                <CalendarDays size={15} />
-              </Button>
-            </>
-          ) : (
-            <p className="empty">
-              Temporada concluída. Veja o campeão em Competições.
-            </p>
-          )}
-        </Panel>
-        <div className="stat-grid">
-          <div className="stat">
-            <span>
-              Posição na liga
-              <Trophy size={16} />
-            </span>
-            <strong>
-              {rank}
-              <small>º</small>
-            </strong>
-            <p>{stat.points} pontos conquistados</p>
-          </div>
-          <div className="stat">
-            <span>
-              Saldo disponível
-              <Wallet size={16} />
-            </span>
-            <strong>{money(g.balance)}</strong>
-            <p className="positive">Orçamento de transferências</p>
-          </div>
-          <div className="stat">
-            <span>
-              Condição do elenco
-              <HeartPulse size={16} />
-            </span>
-            <strong>
-              {Math.round(
-                g.squad.reduce((a, p) => a + p.fitness, 0) / g.squad.length,
-              )}
-              <small>%</small>
-            </strong>
-            <p>
-              {
-                g.squad.filter(
-                  (p) => p.injuryDays === 0 && p.suspensionMatches === 0,
-                ).length
-              }{" "}
-              jogadores disponíveis
-            </p>
-          </div>
-          <div className="stat">
-            <span>
-              Aproveitamento
-              <Target size={16} />
-            </span>
-            <strong>
-              {stat.played
-                ? Math.round((stat.points / (stat.played * 3)) * 100)
-                : 0}
-              <small>%</small>
-            </strong>
-            <p>
-              {stat.wins} vitórias em {stat.played} jogos
-            </p>
-          </div>
-        </div>
-        <Panel
-          title="A disputa pelo topo"
-          tag={
-            <Button variant="ghost" onClick={() => navigate("/competicoes")}>
-              Tabela completa
-              <ChevronRight size={15} />
-            </Button>
-          }
-          className="standings"
-        >
-          <Standings c={c} compact />
-          <div className="table-legend">
-            <i /> Classificação demonstrativa · 20 clubes
-          </div>
-        </Panel>
-        <Panel
-          title="Dentro do clube"
-          tag={<span className="tag gold">INFORMATIVO</span>}
-          className="news"
-        >
-          <div className="news-item">
-            <span className="news-icon">
-              <Building2 size={20} />
-            </span>
-            <div>
-              <small>DIRETORIA</small>
-              <h3>Ambição com os pés no chão</h3>
-              <p>A meta é terminar entre os seis primeiros da competição.</p>
-            </div>
-          </div>
-          <div className="news-item">
-            <span className="news-icon">
-              <Dumbbell size={20} />
-            </span>
-            <div>
-              <small>CENTRO DE TREINAMENTO</small>
-              <h3>Foco: {g.training.toLowerCase()}</h3>
-              <p>
-                {g.squad.filter((p) => p.starter).length} titulares selecionados
-                em um {g.formation}.
-              </p>
-            </div>
-          </div>
-          <div className="club-note">{g.news[0]}</div>
-        </Panel>
-        <Panel
-          title="Últimos resultados"
-          tag={
-            <Button variant="ghost" onClick={() => navigate("/calendario")}>
-              Todos os jogos
-              <ChevronRight size={15} />
-            </Button>
-          }
-          className="results"
-        >
-          {last.length ? (
-            last.map((f) => (
-              <FixtureLine key={f.round} f={f} c={c} onReplay={onReplay} />
-            ))
-          ) : (
-            <div className="empty">
-              <CalendarDays size={25} />
-              <p>A bola ainda não rolou.</p>
-              <small>Entre em campo para disputar sua primeira partida.</small>
-            </div>
-          )}
-        </Panel>
-        <Panel
-          title="Pulso financeiro"
-          tag={<span className="muted">Receitas por rodada</span>}
-          className="chart"
-        >
-          <FinanceChart c={c} />
-        </Panel>
-      </div>
-    </>
   );
 }
 function FinanceChart({ c }: { c: Career }) {
@@ -1410,7 +1053,7 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
               <Route
                 path="/"
                 element={
-                  <Dashboard
+                  <CoachHub
                     c={c}
                     onReplay={setReplay}
                     onPlay={() => {

@@ -578,3 +578,95 @@
     justify-self: start;
   }
 }
+
+/* Season goal */
+.hub-goal-body {
+  display: grid;
+  gap: 8px;
+  padding: 14px 18px 16px;
+}
+.hub-goal-body p {
+  margin: 0;
+  color: var(--hub-muted);
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+.hub-goal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.hub-goal-head strong {
+  font: 900 2rem/1 "Arial Narrow", "Bahnschrift Condensed", Impact, sans-serif;
+  text-transform: uppercase;
+  color: var(--hub-accent);
+}
+.hub-goal-badge {
+  padding: 4px 10px;
+  border-radius: 99px;
+  border: 1px solid #ffffff26;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.hub-goal.is-good .hub-goal-badge {
+  color: var(--hub-good);
+  border-color: color-mix(in srgb, var(--hub-good) 55%, transparent);
+}
+.hub-goal.is-bad .hub-goal-badge {
+  color: var(--hub-urgent);
+  border-color: color-mix(in srgb, var(--hub-urgent) 55%, transparent);
+}
+.hub-goal-track {
+  position: relative;
+  height: 12px;
+  margin-top: 4px;
+  border-radius: 99px;
+  background: #ffffff12;
+}
+.hub-goal-zone {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 99px 0 0 99px;
+  background: color-mix(in srgb, var(--hub-accent) 38%, transparent);
+}
+.hub-goal-marker {
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid #0b111b;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  transition: left 0.4s ease;
+}
+.hub-goal.is-good .hub-goal-marker {
+  background: var(--hub-good);
+}
+.hub-goal.is-bad .hub-goal-marker {
+  background: var(--hub-urgent);
+}
+.hub-goal-scale {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--hub-muted);
+  font-size: 0.75rem;
+}
+.hub-goal-scale b {
+  color: #fff;
+  font-size: 0.8rem;
+}
+.hub-goal-body .hub-goal-detail {
+  color: #dbe5ec;
+  font-weight: 600;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hub-goal-marker {
+    transition: none;
+  }
+}

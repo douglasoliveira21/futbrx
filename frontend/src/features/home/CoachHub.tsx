@@ -1,4 +1,5 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowRight,
@@ -18,10 +19,12 @@ import {
 } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { Crest } from "../../components/Crest";
-import { money, type Career, type Fixture } from "../../services/api";
+import { api, money, type Career, type Fixture } from "../../services/api";
 import {
   buildInbox,
   clubOf,
+  goalText,
+  seasonGoal,
   nextFixture,
   recentForm,
   tableAround,
@@ -83,7 +86,15 @@ export default function CoachHub({
   const home = next ? clubOf(c, next.home) : undefined;
   const away = next ? clubOf(c, next.away) : undefined;
   const opponent = next ? (next.home === g.clubId ? away : home) : undefined;
-  const inbox = buildInbox(c, money);
+  // Same query as the board screen, so both share the cached season goal.
+  const life = useQuery({
+    queryKey: ["life", c.id, c.revision],
+    queryFn: () => api<{ board: { targetPosition: number } }>(`/careers/${c.id}/life`),
+  });
+  const target = life.data?.board.targetPosition;
+  const goal = target ? seasonGoal(c, target) : null;
+  const goalInfo = goal ? goalText(goal) : null;
+  const inbox = buildInbox(c, money, target);
   const urgent = inbox.filter((m) => m.tone === "urgent").length;
   const position = (id?: string) => {
     const i = c.table.findIndex((r) => r.club.id === id);
@@ -276,6 +287,42 @@ export default function CoachHub({
               </div>
             </dl>
           </section>
+
+          {goal && goalInfo && (
+            <section className={"hub-card hub-goal is-" + goalInfo.tone} aria-label="Meta da temporada">
+              <header>
+                <h2>Meta da temporada</h2>
+                <button type="button" className="hub-link" onClick={() => navigate("/diretoria")}>
+                  Diretoria <ChevronRight size={14} />
+                </button>
+              </header>
+              <div className="hub-goal-body">
+                <div className="hub-goal-head">
+                  <strong>Top {goal.target}</strong>
+                  <span className="hub-goal-badge">{goalInfo.badge}</span>
+                </div>
+                <p>
+                  Terminar entre os {goal.target} primeiros do Brasileirão Série {g.division ?? "A"}.
+                </p>
+                <div
+                  className="hub-goal-track"
+                  role="img"
+                  aria-label={`Você está em ${goal.position}º lugar; a meta é o ${goal.target}º`}
+                >
+                  <span className="hub-goal-zone" style={{ width: `${(goal.target / goal.clubs) * 100}%` }} />
+                  <i className="hub-goal-marker" style={{ left: `${((goal.position - 0.5) / goal.clubs) * 100}%` }} />
+                </div>
+                <div className="hub-goal-scale">
+                  <span>1º</span>
+                  <b>
+                    {goal.status === "not-started" ? "Início da campanha" : `Você: ${goal.position}º`}
+                  </b>
+                  <span>{goal.clubs}º</span>
+                </div>
+                <p className="hub-goal-detail">{goalInfo.detail}</p>
+              </div>
+            </section>
+          )}
 
           <section className="hub-card">
             <header>

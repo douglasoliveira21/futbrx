@@ -56,6 +56,7 @@ const names = (players: Player[]) => {
 export function buildInbox(
   c: Career,
   money: (n: number) => string,
+  targetPosition?: number,
 ): InboxMessage[] {
   const g = c.state;
   const club = clubOf(c, g.clubId);
@@ -88,7 +89,7 @@ export function buildInbox(
       role: "Diretoria",
       tone: "normal",
       title: "Bem-vindo, treinador",
-      body: `O elenco do ${club?.name ?? "clube"} está à sua disposição. Conheça os jogadores e defina a escalação antes da estreia.`,
+      body: `O elenco do ${club?.name ?? "clube"} está à sua disposição.${targetPosition ? ` A diretoria espera uma campanha entre os ${targetPosition} primeiros.` : ""} Conheça os jogadores e defina a escalação antes da estreia.`,
       action: { label: "Conhecer o elenco", path: "/elenco" },
     });
 
@@ -299,4 +300,99 @@ export function tableAround(c: Career, span = 2) {
     .map((row, i) => ({ row, position: start + i + 1 }));
   if (start > 0) rows.unshift({ row: c.table[0], position: 1 });
   return rows;
+}
+
+export type GoalStatus = "not-started" | "on-track" | "behind" | "achieved" | "missed";
+export type SeasonGoal = {
+  target: number;
+  position: number;
+  clubs: number;
+  played: number;
+  total: number;
+  remaining: number;
+  status: GoalStatus;
+  // Points of margin over the first club outside the target (on track), or still to make up
+  // to reach the last club inside it (behind).
+  gap: number;
+  rival?: { name: string; position: number };
+};
+
+// The board's season goal ("terminar entre os N primeiros") against the current table.
+export function seasonGoal(c: Career, targetPosition: number): SeasonGoal | null {
+  const rows = c.table;
+  const index = rows.findIndex((r) => r.club.id === c.state.clubId);
+  if (index < 0 || !Number.isFinite(targetPosition)) return null;
+  const own = rows[index];
+  const clubs = rows.length;
+  const target = Math.min(Math.max(1, Math.round(targetPosition)), clubs);
+  const total = (clubs - 1) * 2;
+  const position = index + 1;
+  const remaining = Math.max(0, total - own.played);
+  const inside = position <= target;
+  const status: GoalStatus =
+    own.played === 0
+      ? "not-started"
+      : remaining === 0
+        ? inside ? "achieved" : "missed"
+        : inside ? "on-track" : "behind";
+  // The club the coach is measured against: first one outside the goal, or the last one inside it.
+  const boundary = inside ? rows[target] : rows[target - 1];
+  const boundaryPosition = inside ? target + 1 : target;
+  return {
+    target,
+    position,
+    clubs,
+    played: own.played,
+    total,
+    remaining,
+    status,
+    gap: boundary ? Math.abs(own.points - boundary.points) : 0,
+    rival: boundary ? { name: boundary.club.name, position: boundaryPosition } : undefined,
+  };
+}
+
+const points = (n: number) => `${n} ${n === 1 ? "ponto" : "pontos"}`;
+export function goalText(goal: SeasonGoal): {
+  badge: string;
+  detail: string;
+  tone: "neutral" | "good" | "bad";
+} {
+  const left = goal.remaining === 1 ? "resta 1 jogo" : `restam ${goal.remaining} jogos`;
+  const vs = goal.rival ? `${goal.rival.name} (${goal.rival.position}º)` : "";
+  switch (goal.status) {
+    case "not-started":
+      return {
+        badge: "A temporada vai começar",
+        detail: `${goal.total} jogos pela frente. A diretoria acompanha cada rodada.`,
+        tone: "neutral",
+      };
+    case "on-track":
+      return {
+        badge: "Dentro da meta",
+        detail: goal.rival
+          ? goal.gap > 0
+            ? `${points(goal.gap)} de folga sobre o ${vs} · ${left}`
+            : `Sem folga: empatado em pontos com o ${vs} · ${left}`
+          : `Meta mantida · ${left}`,
+        tone: "good",
+      };
+    case "behind":
+      return {
+        badge: "Abaixo da meta",
+        detail: goal.rival
+          ? goal.gap > 0
+            ? `Faltam ${points(goal.gap)} para alcançar o ${vs} · ${left}`
+            : `Empatado em pontos com o ${vs}; o saldo decide · ${left}`
+          : left,
+        tone: "bad",
+      };
+    case "achieved":
+      return { badge: "Meta cumprida", detail: `Terminou em ${goal.position}º lugar.`, tone: "good" };
+    default:
+      return {
+        badge: "Meta não cumprida",
+        detail: `Terminou em ${goal.position}º; a diretoria esperava o ${goal.target}º.`,
+        tone: "bad",
+      };
+  }
 }

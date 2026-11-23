@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {buildInbox,recentForm,tableAround,nextFixture} from '../src/features/home/inbox.ts';
+import {buildInbox,recentForm,tableAround,nextFixture,seasonGoal,goalText} from '../src/features/home/inbox.ts';
 
 const money=n=>'R$ '+n;
 const club=(id,name)=>({id,name,short:id.toUpperCase(),color:'#fff',strength:70});
@@ -56,4 +56,30 @@ const middle=career({clubId:'bot'});
 assert.deepEqual(tableAround(middle).map(r=>r.position),[1,4,5,6,7,8],'líder e vizinhança da posição, encostada no fim da tabela');
 assert.deepEqual(tableAround(career({clubId:'cor'})).map(r=>r.position),[1,3,4,5,6,7],'líder e duas posições acima e abaixo');
 assert.deepEqual(tableAround(career()).map(r=>r.position),[1,2,3,4,5],'líder não se repete no topo');
+// Season goal: the board's "Top N" measured against the table.
+const teams=Array.from({length:6},(_,i)=>club('t'+i,'Time '+i));teams[2]=club('pal','Palmeiras');
+const league=(points,played)=>({...career({clubs:teams,round:played+1}),table:teams.map((c,i)=>({...row(c,points[i]),played}))});
+let goal=seasonGoal(league([0,0,0,0,0,0],0),3);
+assert.equal(goal.status,'not-started','sem jogos, a temporada ainda não começou');
+assert.equal(goal.total,10,'seis clubes jogam dez rodadas');
+assert.equal(goalText(goal).tone,'neutral');
+goal=seasonGoal(league([9,7,6,3,3,1],4),3);
+assert.deepEqual([goal.status,goal.position,goal.gap,goal.rival.name,goal.rival.position,goal.remaining],['on-track',3,3,'Time 3',4,6],'dentro da meta: folga sobre o primeiro fora');
+assert.match(goalText(goal).detail,/3 pontos de folga sobre o Time 3 \(4º\) · restam 6 jogos/,'texto da folga');
+goal=seasonGoal(league([9,7,5,5,3,1],4),3);
+assert.match(goalText(goal).detail,/Sem folga: empatado em pontos com o Time 3/,'folga zero');
+// Palmeiras is third in the fixture table; move the goal to the top place to be behind.
+goal=seasonGoal(league([9,7,5,3,3,1],4),1);
+assert.deepEqual([goal.status,goal.gap,goal.rival.name,goal.rival.position],['behind',4,'Time 0',1],'abaixo da meta: pontos que faltam');
+assert.equal(goalText(goal).badge,'Abaixo da meta');assert.equal(goalText(goal).tone,'bad');
+assert.match(goalText(goal).detail,/Faltam 4 pontos para alcançar o Time 0 \(1º\)/,'texto do que falta');
+goal=seasonGoal(league([9,7,5,3,3,1],4),1);goal=seasonGoal(league([9,9,8,3,3,1],10),1);
+assert.deepEqual([goal.status,goal.remaining],['missed',0],'liga encerrada fora da meta');
+assert.match(goalText(goal).detail,/Terminou em 3º; a diretoria esperava o 1º/);
+goal=seasonGoal(league([9,9,8,3,3,1],10),4);
+assert.equal(goal.status,'achieved','liga encerrada dentro da meta');assert.equal(goalText(goal).badge,'Meta cumprida');
+assert.equal(seasonGoal(league([9,9,8,3,3,1],10),99).target,6,'meta limitada ao número de clubes');
+assert.equal(seasonGoal(league([0,0,0,0,0,0],0),NaN),null,'meta inválida não gera cartão');
+assert.match(buildInbox(career(),money,6).find(m=>m.id==='welcome').body,/entre os 6 primeiros/,'boas-vindas citam a meta da diretoria');
+assert.doesNotMatch(buildInbox(career(),money).find(m=>m.id==='welcome').body,/primeiros/,'sem meta conhecida, o texto não inventa uma');
 console.log('PASS: caixa de entrada, forma recente e tabela compacta da tela inicial.');

@@ -1,0 +1,66 @@
+/* Six game areas in the sidebar; with fewer entries each one gets more presence. */
+.sidebar nav[aria-label="Áreas do jogo"] {
+  margin-top: 18px;
+}
+.sidebar nav[aria-label="Áreas do jogo"] a {
+  min-height: 50px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin: 4px 0;
+}
+
+/* Pages of the current area, as tabs above the page title. */
+nav.area-tabs {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 0 0 18px;
+  padding: 4px;
+  border: 1px solid #ffffff12;
+  border-radius: 6px;
+  background: #0b1320cc;
+  width: fit-content;
+  max-width: 100%;
+}
+.area-tabs::-webkit-scrollbar {
+  display: none;
+}
+nav.area-tabs a {
+  display: block;
+  flex: none;
+  padding: 9px 16px;
+  border-radius: 4px;
+  color: #99aabd;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+nav.area-tabs a:hover {
+  color: #fff;
+  background: #ffffff0b;
+}
+nav.area-tabs a:focus-visible {
+  outline: 2px solid var(--accent, #d2fa69);
+  outline-offset: 1px;
+}
+nav.area-tabs a.active::before {
+  content: none;
+}
+nav.area-tabs a.active {
+  color: #0b111b;
+  background: var(--accent, #d2fa69);
+}
+@media (max-width: 700px) {
+  .area-tabs {
+    width: auto;
+    margin-bottom: 14px;
+  }
+  .area-tabs a {
+    padding: 8px 13px;
+  }
+}

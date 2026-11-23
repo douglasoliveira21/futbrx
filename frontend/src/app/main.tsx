@@ -54,6 +54,8 @@ import { useUI } from "../stores/ui";
 import { Button } from "../components/ui/button";
 import { Crest } from "../components/Crest";
 import CoachHub from "../features/home/CoachHub";
+import { areas, areaOf, type AreaId } from "../features/navigation/areas";
+import "../features/navigation/areas.css";
 import "../styles/index.css";
 i18n.use(initReactI18next).init({
   lng: "pt-BR",
@@ -125,6 +127,28 @@ const nav = [
   ["visual", "Estúdio do jogador", Users],
   ["gestao-avancada", "Gestão avançada", ArrowLeftRight],
 ] as const;
+const areaIcons: Record<AreaId, React.ComponentType<{ size?: number }>> = {
+  inicio: LayoutDashboard,
+  elenco: Users,
+  jogo: Waypoints,
+  mercado: ArrowLeftRight,
+  clube: Building2,
+  carreira: History,
+};
+// The pages of the current area, shown as tabs above the page title.
+function AreaTabs({ path }: { path: string }) {
+  const area = areaOf(path);
+  if (!area || area.pages.length < 2) return null;
+  return (
+    <nav className="area-tabs" aria-label={"Seções de " + area.label}>
+      {area.pages.map((p) => (
+        <NavLink key={p.path} to={"/" + p.path} end>
+          {p.label}
+        </NavLink>
+      ))}
+    </nav>
+  );
+}
 function Panel({
   title,
   tag,
@@ -604,7 +628,7 @@ function Module({
   if (path === "competicoes")
     return (
       <Suspense fallback={<p>Carregando competição…</p>}>
-        <ClubLifeCenter c={c} initialTab="cups" onReplay={onReplay} />
+        <ClubLifeCenter c={c} initialTab="cups" onReplay={onReplay} showTabs={false} />
         <CompetitionCenter c={c} />
       </Suspense>
     );
@@ -612,7 +636,7 @@ function Module({
     return (
       <>
         <Suspense fallback={<p>Abrindo agenda…</p>}>
-          <ClubLifeCenter c={c} initialTab="calendar" onReplay={onReplay} />
+          <ClubLifeCenter c={c} initialTab="calendar" onReplay={onReplay} showTabs={false} />
         </Suspense>
         <div className="toolbar">
           <select
@@ -663,7 +687,7 @@ function Module({
     return (
       <>
         <Suspense fallback={<p>Abrindo finanças…</p>}>
-          <ClubLifeCenter c={c} initialTab="finance" onReplay={onReplay} />
+          <ClubLifeCenter c={c} initialTab="finance" onReplay={onReplay} showTabs={false} />
         </Suspense>
         <div className="financial-summary">
           <div className="stat">
@@ -728,14 +752,14 @@ function Module({
   if (path === "medico")
     return (
       <Suspense fallback={<p>Carregando disponibilidade…</p>}>
-        <ClubLifeCenter c={c} initialTab="medical" onReplay={onReplay} />
+        <ClubLifeCenter c={c} initialTab="medical" onReplay={onReplay} showTabs={false} />
         <SportsCenter key={c.revision} c={c} mode="medical" />
       </Suspense>
     );
   if (path === "base")
     return (
       <Suspense fallback={<p>Carregando categorias de base…</p>}>
-        <ClubLifeCenter c={c} initialTab="academy" onReplay={onReplay} />
+        <ClubLifeCenter c={c} initialTab="academy" onReplay={onReplay} showTabs={false} />
         <YouthCenter c={c} />
       </Suspense>
     );
@@ -751,7 +775,7 @@ function Module({
   if (lifeTabs[path])
     return (
       <Suspense fallback={<p>Abrindo bastidores…</p>}>
-        <ClubLifeCenter c={c} initialTab={lifeTabs[path]} onReplay={onReplay} />
+        <ClubLifeCenter c={c} initialTab={lifeTabs[path]} onReplay={onReplay} showTabs={false} />
       </Suspense>
     );
   if (path === "estatisticas")
@@ -876,28 +900,37 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
             <small>{c.name}</small>
           </span>
         </div>
-        <small className="nav-caption">SEU VESTIÁRIO</small>
-        <nav>
-          {nav
-            .filter(
-              ([path]) =>
-                c.state.coach?.employed !== false ||
-                ["minha-carreira", "mercado-tecnicos"].includes(path),
+        <nav aria-label="Áreas do jogo">
+          {areas
+            .map((area) =>
+              c.state.coach?.employed === false
+                ? {
+                    ...area,
+                    pages: area.pages.filter((p) =>
+                      ["minha-carreira", "mercado-tecnicos"].includes(p.path),
+                    ),
+                  }
+                : area,
             )
-            .map(([path, label, Icon], i) => (
-              <React.Fragment key={path}>
-                {i === 7 && <div className="nav-divider" />}
+            .filter((area) => area.pages.length > 0)
+            .map((area) => {
+              const Icon = areaIcons[area.id];
+              const current = areaOf(location.pathname)?.id === area.id;
+              return (
                 <NavLink
-                  to={"/" + path}
+                  key={area.id}
+                  to={"/" + area.pages[0].path}
                   end
+                  className={current ? "active" : ""}
+                  aria-current={current ? "page" : undefined}
                   onClick={() => ui.collapsed && ui.toggle()}
                 >
-                  <Icon size={18} />
-                  <span>{label}</span>
-                  {path === "" && <span className="active-mark" />}
+                  <Icon size={19} />
+                  <span>{area.label}</span>
+                  {area.id === "inicio" && <span className="active-mark" />}
                 </NavLink>
-              </React.Fragment>
-            ))}
+              );
+            })}
         </nav>
         <div className="sidebar-bottom">
           <span className="save-state">
@@ -1070,9 +1103,12 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
                   path={"/" + path}
                   element={
                     <>
+                      <AreaTabs path={path} />
                       <div className="page-heading">
                         <div>
-                          <span className="eyebrow">SEU VESTIÁRIO</span>
+                          <span className="eyebrow">
+                            {areaOf(path)?.label.toUpperCase() ?? "SEU CLUBE"}
+                          </span>
                           <h1>{label}</h1>
                           <p>
                             {club.name} · Temporada {c.state.season}

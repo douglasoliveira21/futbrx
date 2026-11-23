@@ -172,10 +172,13 @@ export default function ClubLifeCenter({
   c,
   initialTab = "board",
   onReplay,
+  showTabs = true,
 }: {
   c: Career;
   initialTab?: string;
   onReplay?: (f: Fixture) => void;
+  // The career shell routes each system to its own page; it hides this internal tab strip.
+  showTabs?: boolean;
 }) {
   const [tab, setTab] = useState(initialTab),
     [ticket, setTicket] = useState(55),
@@ -266,17 +269,19 @@ export default function ClubLifeCenter({
           <span>confiança da diretoria</span>
         </div>
       </header>
-      <nav className="life-tabs" aria-label="Sistemas da carreira">
-        {tabs.map(([id, label]) => (
-          <button
-            key={id}
-            className={tab === id ? "active" : ""}
-            onClick={() => setTab(id)}
-          >
-            {label}
-          </button>
-        ))}
-      </nav>
+      {showTabs && (
+        <nav className="life-tabs" aria-label="Sistemas da carreira">
+          {tabs.map(([id, label]) => (
+            <button
+              key={id}
+              className={tab === id ? "active" : ""}
+              onClick={() => setTab(id)}
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
+      )}
       {c.state.liveMatch && (
         <p role="status" className="notice">
           Conclua a transmissão para tomar decisões fora do campo.

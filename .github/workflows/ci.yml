@@ -23,6 +23,7 @@ jobs:
    - run: node --experimental-strip-types frontend/tests/presentation.test.mjs
    - run: node --experimental-strip-types frontend/tests/sources.test.mjs
    - run: node --experimental-strip-types frontend/tests/coach-hub.test.mjs
+   - run: node --experimental-strip-types frontend/tests/navigation-areas.test.mjs
    - run: python scripts/data/test_reviewed_catalog.py
    - name: Integration against PostgreSQL
      env:

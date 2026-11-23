@@ -15,13 +15,17 @@ public static class CatalogEndpoints
         if (existing.Count == 0) catalogs.Add(Game.DemoCatalog());
         if (!existing.Contains(Game.Clubs2026Version)) catalogs.Add(Game.Clubs2026Catalog());
         if (!existing.Contains(Game.Candidate2026Version)) catalogs.Add(Game.Candidate2026Catalog());
+        if (!existing.Contains(Game.SerieB2026Version)) catalogs.Add(Game.SeriesCatalog("B"));
+        if (!existing.Contains(Game.SerieC2026Version)) catalogs.Add(Game.SeriesCatalog("C"));
         foreach (var data in catalogs)
         {
             CatalogImport.Validate(data);
             var release = new DataRelease
             {
                 Version = data.Version, Season = data.Season, Source = data.Source, License = data.License,
-                Published = true, PublishedAt = DateTime.UtcNow
+                // The newest published version is the default for new careers. The Série B and C bases are
+                // chosen explicitly in the club picker, so they are dated early and never take over the default.
+                Published = true, PublishedAt = data.Version is Game.SerieB2026Version or Game.SerieC2026Version ? new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc) : DateTime.UtcNow
             };
             db.Add(release);
             new CatalogStore(db).AddRows(release.Id, data);
@@ -33,6 +37,7 @@ public static class CatalogEndpoints
 
     public static void MapCatalogEndpoints(this WebApplication app)
     {
+        app.MapGet("/api/directory", () => Results.Content(Game.DirectoryJson(), "application/json"));
         app.MapGet("/api/catalogs", async (GameDb db) => await db.DataReleases.AsNoTracking().Where(r => r.Published).OrderByDescending(r => r.PublishedAt).ToListAsync());
         app.MapGet("/api/clubs", async (Guid? releaseId, GameDb db) =>
         {

@@ -54,6 +54,8 @@ import { useUI } from "../stores/ui";
 import { Button } from "../components/ui/button";
 import { Crest } from "../components/Crest";
 import CoachHub from "../features/home/CoachHub";
+import ClubDirectory from "../features/career/ClubDirectory";
+import { leagueName, releaseFor, type Directory, type DirectoryClub } from "../features/career/directory";
 import { areas, areaOf, type AreaId } from "../features/navigation/areas";
 import "../features/navigation/areas.css";
 import "../styles/index.css";
@@ -304,8 +306,25 @@ function CareerPicker({
     queryKey: ["catalogs"],
     queryFn: () => api<DataRelease[]>("/catalogs"),
   });
-  const selectedReleaseId = releaseId || catalogs.data?.[0]?.id || "";
-  const release = catalogs.data?.find((r) => r.id === selectedReleaseId);
+  // Clubs of Séries A to D come from the directory; bases imported by an administrator stay
+  // available under "Outras bases de dados".
+  const directory = useQuery({
+    queryKey: ["directory"],
+    queryFn: () => api<Directory>("/directory"),
+    staleTime: Infinity,
+  });
+  const [mode, setMode] = useState<"directory" | "custom">("directory");
+  const [pickedId, setPickedId] = useState("pal");
+  const [version, setVersion] = useState("");
+  const picked = directory.data?.clubs.find((c) => c.id === pickedId);
+  const pickedRelease =
+    picked && directory.data && catalogs.data
+      ? releaseFor(picked, directory.data, catalogs.data, version)
+      : undefined;
+  const knownVersions = new Set(Object.values(directory.data?.versions ?? {}).flat());
+  const customReleases = (catalogs.data ?? []).filter((r) => !knownVersions.has(r.version));
+  const selectedReleaseId = releaseId || customReleases[0]?.id || "";
+  const release = mode === "directory" ? pickedRelease : catalogs.data?.find((r) => r.id === selectedReleaseId);
   const q = useQuery({
     queryKey: ["careers"],
     queryFn: () => api<{ id: string; name: string }[]>("/careers/"),
@@ -313,7 +332,7 @@ function CareerPicker({
   const clubs = useQuery({
     queryKey: ["clubs", selectedReleaseId],
     queryFn: () => api<Club[]>("/clubs?releaseId=" + selectedReleaseId),
-    enabled: !!selectedReleaseId,
+    enabled: mode === "custom" && !!selectedReleaseId,
   });
   const [name, setName] = useState("Minha primeira carreira");
   const [club, setClub] = useState("pal");
@@ -326,8 +345,8 @@ function CareerPicker({
     mutationFn: () =>
       api<{ id: string }>("/careers/", {
         name,
-        clubId: club,
-        releaseId: selectedReleaseId,
+        clubId: mode === "directory" ? pickedId : club,
+        releaseId: mode === "directory" ? pickedRelease?.id : selectedReleaseId,
       }),
     onSuccess: (r) => {
       ui.select(r.id);
@@ -357,7 +376,7 @@ function CareerPicker({
       <section className="panel picker">
         <span className="eyebrow">UM NOVO COMEÇO</span>
         <h1>Qual será o seu clube?</h1>
-        <p>Uma nova carreira. Vinte clubes. Uma história para escrever.</p>
+        <p>Escolha o clube pela divisão e pelo estado. Uma nova carreira, uma história para escrever.</p>
         <div className="account-links">
           {identity.data?.isAdmin && (
             <Button variant="outline" onClick={() => setAccountView("admin")}>
@@ -395,23 +414,6 @@ function CareerPicker({
           }}
         >
           <label>
-            Base de dados da temporada
-            <select
-              value={selectedReleaseId}
-              onChange={(e) => {
-                setReleaseId(e.target.value);
-                m.reset();
-              }}
-              disabled={catalogs.isPending || m.isPending}
-            >
-              {catalogs.data?.map((r) => (
-                <option key={r.id} value={r.id}>
-                  {r.version === "serie-a-2026-misto-candidatos-v2" ? "Série A 2026 · jogadores reais parciais, vínculos não verificados" : r.version === "serie-a-2026-clubes-reais-v1" ? "Série A 2026 · clubes reais, elencos simulados" : `${r.season} · ${r.version}`}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
             Nome da carreira
             <input
               value={name}
@@ -420,23 +422,65 @@ function CareerPicker({
               maxLength={60}
             />
           </label>
-          <div className="club-grid">
-            {clubs.data?.map((c) => (
-              <button
-                type="button"
-                key={c.id}
-                className={
-                  club === c.id ? "club-option selected" : "club-option"
-                }
-                onClick={() => setClub(c.id)}
-                aria-pressed={club === c.id}
-              >
-                <Crest club={c} />
-                <span>{c.name}</span>
-                {club === c.id && <Check size={15} />}
-              </button>
-            ))}
-          </div>
+          {directory.data ? (
+            <ClubDirectory
+              directory={directory.data}
+              selectedId={mode === "directory" ? pickedId : ""}
+              onSelect={(c: DirectoryClub) => {
+                setMode("directory");
+                setPickedId(c.id);
+                m.reset();
+              }}
+              version={version}
+              onVersion={setVersion}
+              disabled={m.isPending}
+            />
+          ) : (
+            <p className="muted">{directory.error ? "Não foi possível carregar os clubes." : "Carregando clubes…"}</p>
+          )}
+          {customReleases.length > 0 && (
+            <details className="custom-bases" open={mode === "custom"}>
+              <summary>Outras bases de dados (importadas)</summary>
+              <label>
+                Base de dados
+                <select
+                  value={selectedReleaseId}
+                  onChange={(e) => {
+                    setReleaseId(e.target.value);
+                    setMode("custom");
+                    m.reset();
+                  }}
+                  disabled={catalogs.isPending || m.isPending}
+                >
+                  {customReleases.map((r) => (
+                    <option key={r.id} value={r.id}>
+                      {`${r.season} · ${r.version}`}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <div className="club-grid">
+                {clubs.data?.map((c) => (
+                  <button
+                    type="button"
+                    key={c.id}
+                    className={
+                      mode === "custom" && club === c.id ? "club-option selected" : "club-option"
+                    }
+                    onClick={() => {
+                      setMode("custom");
+                      setClub(c.id);
+                    }}
+                    aria-pressed={mode === "custom" && club === c.id}
+                  >
+                    <Crest club={c} />
+                    <span>{c.name}</span>
+                    {mode === "custom" && club === c.id && <Check size={15} />}
+                  </button>
+                ))}
+              </div>
+            </details>
+          )}
           <p className="muted">
             {release?.source} {release?.license}
           </p>
@@ -449,10 +493,9 @@ function CareerPicker({
             <Button
               disabled={
                 m.isPending ||
-                !clubs.data ||
-                clubs.isFetching ||
-                !selectedReleaseId ||
-                !club
+                (mode === "directory"
+                  ? !pickedRelease
+                  : !clubs.data || clubs.isFetching || !selectedReleaseId || !club)
               }
             >
               Assumir o comando
@@ -971,7 +1014,7 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
             <span>
               {c.state.coach?.employed === false
                 ? "Mercado de treinadores"
-                : `Brasileirão Série ${c.state.division ?? "A"}`}
+                : leagueName(c.state)}
               <small>Temporada {c.state.season}</small>
             </span>
           </div>

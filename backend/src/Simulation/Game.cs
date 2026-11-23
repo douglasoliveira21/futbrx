@@ -38,6 +38,56 @@ public static class Game
         };
     }
 
+    public const string SerieB2026Version = "serie-b-2026-clubes-reais-v1";
+    public const string SerieC2026Version = "serie-c-2026-clubes-reais-v1";
+    private sealed record SeriesClub(string Id, string Series, string Name, string Short, string Color, int Strength);
+    private sealed record SeriesSource(List<SeriesClub> Clubs);
+
+    // The lower series move less money: starting cash and the cash of the other clubs scale with it.
+    public static double EconomyFactor(string version) =>
+        version.StartsWith("serie-b-2026", StringComparison.Ordinal) ? .45
+        : version.StartsWith("serie-c-2026", StringComparison.Ordinal) ? .2 : 1;
+
+    // Real clubs of Série B or C 2026 (20 each), from the researched directory in series-2026.json.
+    public static SeasonCatalog SeriesCatalog(string series)
+    {
+        using var stream = typeof(Game).Assembly.GetManifestResourceStream("Brasileirao.Series2026.json")
+            ?? throw new InvalidOperationException("O diretório de clubes por série não foi incluído na compilação.");
+        var source = JsonSerializer.Deserialize<SeriesSource>(stream, Json)
+            ?? throw new InvalidOperationException("O diretório de clubes por série está vazio.");
+        var clubs = source.Clubs.Where(c => c.Series == series)
+            .Select(c => new Club(c.Id, c.Name, c.Short, c.Color, c.Strength)).ToList();
+        if (series is not ("B" or "C") || clubs.Count != 20)
+            throw new InvalidOperationException($"A Série {series} precisa de vinte clubes no diretório.");
+        return new SeasonCatalog
+        {
+            Version = series == "B" ? SerieB2026Version : SerieC2026Version,
+            Season = 2026,
+            Source = $"Clubes da Série {series} de 2026 conforme a tabela de participantes da Wikipédia (fatos públicos), pesquisados em 23/11/2026. Siglas, cores e forças são estimativas do projeto, ainda a conferir.",
+            License = "Elencos, agentes livres e atributos simulados pelo futbrx. Escudos genéricos, sem imagens oficiais.",
+            Clubs = clubs,
+            Players = clubs.SelectMany((club, index) =>
+                Players(index * 100).Select(player => new CatalogPlayer(club.Id, player)))
+                .Concat(Players(10000).Take(12).Select(player => new CatalogPlayer("", player))).ToList()
+        };
+    }
+
+    // All 156 clubs of Séries A-D with state and city, plus which data versions each series can start in.
+    static readonly Lazy<string> directory = new(() =>
+    {
+        using var stream = typeof(Game).Assembly.GetManifestResourceStream("Brasileirao.Series2026.json")
+            ?? throw new InvalidOperationException("O diretório de clubes por série não foi incluído na compilação.");
+        var node = System.Text.Json.Nodes.JsonNode.Parse(stream)!.AsObject();
+        node["versions"] = new System.Text.Json.Nodes.JsonObject
+        {
+            ["A"] = new System.Text.Json.Nodes.JsonArray(Candidate2026Version, Clubs2026Version),
+            ["B"] = new System.Text.Json.Nodes.JsonArray(SerieB2026Version),
+            ["C"] = new System.Text.Json.Nodes.JsonArray(SerieC2026Version),
+        };
+        return node.ToJsonString();
+    });
+    public static string DirectoryJson() => directory.Value;
+
     public const string Candidate2026Version = "serie-a-2026-misto-candidatos-v2";
     private sealed record Candidate(int Id, string ClubId, string Name, string Position, int Age, decimal? MarketValueEur = null);
     private sealed record CandidateSource(List<Candidate> Players);
@@ -74,6 +124,7 @@ public static class Game
         if (!catalog.Clubs.Any(c => c.Id == club)) throw new GameRuleException("Clube ausente nesta versão de dados.");
         var copy = JsonSerializer.Deserialize<SeasonCatalog>(JsonSerializer.Serialize(catalog, Json), Json)!;
         var g = new GameState { LotterySeed = Guid.NewGuid().ToString("N"), ClubId = club, DataVersion = copy.Version, Season = copy.Season, Clubs = copy.Clubs };
+        g.Balance = (long)(g.Balance * EconomyFactor(copy.Version));
         foreach (var c in copy.Clubs)
         {
             var squad = copy.Players.Where(p => p.ClubId == c.Id).Select(p => p.Player).ToList();

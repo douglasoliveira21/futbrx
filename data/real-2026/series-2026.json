@@ -12,7 +12,9 @@
     "A Série D de 2026 tem 96 clubes (ampliada de 64), segundo a página; os grupos A1 a A16 ainda não foram lidos.",
     "Nomes são os usados na tabela de participantes (abreviações); o nome completo oficial ainda precisa ser registrado.",
     "Clubes com o campo check foram lidos de resumo automático, não do texto da tabela.",
-    "Cores, força e escudo ainda não definidos para B, C e D."
+    "Séries B e C: sigla, cor e força são estimativas do projeto (campo attributes) e precisam de conferência.",
+    "Série D: sigla, cor e força são provisórias, só para a escolha de clube; a Série D ainda não é jogável.",
+    "Os ids de B, C e D têm até 20 caracteres (regra do catálogo); os da Série A são os já usados no jogo."
   ],
   "clubs": [
     {
@@ -20,1098 +22,1722 @@
       "series": "A",
       "name": "Palmeiras",
       "city": "São Paulo",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "PAL",
+      "color": "#176b3a",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "fla",
       "series": "A",
       "name": "Flamengo",
       "city": "Rio de Janeiro",
-      "uf": "RJ"
+      "uf": "RJ",
+      "short": "FLA",
+      "color": "#bf2033",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "bot",
       "series": "A",
       "name": "Botafogo",
       "city": "Rio de Janeiro",
-      "uf": "RJ"
+      "uf": "RJ",
+      "short": "BOT",
+      "color": "#eeeeee",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "cor",
       "series": "A",
       "name": "Corinthians",
       "city": "São Paulo",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "COR",
+      "color": "#dddddd",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "sao",
       "series": "A",
       "name": "São Paulo",
       "city": "São Paulo",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "SAO",
+      "color": "#d32c36",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "san",
       "series": "A",
       "name": "Santos",
       "city": "Santos",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "SAN",
+      "color": "#fafafa",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "flu",
       "series": "A",
       "name": "Fluminense",
       "city": "Rio de Janeiro",
-      "uf": "RJ"
+      "uf": "RJ",
+      "short": "FLU",
+      "color": "#9b3458",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "vas",
       "series": "A",
       "name": "Vasco da Gama",
       "city": "Rio de Janeiro",
-      "uf": "RJ"
+      "uf": "RJ",
+      "short": "VAS",
+      "color": "#bbbbbb",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "gre",
       "series": "A",
       "name": "Grêmio",
       "city": "Porto Alegre",
-      "uf": "RS"
+      "uf": "RS",
+      "short": "GRE",
+      "color": "#4ba8dc",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "int",
       "series": "A",
       "name": "Internacional",
       "city": "Porto Alegre",
-      "uf": "RS"
+      "uf": "RS",
+      "short": "INT",
+      "color": "#d62639",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "cru",
       "series": "A",
       "name": "Cruzeiro",
       "city": "Belo Horizonte",
-      "uf": "MG"
+      "uf": "MG",
+      "short": "CRU",
+      "color": "#3766c8",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "cam",
       "series": "A",
       "name": "Atlético-MG",
       "city": "Belo Horizonte",
-      "uf": "MG"
+      "uf": "MG",
+      "short": "CAM",
+      "color": "#cccccc",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "bah",
       "series": "A",
       "name": "Bahia",
       "city": "Salvador",
-      "uf": "BA"
+      "uf": "BA",
+      "short": "BAH",
+      "color": "#337acf",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "cap",
       "series": "A",
       "name": "Athletico-PR",
       "city": "Curitiba",
-      "uf": "PR"
+      "uf": "PR",
+      "short": "CAP",
+      "color": "#cd2f36",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "ctb",
       "series": "A",
       "name": "Coritiba",
       "city": "Curitiba",
-      "uf": "PR"
+      "uf": "PR",
+      "short": "CTB",
+      "color": "#27814c",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "cha",
       "series": "A",
       "name": "Chapecoense",
       "city": "Chapecó",
-      "uf": "SC"
+      "uf": "SC",
+      "short": "CHA",
+      "color": "#25985a",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "rem",
       "series": "A",
       "name": "Remo",
       "city": "Belém",
-      "uf": "PA"
+      "uf": "PA",
+      "short": "REM",
+      "color": "#23427c",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "vit",
       "series": "A",
       "name": "Vitória",
       "city": "Salvador",
-      "uf": "BA"
+      "uf": "BA",
+      "short": "VIT",
+      "color": "#d72f3a",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "mir",
       "series": "A",
       "name": "Mirassol",
       "city": "Mirassol",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "MIR",
+      "color": "#dac552",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
       "id": "rbb",
       "series": "A",
       "name": "Red Bull Bragantino",
       "city": "Bragança Paulista",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "RBB",
+      "color": "#eeeeee",
+      "strength": 70,
+      "attributes": "cor e força do projeto (clubs.json)"
     },
     {
-      "id": "america-mg-mg",
+      "id": "america-mg",
       "series": "B",
       "name": "América-MG",
       "city": "Belo Horizonte",
-      "uf": "MG"
+      "uf": "MG",
+      "short": "AMG",
+      "color": "#00a650",
+      "strength": 66,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "athletic-mg",
+      "id": "athletic",
       "series": "B",
       "name": "Athletic",
       "city": "São João del-Rei",
-      "uf": "MG"
+      "uf": "MG",
+      "short": "ATH",
+      "color": "#222222",
+      "strength": 61,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "atletico-go-go",
+      "id": "atletico-go",
       "series": "B",
       "name": "Atlético-GO",
       "city": "Goiânia",
-      "uf": "GO"
+      "uf": "GO",
+      "short": "ACG",
+      "color": "#d71920",
+      "strength": 65,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "avai-sc",
+      "id": "avai",
       "series": "B",
       "name": "Avaí",
       "city": "Florianópolis",
-      "uf": "SC"
+      "uf": "SC",
+      "short": "AVA",
+      "color": "#0a5da8",
+      "strength": 64,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "botafogo-sp-sp",
+      "id": "botafogo-sp",
       "series": "B",
       "name": "Botafogo-SP",
       "city": "Ribeirão Preto",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "BSP",
+      "color": "#c8102e",
+      "strength": 62,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "ceara-ce",
+      "id": "ceara",
       "series": "B",
       "name": "Ceará",
       "city": "Fortaleza",
-      "uf": "CE"
+      "uf": "CE",
+      "short": "CEA",
+      "color": "#222222",
+      "strength": 68,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "crb-al",
+      "id": "crb",
       "series": "B",
       "name": "CRB",
       "city": "Maceió",
-      "uf": "AL"
+      "uf": "AL",
+      "short": "CRB",
+      "color": "#d71920",
+      "strength": 64,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "criciuma-sc",
+      "id": "criciuma",
       "series": "B",
       "name": "Criciúma",
       "city": "Criciúma",
-      "uf": "SC"
+      "uf": "SC",
+      "short": "CRI",
+      "color": "#f2c200",
+      "strength": 65,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "cuiaba-mt",
+      "id": "cuiaba",
       "series": "B",
       "name": "Cuiabá",
       "city": "Cuiabá",
-      "uf": "MT"
+      "uf": "MT",
+      "short": "CUI",
+      "color": "#1b7f3a",
+      "strength": 66,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "fortaleza-ce",
+      "id": "fortaleza",
       "series": "B",
       "name": "Fortaleza",
       "city": "Fortaleza",
-      "uf": "CE"
+      "uf": "CE",
+      "short": "FOR",
+      "color": "#0b3d91",
+      "strength": 69,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "goias-go",
+      "id": "goias",
       "series": "B",
       "name": "Goiás",
       "city": "Goiânia",
-      "uf": "GO"
+      "uf": "GO",
+      "short": "GOI",
+      "color": "#0b7a3b",
+      "strength": 66,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "juventude-rs",
+      "id": "juventude",
       "series": "B",
       "name": "Juventude",
       "city": "Caxias do Sul",
-      "uf": "RS"
+      "uf": "RS",
+      "short": "JUV",
+      "color": "#0f8a3c",
+      "strength": 66,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "londrina-pr",
+      "id": "londrina",
       "series": "B",
       "name": "Londrina",
       "city": "Londrina",
-      "uf": "PR"
+      "uf": "PR",
+      "short": "LON",
+      "color": "#1f5fae",
+      "strength": 61,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "nautico-pe",
+      "id": "nautico",
       "series": "B",
       "name": "Náutico",
       "city": "Recife",
-      "uf": "PE"
+      "uf": "PE",
+      "short": "NAU",
+      "color": "#d71920",
+      "strength": 63,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "novorizontino-sp",
+      "id": "novorizontino",
       "series": "B",
       "name": "Novorizontino",
       "city": "Novo Horizonte",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "NOV",
+      "color": "#f2c200",
+      "strength": 64,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "operario-pr-pr",
+      "id": "operario-pr",
       "series": "B",
       "name": "Operário-PR",
       "city": "Ponta Grossa",
-      "uf": "PR"
+      "uf": "PR",
+      "short": "OPE",
+      "color": "#222222",
+      "strength": 63,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "ponte-preta-sp",
+      "id": "ponte-preta",
       "series": "B",
       "name": "Ponte Preta",
       "city": "Campinas",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "PON",
+      "color": "#222222",
+      "strength": 63,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "sao-bernardo-sp",
+      "id": "sao-bernardo",
       "series": "B",
       "name": "São Bernardo",
       "city": "São Bernardo do Campo",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "SBE",
+      "color": "#f2c200",
+      "strength": 61,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "sport-pe",
+      "id": "sport",
       "series": "B",
       "name": "Sport",
       "city": "Recife",
-      "uf": "PE"
+      "uf": "PE",
+      "short": "SPO",
+      "color": "#d71920",
+      "strength": 67,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "vila-nova-go",
+      "id": "vila-nova",
       "series": "B",
       "name": "Vila Nova",
       "city": "Goiânia",
       "uf": "GO",
-      "check": "linha lida apenas de resumo automático da página; confirmar"
+      "check": "linha lida apenas de resumo automático da página; confirmar",
+      "short": "VNO",
+      "color": "#d71920",
+      "strength": 64,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "amazonas-am",
+      "id": "amazonas",
       "series": "C",
       "name": "Amazonas",
       "city": "Manaus",
-      "uf": "AM"
+      "uf": "AM",
+      "short": "AMA",
+      "color": "#f2c200",
+      "strength": 56,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "anapolis-go",
+      "id": "anapolis",
       "series": "C",
       "name": "Anápolis",
       "city": "Anápolis",
-      "uf": "GO"
+      "uf": "GO",
+      "short": "ANA",
+      "color": "#1f5fae",
+      "strength": 55,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "barra-sc-sc",
+      "id": "barra-sc",
       "series": "C",
       "name": "Barra-SC",
       "city": "Balneário Camboriú",
-      "uf": "SC"
+      "uf": "SC",
+      "short": "BAR",
+      "color": "#d71920",
+      "strength": 55,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "botafogo-pb-pb",
+      "id": "botafogo-pb",
       "series": "C",
       "name": "Botafogo-PB",
       "city": "João Pessoa",
-      "uf": "PB"
+      "uf": "PB",
+      "short": "BPB",
+      "color": "#222222",
+      "strength": 58,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "brusque-sc",
+      "id": "brusque",
       "series": "C",
       "name": "Brusque",
       "city": "Brusque",
-      "uf": "SC"
+      "uf": "SC",
+      "short": "BRU",
+      "color": "#f2c200",
+      "strength": 57,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "caxias-rs",
+      "id": "caxias",
       "series": "C",
       "name": "Caxias",
       "city": "Caxias do Sul",
-      "uf": "RS"
+      "uf": "RS",
+      "short": "CAX",
+      "color": "#8b1a2b",
+      "strength": 56,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "confianca-se",
+      "id": "confianca",
       "series": "C",
       "name": "Confiança",
       "city": "Aracaju",
-      "uf": "SE"
+      "uf": "SE",
+      "short": "CON",
+      "color": "#1f5fae",
+      "strength": 57,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "ferroviaria-sp",
+      "id": "ferroviaria",
       "series": "C",
       "name": "Ferroviária",
       "city": "Araraquara",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "FER",
+      "color": "#8b1a2b",
+      "strength": 58,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "figueirense-sc",
+      "id": "figueirense",
       "series": "C",
       "name": "Figueirense",
       "city": "Florianópolis",
-      "uf": "SC"
+      "uf": "SC",
+      "short": "FIG",
+      "color": "#222222",
+      "strength": 60,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "floresta-ce",
+      "id": "floresta",
       "series": "C",
       "name": "Floresta",
       "city": "Fortaleza",
-      "uf": "CE"
+      "uf": "CE",
+      "short": "FLO",
+      "color": "#1b7f3a",
+      "strength": 55,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "guarani-sp",
+      "id": "guarani",
       "series": "C",
       "name": "Guarani",
       "city": "Campinas",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "GUA",
+      "color": "#0b7a3b",
+      "strength": 59,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "inter-de-limeira-sp",
+      "id": "inter-de-limeira",
       "series": "C",
       "name": "Inter de Limeira",
       "city": "Limeira",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "ILI",
+      "color": "#d71920",
+      "strength": 56,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "itabaiana-se",
+      "id": "itabaiana",
       "series": "C",
       "name": "Itabaiana",
       "city": "Itabaiana",
-      "uf": "SE"
+      "uf": "SE",
+      "short": "ITB",
+      "color": "#1f5fae",
+      "strength": 54,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "ituano-sp",
+      "id": "ituano",
       "series": "C",
       "name": "Ituano",
       "city": "Itu",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "ITU",
+      "color": "#d71920",
+      "strength": 58,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "maranhao-ma",
+      "id": "maranhao",
       "series": "C",
       "name": "Maranhão",
       "city": "São Luís",
-      "uf": "MA"
+      "uf": "MA",
+      "short": "MAR",
+      "color": "#d71920",
+      "strength": 53,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "maringa-pr",
+      "id": "maringa",
       "series": "C",
       "name": "Maringá",
       "city": "Maringá",
-      "uf": "PR"
+      "uf": "PR",
+      "short": "MGA",
+      "color": "#f2c200",
+      "strength": 54,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "paysandu-pa",
+      "id": "paysandu",
       "series": "C",
       "name": "Paysandu",
       "city": "Belém",
-      "uf": "PA"
+      "uf": "PA",
+      "short": "PAY",
+      "color": "#1f5fae",
+      "strength": 60,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "santa-cruz-pe",
+      "id": "santa-cruz",
       "series": "C",
       "name": "Santa Cruz",
       "city": "Recife",
-      "uf": "PE"
+      "uf": "PE",
+      "short": "STC",
+      "color": "#d71920",
+      "strength": 59,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "volta-redonda-rj",
+      "id": "volta-redonda",
       "series": "C",
       "name": "Volta Redonda",
       "city": "Volta Redonda",
-      "uf": "RJ"
+      "uf": "RJ",
+      "short": "VRE",
+      "color": "#f2c200",
+      "strength": 57,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "ypiranga-de-erechim-rs",
+      "id": "ypiranga-de-erechim",
       "series": "C",
       "name": "Ypiranga de Erechim",
       "city": "Erechim",
-      "uf": "RS"
+      "uf": "RS",
+      "short": "YPI",
+      "color": "#f2c200",
+      "strength": 53,
+      "attributes": "estimados pelo projeto; conferir"
     },
     {
-      "id": "abc-rn",
+      "id": "abc",
       "series": "D",
       "name": "ABC",
       "city": "Natal",
-      "uf": "RN"
+      "uf": "RN",
+      "short": "ABC",
+      "color": "#d71920",
+      "strength": 45,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "abecat-go",
+      "id": "abecat",
       "series": "D",
       "name": "ABECAT",
       "city": "Ouvidor",
-      "uf": "GO"
+      "uf": "GO",
+      "short": "ABE",
+      "color": "#0b3d91",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "agua-santa-sp",
+      "id": "agua-santa",
       "series": "D",
       "name": "Água Santa",
       "city": "Diadema",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "AGU",
+      "color": "#d71920",
+      "strength": 47,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "aguia-de-maraba-pa",
+      "id": "aguia-de-maraba",
       "series": "D",
       "name": "Águia de Marabá",
       "city": "Marabá",
-      "uf": "PA"
+      "uf": "PA",
+      "short": "AGU",
+      "color": "#6a4fb0",
+      "strength": 40,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "altos-pi",
+      "id": "altos",
       "series": "D",
       "name": "Altos",
       "city": "Altos",
-      "uf": "PI"
+      "uf": "PI",
+      "short": "ALT",
+      "color": "#7a7a7a",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "america-rj",
+      "id": "america",
       "series": "D",
       "name": "America",
       "city": "Rio de Janeiro",
-      "uf": "RJ"
+      "uf": "RJ",
+      "short": "AME",
+      "color": "#0f8a8a",
+      "strength": 45,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "america-de-natal-rn",
+      "id": "america-de-natal",
       "series": "D",
       "name": "América de Natal",
       "city": "Natal",
-      "uf": "RN"
+      "uf": "RN",
+      "short": "AME",
+      "color": "#f2c200",
+      "strength": 47,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "aparecidense-go",
+      "id": "aparecidense",
       "series": "D",
       "name": "Aparecidense",
       "city": "Aparecida de Goiânia",
-      "uf": "GO"
+      "uf": "GO",
+      "short": "APA",
+      "color": "#0b3d91",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "araguaina-to",
+      "id": "araguaina",
       "series": "D",
       "name": "Araguaína",
       "city": "Araguaína",
-      "uf": "TO"
+      "uf": "TO",
+      "short": "ARA",
+      "color": "#6a4fb0",
+      "strength": 46,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "asa-al",
+      "id": "asa",
       "series": "D",
       "name": "ASA",
       "city": "Arapiraca",
-      "uf": "AL"
+      "uf": "AL",
+      "short": "ASA",
+      "color": "#0f8a8a",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "atletico-cearense-ce",
+      "id": "atletico-cearense",
       "series": "D",
       "name": "Atlético Cearense",
       "city": "Fortaleza",
-      "uf": "CE"
+      "uf": "CE",
+      "short": "ATL",
+      "color": "#0b3d91",
+      "strength": 44,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "atletico-de-alagoinhas-ba",
+      "id": "atletico-de-alagoinh",
       "series": "D",
       "name": "Atlético de Alagoinhas",
       "city": "Alagoinhas",
-      "uf": "BA"
+      "uf": "BA",
+      "short": "ATL",
+      "color": "#f2c200",
+      "strength": 49,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "azuriz-pr",
+      "id": "azuriz",
       "series": "D",
       "name": "Azuriz",
       "city": "Pato Branco",
-      "uf": "PR"
+      "uf": "PR",
+      "short": "AZU",
+      "color": "#f2c200",
+      "strength": 49,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "betim-futebol-mg",
+      "id": "betim-futebol",
       "series": "D",
       "name": "Betim Futebol",
       "city": "Betim",
-      "uf": "MG"
+      "uf": "MG",
+      "short": "BET",
+      "color": "#d26d28",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "brasil-de-pelotas-rs",
+      "id": "brasil-de-pelotas",
       "series": "D",
       "name": "Brasil de Pelotas",
       "city": "Pelotas",
-      "uf": "RS"
+      "uf": "RS",
+      "short": "BRA",
+      "color": "#222222",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "brasiliense-df",
+      "id": "brasiliense",
       "series": "D",
       "name": "Brasiliense",
       "city": "Taguatinga",
-      "uf": "DF"
+      "uf": "DF",
+      "short": "BRA",
+      "color": "#0b3d91",
+      "strength": 46,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "blumenau-sc",
+      "id": "blumenau",
       "series": "D",
       "name": "Blumenau",
       "city": "Blumenau",
-      "uf": "SC"
+      "uf": "SC",
+      "short": "BLU",
+      "color": "#6a4fb0",
+      "strength": 40,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "capital-df-df",
+      "id": "capital-df",
       "series": "D",
       "name": "Capital-DF",
       "city": "Paranoá",
-      "uf": "DF"
+      "uf": "DF",
+      "short": "CAP",
+      "color": "#0f8a8a",
+      "strength": 49,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "ceilandia-df",
+      "id": "ceilandia",
       "series": "D",
       "name": "Ceilândia",
       "city": "Ceilândia",
-      "uf": "DF"
+      "uf": "DF",
+      "short": "CEI",
+      "color": "#d26d28",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "central-pe",
+      "id": "central",
       "series": "D",
       "name": "Central",
       "city": "Caruaru",
-      "uf": "PE"
+      "uf": "PE",
+      "short": "CEN",
+      "color": "#1b7f3a",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "cianorte-pr",
+      "id": "cianorte",
       "series": "D",
       "name": "Cianorte",
       "city": "Cianorte",
-      "uf": "PR"
+      "uf": "PR",
+      "short": "CIA",
+      "color": "#0f8a8a",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "crac-go",
+      "id": "crac",
       "series": "D",
       "name": "CRAC",
       "city": "Catalão",
-      "uf": "GO"
+      "uf": "GO",
+      "short": "CRA",
+      "color": "#1b7f3a",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "csa-al",
+      "id": "csa",
       "series": "D",
       "name": "CSA",
       "city": "Maceió",
-      "uf": "AL"
+      "uf": "AL",
+      "short": "CSA",
+      "color": "#1f5fae",
+      "strength": 48,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "cse-al",
+      "id": "cse",
       "series": "D",
       "name": "CSE",
       "city": "Palmeira dos Índios",
-      "uf": "AL"
+      "uf": "AL",
+      "short": "CSE",
+      "color": "#8b1a2b",
+      "strength": 43,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "decisao-goiana-pe",
+      "id": "decisao-goiana",
       "series": "D",
       "name": "Decisão Goiana",
       "city": "Goiana",
-      "uf": "PE"
+      "uf": "PE",
+      "short": "DEC",
+      "color": "#1b7f3a",
+      "strength": 48,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "democrata-gv-mg",
+      "id": "democrata-gv",
       "series": "D",
       "name": "Democrata GV",
       "city": "Governador Valadares",
-      "uf": "MG"
+      "uf": "MG",
+      "short": "DEM",
+      "color": "#0b3d91",
+      "strength": 40,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "fc-cascavel-pr",
+      "id": "fc-cascavel",
       "series": "D",
       "name": "FC Cascavel",
       "city": "Cascavel",
-      "uf": "PR"
+      "uf": "PR",
+      "short": "FCC",
+      "color": "#7a7a7a",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "ferroviario-ce",
+      "id": "ferroviario",
       "series": "D",
       "name": "Ferroviário",
       "city": "Fortaleza",
-      "uf": "CE"
+      "uf": "CE",
+      "short": "FER",
+      "color": "#0f8a8a",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "fluminense-pi-pi",
+      "id": "fluminense-pi",
       "series": "D",
       "name": "Fluminense-PI",
       "city": "Teresina",
-      "uf": "PI"
+      "uf": "PI",
+      "short": "FLU",
+      "color": "#d26d28",
+      "strength": 43,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "galvez-ac",
+      "id": "galvez",
       "series": "D",
       "name": "Galvez",
       "city": "Rio Branco",
-      "uf": "AC"
+      "uf": "AC",
+      "short": "GAL",
+      "color": "#d26d28",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "gama-df",
+      "id": "gama",
       "series": "D",
       "name": "Gama",
       "city": "Gama",
-      "uf": "DF"
+      "uf": "DF",
+      "short": "GAM",
+      "color": "#1f5fae",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "gas-rr",
+      "id": "gas",
       "series": "D",
       "name": "GAS",
       "city": "Boa Vista",
-      "uf": "RR"
+      "uf": "RR",
+      "short": "GAS",
+      "color": "#0b3d91",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "gazin-porto-velho-ro",
+      "id": "gazin-porto-velho",
       "series": "D",
       "name": "Gazin Porto Velho",
       "city": "Porto Velho",
-      "uf": "RO"
+      "uf": "RO",
+      "short": "GAZ",
+      "color": "#f2c200",
+      "strength": 49,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "goiatuba-go",
+      "id": "goiatuba",
       "series": "D",
       "name": "Goiatuba",
       "city": "Goiatuba",
-      "uf": "GO"
+      "uf": "GO",
+      "short": "GOI",
+      "color": "#6a4fb0",
+      "strength": 48,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "guapore-ro",
+      "id": "guapore",
       "series": "D",
       "name": "Guaporé",
       "city": "Rolim de Moura",
-      "uf": "RO"
+      "uf": "RO",
+      "short": "GUA",
+      "color": "#7a7a7a",
+      "strength": 40,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "guarany-de-bage-rs",
+      "id": "guarany-de-bage",
       "series": "D",
       "name": "Guarany de Bagé",
       "city": "Bagé",
-      "uf": "RS"
+      "uf": "RS",
+      "short": "GUA",
+      "color": "#7a7a7a",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "humaita-ac",
+      "id": "humaita",
       "series": "D",
       "name": "Humaitá",
       "city": "Porto Acre",
-      "uf": "AC"
+      "uf": "AC",
+      "short": "HUM",
+      "color": "#6a4fb0",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "iape-ma",
+      "id": "iape",
       "series": "D",
       "name": "IAPE",
       "city": "São Luís",
-      "uf": "MA"
+      "uf": "MA",
+      "short": "IAP",
+      "color": "#222222",
+      "strength": 40,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "iguatu-ce",
+      "id": "iguatu",
       "series": "D",
       "name": "Iguatu",
       "city": "Iguatu",
-      "uf": "CE"
+      "uf": "CE",
+      "short": "IGU",
+      "color": "#8b1a2b",
+      "strength": 49,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "imperatriz-ma",
+      "id": "imperatriz",
       "series": "D",
       "name": "Imperatriz",
       "city": "Imperatriz",
-      "uf": "MA"
+      "uf": "MA",
+      "short": "IMP",
+      "color": "#7a7a7a",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "independencia-ac",
+      "id": "independencia",
       "series": "D",
       "name": "Independência",
       "city": "Rio Branco",
-      "uf": "AC"
+      "uf": "AC",
+      "short": "IND",
+      "color": "#1b7f3a",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "inhumas-go",
+      "id": "inhumas",
       "series": "D",
       "name": "Inhumas",
       "city": "Inhumas",
-      "uf": "GO"
+      "uf": "GO",
+      "short": "INH",
+      "color": "#222222",
+      "strength": 46,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "ivinhema-ms",
+      "id": "ivinhema",
       "series": "D",
       "name": "Ivinhema",
       "city": "Ivinhema",
-      "uf": "MS"
+      "uf": "MS",
+      "short": "IVI",
+      "color": "#d26d28",
+      "strength": 45,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "jacuipense-ba",
+      "id": "jacuipense",
       "series": "D",
       "name": "Jacuipense",
       "city": "Riachão do Jacuípe",
-      "uf": "BA"
+      "uf": "BA",
+      "short": "JAC",
+      "color": "#7a7a7a",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "joinville-sc",
+      "id": "joinville",
       "series": "D",
       "name": "Joinville",
       "city": "Joinville",
-      "uf": "SC"
+      "uf": "SC",
+      "short": "JOI",
+      "color": "#1f5fae",
+      "strength": 46,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "juazeirense-ba",
+      "id": "juazeirense",
       "series": "D",
       "name": "Juazeirense",
       "city": "Juazeiro",
-      "uf": "BA"
+      "uf": "BA",
+      "short": "JUA",
+      "color": "#0b3d91",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "lagarto-se",
+      "id": "lagarto",
       "series": "D",
       "name": "Lagarto",
       "city": "Lagarto",
-      "uf": "SE"
+      "uf": "SE",
+      "short": "LAG",
+      "color": "#0f8a8a",
+      "strength": 43,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "laguna-rn",
+      "id": "laguna",
       "series": "D",
       "name": "Laguna",
       "city": "Tibau do Sul",
-      "uf": "RN"
+      "uf": "RN",
+      "short": "LAG",
+      "color": "#8b1a2b",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "luverdense-mt",
+      "id": "luverdense",
       "series": "D",
       "name": "Luverdense",
       "city": "Lucas do Rio Verde",
-      "uf": "MT"
+      "uf": "MT",
+      "short": "LUV",
+      "color": "#1b7f3a",
+      "strength": 44,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "madureira-rj",
+      "id": "madureira",
       "series": "D",
       "name": "Madureira",
       "city": "Rio de Janeiro",
-      "uf": "RJ"
+      "uf": "RJ",
+      "short": "MAD",
+      "color": "#8b1a2b",
+      "strength": 47,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "maguary-pe",
+      "id": "maguary",
       "series": "D",
       "name": "Maguary",
       "city": "Bonito",
-      "uf": "PE"
+      "uf": "PE",
+      "short": "MAG",
+      "color": "#222222",
+      "strength": 40,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "manauara-am",
+      "id": "manauara",
       "series": "D",
       "name": "Manauara",
       "city": "Manaus",
-      "uf": "AM"
+      "uf": "AM",
+      "short": "MAN",
+      "color": "#8b1a2b",
+      "strength": 43,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "manaus-am",
+      "id": "manaus",
       "series": "D",
       "name": "Manaus",
       "city": "Manaus",
-      "uf": "AM"
+      "uf": "AM",
+      "short": "MAN",
+      "color": "#6a4fb0",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "maracana-ce-ce",
+      "id": "maracana-ce",
       "series": "D",
       "name": "Maracanã-CE",
       "city": "Maracanaú",
-      "uf": "CE"
+      "uf": "CE",
+      "short": "MAR",
+      "color": "#6a4fb0",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "marcilio-dias-sc",
+      "id": "marcilio-dias",
       "series": "D",
       "name": "Marcílio Dias",
       "city": "Itajaí",
-      "uf": "SC"
+      "uf": "SC",
+      "short": "MAR",
+      "color": "#222222",
+      "strength": 46,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "marica-rj",
+      "id": "marica",
       "series": "D",
       "name": "Maricá",
       "city": "Maricá",
-      "uf": "RJ"
+      "uf": "RJ",
+      "short": "MAR",
+      "color": "#d26d28",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "mixto-mt",
+      "id": "mixto",
       "series": "D",
       "name": "Mixto",
       "city": "Cuiabá",
-      "uf": "MT"
+      "uf": "MT",
+      "short": "MIX",
+      "color": "#222222",
+      "strength": 40,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "monte-roraima-rr",
+      "id": "monte-roraima",
       "series": "D",
       "name": "Monte Roraima",
       "city": "Boa Vista",
-      "uf": "RR"
+      "uf": "RR",
+      "short": "MON",
+      "color": "#c0397b",
+      "strength": 43,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "moto-club-ma",
+      "id": "moto-club",
       "series": "D",
       "name": "Moto Club",
       "city": "São Luís",
-      "uf": "MA"
+      "uf": "MA",
+      "short": "MOT",
+      "color": "#1f5fae",
+      "strength": 44,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "nacional-am-am",
+      "id": "nacional-am",
       "series": "D",
       "name": "Nacional-AM",
       "city": "Manaus",
-      "uf": "AM"
+      "uf": "AM",
+      "short": "NAC",
+      "color": "#f2c200",
+      "strength": 45,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "noroeste-sp",
+      "id": "noroeste",
       "series": "D",
       "name": "Noroeste",
       "city": "Bauru",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "NOR",
+      "color": "#1f5fae",
+      "strength": 44,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "nova-iguacu-rj",
+      "id": "nova-iguacu",
       "series": "D",
       "name": "Nova Iguaçu",
       "city": "Nova Iguaçu",
-      "uf": "RJ"
+      "uf": "RJ",
+      "short": "NOV",
+      "color": "#6a4fb0",
+      "strength": 44,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "operario-ms-ms",
+      "id": "operario-ms",
       "series": "D",
       "name": "Operário-MS",
       "city": "Campo Grande",
-      "uf": "MS"
+      "uf": "MS",
+      "short": "OPE",
+      "color": "#8b1a2b",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "operario-vg-mt",
+      "id": "operario-vg",
       "series": "D",
       "name": "Operário VG",
       "city": "Várzea Grande",
-      "uf": "MT"
+      "uf": "MT",
+      "short": "OPE",
+      "color": "#d26d28",
+      "strength": 49,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "oratorio-ap",
+      "id": "oratorio",
       "series": "D",
       "name": "Oratório",
       "city": "Macapá",
-      "uf": "AP"
+      "uf": "AP",
+      "short": "ORA",
+      "color": "#c0397b",
+      "strength": 43,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "parnahyba-pi",
+      "id": "parnahyba",
       "series": "D",
       "name": "Parnahyba",
       "city": "Parnaíba",
-      "uf": "PI"
+      "uf": "PI",
+      "short": "PAR",
+      "color": "#0f8a8a",
+      "strength": 45,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "piaui-pi",
+      "id": "piaui",
       "series": "D",
       "name": "Piauí",
       "city": "Teresina",
-      "uf": "PI"
+      "uf": "PI",
+      "short": "PIA",
+      "color": "#d71920",
+      "strength": 49,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "porto-ba-ba",
+      "id": "porto-ba",
       "series": "D",
       "name": "Porto-BA",
       "city": "Porto Seguro",
-      "uf": "BA"
+      "uf": "BA",
+      "short": "POR",
+      "color": "#7a7a7a",
+      "strength": 48,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "portuguesa-sp",
+      "id": "portuguesa",
       "series": "D",
       "name": "Portuguesa",
       "city": "São Paulo",
-      "uf": "SP"
+      "uf": "SP",
+      "short": "POR",
+      "color": "#8b1a2b",
+      "strength": 45,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "portuguesa-rj-rj",
+      "id": "portuguesa-rj",
       "series": "D",
       "name": "Portuguesa-RJ",
       "city": "Rio de Janeiro",
-      "uf": "RJ"
+      "uf": "RJ",
+      "short": "POR",
+      "color": "#0f8a8a",
+      "strength": 47,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "pouso-alegre-mg",
+      "id": "pouso-alegre",
       "series": "D",
       "name": "Pouso Alegre",
       "city": "Pouso Alegre",
-      "uf": "MG"
+      "uf": "MG",
+      "short": "POU",
+      "color": "#8b1a2b",
+      "strength": 47,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "primavera-mt-mt",
+      "id": "primavera-mt",
       "series": "D",
       "name": "Primavera-MT",
       "city": "Primavera do Leste",
-      "uf": "MT"
+      "uf": "MT",
+      "short": "PRI",
+      "color": "#6a4fb0",
+      "strength": 48,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "real-noroeste-es",
+      "id": "real-noroeste",
       "series": "D",
       "name": "Real Noroeste",
       "city": "Águia Branca",
-      "uf": "ES"
+      "uf": "ES",
+      "short": "REA",
+      "color": "#d26d28",
+      "strength": 45,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "retro-pe",
+      "id": "retro",
       "series": "D",
       "name": "Retrô",
       "city": "Camaragibe",
-      "uf": "PE"
+      "uf": "PE",
+      "short": "RET",
+      "color": "#6a4fb0",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "rio-branco-es-es",
+      "id": "rio-branco-es",
       "series": "D",
       "name": "Rio Branco-ES",
       "city": "Vitória",
-      "uf": "ES"
+      "uf": "ES",
+      "short": "RIO",
+      "color": "#7a7a7a",
+      "strength": 46,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "sampaio-correa-ma",
+      "id": "sampaio-correa",
       "series": "D",
       "name": "Sampaio Corrêa",
       "city": "São Luís",
-      "uf": "MA"
+      "uf": "MA",
+      "short": "SAM",
+      "color": "#d71920",
+      "strength": 43,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "sampaio-correa-rj-rj",
+      "id": "sampaio-correa-rj",
       "series": "D",
       "name": "Sampaio Corrêa-RJ",
       "city": "Saquarema",
-      "uf": "RJ"
+      "uf": "RJ",
+      "short": "SAM",
+      "color": "#222222",
+      "strength": 40,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "santa-catarina-sc",
+      "id": "santa-catarina",
       "series": "D",
       "name": "Santa Catarina",
       "city": "Rio do Sul",
-      "uf": "SC"
+      "uf": "SC",
+      "short": "SAN",
+      "color": "#d71920",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "sao-jose-rs-rs",
+      "id": "sao-jose-rs",
       "series": "D",
       "name": "São José-RS",
       "city": "Porto Alegre",
-      "uf": "RS"
+      "uf": "RS",
+      "short": "SAO",
+      "color": "#222222",
+      "strength": 48,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "sao-joseense-pr",
+      "id": "sao-joseense",
       "series": "D",
       "name": "São Joseense",
       "city": "São José dos Pinhais",
-      "uf": "PR"
+      "uf": "PR",
+      "short": "SAO",
+      "color": "#1f5fae",
+      "strength": 40,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "sao-luiz-rs",
+      "id": "sao-luiz",
       "series": "D",
       "name": "São Luiz",
       "city": "Ijuí",
-      "uf": "RS"
+      "uf": "RS",
+      "short": "SAO",
+      "color": "#0f8a8a",
+      "strength": 45,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "sao-raimundo-rr-rr",
+      "id": "sao-raimundo-rr",
       "series": "D",
       "name": "São Raimundo-RR",
       "city": "Boa Vista",
-      "uf": "RR"
+      "uf": "RR",
+      "short": "SAO",
+      "color": "#0b3d91",
+      "strength": 48,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "sergipe-se",
+      "id": "sergipe",
       "series": "D",
       "name": "Sergipe",
       "city": "Aracaju",
-      "uf": "SE"
+      "uf": "SE",
+      "short": "SER",
+      "color": "#0f8a8a",
+      "strength": 49,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "serra-branca-pb",
+      "id": "serra-branca",
       "series": "D",
       "name": "Serra Branca",
       "city": "Campina Grande",
-      "uf": "PB"
+      "uf": "PB",
+      "short": "SER",
+      "color": "#1f5fae",
+      "strength": 44,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "sousa-pb",
+      "id": "sousa",
       "series": "D",
       "name": "Sousa",
       "city": "Sousa",
-      "uf": "PB"
+      "uf": "PB",
+      "short": "SOU",
+      "color": "#1b7f3a",
+      "strength": 42,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "tirol-ce",
+      "id": "tirol",
       "series": "D",
       "name": "Tirol",
       "city": "Fortaleza",
-      "uf": "CE"
+      "uf": "CE",
+      "short": "TIR",
+      "color": "#1f5fae",
+      "strength": 44,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "tocantinopolis-to",
+      "id": "tocantinopolis",
       "series": "D",
       "name": "Tocantinópolis",
       "city": "Tocantinópolis",
-      "uf": "TO"
+      "uf": "TO",
+      "short": "TOC",
+      "color": "#f2c200",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "tombense-mg",
+      "id": "tombense",
       "series": "D",
       "name": "Tombense",
       "city": "Tombos",
-      "uf": "MG"
+      "uf": "MG",
+      "short": "TOM",
+      "color": "#d71920",
+      "strength": 45,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "trem-ap",
+      "id": "trem",
       "series": "D",
       "name": "Trem",
       "city": "Macapá",
-      "uf": "AP"
+      "uf": "AP",
+      "short": "TRE",
+      "color": "#1b7f3a",
+      "strength": 44,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "treze-pb",
+      "id": "treze",
       "series": "D",
       "name": "Treze",
       "city": "Campina Grande",
-      "uf": "PB"
+      "uf": "PB",
+      "short": "TRE",
+      "color": "#d71920",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "tuna-luso-pa",
+      "id": "tuna-luso",
       "series": "D",
       "name": "Tuna Luso",
       "city": "Belém",
-      "uf": "PA"
+      "uf": "PA",
+      "short": "TUN",
+      "color": "#7a7a7a",
+      "strength": 44,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "uberlandia-mg",
+      "id": "uberlandia",
       "series": "D",
       "name": "Uberlândia",
       "city": "Uberlândia",
       "uf": "MG",
-      "check": "linha lida apenas de resumo automático da página; confirmar"
+      "check": "linha lida apenas de resumo automático da página; confirmar",
+      "short": "UBE",
+      "color": "#1b7f3a",
+      "strength": 40,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "uniao-mt-mt",
+      "id": "uniao-mt",
       "series": "D",
       "name": "União-MT",
       "city": "Rondonópolis",
       "uf": "MT",
-      "check": "linha lida apenas de resumo automático da página; confirmar"
+      "check": "linha lida apenas de resumo automático da página; confirmar",
+      "short": "UNI",
+      "color": "#d71920",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "velo-clube-sp",
+      "id": "velo-clube",
       "series": "D",
       "name": "Velo Clube",
       "city": "Rio Claro",
       "uf": "SP",
-      "check": "linha lida apenas de resumo automático da página; confirmar"
+      "check": "linha lida apenas de resumo automático da página; confirmar",
+      "short": "VEL",
+      "color": "#c0397b",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "vitoria-es-es",
+      "id": "vitoria-es",
       "series": "D",
       "name": "Vitória-ES",
       "city": "Vitória",
       "uf": "ES",
-      "check": "linha lida apenas de resumo automático da página; confirmar"
+      "check": "linha lida apenas de resumo automático da página; confirmar",
+      "short": "VIT",
+      "color": "#c0397b",
+      "strength": 43,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     },
     {
-      "id": "xv-de-piracicaba-sp",
+      "id": "xv-de-piracicaba",
       "series": "D",
       "name": "XV de Piracicaba",
       "city": "Piracicaba",
       "uf": "SP",
-      "check": "linha lida apenas de resumo automático da página; confirmar"
+      "check": "linha lida apenas de resumo automático da página; confirmar",
+      "short": "XVD",
+      "color": "#f2c200",
+      "strength": 41,
+      "attributes": "provisórios (sigla, cor e força ainda não pesquisados)"
     }
   ]
 }

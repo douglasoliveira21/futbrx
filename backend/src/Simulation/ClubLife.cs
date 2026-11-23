@@ -34,7 +34,18 @@ public static class ClubLife
         Economy(g);
         CoachCareer.Upgrade(g);
     }
-    static void ResetBoard(GameState g){var strength=g.Clubs.Find(c=>c.Id==g.ClubId)!.Strength;g.Life!.Board=new(){TargetPosition=strength>=80?6:strength>=76?10:16,WageBudget=(long)(g.Squad.Sum(p=>(long)p.Wage)*1.3)+100_000,TransferBudget=Math.Max(0,g.Balance*3/4)};}
+    // Série B and C clubs are measured against their own league: the four strongest aim for promotion.
+    static int BoardTarget(GameState g)
+    {
+        var club=g.Clubs.Find(c=>c.Id==g.ClubId)!;
+        if(g.DataVersion.StartsWith("serie-b-2026",StringComparison.Ordinal)||g.DataVersion.StartsWith("serie-c-2026",StringComparison.Ordinal))
+        {
+            var rank=g.Clubs.OrderByDescending(c=>c.Strength).ThenBy(c=>c.Id,StringComparer.Ordinal).ToList().FindIndex(c=>c.Id==club.Id);
+            return rank<4?4:rank<10?10:16;
+        }
+        return club.Strength>=80?6:club.Strength>=76?10:16;
+    }
+    static void ResetBoard(GameState g){g.Life!.Board=new(){TargetPosition=BoardTarget(g),WageBudget=(long)(g.Squad.Sum(p=>(long)p.Wage)*1.3)+100_000,TransferBudget=Math.Max(0,g.Balance*3/4)};}
     public static ClubEconomy Economy(GameState g){var life=g.Life!;if(!life.Accounts.TryGetValue(g.ClubId,out var value))life.Accounts[g.ClubId]=value=new();return value;}
     public static int Quality(GameState g,string role)=>g.Life?.Staff.Find(s=>s.Role==role)?.Quality??0;
     public static string Category(Player p)=>p.Age<=14?"Sub-15":p.Age<=16?"Sub-17":"Sub-20";

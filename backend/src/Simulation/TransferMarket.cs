@@ -22,7 +22,7 @@ public static class TransferMarket
             if (!g.OpponentSquads.TryGetValue(club.Id, out var squad))
                 g.OpponentSquads[club.Id] = squad = Game.Players(g.Clubs.IndexOf(club) * 100);
             foreach (var p in squad) { if (!used.Add(p.Id)) { while (used.Contains(next)) next++; p.Id = next++; used.Add(p.Id); } }
-            g.ClubBalances.TryAdd(club.Id, 30_000_000L + Math.Max(0, club.Strength - 60) * 2_000_000L);
+            g.ClubBalances.TryAdd(club.Id, (long)((30_000_000L + Math.Max(0, club.Strength - 60) * 2_000_000L) * Game.EconomyFactor(g.DataVersion)));
         }
         int index = 0;
         foreach (var p in g.Squad)

@@ -19,6 +19,10 @@ public static class IntelligenceApiTests
         Check(c.GetProperty("state").GetProperty("mentality").GetString()=="Ataque total","Carreira aceita as nove mentalidades do vestiário da partida");
         Check((await owner.PostAsJsonAsync(path+"/tactical-plan",new{revision,plan,formation="4-2-3-1",mentality="Inventada"})).StatusCode==HttpStatusCode.BadRequest,"Mentalidade desconhecida continua recusada");
         var restored=await Json(await owner.PostAsJsonAsync(path+"/tactical-plan",new{revision,plan,formation="4-2-3-1",mentality="Ofensiva"}));revision=restored.GetProperty("revision").GetInt32();
+        var directory=await Json(await owner.GetAsync("/api/directory"));
+        Check(directory.GetProperty("clubs").GetArrayLength()==156&&directory.GetProperty("versions").GetProperty("B")[0].GetString()=="serie-b-2026-clubes-reais-v1","API entrega o diretório de 156 clubes e as versões por série");
+        var catalogs=await Json(await owner.GetAsync("/api/catalogs"));var versions=catalogs.EnumerateArray().Select(x=>x.GetProperty("version").GetString()).ToList();
+        Check(versions.Contains("serie-b-2026-clubes-reais-v1")&&versions.Contains("serie-c-2026-clubes-reais-v1"),"Catálogos das Séries B e C estão publicados");
         Check((await owner.PostAsJsonAsync(path+"/tactical-plan",new{revision=revision-1,plan})).StatusCode==HttpStatusCode.Conflict,"Revisão impede sobrescrever plano por uma tela antiga");
         var catalog=await Json(await owner.GetAsync(path+"/sports/tactical-catalog"));Check(catalog.GetProperty("formations").GetArrayLength()>=40,"Catálogo de formações disponível ao dono da carreira");
         Check((await other.GetAsync(path+"/sports/tactical-catalog")).StatusCode==HttpStatusCode.NotFound,"Catálogo e planos da carreira não ficam disponíveis para outra conta");

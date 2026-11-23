@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { Crest } from "../../components/Crest";
+import { leagueName } from "../career/directory";
 import { api, money, type Career, type Fixture } from "../../services/api";
 import {
   buildInbox,
@@ -124,7 +125,7 @@ export default function CoachHub({
         <div className="hub-match-top">
           <span className="hub-eyebrow">
             {next
-              ? `${next.competitionName || `Brasileirão Série ${g.division ?? "A"}`} · Rodada ${next.round}`
+              ? `${next.competitionName || leagueName(g)} · Rodada ${next.round}`
               : `Temporada ${g.season}`}
           </span>
           {next && <span className="hub-date">{matchDate(next)}</span>}
@@ -302,7 +303,7 @@ export default function CoachHub({
                   <span className="hub-goal-badge">{goalInfo.badge}</span>
                 </div>
                 <p>
-                  Terminar entre os {goal.target} primeiros do Brasileirão Série {g.division ?? "A"}.
+                  Terminar entre os {goal.target} primeiros do {leagueName(g)}.
                 </p>
                 <div
                   className="hub-goal-track"

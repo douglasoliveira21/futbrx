@@ -1,0 +1,141 @@
+.club-directory {
+  display: grid;
+  gap: 14px;
+}
+.club-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: end;
+}
+.club-filters .club-series {
+  grid-column: 1 / -1;
+}
+.club-filters label {
+  display: grid;
+  gap: 4px;
+  font-size: 0.85rem;
+}
+.club-series {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.club-series button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 12px;
+  border: 1px solid #ffffff1f;
+  border-radius: 6px;
+  background: #0d1624;
+  color: #b9c6d2;
+  font-weight: 700;
+  cursor: pointer;
+}
+.club-series button small {
+  font-size: 0.72rem;
+  opacity: 0.8;
+}
+.club-series button[aria-pressed="true"] {
+  background: var(--accent, #d2fa69);
+  border-color: var(--accent, #d2fa69);
+  color: #0b111b;
+}
+.club-search span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border: 1px solid #ffffff1f;
+  border-radius: 6px;
+  background: #0d1624;
+}
+.club-search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  padding: 10px 0;
+  outline: none;
+}
+.club-search span:focus-within {
+  border-color: var(--accent, #d2fa69);
+}
+.club-selected {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 1px solid #d2fa6955;
+  border-radius: 8px;
+  background: #d2fa6910;
+}
+.club-selected > div {
+  display: grid;
+  flex: 1;
+  min-width: 180px;
+}
+.club-selected small {
+  color: #9fb0bd;
+}
+.club-selected label {
+  display: grid;
+  gap: 4px;
+  font-size: 0.8rem;
+}
+.club-series-group h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 4px 0 8px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.club-series-group h3 small {
+  color: #9fb0bd;
+  font-size: 0.75rem;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+.club-directory .club-option > span {
+  display: grid;
+  min-width: 0;
+  text-align: left;
+}
+.club-directory .club-option > span small {
+  color: #8da0ae;
+  font-size: 0.72rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.club-directory .club-option.soon {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.club-directory .club-option em {
+  margin-left: auto;
+  padding: 2px 8px;
+  border: 1px solid #ffffff2a;
+  border-radius: 99px;
+  font-size: 0.68rem;
+  font-style: normal;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.club-empty {
+  padding: 18px;
+  text-align: center;
+  color: #9fb0bd;
+}
+@media (max-width: 520px) {
+  .club-filters {
+    grid-template-columns: 1fr;
+  }
+}

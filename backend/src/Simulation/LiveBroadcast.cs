@@ -4,6 +4,8 @@ namespace Brasileirao;
 
 public static class LiveBroadcast
 {
+    // Série B and C careers play their own league; every other base keeps the plain league name.
+    static string LeagueTitle(GameState g)=>g.DataVersion.StartsWith("serie-b-2026",StringComparison.Ordinal)?"Brasileirão Série B":g.DataVersion.StartsWith("serie-c-2026",StringComparison.Ordinal)?"Brasileirão Série C":"Brasileirão";
     public const int EntranceSeconds = 12;
     public const int Speed = PositionalV5.TimeScale;
     public static double MatchSecond(LiveMatch live) => Math.Clamp(Math.Round((live.WatchedSeconds - EntranceSeconds) * Speed, 6), 0, live.Duration);
@@ -22,7 +24,7 @@ public static class LiveBroadcast
         if(cup!=null){Sports.Prepare(prepared);ClubLife.Travel(prepared,cup.Fixture,ClubCompetitions.CompetitionName(prepared,cup) is "Libertadores" or "Sul-Americana");fixture=cup.Fixture;}
         else{Game.PrepareRound(prepared);fixture=prepared.Fixtures.Single(f=>f.Round==g.Round&&(f.Home==g.ClubId||f.Away==g.ClubId));}
         fixture.Setup=new(MatchSimulation.Version,Sports.BuildTeam(prepared,fixture.Home),Sports.BuildTeam(prepared,fixture.Away),Knockout:cup!=null);
-        return g.LiveMatch=new(){CompetitionMatchId=cup?.Id??"",CompetitionName=cup==null?"Brasileirão":ClubCompetitions.CompetitionName(prepared,cup),ManagedTeam=g.ClubId,StartingBalance=g.Balance,Incremental=true,PreparedState=JsonSerializer.Serialize(prepared,Game.Json),Fixture=fixture,Season=g.Season,Duration=MatchSimulation.Duration,LastHeartbeat=now};
+        return g.LiveMatch=new(){CompetitionMatchId=cup?.Id??"",CompetitionName=cup==null?LeagueTitle(g):ClubCompetitions.CompetitionName(prepared,cup),ManagedTeam=g.ClubId,StartingBalance=g.Balance,Incremental=true,PreparedState=JsonSerializer.Serialize(prepared,Game.Json),Fixture=fixture,Season=g.Season,Duration=MatchSimulation.Duration,LastHeartbeat=now};
     }
 
     public static void Tick(LiveMatch live, DateTimeOffset now, bool playing, string clientId = "")

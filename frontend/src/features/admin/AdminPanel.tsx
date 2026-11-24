@@ -11,6 +11,7 @@ import {
 import { useIdentity } from "../../hooks/useIdentity";
 import { Button } from "../../components/ui/button";
 import { Crest } from "../../components/Crest";
+import type { Directory, DirectoryClub, SeriesId } from "../career/directory";
 
 const AdminCatalog = lazy(() => import("../catalog/AdminCatalog"));
 const POSITIONS = ["GOL", "ZAG", "LAT", "MEI", "ATA"];
@@ -389,8 +390,8 @@ function TeamsTab() {
       </div>
       <p className="notice">
         As edições valem para carreiras novas. Carreiras já criadas guardam uma
-        cópia própria e não mudam. Criar ou remover times e mudar a série ainda
-        não estão disponíveis.
+        cópia própria e não mudam. Para criar, remover ou mudar a série de um
+        time, use a aba Séries.
       </p>
       <div className="table-scroll">
         <table className="editor-table">
@@ -733,6 +734,181 @@ function PlayersTab() {
   );
 }
 
+// ---------------------------------------------------------------- Séries
+const PLAYABLE: SeriesId[] = ["A", "B", "C"];
+
+function SeriesTab() {
+  const qc = useQueryClient();
+  const directory = useQuery({
+    queryKey: ["admin-directory"],
+    queryFn: () => api<Directory>("/directory"),
+  });
+  const [notice, setNotice] = useState("");
+  const clubs = directory.data?.clubs ?? [];
+  const bySeries = (s: SeriesId) =>
+    clubs.filter((c) => c.series === s).sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
+  const label = (c: DirectoryClub) => `Série ${c.series} · ${c.name}`;
+  const playable = clubs
+    .filter((c) => c.series !== "D")
+    .sort((a, b) => a.series.localeCompare(b.series) || a.name.localeCompare(b.name, "pt-BR"));
+  const refresh = () => {
+    for (const key of ["admin-directory", "directory", "admin-catalog", "admin-catalogs", "clubs", "catalogs"])
+      qc.invalidateQueries({ queryKey: [key] });
+  };
+
+  const [clubA, setClubA] = useState("");
+  const [clubB, setClubB] = useState("");
+  const swap = useMutation({
+    mutationFn: () => api("/admin/clubs/swap", { clubA, clubB }),
+    onSuccess: () => {
+      setNotice("Times trocados de série. Vale para carreiras novas.");
+      setClubA("");
+      setClubB("");
+      refresh();
+    },
+  });
+
+  const blank = { id: "", name: "", short: "", color: "#4faa79", strength: 70, city: "", uf: "" };
+  const [series, setSeries] = useState<SeriesId>("C");
+  const [outId, setOutId] = useState("");
+  const [form, setForm] = useState(blank);
+  const [preset, setPreset] = useState("");
+  const replace = useMutation({
+    mutationFn: () => api<{ id: string }>(`/admin/series/${series}/replace`, { outClubId: outId, ...form }),
+    onSuccess: () => {
+      setNotice(`${form.name} entrou na Série ${series}. O time substituído foi para a Série D.`);
+      setForm(blank);
+      setOutId("");
+      setPreset("");
+      refresh();
+    },
+  });
+  function usePreset(id: string) {
+    setPreset(id);
+    const c = clubs.find((x) => x.id === id);
+    if (c)
+      setForm({ id: c.id, name: c.name, short: c.short, color: c.color, strength: c.strength, city: c.city, uf: c.uf });
+  }
+  const set = (patch: Partial<typeof blank>) => setForm({ ...form, ...patch });
+  const clubSelect = (value: string, onChange: (v: string) => void, list: DirectoryClub[]) => (
+    <select value={value} onChange={(e) => onChange(e.target.value)}>
+      <option value="">Escolha um time…</option>
+      {list.map((c) => (
+        <option key={c.id} value={c.id}>
+          {label(c)}
+        </option>
+      ))}
+    </select>
+  );
+  return (
+    <>
+      <p className="notice">
+        As Séries A, B e C têm sempre 20 times, por isso adicionar e remover acontecem juntos: um time entra e outro
+        sai (vai para a Série D, que ainda não é jogável). As mudanças valem para carreiras novas.
+      </p>
+      <div className="catalog-fields">
+        {PLAYABLE.map((s) => (
+          <label key={s} className="wide">
+            Série {s} ({bySeries(s).length} times)
+            <small className="muted">{bySeries(s).map((c) => c.short).join(" · ")}</small>
+          </label>
+        ))}
+      </div>
+
+      <h3>Trocar dois times de série</h3>
+      <div className="catalog-fields">
+        <label>
+          Time 1
+          {clubSelect(clubA, setClubA, playable)}
+        </label>
+        <label>
+          Time 2
+          {clubSelect(clubB, setClubB, playable.filter((c) => c.series !== clubs.find((x) => x.id === clubA)?.series))}
+        </label>
+        <Button disabled={!clubA || !clubB || swap.isPending} onClick={() => swap.mutate()}>
+          Trocar de série
+        </Button>
+      </div>
+      {swap.error && (
+        <p className="error notice" role="alert">
+          {swap.error.message}
+        </p>
+      )}
+
+      <h3>Substituir um time por outro (novo ou da Série D)</h3>
+      <div className="catalog-fields">
+        <label>
+          Série
+          <select
+            value={series}
+            onChange={(e) => {
+              setSeries(e.target.value as SeriesId);
+              setOutId("");
+            }}
+          >
+            {PLAYABLE.map((s) => (
+              <option key={s}>{s}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Time que sai
+          {clubSelect(outId, setOutId, bySeries(series))}
+        </label>
+        <label>
+          Trazer da Série D (opcional)
+          {clubSelect(preset, usePreset, bySeries("D"))}
+        </label>
+        <label>
+          Nome
+          <input maxLength={80} value={form.name} onChange={(e) => set({ name: e.target.value, id: preset ? form.id : "" })} />
+        </label>
+        <label>
+          Sigla
+          <input maxLength={5} value={form.short} onChange={(e) => set({ short: e.target.value })} />
+        </label>
+        <label>
+          Cor
+          <input type="color" value={form.color} onChange={(e) => set({ color: e.target.value })} />
+        </label>
+        <label>
+          Força (1 a 99)
+          <input type="number" min={1} max={99} value={form.strength} onChange={(e) => set({ strength: Number(e.target.value) })} />
+        </label>
+        <label>
+          Cidade
+          <input maxLength={60} value={form.city} onChange={(e) => set({ city: e.target.value })} />
+        </label>
+        <label>
+          Estado (UF)
+          <input maxLength={2} value={form.uf} onChange={(e) => set({ uf: e.target.value.toUpperCase() })} />
+        </label>
+        <Button
+          disabled={!outId || !form.name.trim() || !form.short.trim() || !form.city.trim() || form.uf.length !== 2 || replace.isPending}
+          onClick={() => replace.mutate()}
+        >
+          <Plus size={15} /> Substituir time
+        </Button>
+      </div>
+      {replace.error && (
+        <p className="error notice" role="alert">
+          {replace.error.message}
+        </p>
+      )}
+      {directory.error && (
+        <p className="error notice" role="alert">
+          {directory.error.message}
+        </p>
+      )}
+      {notice && (
+        <p className="notice positive" role="status">
+          {notice}
+        </p>
+      )}
+    </>
+  );
+}
+
 // ----------------------------------------------------------------- Painel
 export default function AdminPanel() {
   const identity = useIdentity();
@@ -761,6 +937,7 @@ export default function AdminPanel() {
           {[
             ["contas", "Contas"],
             ["times", "Times"],
+            ["series", "Séries"],
             ["jogadores", "Jogadores"],
             ["dados", "Importar dados"],
           ].map(([key, label]) => (
@@ -771,6 +948,7 @@ export default function AdminPanel() {
         </div>
         {tab === "contas" && <AccountsTab />}
         {tab === "times" && <TeamsTab />}
+        {tab === "series" && <SeriesTab />}
         {tab === "jogadores" && <PlayersTab />}
         {tab === "dados" && (
           <Suspense fallback={<p className="empty">Carregando…</p>}>

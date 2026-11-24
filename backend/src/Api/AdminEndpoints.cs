@@ -37,6 +37,8 @@ public static class AdminEndpoints
 
         var admin = app.MapGroup("/api/admin").RequireAuthorization("Admin").RequireRateLimiting("game");
 
+        admin.MapAdminSeriesEndpoints();
+
         // ---- Contas ----
         admin.MapGet("/accounts", async (string? q, GameDb db, IConfiguration config) =>
         {

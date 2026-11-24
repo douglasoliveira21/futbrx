@@ -110,6 +110,10 @@ namespace Api.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Color")
                         .IsRequired()
                         .HasColumnType("text");
@@ -128,6 +132,10 @@ namespace Api.Migrations
 
                     b.Property<int>("Strength")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Uf")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("ReleaseId", "Id");
 

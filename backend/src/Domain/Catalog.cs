@@ -35,6 +35,9 @@ public sealed class ClubData
     public int Strength { get; set; }
     // Escudo enviado pelo administrador (data URI de imagem). Vazio = escudo padrão.
     public string Logo { get; set; } = "";
+    // Localização dos clubes criados pelo administrador (os do diretório embutido já trazem cidade e estado).
+    public string City { get; set; } = "";
+    public string Uf { get; set; } = "";
 }
 
 public sealed class PlayerData

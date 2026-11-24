@@ -80,5 +80,44 @@ public static class AdminPanelApiTests
         var image = await other.GetAsync("/api/logos/pal");
         Check(image.IsSuccessStatusCode && image.Content.Headers.ContentType?.MediaType == "image/png", "Escudo é servido como imagem");
         Check((await admin.DeleteAsync("/api/admin/clubs/pal/logo")).IsSuccessStatusCode && (await other.GetAsync("/api/logos/pal")).StatusCode == HttpStatusCode.NotFound, "Admin remove o escudo");
+
+        // Séries: trocar de série e substituir times.
+        var catalogs = await Json(await admin.GetAsync("/api/catalogs"));
+        string ReleaseOf(string version) => catalogs.EnumerateArray().Single(r => r.GetProperty("version").GetString() == version).GetProperty("id").GetString()!;
+        async Task<JsonElement> Directory() => await Json(await other.GetAsync("/api/directory"));
+        string SeriesOf(JsonElement dir, string id) => dir.GetProperty("clubs").EnumerateArray().Single(c => c.GetProperty("id").GetString() == id).GetProperty("series").GetString()!;
+        async Task<JsonElement> Clubs(string version) => await Json(await admin.GetAsync("/api/clubs?releaseId=" + ReleaseOf(version)));
+        var dir = await Directory();
+        var bClub = dir.GetProperty("clubs").EnumerateArray().First(c => c.GetProperty("series").GetString() == "B").GetProperty("id").GetString()!;
+        Check(SeriesOf(dir, "pal") == "A", "Diretório informa a série do clube");
+        Check((await other.PostAsJsonAsync("/api/admin/clubs/swap", new { clubA = "pal", clubB = bClub })).StatusCode == HttpStatusCode.Forbidden, "Conta comum não troca times de série");
+        Check((await admin.PostAsJsonAsync("/api/admin/clubs/swap", new { clubA = "pal", clubB = "pal" })).StatusCode == HttpStatusCode.BadRequest, "Trocar um clube com ele mesmo é rejeitado");
+        Check((await admin.PostAsJsonAsync("/api/admin/clubs/swap", new { clubA = "pal", clubB = bClub })).IsSuccessStatusCode, "Admin troca dois times de série");
+        dir = await Directory();
+        Check(SeriesOf(dir, "pal") == "B" && SeriesOf(dir, bClub) == "A", "Diretório reflete a troca de série");
+        foreach (var version in new[] { Game.Candidate2026Version, Game.Clubs2026Version, Game.SerieB2026Version })
+        {
+            var list = await Clubs(version);
+            Check(list.GetArrayLength() == 20, "Versão " + version + " continua com vinte clubes");
+        }
+        var moved = await Json(await admin.PostAsJsonAsync("/api/careers/", new { name = "Time que mudou de série", clubId = "pal", releaseId = ReleaseOf(Game.SerieB2026Version) }));
+        Check(moved.TryGetProperty("id", out _), "Nova carreira com o time na série nova");
+        Check((await admin.PostAsJsonAsync("/api/admin/clubs/swap", new { clubA = "pal", clubB = bClub })).IsSuccessStatusCode && SeriesOf(await Directory(), "pal") == "A", "Troca de volta restaura as séries");
+
+        var cClub = dir.GetProperty("clubs").EnumerateArray().First(c => c.GetProperty("series").GetString() == "C").GetProperty("id").GetString()!;
+        var newClub = new { outClubId = cClub, name = "Time Novo FC", @short = "TNV", color = "#123456", strength = 72, city = "Cidade Nova", uf = "SP" };
+        Check((await admin.PostAsJsonAsync("/api/admin/series/C/replace", newClub with { uf = "SAO" })).StatusCode == HttpStatusCode.BadRequest, "Estado inválido é rejeitado");
+        Check((await admin.PostAsJsonAsync("/api/admin/series/C/replace", newClub with { @short = "" })).StatusCode == HttpStatusCode.BadRequest, "Sigla vazia é rejeitada");
+        var replaced = await admin.PostAsJsonAsync("/api/admin/series/C/replace", newClub);
+        Check(replaced.IsSuccessStatusCode, "Admin cria um time novo substituindo outro da série");
+        dir = await Directory();
+        var created = dir.GetProperty("clubs").EnumerateArray().Single(c => c.GetProperty("id").GetString() == "time-novo-fc");
+        Check(created.GetProperty("series").GetString() == "C" && created.GetProperty("uf").GetString() == "SP" && created.GetProperty("city").GetString() == "Cidade Nova", "Time novo aparece no diretório com cidade e estado");
+        Check(SeriesOf(dir, cClub) == "D" && dir.GetProperty("clubs").GetArrayLength() == 157, "Time substituído passa para a Série D");
+        Check((await Clubs(Game.SerieC2026Version)).GetArrayLength() == 20, "Série C continua com vinte clubes");
+        var created2 = await Json(await admin.PostAsJsonAsync("/api/careers/", new { name = "Time criado pelo admin", clubId = "time-novo-fc", releaseId = ReleaseOf(Game.SerieC2026Version) }));
+        Check(created2.TryGetProperty("id", out _), "Carreira nova com o time criado pelo admin");
+        Check((await admin.PostAsJsonAsync("/api/admin/series/C/replace", newClub with { outClubId = "time-novo-fc" })).StatusCode == HttpStatusCode.BadRequest, "ID repetido em uma série é rejeitado");
+        Check((await admin.PostAsJsonAsync("/api/admin/series/C/replace", newClub with { outClubId = "pal", name = "Outro Time" })).StatusCode == HttpStatusCode.BadRequest, "Time que sai precisa estar na série informada");
     }
 }

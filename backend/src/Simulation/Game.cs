@@ -88,6 +88,10 @@ public static class Game
     });
     public static string DirectoryJson() => directory.Value;
 
+    // Série jogável de cada versão de dados conhecida; versões importadas pelo administrador não pertencem a uma série.
+    public static string? SeriesOfVersion(string version) =>
+        version is Candidate2026Version or Clubs2026Version ? "A" : version == SerieB2026Version ? "B" : version == SerieC2026Version ? "C" : null;
+
     public const string Candidate2026Version = "serie-a-2026-misto-candidatos-v2";
     private sealed record Candidate(int Id, string ClubId, string Name, string Position, int Age, decimal? MarketValueEur = null);
     private sealed record CandidateSource(List<Candidate> Players);

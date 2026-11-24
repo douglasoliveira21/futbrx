@@ -37,7 +37,7 @@ public static class CatalogEndpoints
 
     public static void MapCatalogEndpoints(this WebApplication app)
     {
-        app.MapGet("/api/directory", () => Results.Content(Game.DirectoryJson(), "application/json"));
+        app.MapGet("/api/directory", async (GameDb db) => Results.Content(await AdminSeriesEndpoints.BuildDirectory(db), "application/json"));
         app.MapGet("/api/catalogs", async (GameDb db) => await db.DataReleases.AsNoTracking().Where(r => r.Published).OrderByDescending(r => r.PublishedAt).ToListAsync());
         app.MapGet("/api/clubs", async (Guid? releaseId, GameDb db) =>
         {

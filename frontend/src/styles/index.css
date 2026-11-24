@@ -3901,3 +3901,26 @@ body {
 .auth-story .futbrx-logo {
   height: clamp(100px, 20vw, 164px);
 }
+
+/* ---- Logo: login responsivo, menu lateral centralizado e transmissão 3D ---- */
+.futbrx-logo { max-width: 100%; height: auto; width: auto; }
+.sidebar .brand { justify-content: center; padding: 0 0 6px; }
+.sidebar .futbrx-logo { height: clamp(72px, 11vh, 104px); width: auto; margin: 0 auto; }
+.auth-story .brand { z-index: 1; }
+.auth-story .futbrx-logo { height: clamp(88px, 13vw, 150px); }
+.broadcast-brand { display: inline-flex; align-items: center; }
+.broadcast-brand .futbrx-logo { height: 52px; width: auto; filter: drop-shadow(0 2px 6px #0009); }
+@media (max-width: 950px) {
+  .sidebar .futbrx-logo { height: clamp(64px, 10vh, 88px); }
+}
+@media (max-width: 700px) {
+  .auth-story { padding: 22px 24px 8px; align-items: center; text-align: center; }
+  .auth-story .brand { position: static; justify-content: center; width: 100%; margin: 0 0 10px; }
+  .auth-story .futbrx-logo { height: clamp(84px, 26vw, 120px); }
+  .auth-story > .eyebrow { margin-top: 0; }
+  .broadcast-brand .futbrx-logo { height: 40px; }
+}
+@media (max-width: 380px) {
+  .auth-story { padding: 16px 16px 6px; }
+  .auth-story .futbrx-logo { height: 76px; }
+}

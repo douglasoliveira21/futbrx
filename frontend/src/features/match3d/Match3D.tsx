@@ -1,4 +1,5 @@
 import MatchCeremony, { AssistantReferee } from "./MatchCeremony";
+import { FutbrxLogo } from "../../components/FutbrxLogo";
 import MatchManagement from "./MatchManagement";
 import { matchKitColors } from "./kitColors";
 import React, { useEffect, useMemo, useRef, useState, Suspense } from "react";
@@ -1063,7 +1064,7 @@ export default function Match3D({
       {live && (
         <header className="broadcast-header">
           <span className="broadcast-brand">
-            BM <b>SPORTS</b>
+            <FutbrxLogo />
           </span>
           <span>
             {fixture.competitionName || live?.competitionName || "BRASILEIRÃO"}{" "}

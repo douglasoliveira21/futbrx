@@ -13,7 +13,7 @@ public static class SeasonCalendar
     {
         for (int i = values.Count - 1; i > 0; i--) { int j = rng.Next(i + 1); (values[i], values[j]) = (values[j], values[i]); }
     }
-    public static List<Fixture> Generate(List<Club> clubs, int season, string careerSeed, string division = "A")
+    public static List<Fixture> Generate(List<Club> clubs, int season, string careerSeed, string division = "A", int startRound = 1)
     {
         if (clubs.Count != 20 || clubs.Select(c => c.Id).Distinct().Count() != 20) throw new GameRuleException("O calendário exige vinte clubes distintos.");
         if (season is < 1 or > 9999) throw new GameRuleException("Ano fora do intervalo suportado pelo calendário.");
@@ -25,8 +25,8 @@ public static class SeasonCalendar
             for (int i = 0; i < 10; i++)
             {
                 var home = ids[i]; var away = ids[19 - i]; if (round % 2 == 0) (home, away) = (away, home);
-                fixtures.Add(new() { Round = round, Home = home, Away = away, Seed = rng.Next() });
-                fixtures.Add(new() { Round = round + 19, Home = away, Away = home, Seed = rng.Next() });
+                fixtures.Add(new() { Round = round + startRound - 1, Home = home, Away = away, Seed = rng.Next() });
+                fixtures.Add(new() { Round = round + 19 + startRound - 1, Home = away, Away = home, Seed = rng.Next() });
             }
             var last = ids[^1]; ids.RemoveAt(19); ids.Insert(1, last);
         }
@@ -34,11 +34,18 @@ public static class SeasonCalendar
         AssignDates(fixtures, season, careerSeed, division, false);
         return fixtures;
     }
-    public static void AssignDates(List<Fixture> fixtures, int season, string careerSeed, string division, bool onlyMissingFuture)
+    // Saturday of a weekly round: the first Saturday of February plus the weeks, with a pause of seven days after rounds 8, 16, 24 and 32.
+    public static DateOnly DateOfRound(int season, int round)
     {
-        var rng = RandomFor(season, careerSeed, division + ":dates");
         var start = new DateOnly(season, 2, 1);
         while (start.DayOfWeek != DayOfWeek.Saturday) start = start.AddDays(1);
+        return start.AddDays((round - 1) * 7 + new[] { 8, 16, 24, 32 }.Count(r => round > r) * 7);
+    }
+    public static void AssignDates(List<Fixture> fixtures, int season, string careerSeed, string division, bool onlyMissingFuture)
+    {
+        if (fixtures.Count == 0) return;
+        var rng = RandomFor(season, careerSeed, division + ":dates");
+        int lastRound = fixtures.Max(f => f.Round);
         foreach (var round in fixtures.GroupBy(f => f.Round).OrderBy(r => r.Key))
         {
             var games = round.OrderBy(f => f.Home, StringComparer.Ordinal).ToList(); Shuffle(games, rng);
@@ -46,8 +53,8 @@ public static class SeasonCalendar
             {
                 var f = games[i];
                 if (onlyMissingFuture && (f.Date != null || f.HomeGoals != null || f.Setup != null)) continue;
-                bool simultaneous = f.Round == 38;
-                var date = start.AddDays((f.Round - 1) * 7 + new[]{8,16,24,32}.Count(r=>f.Round>r)*7 + (simultaneous || i >= 4 ? 1 : 0));
+                bool simultaneous = f.Round == lastRound;
+                var date = DateOfRound(season, f.Round).AddDays(simultaneous || i >= 4 ? 1 : 0);
                 int[] saturday = [15, 17, 19, 21], sunday = [11, 15, 17, 17, 19, 21];
                 int hour = simultaneous ? 16 : i < 4 ? saturday[i] : sunday[(i - 4) % sunday.Length];
                 f.Date = date;

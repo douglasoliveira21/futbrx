@@ -170,6 +170,8 @@ export type BroadcastPacket = {
   replay: MatchReplay;
 };
 export type State = {
+  seasonRounds?: number;
+  leagueStart?: number;
   tacticalPlan?: TacticalPlan;
   coach?: { employed: boolean; name: string; reputation: number; date: string; unreadDismissal: boolean };
   competitionClubs?: Club[];

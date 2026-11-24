@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { seasonRounds } from "./season";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   api,
@@ -858,7 +859,7 @@ export default function ClubLifeCenter({
                 aria-label="Rodada para remarcar"
                 type="number"
                 min={c.state.round}
-                max={38}
+                max={seasonRounds(c.state)}
                 value={round}
                 onChange={(e) => setRound(Number(e.target.value))}
               />

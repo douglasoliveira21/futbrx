@@ -24,7 +24,7 @@ public static class ClubCompetitions
     }
     static void CreateStage(GameState g,ClubCompetition competition,List<string> participants)
     {
-        for(int i=0;i<participants.Count;i+=2){var home=participants[i];var away=participants[i+1];if(ClubLife.Seed(g,$"venue:{g.Season}:{competition.Id}:{competition.Stage}:{i}")%2==0)(home,away)=(away,home);int round=competition.Rounds[competition.Stage];var league=g.Fixtures.First(f=>f.Round==round);var date=(league.Date??new DateOnly(g.Season,3,1)).AddDays(-3);var matchId=$"{g.Season}-{competition.Id}-{competition.Stage}-{i}";competition.Matches.Add(new(){Id=matchId,Stage=competition.Stage,Fixture=new(){CompetitionMatchId=matchId,CompetitionName=competition.Name,Round=round,Home=home,Away=away,Date=date,Kickoff=new(date.Year,date.Month,date.Day,20,0,0,TimeSpan.FromHours(-3)),Seed=ClubLife.Seed(g,$"cup:{g.Season}:{competition.Id}:{competition.Stage}:{i}")}});}
+        for(int i=0;i<participants.Count;i+=2){var home=participants[i];var away=participants[i+1];if(ClubLife.Seed(g,$"venue:{g.Season}:{competition.Id}:{competition.Stage}:{i}")%2==0)(home,away)=(away,home);int round=competition.Rounds[competition.Stage];var date=(g.Fixtures.FirstOrDefault(f=>f.Round==round)?.Date??SeasonCalendar.DateOfRound(g.Season,round)).AddDays(-3);var matchId=$"{g.Season}-{competition.Id}-{competition.Stage}-{i}";competition.Matches.Add(new(){Id=matchId,Stage=competition.Stage,Fixture=new(){CompetitionMatchId=matchId,CompetitionName=competition.Name,Round=round,Home=home,Away=away,Date=date,Kickoff=new(date.Year,date.Month,date.Day,20,0,0,TimeSpan.FromHours(-3)),Seed=ClubLife.Seed(g,$"cup:{g.Season}:{competition.Id}:{competition.Stage}:{i}")}});}
     }
     public static CupMatch? NextDue(GameState g)=>g.Life?.Competitions.SelectMany(c=>c.Matches).Where(m=>m.Winner==""&&m.Fixture.Round<=g.Round&&(m.Fixture.Home==g.ClubId||m.Fixture.Away==g.ClubId)).OrderBy(m=>m.Fixture.Date).FirstOrDefault();
     public static string CompetitionName(GameState g,CupMatch match)=>g.Life!.Competitions.First(c=>c.Matches.Contains(match)).Name;
@@ -62,13 +62,13 @@ public static class ClubCompetitions
     }
     public static object Calendar(GameState g)=>new {
         notice="Datas e deslocamentos estimados pelo jogo. Pausas de seleções geradas, sem compromisso com a tabela oficial.",
-        breaks=new[]{8,16,24,32}.Select(r=>new{round=r,label="Pausa de seleções · sete dias",date=g.Fixtures.First(f=>f.Round==r).Date}),
+        breaks=new[]{8,16,24,32}.Select(r=>new{round=r,label="Pausa de seleções · sete dias",date=g.Fixtures.FirstOrDefault(f=>f.Round==r)?.Date??SeasonCalendar.DateOfRound(g.Season,r)}),
         trips=g.Fixtures.Where(f=>f.Away==g.ClubId&&f.Round>=g.Round).Take(6).Select(f=>new{f.Round,f.Date,destination=Name(g,f.Home),kilometres=200+ClubLife.Seed(g,"travel:"+f.Home+":"+f.Away)%2200}),
         postponed=g.Fixtures.Where(f=>f.Rescheduled).Select(f=>new{f.Round,f.Date,f.Home,f.Away})
     };
     public static void Postpone(GameState g,int round)
     {
-        if(round<g.Round||round>38)throw new GameRuleException("Escolha uma rodada futura.");var f=g.Fixtures.Single(f=>f.Round==round&&(f.Home==g.ClubId||f.Away==g.ClubId));if(f.Setup!=null||f.HomeGoals!=null||f.Rescheduled)throw new GameRuleException("Este jogo já foi preparado, disputado ou remarcado.");
+        if(round<g.Round||round>g.SeasonRounds)throw new GameRuleException("Escolha uma rodada futura.");var f=g.Fixtures.SingleOrDefault(f=>f.Round==round&&(f.Home==g.ClubId||f.Away==g.ClubId))??throw new GameRuleException("Seu clube não joga a liga nesta rodada.");if(f.Setup!=null||f.HomeGoals!=null||f.Rescheduled)throw new GameRuleException("Este jogo já foi preparado, disputado ou remarcado.");
         f.Rescheduled=true;f.Date=f.Date!.Value.AddDays(2);f.Kickoff=f.Kickoff!.Value.AddDays(2);f.Events.Add(new(0,"postponed",g.ClubId,0,"Partida remarcada em dois dias por solicitação logística.",0));g.News.Insert(0,"Calendário: partida da rodada "+round+" remarcada em dois dias. O tempo de recuperação até o próximo compromisso será menor.");
     }
 }

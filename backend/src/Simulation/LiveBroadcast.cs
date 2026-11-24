@@ -22,7 +22,7 @@ public static class LiveBroadcast
         var cup=ClubCompetitions.NextDue(prepared);
         Fixture fixture;
         if(cup!=null){Sports.Prepare(prepared);ClubLife.Travel(prepared,cup.Fixture,ClubCompetitions.CompetitionName(prepared,cup) is "Libertadores" or "Sul-Americana");fixture=cup.Fixture;}
-        else{Game.PrepareRound(prepared);fixture=prepared.Fixtures.Single(f=>f.Round==g.Round&&(f.Home==g.ClubId||f.Away==g.ClubId));}
+        else{Game.PrepareRound(prepared);fixture=prepared.Fixtures.SingleOrDefault(f=>f.Round==g.Round&&(f.Home==g.ClubId||f.Away==g.ClubId))??throw new GameRuleException("Seu clube não joga nesta semana. Avance a semana para o próximo compromisso.");}
         fixture.Setup=new(MatchSimulation.Version,Sports.BuildTeam(prepared,fixture.Home),Sports.BuildTeam(prepared,fixture.Away),Knockout:cup!=null);
         return g.LiveMatch=new(){CompetitionMatchId=cup?.Id??"",CompetitionName=cup==null?LeagueTitle(g):ClubCompetitions.CompetitionName(prepared,cup),ManagedTeam=g.ClubId,StartingBalance=g.Balance,Incremental=true,PreparedState=JsonSerializer.Serialize(prepared,Game.Json),Fixture=fixture,Season=g.Season,Duration=MatchSimulation.Duration,LastHeartbeat=now};
     }

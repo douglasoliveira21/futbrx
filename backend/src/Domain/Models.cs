@@ -18,6 +18,9 @@ public class GameState
     public int CalendarVersion { get; set; }
     public string CalendarSource { get; set; } = "Calendário demonstrativo por rodadas";
     public string LotterySeed { get; set; } = "legacy-draw";
+    // Length of the season in weekly rounds and the round where the main league starts.
+    public int SeasonRounds { get; set; } = 38;
+    public int LeagueStart { get; set; } = 1;
     public DivisionSeason? Divisions { get; set; }
     public List<LoanDeal> Loans { get; set; } = [];
     public List<TransferPayment> TransferPayments { get; set; } = [];

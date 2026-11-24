@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { seasonRounds } from "../career/season";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -94,7 +95,7 @@ function NegotiationDialog({
           1,
           (contract?.endSeason ?? c.state.season) - c.state.season + 2,
         )
-      : c.state.round > 38
+      : c.state.round > seasonRounds(c.state)
         ? 2
         : 1;
   const [years, setYears] = useState(Math.min(5, Math.max(3, minYears)));
@@ -743,7 +744,7 @@ export default function ManagementCenter({
                       <div>
                         <small>Prazo restante</small>
                         <strong>
-                          {Math.max(0, (end - g.season) * 38 + 39 - g.round)}{" "}
+                          {Math.max(0, (end - g.season) * seasonRounds(g) + seasonRounds(g) + 1 - g.round)}{" "}
                           rodadas
                         </strong>
                       </div>

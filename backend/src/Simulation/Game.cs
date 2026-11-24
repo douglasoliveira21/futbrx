@@ -153,6 +153,18 @@ public static class Game
     public static List<Player> Players(int offset) { string[] first = ["Rafael", "Lucas", "Gabriel", "Matheus", "Pedro", "André", "Bruno", "Caio", "Diego", "Felipe", "Igor", "João", "Luan", "Marcos", "Nicolas", "Otávio", "Paulo", "Renan", "Samuel", "Thiago", "Vitor", "Wesley", "Davi"]; string[] last = ["Almeida", "Costa", "Silveira", "Mendes", "Rocha", "Barros", "Lima"]; return Enumerable.Range(0, 23).Select(i => new Player { Id = i + offset, Name = first[(i + offset) % first.Length] + " " + last[(i * 3 + offset) % last.Length], Position = i < 2 ? "GOL" : i < 6 ? "ZAG" : i < 10 ? "LAT" : i < 16 ? "MEI" : "ATA", Age = 18 + (i * 7 + offset) % 17, Rating = 65 + (i * 7 + offset) % 21, Value = (3 + (i * 7) % 20) * 1000000, Wage = (30 + i * 4) * 1000, Starter = new[] { 0, 2, 3, 6, 7, 10, 11, 12, 16, 17, 18 }.Contains(i) }).ToList(); }
     public static List<Fixture> Schedule(List<Club> clubs) => SeasonCalendar.Generate(clubs, 2026, Guid.NewGuid().ToString("N"));
     public static object[] Table(GameState g) => LeagueRules.Table(g.Clubs, g.Fixtures, g.LotterySeed + ":" + g.Season).Select(r => new { club = r.Club, played = r.Played, wins = r.Wins, draws = r.Draws, losses = r.Losses, goals = r.Goals, against = r.Against, difference = r.Difference, points = r.Points, redCards = r.RedCards, yellowCards = r.YellowCards }).Cast<object>().ToArray();
+    // The club has a league match in the current round (cup matches are checked apart, by ClubCompetitions.NextDue).
+    public static bool HasLeagueMatch(GameState g) => g.Fixtures.Any(f => f.Round == g.Round && (f.Home == g.ClubId || f.Away == g.ClubId));
+    // A week without a match for the club (state championship, a league that has not started, a bye): the
+    // week passes without a broadcast; every other match of the week is still played.
+    public static void AdvanceWeek(GameState g)
+    {
+        LiveBroadcast.EnsureIdle(g);
+        ClubLife.Upgrade(g);
+        if (g.Round > g.SeasonRounds) throw new GameRuleException("Temporada encerrada. Inicie a próxima temporada.");
+        if (ClubCompetitions.NextDue(g) != null || HasLeagueMatch(g)) throw new GameRuleException("Há partida do seu clube nesta semana. Entre em campo.");
+        Advance(g);
+    }
     public static void Advance(GameState g)
     {
         ClubLife.Upgrade(g);ClubCompetitions.Advance(g,true);
@@ -163,11 +175,11 @@ public static class Game
     public static void PrepareRound(GameState g)
     {
         TransferMarket.Upgrade(g);
-        if (g.Round > 38) throw new GameRuleException("Temporada encerrada. Inicie a próxima temporada.");
+        if (g.Round > g.SeasonRounds) throw new GameRuleException("Temporada encerrada. Inicie a próxima temporada.");
         AdvancedMarket.Settle(g);
         ClubLife.BeforeRound(g);
         Training.BeforeRound(g);
-        ClubLife.Travel(g,g.Fixtures.Single(f=>f.Round==g.Round&&(f.Home==g.ClubId||f.Away==g.ClubId)));
+        var own=g.Fixtures.SingleOrDefault(f=>f.Round==g.Round&&(f.Home==g.ClubId||f.Away==g.ClubId));if(own!=null)ClubLife.Travel(g,own);
         Sports.Prepare(g);
     }
     public static void CompleteRound(GameState g, long? originalBalance = null)

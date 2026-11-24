@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { seasonRounds } from "../career/season";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   api,
@@ -11,10 +12,12 @@ import { Button } from "../../components/ui/button";
 
 function TrainingEditor({
   data,
+  rounds,
   busy,
   save,
 }: {
   data: TrainingData;
+  rounds: number;
   busy: boolean;
   save: (plan: TrainingPlan) => void;
 }) {
@@ -90,7 +93,7 @@ function TrainingEditor({
       </p>
       <div className="actions">
         <Button
-          disabled={busy || !dirty || data.round > 38}
+          disabled={busy || !dirty || data.round > rounds}
           onClick={() => save(plan)}
         >
           Salvar planejamento semanal
@@ -161,6 +164,7 @@ export default function TrainingCenter({ c }: { c: Career }) {
       )}
       <TrainingEditor
         data={data}
+        rounds={seasonRounds(c.state)}
         busy={change.isPending || query.isFetching}
         save={(plan) => change.mutate({ path: "plan", body: { plan } })}
       />

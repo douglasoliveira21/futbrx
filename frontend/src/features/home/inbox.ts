@@ -26,15 +26,23 @@ const toneOrder: Record<InboxTone, number> = { urgent: 0, normal: 1, good: 2 };
 // Internal maintenance notes are kept in the club news, but they are not stories for the coach.
 const technicalNews = /migra|snapshot|vers[aã]o do (motor|save)|revis[aã]o/i;
 
+// The club's next match: a cup match that is due, or the next league match, which may be weeks away.
 export function nextFixture(c: Career): Fixture | undefined {
   const g = c.state;
-  return (
-    g.nextCup ??
-    g.fixtures.find(
+  if (g.nextCup) return g.nextCup;
+  return g.fixtures
+    .filter(
       (f) =>
-        f.round === g.round && (f.home === g.clubId || f.away === g.clubId),
+        (f.home === g.clubId || f.away === g.clubId) &&
+        f.round >= g.round &&
+        (f.round === g.round || f.homeGoals === null),
     )
-  );
+    .sort((a, b) => a.round - b.round)[0];
+}
+// False in a week without a match for the club: the week is advanced without a broadcast.
+export function isMatchWeek(c: Career): boolean {
+  const next = nextFixture(c);
+  return !!next && (next === c.state.nextCup || next.round <= c.state.round);
 }
 
 export function clubOf(c: Career, id: string): Club | undefined {

@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import {buildInbox,recentForm,tableAround,nextFixture,seasonGoal,goalText} from '../src/features/home/inbox.ts';
+import {buildInbox,recentForm,tableAround,nextFixture,seasonGoal,goalText,isMatchWeek} from '../src/features/home/inbox.ts';
+import {seasonRounds,seasonOver} from '../src/features/career/season.ts';
 
 const money=n=>'R$ '+n;
 const club=(id,name)=>({id,name,short:id.toUpperCase(),color:'#fff',strength:70});
@@ -82,4 +83,19 @@ assert.equal(seasonGoal(league([9,9,8,3,3,1],10),99).target,6,'meta limitada ao 
 assert.equal(seasonGoal(league([0,0,0,0,0,0],0),NaN),null,'meta inválida não gera cartão');
 assert.match(buildInbox(career(),money,6).find(m=>m.id==='welcome').body,/entre os 6 primeiros/,'boas-vindas citam a meta da diretoria');
 assert.doesNotMatch(buildInbox(career(),money).find(m=>m.id==='welcome').body,/primeiros/,'sem meta conhecida, o texto não inventa uma');
+// Weeks without a match for the club: the next match may be weeks away.
+let bye=career({round:1,fixtures:[fixture(3,'pal','fla')]});
+assert.equal(nextFixture(bye).round,3,'próximo jogo é o da terceira semana');
+assert.equal(isMatchWeek(bye),false,'semana 1 não tem partida do clube');
+assert.equal(isMatchWeek(career({round:3,fixtures:[fixture(3,'pal','fla')]})),true,'na semana do jogo há partida');
+assert.equal(isMatchWeek(career({round:3,fixtures:[fixture(3,'pal','fla',1,0)]})),true,'partida já jogada na rodada atual ainda conta como a da semana');
+const cupDue=fixture(2,'pal','cor');
+assert.equal(nextFixture(career({round:2,nextCup:cupDue,fixtures:[fixture(3,'pal','fla')]})),cupDue,'copa devida vem antes da liga');
+assert.equal(isMatchWeek(career({round:2,nextCup:cupDue,fixtures:[fixture(3,'pal','fla')]})),true,'copa devida é semana de jogo');
+bye=career({round:2,fixtures:[fixture(1,'pal','fla',2,0),fixture(4,'cha','pal'),fixture(5,'pal','sao')]});
+assert.deepEqual([nextFixture(bye).round,isMatchWeek(bye)],[4,false],'jogos já disputados não contam como próximos');
+assert.deepEqual([nextFixture(career({round:39,fixtures:[fixture(38,'pal','fla',1,1)]})),isMatchWeek(career({round:39,fixtures:[fixture(38,'pal','fla',1,1)]}))],[undefined,false],'sem jogos pendentes a temporada acabou');
+assert.equal(seasonRounds({}),38,'save antigo tem 38 rodadas');
+assert.equal(seasonRounds({seasonRounds:42}),42,'tamanho próprio da temporada');
+assert.deepEqual([seasonOver({round:38}),seasonOver({round:39}),seasonOver({round:42,seasonRounds:42}),seasonOver({round:43,seasonRounds:42})],[false,true,false,true],'fim da temporada segue o tamanho dela');
 console.log('PASS: caixa de entrada, forma recente e tabela compacta da tela inicial.');

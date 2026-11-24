@@ -13,7 +13,7 @@ public static class Divisions
             var squad = Game.Players(offset + i * 100); g.OpponentSquads[club.Id] = squad; g.ClubBalances[club.Id] = 30_000_000;
             foreach (var p in squad) g.Contracts[p.Id] = new() { PlayerId = p.Id, ClubId = club.Id, StartSeason = g.Season, StartRound = 1, EndSeason = g.Season + 3, Wage = p.Wage };
         }
-        g.Divisions = new() { OtherClubs = clubs, OtherFixtures = SeasonCalendar.Generate(clubs, g.Season, g.LotterySeed, "B") };
+        g.Divisions = new() { OtherClubs = clubs, OtherFixtures = SeasonCalendar.Generate(clubs, g.Season, g.LotterySeed, "B", g.LeagueStart) };
         g.News.Insert(0, "Duas divisões ativadas com clubes regionais fictícios. Série B: dois acessos diretos e playoffs de ida e volta entre 3º/6º e 4º/5º. Modelo 2026 mantido nas temporadas seguintes desta carreira.");
     }
     public static void Advance(GameState g)
@@ -24,7 +24,7 @@ public static class Divisions
     public static void Complete(GameState g)
     {
         var d = g.Divisions; if (d == null || d.Promoted.Count > 0) return;
-        if (g.Round <= 38 || d.OtherFixtures.Any(f => f.HomeGoals == null)) throw new GameRuleException("Conclua ambas as divisões antes de definir o acesso.");
+        if (g.Round <= g.SeasonRounds || d.OtherFixtures.Any(f => f.HomeGoals == null)) throw new GameRuleException("Conclua ambas as divisões antes de definir o acesso.");
         Sports.Prepare(g);
         bool managedA = d.ManagedDivision == "A";
         var a = LeagueRules.Table(managedA ? g.Clubs : d.OtherClubs, managedA ? g.Fixtures : d.OtherFixtures, g.LotterySeed + g.Season);
@@ -33,7 +33,7 @@ public static class Divisions
         foreach (var p in g.Squad.Concat(g.OpponentSquads.Values.SelectMany(s => s))) p.YellowCards = 0;
         foreach (var (high, low) in new[] { (b[2].Club.Id, b[5].Club.Id), (b[3].Club.Id, b[4].Club.Id) })
         {
-            var first = new Fixture { Round = 39, Home = low, Away = high, Seed = Seed(g, low, 1) };
+            var first = new Fixture { Round = g.SeasonRounds + 1, Home = low, Away = high, Seed = Seed(g, low, 1) };
             var second = new Fixture { Round = 40, Home = high, Away = low, Seed = Seed(g, high, 2) };
             SeasonCalendar.AssignDates([first, second], g.Season, g.LotterySeed, "playoff-" + high, false);
             Game.Simulate(g, first); Sports.AfterRound(g, [first], true); Sports.Prepare(g);
@@ -57,6 +57,6 @@ public static class Divisions
         var a = oldA.Where(c => !d.Relegated.Contains(c.Id)).Concat(all.Where(c => d.Promoted.Contains(c.Id))).ToList();
         var b = oldB.Where(c => !d.Promoted.Contains(c.Id)).Concat(all.Where(c => d.Relegated.Contains(c.Id))).ToList();
         bool staysA = a.Any(c => c.Id == g.ClubId); g.Clubs = staysA ? a : b;
-        g.Divisions = new() { ManagedDivision = staysA ? "A" : "B", OtherClubs = staysA ? b : a, OtherFixtures = SeasonCalendar.Generate(staysA ? b : a, g.Season + 1, g.LotterySeed, staysA ? "B" : "A") };
+        g.Divisions = new() { ManagedDivision = staysA ? "A" : "B", OtherClubs = staysA ? b : a, OtherFixtures = SeasonCalendar.Generate(staysA ? b : a, g.Season + 1, g.LotterySeed, staysA ? "B" : "A", g.LeagueStart) };
     }
 }

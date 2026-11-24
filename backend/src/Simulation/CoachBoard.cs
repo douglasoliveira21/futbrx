@@ -67,8 +67,8 @@ public static partial class CoachCareer
         if(days is not (1 or 7))throw new GameRuleException("Avance um dia ou sete dias.");
         var w=World(g);var end=w.Date.AddDays(days);
         while(w.Date<end){var date=w.Date.AddDays(1);w.Date=date;
-            if(g.Round>38&&date.Year>g.Season){ClubCompetitions.Advance(g,true);TransferMarket.NextSeason(g);}
-            if(g.Round<=38&&FixtureDate(g)<=date){Game.Advance(g);}
+            if(g.Round>g.SeasonRounds&&date.Year>g.Season){ClubCompetitions.Advance(g,true);TransferMarket.NextSeason(g);}
+            if(g.Round<=g.SeasonRounds&&FixtureDate(g)<=date){Game.Advance(g);}
             Tick(g,Max(date,w.Date));
         }
     }

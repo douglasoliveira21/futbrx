@@ -19,6 +19,7 @@ public static class IntelligenceApiTests
         Check(c.GetProperty("state").GetProperty("mentality").GetString()=="Ataque total","Carreira aceita as nove mentalidades do vestiário da partida");
         Check((await owner.PostAsJsonAsync(path+"/tactical-plan",new{revision,plan,formation="4-2-3-1",mentality="Inventada"})).StatusCode==HttpStatusCode.BadRequest,"Mentalidade desconhecida continua recusada");
         var restored=await Json(await owner.PostAsJsonAsync(path+"/tactical-plan",new{revision,plan,formation="4-2-3-1",mentality="Ofensiva"}));revision=restored.GetProperty("revision").GetInt32();
+        Check((await owner.PostAsJsonAsync(path+"/advance-week",new{revision})).StatusCode==HttpStatusCode.BadRequest,"Semana com partida do clube não avança sem transmissão");
         var directory=await Json(await owner.GetAsync("/api/directory"));
         Check(directory.GetProperty("clubs").GetArrayLength()==156&&directory.GetProperty("versions").GetProperty("B")[0].GetString()=="serie-b-2026-clubes-reais-v1","API entrega o diretório de 156 clubes e as versões por série");
         var catalogs=await Json(await owner.GetAsync("/api/catalogs"));var versions=catalogs.EnumerateArray().Select(x=>x.GetProperty("version").GetString()).ToList();

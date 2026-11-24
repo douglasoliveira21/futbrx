@@ -23,7 +23,7 @@ public static class AdvancedMarket
         {
             long amount = remaining / (o.Installments - i); remaining -= amount;
             int ordinal = g.Round - 1 + i;
-            g.TransferPayments.Add(new() { PlayerId = o.PlayerId, Buyer = o.ToClub, Seller = o.FromClub, DueSeason = g.Season + ordinal / 38, DueRound = ordinal % 38 + 1, Amount = amount });
+            g.TransferPayments.Add(new() { PlayerId = o.PlayerId, Buyer = o.ToClub, Seller = o.FromClub, DueSeason = g.Season + ordinal / g.SeasonRounds, DueRound = ordinal % g.SeasonRounds + 1, Amount = amount });
         }
     }
     public static void Settle(GameState g)
@@ -38,7 +38,7 @@ public static class AdvancedMarket
     public static LoanDeal Borrow(GameState g, int playerId, long fee)
     {
         var (p, owner) = TransferMarket.Locate(g, playerId);
-        if (owner == "" || owner == g.ClubId || !TransferMarket.Window(g).IsOpen || g.Round > 38) throw new GameRuleException("Empréstimo exige outro clube e janela aberta.");
+        if (owner == "" || owner == g.ClubId || !TransferMarket.Window(g).IsOpen || g.Round > g.SeasonRounds) throw new GameRuleException("Empréstimo exige outro clube e janela aberta.");
         if (g.Loans.Any(l => !l.Returned && l.PlayerId == p.Id) || g.Offers.Any(o => o.PlayerId == p.Id && o.Status is "pending" or "agreed" or "countered")) throw new GameRuleException("O atleta já tem empréstimo ou negociação em andamento.");
         if (RegisteredCount(g, g.ClubId) >= 40 || !TransferMarket.CanRelease(g, owner, p)) throw new GameRuleException("Confira o limite do destino e o elenco mínimo da origem.");
         long required = LoanFee(p);
@@ -54,7 +54,7 @@ public static class AdvancedMarket
     public static LoanDeal Lend(GameState g, int playerId, string borrowerClub, long fee)
     {
         var p = g.Squad.Find(p => p.Id == playerId) ?? throw new GameRuleException("Atleta ausente do seu elenco.");
-        if (!TransferMarket.Window(g).IsOpen || g.Round > 38 || borrowerClub == g.ClubId || !g.OpponentSquads.ContainsKey(borrowerClub)) throw new GameRuleException("Escolha outro clube durante a janela.");
+        if (!TransferMarket.Window(g).IsOpen || g.Round > g.SeasonRounds || borrowerClub == g.ClubId || !g.OpponentSquads.ContainsKey(borrowerClub)) throw new GameRuleException("Escolha outro clube durante a janela.");
         if (!TransferMarket.CanRelease(g, g.ClubId, p) || RegisteredCount(g, borrowerClub) >= 40) throw new GameRuleException("Confira o elenco mínimo da origem e as vagas reservadas do destino.");
         if (g.Loans.Any(l => !l.Returned && l.PlayerId == p.Id) || g.Offers.Any(o => o.PlayerId == p.Id && TransferMarket.Open(o))) throw new GameRuleException("Atleta com vínculo temporário ou negociação em andamento.");
         if (fee != LoanFee(p) || Cash(g, borrowerClub) < fee) throw new GameRuleException("Taxa alterada ou clube de destino sem saldo.");

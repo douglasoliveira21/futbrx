@@ -38,6 +38,25 @@ Regras de id: até 20 caracteres (limite do catálogo). A Série A mantém os id
 - A força dos clubes de B e C só afeta diretoria, mercado de técnicos e caixa; o resultado das partidas vem das notas
   dos jogadores (elencos simulados, iguais para todos os clubes).
 
+## Calendário por competição (etapa 1: fundação)
+
+A rodada continua sendo a **semana** da temporada. Cada competição ocupa algumas semanas e o clube pode ter zero,
+um ou dois jogos em uma mesma semana (como já acontecia com as copas).
+
+- `GameState.SeasonRounds` (padrão 38) é o tamanho da temporada; `GameState.LeagueStart` (padrão 1) é a semana em que
+  a liga principal começa. Saves antigos não guardam os campos e seguem com 38 e 1. A API expõe os dois no estado.
+- `SeasonCalendar.Generate(..., startRound)` cria a liga em qualquer semana e `SeasonCalendar.DateOfRound` dá a data de
+  uma semana sem depender de existir jogo de liga nela (usada por copas e pela carreira de técnico).
+- Os `38` e `39` que eram "tamanho da temporada" e "pré-temporada" passaram a `SeasonRounds` e `SeasonRounds + 1`.
+- Semana sem jogo do clube (estadual em outra semana, liga que ainda não começou, folga): `Game.AdvanceWeek` e
+  `POST /api/careers/{id}/advance-week` avançam a semana sem transmissão, jogando os demais jogos. Se há jogo do clube
+  (liga ou copa devida), o servidor recusa e exige a transmissão; a transmissão também recusa semana sem jogo.
+- Na tela inicial, o botão vira "Avançar semana" quando o próximo jogo está em outra semana; a barra superior mostra
+  "Rodada X de N" com N da carreira.
+
+Ainda não existe: competições com formato próprio (grupos, mata-mata de ida e volta, estaduais reais), uma tela de
+calendário agrupada por competição e a simulação leve dos jogos de outros clubes.
+
 ## Série D (desenho aprovado, ainda não implementado)
 
 Formato lido na página da edição de 2026 (parte do regulamento; fases e grupos ainda a conferir):

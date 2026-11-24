@@ -27,7 +27,7 @@ public static class ClubLife
         foreach(var offer in g.Offers.Where(TransferMarket.Open)){offer.AgentName=AgentName(g,offer.PlayerId);if(offer.ToClub==g.ClubId)offer.AgentCommission=AgentFee(g,offer.PlayerId,offer.CounterFee??offer.Fee,offer.CounterWage??offer.Wage);}
         if(g.Life.CalendarVersion!=g.CalendarVersion){
             foreach(var match in g.Life.Competitions.SelectMany(c=>c.Matches).Where(m=>m.Fixture.HomeGoals==null&&m.Fixture.Setup==null&&m.Id!=g.LiveMatch?.CompetitionMatchId)){
-                var day=g.Fixtures.First(f=>f.Round==match.Fixture.Round).Date!.Value.AddDays(-3);match.Fixture.Date=day;match.Fixture.Kickoff=new(day.Year,day.Month,day.Day,20,0,0,TimeSpan.FromHours(-3));
+                var day=(g.Fixtures.FirstOrDefault(f=>f.Round==match.Fixture.Round)?.Date??SeasonCalendar.DateOfRound(g.Season,match.Fixture.Round)).AddDays(-3);match.Fixture.Date=day;match.Fixture.Kickoff=new(day.Year,day.Month,day.Day,20,0,0,TimeSpan.FromHours(-3));
             }
             g.Life.CalendarVersion=g.CalendarVersion;
         }
@@ -92,9 +92,9 @@ public static class ClubLife
     {
         Upgrade(g);var life=g.Life!;if(life.LastSettledSeason==g.Season&&life.LastSettledRound==g.Round)return;
         life.LastSettledSeason=g.Season;life.LastSettledRound=g.Round;
-        var f=g.Fixtures.Single(f=>f.Round==g.Round&&(f.Home==g.ClubId||f.Away==g.ClubId));MatchReaction(g,f,true);
+        var f=g.Fixtures.SingleOrDefault(f=>f.Round==g.Round&&(f.Home==g.ClubId||f.Away==g.ClubId));if(f!=null)MatchReaction(g,f,true);
         var economy=Economy(g);var standings=LeagueRules.Table(g.Clubs,g.Fixtures,g.LotterySeed+":"+g.Season);int place=standings.FindIndex(t=>t.Club.Id==g.ClubId)+1;
-        int attendance=f.Home==g.ClubId?(int)(economy.Capacity*Math.Clamp(.40+life.Fans.Popularity/160.0-(economy.TicketPrice-55)/250.0,.25,1)):0;
+        int attendance=f!=null&&f.Home==g.ClubId?(int)(economy.Capacity*Math.Clamp(.40+life.Fans.Popularity/160.0-(economy.TicketPrice-55)/250.0,.25,1)):0;
         economy.Attendance=attendance;economy.LastGate=(long)attendance*economy.TicketPrice;
         if(attendance>0)Money(g,"Bilheteria · "+attendance+" ingressos",economy.LastGate);
         Money(g,"Patrocínio "+economy.Sponsor,economy.SponsorWeekly);
@@ -105,13 +105,13 @@ public static class ClubLife
         if(g.Squad.Sum(p=>(long)p.Wage)+life.Staff.Sum(s=>(long)s.Wage)>life.Board.WageBudget)life.Board.Confidence=Math.Max(0,life.Board.Confidence-2);
         foreach(var p in g.Squad.Concat(g.Academy)){
             var medical=life.Medical[p.Id];if(medical.PreviousDays>0&&p.InjuryDays==0)medical.ClearedRound=g.Round;medical.PreviousDays=p.InjuryDays;
-            int risk=RelapseRisk(g,p);bool played=f.PlayerStats.Any(s=>s.PlayerId==p.Id&&s.Minutes>0);
+            int risk=RelapseRisk(g,p);bool played=f!=null&&f.PlayerStats.Any(s=>s.PlayerId==p.Id&&s.Minutes>0);
             if(played&&risk>0&&new Random(Seed(g,$"relapse:{g.Season}:{g.Round}:{p.Id}")).Next(100)<risk){p.InjuryDays=7;p.InjuryName="Recaída muscular";medical.PreviousDays=7;medical.Relapses++;Story(g,"Médico","Recaída no elenco",p.Name+" volta ao tratamento por sete dias.");}
             var mind=life.Minds[p.Id];if(mind.PromiseDueRound>0&&g.Round>=mind.PromiseDueRound){bool kept=Minutes(g,p.Id)-mind.MinutesAtPromise>=mind.PromisedMinutes;mind.Relationship=Math.Clamp(mind.Relationship+(kept?10:-18),0,100);mind.Morale=Math.Clamp(mind.Morale+(kept?8:-12),0,100);mind.PromiseDueRound=0;Story(g,"Vestiário",p.Name+": promessa "+(kept?"cumprida":"descumprida"),"A avaliação do jogador altera a relação com o treinador.");}
         }
         foreach(var report in life.Reports.Where(r=>!r.Complete&&r.Season==g.Season&&r.DueRound<=g.Round)){report.Complete=true;Story(g,"Olheiros","Relatório de observação concluído","Confira as estimativas de potencial no painel de olheiros.");}
         // Contextual evaluations and dismissals belong to CoachCareer, after all results settle.
-        if(g.Round==38){Money(g,"Premiação da liga",Math.Max(500_000,(21-place)*500_000L));if(place>economy.SponsorTarget)Money(g,"Meta de patrocínio não cumprida",-economy.SponsorWeekly);}
+        if(g.Round==g.SeasonRounds){Money(g,"Premiação da liga",Math.Max(500_000,(21-place)*500_000L));if(place>economy.SponsorTarget)Money(g,"Meta de patrocínio não cumprida",-economy.SponsorWeekly);}
         if(g.AutoReplaceUnavailable)Sports.RepairSelection(g.Squad,true);Sports.RefreshBench(g);
         foreach(var oldPress in life.Press.Where(s=>s.Kind=="Coletiva"&&s.Answer==""))oldPress.Answer="Sem declaração";
         Story(g,"Coletiva","Coletiva após a rodada "+g.Round,"Como você avalia o momento da equipe?");
@@ -134,7 +134,7 @@ public static class ClubLife
             case "scout": {var player=TransferMarket.Locate(g,playerId).Player;if(g.Squad.Any(p=>p.Id==playerId))throw new GameRuleException("Escolha um atleta de outro clube ou agente livre.");if(life.Reports.Any(r=>r.PlayerId==playerId&&r.Season==g.Season))throw new GameRuleException("Este atleta já está em observação nesta temporada.");if(g.Round>36)throw new GameRuleException("Inicie observações até a rodada 36.");Spend(g,"Relatório de olheiro: "+player.Name,120_000);life.Reports.Add(new(){PlayerId=playerId,Season=g.Season,DueRound=g.Round+2,Quality=Quality(g,"Olheiro")});break;}
             case "trial": {if(value is not ("Sub-15" or "Sub-17" or "Sub-20"))throw new GameRuleException("Categoria inválida.");if(g.Round-life.LastTrialRound<4)throw new GameRuleException("Espere quatro rodadas entre peneiras.");Spend(g,"Peneira "+value,180_000);life.LastTrialRound=g.Round;life.Trials.Clear();for(int i=0;i<4;i++)life.Trials.Add(new(Youth.GenerateForCategory(g,value,i),"Peneira "+value,100_000));Upgrade(g);break;}
             case "recruit": {var prospect=life.Trials.Find(p=>p.Player.Id==playerId)??throw new GameRuleException("Jovem não está na peneira.");if(g.Round-life.LastTrialRound>4)throw new GameRuleException("A peneira expirou.");if(g.Academy.Count>=Youth.Capacity)throw new GameRuleException("A base atingiu sua capacidade.");Spend(g,"Captação na peneira: "+prospect.Player.Name,prospect.SigningFee);life.Trials.Remove(prospect);g.Academy.Add(prospect.Player);Training.Upgrade(g);break;}
-            case "postpone": if(amount is <1 or >38)throw new GameRuleException("Rodada inválida.");ClubCompetitions.Postpone(g,(int)amount);break;
+            case "postpone": if(amount<1||amount>g.SeasonRounds)throw new GameRuleException("Rodada inválida.");ClubCompetitions.Postpone(g,(int)amount);break;
             case "job": throw new GameRuleException("Mudanças de clube exigem uma proposta oficial aceita no mercado de treinadores.");
             default: throw new GameRuleException("Ação de gestão inválida.");
         }

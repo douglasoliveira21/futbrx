@@ -35,6 +35,8 @@ public static class ManagementEndpoints
             division = g.Divisions?.ManagedDivision ?? "A",
             otherClubs = g.Divisions?.OtherClubs ?? [],
             g.Season,
+            g.SeasonRounds,
+            g.LeagueStart,
             g.Round,
             g.ClubId,
             g.Formation,

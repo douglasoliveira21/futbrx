@@ -25,6 +25,7 @@ import {
   buildInbox,
   clubOf,
   goalText,
+  isMatchWeek,
   seasonGoal,
   nextFixture,
   recentForm,
@@ -72,11 +73,13 @@ function FormChips({ c, clubId }: { c: Career; clubId: string }) {
 export default function CoachHub({
   c,
   onPlay,
+  onAdvanceWeek,
   onReplay,
   busy,
 }: {
   c: Career;
   onPlay: () => void;
+  onAdvanceWeek: () => void;
   onReplay: (f: Fixture) => void;
   busy: boolean;
 }) {
@@ -84,6 +87,8 @@ export default function CoachHub({
   const g = c.state;
   const club = clubOf(c, g.clubId)!;
   const next = nextFixture(c);
+  const matchWeek = isMatchWeek(c);
+  const weeksAway = next ? Math.max(0, next.round - g.round) : 0;
   const home = next ? clubOf(c, next.home) : undefined;
   const away = next ? clubOf(c, next.away) : undefined;
   const opponent = next ? (next.home === g.clubId ? away : home) : undefined;
@@ -128,7 +133,11 @@ export default function CoachHub({
               ? `${next.competitionName || leagueName(g)} · Rodada ${next.round}`
               : `Temporada ${g.season}`}
           </span>
-          {next && <span className="hub-date">{matchDate(next)}</span>}
+          {next && (
+            <span className="hub-date">
+              {matchWeek ? matchDate(next) : `${matchDate(next)} · em ${weeksAway} ${weeksAway === 1 ? "semana" : "semanas"}`}
+            </span>
+          )}
         </div>
         {next && home && away ? (
           <div className="hub-versus">
@@ -166,13 +175,15 @@ export default function CoachHub({
             type="button"
             className="hub-continue"
             disabled={busy}
-            onClick={() => (next ? onPlay() : navigate("/competicoes"))}
+            onClick={() => (next ? (matchWeek ? onPlay() : onAdvanceWeek()) : navigate("/competicoes"))}
           >
             <span>
-              <b>{busy ? "Abrindo o estádio…" : "Continuar"}</b>
+              <b>{busy ? (matchWeek ? "Abrindo o estádio…" : "Avançando…") : matchWeek ? "Continuar" : "Avançar semana"}</b>
               <small>
                 {next && opponent
-                  ? `Jogar contra ${opponent.name}`
+                  ? matchWeek
+                    ? `Jogar contra ${opponent.name}`
+                    : `Sem jogo esta semana · próximo: ${opponent.name}`
                   : "Ver classificação final"}
               </small>
             </span>

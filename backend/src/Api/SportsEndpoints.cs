@@ -8,6 +8,8 @@ public static class SportsEndpoints
     public static void MapSportsEndpoints(this WebApplication app)
     {
         app.MapPost("/api/careers/{id:guid}/tactical-plan",(Guid id,TacticalPlanRequest r,GameDb db,ClaimsPrincipal user)=>ManagementEndpoints.Change(id,r.Revision,db,user,"tactical-plan",g=>{Tactics.ValidatePlan(r.Plan,g.Squad.Select(p=>p.Id));if(r.Formation!=""||r.Mentality!=""){if(!Tactics.Formations.Contains(r.Formation)||!Tactics.Mentalities.Contains(r.Mentality))throw new GameRuleException("Estratégia inválida.");g.Formation=r.Formation;g.Mentality=r.Mentality;}g.TacticalPlan=r.Plan;return new{message="Instruções registradas para a próxima partida."};})).RequireAuthorization().RequireRateLimiting("game");
+        // A week without a match for the club passes without a broadcast.
+        app.MapPost("/api/careers/{id:guid}/advance-week",(Guid id,RevisionRequest r,GameDb db,ClaimsPrincipal user)=>ManagementEndpoints.Change(id,r.Revision,db,user,"advance-week",g=>{Game.AdvanceWeek(g);return new{message="Semana concluída."};})).RequireAuthorization().RequireRateLimiting("game");
         var api = app.MapGroup("/api/careers/{id:guid}/sports").RequireAuthorization().RequireRateLimiting("game");
         api.MapGet("/tactical-catalog",(Guid id,GameDb db,ClaimsPrincipal user)=>ReadTacticalCatalog(id,db,user));
         api.MapPost("/tactical-presets",(Guid id,TacticalPresetRequest r,GameDb db,ClaimsPrincipal user)=>ManagementEndpoints.Change(id,r.Revision,db,user,"tactics:save",g=>TacticalPlans.Save(g,r.Id,r.Name,r.FormationId,r.Mentality,r.Plan)));

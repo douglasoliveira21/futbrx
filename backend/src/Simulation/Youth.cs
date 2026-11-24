@@ -62,7 +62,7 @@ public static class Youth
         if (g.Scouting is { Status: "searching" } mission && g.Round >= mission.CompletionRound)
         {
             var rng = new Random(mission.Seed); g.YouthProspects = Enumerable.Range(0, 6).Select(_ => new YouthProspect(Generate(g, rng, mission.Position == "Todas" ? null : mission.Position), mission.Region, RecruitFee)).ToList();
-            mission.Status = "completed"; mission.ExpiresRound = Math.Min(39, g.Round + 4); Log(g, $"Relatório de observação disponível: seis jovens do {mission.Region}. Válido até a rodada {mission.ExpiresRound}.");
+            mission.Status = "completed"; mission.ExpiresRound = Math.Min(g.SeasonRounds + 1, g.Round + 4); Log(g, $"Relatório de observação disponível: seis jovens do {mission.Region}. Válido até a rodada {mission.ExpiresRound}.");
         }
         if (g.Scouting is { Status: "completed" } completed && g.Round > completed.ExpiresRound) { completed.Status = "expired"; g.YouthProspects.Clear(); }
     }

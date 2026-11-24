@@ -93,6 +93,7 @@ public static class ApiIntegrationTests
         await AdvancedApiTests.Run(factory, other);
         await ClubLifeApiTests.Run(admin,other);
         await CoachApiTests.Run(admin,other);
+        await SeasonApiTests.Run(other);
         await IntelligenceApiTests.Run(admin,other,careerId!);
         var sessions = await Json(await admin.GetAsync("/api/auth/sessions/"));
         Check(sessions.GetArrayLength() == 1 && sessions[0].GetProperty("current").GetBoolean(), "Lista de sessões não revela sessões alheias");

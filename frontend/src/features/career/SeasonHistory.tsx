@@ -98,7 +98,7 @@ export default function SeasonHistory({
             </label>
           ) : (
             <p className="muted">
-              O arquivo será criado quando você concluir as 38 rodadas e iniciar
+              O arquivo será criado quando você concluir a temporada e iniciar
               a temporada seguinte. Anos anteriores à versão 0.3 não podem ter
               seus jogos recuperados se o save antigo já os descartou.
             </p>

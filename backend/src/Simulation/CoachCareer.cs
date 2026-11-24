@@ -17,7 +17,7 @@ public static partial class CoachCareer
     static void Money(GameState g,string club,string label,long amount){if(club==g.ClubId){g.Balance+=amount;g.Ledger.Add(new(g.Round,label,amount,g.Season));}else{g.ClubBalances[club]=Cash(g,club)+amount;if(World(g).ClubStorage.TryGetValue(club,out var s))s.Ledger.Add(new(g.Round,label,amount,g.Season));}}
     static long MaxWage(GameState g,string club)=>Math.Clamp(Math.Max(0,Cash(g,club))/150,15_000,250_000);
     static int Target(Club c)=>c.Strength>=80?4:c.Strength>=76?10:16;
-    static DateOnly FixtureDate(GameState g)=>g.Fixtures.Where(f=>f.Round==Math.Min(38,g.Round)).Min(f=>f.Date)??new(g.Season,1,20);
+    static DateOnly FixtureDate(GameState g)=>g.Fixtures.Where(f=>f.Round==Math.Min(g.SeasonRounds,g.Round)).Min(f=>f.Date)??SeasonCalendar.DateOfRound(g.Season,Math.Min(g.SeasonRounds,g.Round));
     public static void Upgrade(GameState g)
     {
         if(g.Life==null)return;
@@ -62,7 +62,7 @@ public static partial class CoachCareer
         var all=g.Fixtures.Concat(g.Divisions?.OtherFixtures??[]).Concat(g.Life!.Competitions.SelectMany(c=>c.Matches).Select(m=>m.Fixture)).Where(f=>f.HomeGoals!=null).OrderBy(f=>f.Date).ThenBy(f=>f.Home).ToList();
         foreach(var f in all){string key=MatchKey(g,f);if(!w.ProcessedMatches.Add(key))continue;Tick(g,Max(w.Date,f.Date??w.Date));foreach(var club in new[]{f.Home,f.Away}){var p=At(g,club);if(p==null)continue;RecordResult(g,p,f,key,f.CompetitionMatchId=="");Evaluate(g,p,f);}}
         foreach(var cup in g.Life.Competitions.Where(c=>c.Champion!=""))Award(g,$"{g.Season}:{cup.Id}",cup.Champion,cup.Name);
-        if(g.Round==38&&g.Fixtures.All(f=>f.HomeGoals!=null)){var table=LeagueRules.Table(g.Clubs,g.Fixtures,g.LotterySeed+":"+g.Season);Award(g,$"{g.Season}:league",table[0].Club.Id,"Brasileirão · Série "+(g.Divisions?.ManagedDivision??"A"));foreach(var row in table){var b=w.Boards[row.Club.Id];b.PreviousPosition=table.IndexOf(row)+1;}var best=w.People.Where(p=>p.Results.Any(r=>r.Season==g.Season)).OrderByDescending(p=>p.ReputationHistory.Where(x=>x.Season==g.Season).Select(x=>x.Value).DefaultIfEmpty(p.Reputation).Last()-p.ReputationHistory.Where(x=>x.Season==g.Season).Select(x=>x.Value).DefaultIfEmpty(p.Reputation).First()).First();string award=$"Revelação da temporada {g.Season} · prêmio da simulação";if(!best.Awards.Contains(award)){best.Awards.Add(award);Emit(g,"Prêmio",best,best.ClubId,"Reconhecimento da temporada",best.Name+" recebeu "+award+".");}}
+        if(g.Round==g.SeasonRounds&&g.Fixtures.All(f=>f.HomeGoals!=null)){var table=LeagueRules.Table(g.Clubs,g.Fixtures,g.LotterySeed+":"+g.Season);Award(g,$"{g.Season}:league",table[0].Club.Id,"Brasileirão · Série "+(g.Divisions?.ManagedDivision??"A"));foreach(var row in table){var b=w.Boards[row.Club.Id];b.PreviousPosition=table.IndexOf(row)+1;}var best=w.People.Where(p=>p.Results.Any(r=>r.Season==g.Season)).OrderByDescending(p=>p.ReputationHistory.Where(x=>x.Season==g.Season).Select(x=>x.Value).DefaultIfEmpty(p.Reputation).Last()-p.ReputationHistory.Where(x=>x.Season==g.Season).Select(x=>x.Value).DefaultIfEmpty(p.Reputation).First()).First();string award=$"Revelação da temporada {g.Season} · prêmio da simulação";if(!best.Awards.Contains(award)){best.Awards.Add(award);Emit(g,"Prêmio",best,best.ClubId,"Reconhecimento da temporada",best.Name+" recebeu "+award+".");}}
         Tick(g,w.Date);
         if(IsEmployed(g)){var p=Player(g);p.Formation=g.Formation;p.Style=g.Mentality;g.Life.Board.Confidence=w.Boards[p.ClubId].Confidence;}
     }

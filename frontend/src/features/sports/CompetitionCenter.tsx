@@ -1,4 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { seasonRounds } from "../career/season";
 import {
   api,
   type Career,
@@ -43,7 +44,7 @@ export default function CompetitionCenter({ c }: { c: Career }) {
       <section className="panel" style={{ padding: 24 }}>
         <h2>Competição e acesso</h2>
         <p>
-          38 rodadas, turno e returno. Desempate: pontos, vitórias, saldo, gols
+          {seasonRounds(c.state)} rodadas, turno e returno. Desempate: pontos, vitórias, saldo, gols
           pró, confronto direto entre dois clubes, menos vermelhos, menos
           amarelos e sorteio persistente na carreira.
         </p>
@@ -79,7 +80,7 @@ export default function CompetitionCenter({ c }: { c: Career }) {
             </p>
             <Button
               disabled={
-                c.state.round <= 38 || d.promoted.length > 0 || m.isPending
+                c.state.round <= seasonRounds(c.state) || d.promoted.length > 0 || m.isPending
               }
               onClick={() => m.mutate("complete")}
             >

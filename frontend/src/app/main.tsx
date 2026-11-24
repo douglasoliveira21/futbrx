@@ -55,6 +55,7 @@ import { Button } from "../components/ui/button";
 import { Crest } from "../components/Crest";
 import CoachHub from "../features/home/CoachHub";
 import ClubDirectory from "../features/career/ClubDirectory";
+import { seasonRounds } from "../features/career/season";
 import { leagueName, releaseFor, type Directory, type DirectoryClub } from "../features/career/directory";
 import { areas, areaOf, type AreaId } from "../features/navigation/areas";
 import "../features/navigation/areas.css";
@@ -696,7 +697,7 @@ function Module({
           Avance as rodadas no seu ritmo.
         </p>
         <div className="calendar-grid">
-          {Array.from({ length: 38 }, (_, i) => (
+          {Array.from({ length: seasonRounds(g) }, (_, i) => (
             <Panel
               key={i}
               title={"Rodada " + (i + 1)}
@@ -882,6 +883,16 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
       qc.invalidateQueries({ queryKey: ["career", ui.career] });
     },
   });
+  // A week without a match for the club passes without a broadcast.
+  const week = useMutation({
+    mutationFn: () =>
+      api("/careers/" + ui.career + "/advance-week", { revision: q.data!.revision }),
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["career", ui.career] });
+      setToast("Semana concluída.");
+    },
+    onError: () => qc.invalidateQueries({ queryKey: ["career", ui.career] }),
+  });
   const m = useMutation({
     mutationFn: (r: object) => api("/careers/" + ui.career + "/actions", r),
     onSuccess: () => {
@@ -1022,11 +1033,12 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
             <span className="game-date">
               <CalendarDays size={16} />
               <span>
-                Rodada {Math.min(c.state.round, 38)} de 38
+                Rodada {Math.min(c.state.round, seasonRounds(c.state))} de{" "}
+                {seasonRounds(c.state)}
                 <small>
                   {c.state.coach?.employed === false
                     ? "Treinador livre"
-                    : c.state.round > 38
+                    : c.state.round > seasonRounds(c.state)
                       ? "Temporada encerrada"
                       : "Planejamento semanal"}
                 </small>
@@ -1057,17 +1069,18 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
           </div>
         )}
         <main className="workspace">
-          {(m.error || startMatch.error || toast) && (
+          {(m.error || startMatch.error || week.error || toast) && (
             <div
-              role={m.error || startMatch.error ? "alert" : "status"}
-              className={m.error || startMatch.error ? "error-banner" : "toast"}
+              role={m.error || startMatch.error || week.error ? "alert" : "status"}
+              className={m.error || startMatch.error || week.error ? "error-banner" : "toast"}
             >
-              {m.error?.message ?? startMatch.error?.message ?? toast}
+              {m.error?.message ?? startMatch.error?.message ?? week.error?.message ?? toast}
               <button
                 aria-label="Fechar mensagem"
                 onClick={() => {
                   m.reset();
                   startMatch.reset();
+                  week.reset();
                   setToast("");
                 }}
               >
@@ -1124,7 +1137,8 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
                       StadiumAudio.prepare();
                       startMatch.mutate();
                     }}
-                    busy={startMatch.isPending}
+                    onAdvanceWeek={() => week.mutate()}
+                    busy={startMatch.isPending || week.isPending}
                   />
                 }
               />

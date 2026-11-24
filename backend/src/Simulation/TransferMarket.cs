@@ -59,7 +59,7 @@ public static class TransferMarket
         var (p, club) = Locate(g, id);
         if (kind is not ("inbound" or "renewal")) throw new GameRuleException("Tipo de negociação inválido.");
         if (kind == "renewal" && club != g.ClubId || kind == "inbound" && club == g.ClubId) throw new GameRuleException("Vínculo incompatível com esta negociação.");
-        int minimum = kind == "renewal" && g.Contracts.TryGetValue(id, out var contract) ? Math.Max(1, contract.EndSeason - g.Season + 2) : g.Round > 38 ? 2 : 1;
+        int minimum = kind == "renewal" && g.Contracts.TryGetValue(id, out var contract) ? Math.Max(1, contract.EndSeason - g.Season + 2) : g.Round > g.SeasonRounds ? 2 : 1;
         if (years is < 1 or > 5) throw new GameRuleException("Escolha um contrato de uma a cinco temporadas.");
         string reason = "";
         if (g.Loans.Any(l => !l.Returned && l.PlayerId == id)) reason = "O atleta tem empréstimo ativo; aguarde o retorno antes de negociar.";
@@ -89,8 +89,8 @@ public static class TransferMarket
         var bonus = Bonus(wage, q.FromClub == "" ? "free" : kind);
         if (g.Balance < AdvancedMarket.Upfront(fee, installments) + bonus+ClubLife.AgentFee(g,id,fee,wage)) throw new GameRuleException("Saldo insuficiente para taxa e luvas da proposta.");
         var next = g.Round + 1;
-        bool immediate = kind == "renewal" || q.FromClub == "" || g.Round >= 38 || !Window(new() { Round = next }).IsOpen;
-        var offer = new TransferOffer { AgentCommission=ClubLife.AgentFee(g,id,fee,wage),AgentName=ClubLife.AgentName(g,id),Installments = installments, ReleaseClause = releaseClause, PlayerId = id, PlayerName = q.PlayerName, Kind = kind, FromClub = q.FromClub, ToClub = g.ClubId, Fee = fee, Wage = wage, Years = years, SigningBonus = bonus, Season = g.Season, CreatedRound = g.Round, ResponseRound = immediate ? g.Round : next, ExpiresRound = Math.Min(39, g.Round + 3), ContractRevision = ContractRevision(g, id), Message = "Proposta enviada. A resposta chegará ao avançar uma rodada." };
+        bool immediate = kind == "renewal" || q.FromClub == "" || g.Round >= g.SeasonRounds || !Window(new() { Round = next }).IsOpen;
+        var offer = new TransferOffer { AgentCommission=ClubLife.AgentFee(g,id,fee,wage),AgentName=ClubLife.AgentName(g,id),Installments = installments, ReleaseClause = releaseClause, PlayerId = id, PlayerName = q.PlayerName, Kind = kind, FromClub = q.FromClub, ToClub = g.ClubId, Fee = fee, Wage = wage, Years = years, SigningBonus = bonus, Season = g.Season, CreatedRound = g.Round, ResponseRound = immediate ? g.Round : next, ExpiresRound = Math.Min(g.SeasonRounds + 1, g.Round + 3), ContractRevision = ContractRevision(g, id), Message = "Proposta enviada. A resposta chegará ao avançar uma rodada." };
         g.Offers.Insert(0, offer);
         if (immediate) Respond(g, offer);
         g.News.Insert(0, $"Negociação: proposta por {q.PlayerName}. {offer.Message}");
@@ -193,7 +193,7 @@ public static class TransferMarket
         foreach (var (club, squad) in g.OpponentSquads) g.ClubBalances[club] = Balance(g, club) + 2_100_000L - squad.Sum(p => (long)p.Wage);
         foreach (var o in g.Offers.Where(Open).ToArray())
         {
-            if (o.Season != g.Season || g.Round > o.ExpiresRound || (o.Kind != "outbound" && g.Round > 38 && o.Season + o.Years - 1 <= g.Season) || (o.Kind != "renewal" && o.FromClub != "" && !Window(g).IsOpen))
+            if (o.Season != g.Season || g.Round > o.ExpiresRound || (o.Kind != "outbound" && g.Round > g.SeasonRounds && o.Season + o.Years - 1 <= g.Season) || (o.Kind != "renewal" && o.FromClub != "" && !Window(g).IsOpen))
             { o.Status = "expired"; o.Message = "Prazo ou janela de transferências encerrados."; continue; }
             if (o.Status == "pending" && g.Round >= o.ResponseRound) { Respond(g, o); g.News.Insert(0, $"Resposta sobre {o.PlayerName}: {o.Message}"); }
         }
@@ -207,13 +207,13 @@ public static class TransferMarket
                 .OrderBy(c => c.Id, StringComparer.Ordinal).ElementAtOrDefault((p.Id + g.Round) % Math.Max(1, g.Clubs.Count - 1))
                 ?? g.Clubs.FirstOrDefault(c => c.Id != g.ClubId && Squad(g, c.Id).Count < 40 && Balance(g, c.Id) >= fee + Bonus(wage, "outbound"));
             if (buyer == null) continue;
-            var offer = new TransferOffer { Kind = "outbound", PlayerId = p.Id, PlayerName = p.Name, FromClub = g.ClubId, ToClub = buyer.Id, Fee = fee, Wage = wage, Years = 3, SigningBonus = Bonus(wage, "outbound"), Season = g.Season, CreatedRound = g.Round, ResponseRound = g.Round, ExpiresRound = Math.Min(39, g.Round + 3), ContractRevision = ContractRevision(g, p.Id), Status = "agreed", Message = "Proposta de compra recebida. O comprador aguarda sua decisão." };
+            var offer = new TransferOffer { Kind = "outbound", PlayerId = p.Id, PlayerName = p.Name, FromClub = g.ClubId, ToClub = buyer.Id, Fee = fee, Wage = wage, Years = 3, SigningBonus = Bonus(wage, "outbound"), Season = g.Season, CreatedRound = g.Round, ResponseRound = g.Round, ExpiresRound = Math.Min(g.SeasonRounds + 1, g.Round + 3), ContractRevision = ContractRevision(g, p.Id), Status = "agreed", Message = "Proposta de compra recebida. O comprador aguarda sua decisão." };
             g.Offers.Insert(0, offer); g.News.Insert(0, $"{buyer.Name} apresentou uma proposta por {p.Name}.");
         }
     }
     public static void NextSeason(GameState g)
     {
-        if (g.Round <= 38) throw new GameRuleException("Conclua as 38 rodadas primeiro.");
+        if (g.Round <= g.SeasonRounds) throw new GameRuleException($"Conclua as {g.SeasonRounds} rodadas primeiro.");
         if (g.Season >= 9999) throw new GameRuleException("O calendário suporta temporadas até o ano 9999.");
         if(ClubCompetitions.NextDue(g)!=null)throw new GameRuleException("Conclua as partidas eliminatórias pendentes antes da próxima temporada.");
         Divisions.Complete(g);
@@ -228,12 +228,12 @@ public static class TransferMarket
             if (contract.EndSeason > g.Season) continue;
             g.Squad.Remove(p); p.Starter = false; p.TransferListed = false; g.Market.Add(p); contract.Active = false; contract.Revision++;
             g.News.Insert(0, $"{p.Name} deixou o clube ao término do contrato, sem taxa de transferência.");
-            g.Transfers.Insert(0, new(g.Season, 39, p.Id, p.Name, g.ClubId, "", 0, 0, 0, g.Season, "expired"));
+            g.Transfers.Insert(0, new(g.Season, g.SeasonRounds + 1, p.Id, p.Name, g.ClubId, "", 0, 0, 0, g.Season, "expired"));
         }
         foreach (var (club, squad) in g.OpponentSquads)
             foreach (var p in squad) { var contract = g.Contracts[p.Id]; if (contract.EndSeason <= g.Season) { contract.EndSeason = g.Season + 3; contract.Revision++; } }
         Divisions.NextSeason(g);
-        g.Season++; g.Round = 1; g.Fixtures = SeasonCalendar.Generate(g.Clubs, g.Season, g.LotterySeed, g.Divisions?.ManagedDivision ?? "A"); g.CalendarSource = SeasonCalendar.Source; g.CalendarVersion = 2;
+        g.Season++; g.Round = 1; g.Fixtures = SeasonCalendar.Generate(g.Clubs, g.Season, g.LotterySeed, g.Divisions?.ManagedDivision ?? "A", g.LeagueStart); g.CalendarSource = SeasonCalendar.Source; g.CalendarVersion = 2;
         AdvancedMarket.Settle(g);
         foreach (var p in g.Squad.Concat(g.Market).Concat(g.OpponentSquads.Values.SelectMany(s => s))) p.YellowCards = 0;
         g.PlayerStats.Clear(); g.PlayerStatsFromRound = 1; g.Substitutions.Clear();

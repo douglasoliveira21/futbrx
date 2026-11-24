@@ -1,6 +1,7 @@
-// Reference composition of the mockup (1648 x 928); every element of the desktop layout is positioned in these pixels and the
+// Reference composition of the mockup; every element of the desktop layout is positioned in these pixels and the
 // whole stage is scaled to the viewport.
-export const STAGE = { width: 1648, height: 928 };
+// The mockup is 1648 x 928; the stage is 52 px taller so the competitions block has room below the login panel.
+export const STAGE = { width: 1648, height: 980 };
 // The composition fills the window at 100%, which felt too big on real screens: it is drawn a little smaller, centred.
 export const CONTENT_SCALE = 0.85;
 export const stageScale = (width: number, height: number) => Math.min(width / STAGE.width, height / STAGE.height) * CONTENT_SCALE;

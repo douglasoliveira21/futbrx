@@ -25,7 +25,7 @@
   left: 50%;
   top: 50%;
   width: 1648px;
-  height: 928px;
+  height: 980px;
   transform-origin: center center;
 }
 .login-canvas > * {
@@ -615,10 +615,10 @@
   margin-top: 14px;
 }
 .has-google .login-champs-title {
-  top: 781px;
+  top: 825px;
 }
 .has-google .login-champs {
-  top: 796px;
+  top: 840px;
   height: 120px;
   padding-top: 20px;
 }

@@ -37,6 +37,11 @@ public static class AdminPanelApiTests
         Check((await victimClient.GetAsync("/api/auth/me")).StatusCode == HttpStatusCode.Unauthorized, "Redefinir a senha encerra as sessões");
         using var fresh = factory.CreateClient(new() { HandleCookies = false });
         Check((await fresh.PostAsJsonAsync("/api/auth/login", new { email, password = "Nova-senha-segura-1" })).IsSuccessStatusCode, "Login com a nova senha");
+        // "Lembrar de mim": the refresh cookie is persistent by default and a session cookie (no Max-Age) when it is turned off.
+        var kept = await fresh.PostAsJsonAsync("/api/auth/login", new { email, password = "Nova-senha-segura-1", remember = true });
+        var forgotten = await fresh.PostAsJsonAsync("/api/auth/login", new { email, password = "Nova-senha-segura-1", remember = false });
+        string Cookie(HttpResponseMessage r) => r.Headers.GetValues("Set-Cookie").First(c => c.StartsWith("bm_refresh="));
+        Check(Cookie(kept).Contains("max-age=1209600", StringComparison.OrdinalIgnoreCase) && !Cookie(forgotten).Contains("max-age", StringComparison.OrdinalIgnoreCase) && !Cookie(forgotten).Contains("expires", StringComparison.OrdinalIgnoreCase), "Lembrar de mim define se o cookie de sessão dura 14 dias ou só até fechar o navegador");
         Check((await admin.DeleteAsync($"/api/admin/accounts/{adminId}")).StatusCode == HttpStatusCode.Conflict, "Admin não apaga a própria conta");
         Check((await admin.DeleteAsync($"/api/admin/accounts/{victimId}")).IsSuccessStatusCode, "Admin apaga conta");
         Check((await fresh.PostAsJsonAsync("/api/auth/login", new { email, password = "Nova-senha-segura-1" })).StatusCode == HttpStatusCode.Unauthorized, "Conta apagada não entra mais");

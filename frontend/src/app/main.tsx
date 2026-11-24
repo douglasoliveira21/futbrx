@@ -99,6 +99,7 @@ const SeasonHistory = lazy(() => import("../features/career/SeasonHistory"));
 const AccountSessions = lazy(
   () => import("../features/account/AccountSessions"),
 );
+const LoginScreen = lazy(() => import("../features/auth/LoginScreen"));
 const ClubLifeCenter = lazy(() => import("../features/career/ClubLifeCenter"));
 const CoachCareerCenter = lazy(
   () => import("../features/career/CoachCareerCenter"),
@@ -176,120 +177,10 @@ function Panel({
   );
 }
 function Auth({ onLogin }: { onLogin: (name: string) => void }) {
-  const [register, setRegister] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const m = useMutation({
-    mutationFn: () =>
-      api<{ token: string; user: { name: string } }>(
-        "/auth/" + (register ? "register" : "login"),
-        { email, password, name: register ? name : "Treinador" },
-      ),
-    onSuccess: (r) => {
-      setToken(r.token);
-      onLogin(r.user.name);
-    },
-  });
   return (
-    <main className="auth">
-      <div className="auth-story">
-        <div className="brand">
-          <FutbrxLogo />
-        </div>
-        <span className="eyebrow">SEU CLUBE. SUA HISTÓRIA.</span>
-        <h1>
-          O futebol acontece em campo.
-          <br />
-          <span>A conquista começa com você.</span>
-        </h1>
-        <p>
-          Do primeiro treino ao último apito. Assuma o comando e escreva uma
-          nova história no futebol brasileiro.
-        </p>
-        <div className="auth-pitch">
-          <div className="center-circle" />
-          <div className="half-line" />
-        </div>
-        <small>Edição de desenvolvimento · dados demonstrativos</small>
-      </div>
-      <form
-        className="auth-form panel"
-        onSubmit={(e) => {
-          e.preventDefault();
-          m.mutate();
-        }}
-      >
-        <Trophy className="green" size={32} />
-        <h2>
-          {register
-            ? "Seu lugar no banco de comando."
-            : "Bem-vindo ao vestiário."}
-        </h2>
-        <p>
-          {register
-            ? "Crie sua conta para iniciar uma carreira."
-            : "Entre para continuar sua carreira."}
-        </p>
-        {register && (
-          <label>
-            Nome do treinador
-            <input
-              required
-              maxLength={60}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              autoComplete="name"
-            />
-          </label>
-        )}
-        <label>
-          E-mail
-          <input
-            required
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            autoComplete="email"
-          />
-        </label>
-        <label>
-          Senha
-          <input
-            required
-            type="password"
-            minLength={register ? 12 : 1}
-            maxLength={128}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete={register ? "new-password" : "current-password"}
-          />
-        </label>
-        {register && <small>Mínimo de 12 caracteres.</small>}
-        {m.error && (
-          <p role="alert" className="error">
-            {m.error.message}
-          </p>
-        )}
-        <Button disabled={m.isPending}>
-          {m.isPending
-            ? "Conectando…"
-            : register
-              ? "Criar conta"
-              : "Entrar no clube"}
-        </Button>
-        <Button
-          type="button"
-          variant="ghost"
-          onClick={() => {
-            setRegister(!register);
-            m.reset();
-          }}
-        >
-          {register ? "Já tenho uma conta" : "Criar minha conta"}
-        </Button>
-      </form>
-    </main>
+    <Suspense fallback={<main className="auth" />}>
+      <LoginScreen onLogin={onLogin} />
+    </Suspense>
   );
 }
 function CareerPicker({

@@ -25,17 +25,19 @@ public static class AdminAccess
 public sealed class AuthSession(GameDb db, IConfiguration config, IWebHostEnvironment environment)
 {
     public static string Hash(string value) => Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(value)));
-    public async Task<IResult> Issue(Account account, HttpContext context, Session? session = null)
+    // remember = false: the session lasts one day and the refresh cookie ends with the browser. A refresh keeps what the session started with.
+    public async Task<IResult> Issue(Account account, HttpContext context, Session? session = null, bool remember = true)
     {
+        if (session != null) remember = session.Expires - session.Created > TimeSpan.FromDays(2);
         var raw = Convert.ToBase64String(RandomNumberGenerator.GetBytes(48));
         if (session == null)
         {
             session = new Session { UserId = account.Id, Device = context.Request.Headers.UserAgent.ToString()[..Math.Min(context.Request.Headers.UserAgent.ToString().Length, 180)] };
             db.Sessions.Add(session);
         }
-        session.Hash = Hash(raw); session.Expires = DateTime.UtcNow.AddDays(14);
+        session.Hash = Hash(raw); session.Expires = DateTime.UtcNow.AddDays(remember ? 14 : 1);
         await db.SaveChangesAsync();
-        context.Response.Cookies.Append("bm_refresh", raw, new() { HttpOnly = true, Secure = !environment.IsDevelopment(), SameSite = SameSiteMode.Strict, Path = "/api/auth", MaxAge = TimeSpan.FromDays(14) });
+        context.Response.Cookies.Append("bm_refresh", raw, new() { HttpOnly = true, Secure = !environment.IsDevelopment(), SameSite = SameSiteMode.Strict, Path = "/api/auth", MaxAge = remember ? TimeSpan.FromDays(14) : null });
         var key = config["Jwt:Key"]!;
         var jwt = new JwtSecurityToken(config["Jwt:Issuer"], config["Jwt:Audience"],
             [new(ClaimTypes.NameIdentifier, account.Id.ToString()), new(ClaimTypes.Name, account.Name), new(ClaimTypes.Email, account.Email), new("session_id", session.Id.ToString())],
@@ -58,7 +60,7 @@ public static class AuthEndpoints
             var a = new Account { Email = email, Name = r.Name.Trim() };
             a.PasswordHash = new PasswordHasher<Account>().HashPassword(a, r.Password);
             db.Add(a); db.Audits.Add(new() { UserId = a.Id, Action = "auth:register" });
-            try { return await sessions.Issue(a, ctx); }
+            try { return await sessions.Issue(a, ctx, null, r.Remember); }
             catch (DbUpdateException) { return Results.Conflict(new { message = "Não foi possível cadastrar este e-mail." }); }
         }).RequireRateLimiting("auth");
         auth.MapPost("/login", async (Credentials r, GameDb db, AuthSession sessions, HttpContext ctx) =>
@@ -68,7 +70,7 @@ public static class AuthEndpoints
             if (a == null || new PasswordHasher<Account>().VerifyHashedPassword(a, a.PasswordHash, r.Password) == PasswordVerificationResult.Failed)
                 return Results.Json(new { message = "E-mail ou senha incorretos." }, statusCode: 401);
             db.Audits.Add(new() { UserId = a.Id, Action = "auth:login" });
-            return await sessions.Issue(a, ctx);
+            return await sessions.Issue(a, ctx, null, r.Remember);
         }).RequireRateLimiting("auth");
         auth.MapPost("/refresh", async (GameDb db, AuthSession sessions, HttpContext ctx) =>
         {
@@ -108,7 +110,7 @@ public static class AuthEndpoints
         });
     }
 }
-public sealed record Credentials(string Email, string Password, string Name = "Treinador");
+public sealed record Credentials(string Email, string Password, string Name = "Treinador", bool Remember = true);
 
 public sealed class SessionCleanup(IServiceScopeFactory scopes, ILogger<SessionCleanup> logger) : BackgroundService
 {

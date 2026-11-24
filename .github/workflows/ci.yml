@@ -28,6 +28,7 @@ jobs:
    - run: node --experimental-strip-types frontend/tests/club-directory.test.mjs
    - run: node --experimental-strip-types frontend/tests/ties.test.mjs
    - run: node --experimental-strip-types frontend/tests/zones.test.mjs
+   - run: node --experimental-strip-types frontend/tests/login.test.mjs
    - run: python scripts/data/test_reviewed_catalog.py
    - name: Integration against PostgreSQL
      env:

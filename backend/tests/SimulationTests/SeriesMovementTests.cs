@@ -68,7 +68,7 @@ public static class SeriesMovementTests
         Check(c.Fixtures.GroupBy(f => f.Round).All(r => r.Count() == 10) && c.Clubs.All(club => c.Fixtures.Count(f => f.Home == club.Id || f.Away == club.Id) == 19), "Cada clube da C enfrenta os outros 19 uma única vez");
 
         // Série A: the last three go down.
-        Check(SeriesMovement.Destination(a, "A", 20) == "B" && SeriesMovement.Destination(a, "A", 18) == "B" && SeriesMovement.Destination(a, "A", 17) == null && SeriesMovement.Destination(a, "A", 1) == null, "Série A rebaixa os três últimos e não tem acesso");
+        Check(SeriesMovement.Destination(a, "A", 20) == "B" && SeriesMovement.Destination(a, "A", 17) == "B" && SeriesMovement.Destination(a, "A", 16) == null && SeriesMovement.Destination(a, "A", 1) == null, "Série A rebaixa os quatro últimos e não tem acesso");
         var aId = a.ClubId; var strongestB = Game.SeriesCatalog("B").Clubs.OrderByDescending(x => x.Strength).ThenBy(x => x.Id, StringComparer.Ordinal).First().Id;
         Season(a, false);
         Check(Series(a) == "B" && a.Clubs.Count == 20 && a.Clubs.Any(x => x.Id == aId) && a.Clubs.All(x => x.Id != strongestB) && a.SeasonRounds == 40 && a.Fixtures.Count == 380, "Rebaixado da A joga a Série B no lugar do clube mais forte");

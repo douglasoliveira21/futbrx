@@ -1,7 +1,7 @@
 namespace Brasileirao;
 
 // Formats of the national series that go beyond a plain league (2026 regulations, from the pages of each edition):
-//  - Série A: 38 rounds, home and away; the last three go down.
+//  - Série A: 38 rounds, home and away; the last four go down.
 //  - Série B: 38 rounds; the first two go up, 3rd x 6th and 4th x 5th play home and away for the other two places
 //    (the better placed hosts the second leg; no extra time or penalties); the last four go down.
 //  - Série C: first phase in a single round (19 rounds); the best eight go on, the last two go down; the second phase

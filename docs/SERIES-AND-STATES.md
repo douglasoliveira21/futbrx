@@ -128,11 +128,12 @@ elenco inicial do clube do jogador. A base demonstrativa não muda.
 `SeriesMovement` (`backend/src/Simulation/SeriesMovement.cs`), chamado em `TransferMarket.NextSeason` com a classificação
 final, move só o **clube do jogador**; os demais clubes da divisão são os da base de dados de cada série.
 
-- Série A: os 3 últimos (18º a 20º) caem para a B. Série B: os 2 primeiros sobem direto e os vencedores dos playoffs
+- Série A: os 4 últimos (17º a 20º) caem para a B. Série B: os 2 primeiros sobem direto e os vencedores dos playoffs
   3º×6º e 4º×5º também; caem os 4 últimos. Série C: sobem os 2 primeiros de cada grupo da segunda fase (4 clubes) e
   caem os 2 últimos da primeira fase. Série D: sobem os 6 do mata-mata (ver acima); não há descenso.
-  Fonte: páginas das edições de 2026 (Wikipédia, lidas em 24/11/2026). Na Série A a quantidade de rebaixados não está
-  escrita no regulamento lido; a tabela da página marca do 18º ao 20º lugar como rebaixados, e é isso que o jogo usa.
+  Fonte: páginas das edições de 2026 (Wikipédia, lidas em 24/11/2026); a quantidade de rebaixados da Série A (4) foi
+  confirmada pelo usuário, porque o texto lido da página não a informa. Na B, o 1º colocado é o campeão e os quatro
+  acessos são: 1º, 2º e os dois vencedores dos playoffs (3º×6º e 4º×5º).
 - Quem sobe toma o lugar do clube mais fraco da nova divisão; quem cai toma o lugar do mais forte. Se o clube volta a
   uma divisão da qual saiu, retoma a própria vaga.
 - Quem cai para a D entra no grupo oficial do seu estado (o grupo com mais clubes do mesmo estado; se o clube já era da

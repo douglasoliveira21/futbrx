@@ -6,8 +6,8 @@ namespace Brasileirao;
 // career continues in that league from the next season, with new squads for the new opponents.
 public static class SeriesMovement
 {
-    // Last places that go down, by series (2026 editions): A and B of 20 clubs, C of 20 clubs. Série D has no relegation.
-    static readonly Dictionary<string, int> Relegated = new() { ["A"] = 3, ["B"] = 4, ["C"] = 2 };
+    // Last places that go down, by series (A and B: four; C: two, as in the 2026 edition). Série D has no relegation.
+    static readonly Dictionary<string, int> Relegated = new() { ["A"] = 4, ["B"] = 4, ["C"] = 2 };
     static readonly string[] Order = ["A", "B", "C", "D"];
 
     sealed record Row(string Id, string Uf);

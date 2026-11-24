@@ -570,3 +570,24 @@
   height: 120px;
   padding-top: 20px;
 }
+
+.login-legal {
+  position: absolute;
+  right: 36px;
+  bottom: 26px;
+  display: flex;
+  gap: 18px;
+  font-size: 13px;
+}
+.login-legal a {
+  color: #b8c4c8;
+  text-decoration: none;
+}
+.login-legal a:hover,
+.login-legal a:focus-visible {
+  color: #fff;
+  text-decoration: underline;
+}
+.compact .login-legal {
+  position: static;
+}

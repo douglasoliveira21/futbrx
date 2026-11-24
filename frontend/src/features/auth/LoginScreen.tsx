@@ -275,6 +275,10 @@ export default function LoginScreen({ onLogin }: { onLogin: (name: string) => vo
         </div>
       )}
       {version && <small className="login-version">v{version}</small>}
+      <nav className="login-legal" aria-label="Documentos legais">
+        <a href="/privacidade">Política de Privacidade</a>
+        <a href="/termos">Termos de Serviço</a>
+      </nav>
     </main>
   );
 }

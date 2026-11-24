@@ -150,3 +150,17 @@ Como funciona: o navegador recebe um token de identidade do Google e a API o val
 conta com o nome e o e-mail do Google, sem senha. Uma conta já criada por e-mail e senha **não** é vinculada automaticamente ao
 Google (o e-mail nunca foi verificado no cadastro por senha): o jogador recebe "Já existe uma conta com este e-mail. Entre com a
 senha.". "Lembrar de mim" vale também para o login com Google.
+
+### Campos da tela de consentimento do Google
+
+Em **Domínio do app** (Google Auth Platform → Branding), preencha com o endereço público do jogo (troque pelo seu domínio):
+
+| Campo | Valor |
+|---|---|
+| Página inicial do aplicativo | `https://SEU-DOMINIO/` |
+| Link da Política de Privacidade | `https://SEU-DOMINIO/privacidade` |
+| Link dos Termos de Serviço | `https://SEU-DOMINIO/termos` |
+
+As páginas são públicas (abrem sem login) e a tela de login tem links para as duas. Para mostrar um e-mail de contato nelas, crie
+no serviço `jogo` a variável `Legal__ContactEmail`; sem ela, o texto manda falar com o administrador do serviço. Inclua também o
+domínio em **Domínios autorizados** do Google. O texto das páginas é um modelo baseado na LGPD: revise antes de publicar.

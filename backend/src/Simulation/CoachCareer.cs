@@ -7,7 +7,7 @@ public static partial class CoachCareer
     static CoachWorld World(GameState g)=>g.Life!.Coaches!;
     public static CoachPerson Player(GameState g)=>World(g).People.Single(p=>p.Id==World(g).PlayerId);
     public static bool IsEmployed(GameState g)=>g.Life?.Coaches is not {} w ? g.Life?.Board.Dismissed!=true : w.People.Single(p=>p.Id==w.PlayerId).ClubId!="";
-    public static IEnumerable<Club> Clubs(GameState g)=>g.Clubs.Concat(g.Divisions?.OtherClubs??[]).Concat(g.Life?.ExtraClubs??[]).DistinctBy(c=>c.Id);
+    public static IEnumerable<Club> Clubs(GameState g)=>g.Clubs.Concat(g.Divisions?.OtherClubs??[]).Concat(g.Life?.ExtraClubs??[]).Concat(g.KnownClubs).Concat(g.SerieD?.Others??[]).DistinctBy(c=>c.Id);
     static string ClubName(GameState g,string club)=>Clubs(g).FirstOrDefault(c=>c.Id==club)?.Name??club;
     static string NextId(GameState g,string prefix)=>prefix+"-"+(++World(g).Sequence);
     static int Draw(GameState g,string key,int max=100)=>ClubLife.Seed(g,"coach:"+key)%max;

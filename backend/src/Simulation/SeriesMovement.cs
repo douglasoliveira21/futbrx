@@ -6,7 +6,8 @@ namespace Brasileirao;
 // career continues in that league from the next season, with new squads for the new opponents.
 public static class SeriesMovement
 {
-    public const int Promoted = 4, Relegated = 4; // of 20 clubs, in Séries A, B and C (Série D promotes six, see SerieD)
+    // Last places that go down, by series (2026 editions): A and B of 20 clubs, C of 20 clubs. Série D has no relegation.
+    static readonly Dictionary<string, int> Relegated = new() { ["A"] = 3, ["B"] = 4, ["C"] = 2 };
     static readonly string[] Order = ["A", "B", "C", "D"];
 
     sealed record Row(string Id, string Uf);
@@ -26,8 +27,8 @@ public static class SeriesMovement
     {
         int i = Array.IndexOf(Order, series);
         if (series == "D") return g.SerieD!.Promoted.Contains(g.ClubId) ? "C" : null;
-        if (series != "A" && position <= Promoted) return Order[i - 1];
-        if (series != "D" && position > 20 - Relegated) return Order[i + 1];
+        if (series != "A" && SeriesFormats.EarnedPromotion(g, series, position)) return Order[i - 1];
+        if (position > 20 - Relegated[series]) return Order[i + 1];
         return null;
     }
 
@@ -79,15 +80,16 @@ public static class SeriesMovement
         int offset = Math.Max(900_000, g.Squad.Concat(g.Market).Concat(g.Academy).Concat(g.OpponentSquads.Values.SelectMany(s => s)).Max(p => p.Id) + 100);
         foreach (var club in clubs.Where(c => c.Id != g.ClubId))
         {
-            var squad = Game.Players(offset); offset += 100;
+            var squad = Game.Players(offset, club.Strength); offset += 100;
             Sports.RepairSelection(squad, false);
             g.OpponentSquads[club.Id] = squad; g.ClubBalances[club.Id] = (long)(30_000_000 * Game.EconomyFactor(catalog.Version));
             foreach (var p in squad) g.Contracts[p.Id] = new() { PlayerId = p.Id, ClubId = club.Id, StartSeason = g.Season + 1, StartRound = 1, EndSeason = g.Season + 4, Wage = p.Wage };
         }
         g.Clubs = clubs; g.DataVersion = catalog.Version;
+        SerieD.PrepareSquads(g);
         g.SerieD = to == "D" ? SerieD.ForGroup(group) : null;
         if (g.SerieD != null) g.SerieD.Others.RemoveAll(c => c.Id == replaced.Id || c.Id == g.ClubId);
-        g.SeasonRounds = to == "D" ? SerieD.SeasonRounds : 38; g.LeagueStart = 1;
+        g.SeasonRounds = SeriesFormats.SeasonRoundsFor(catalog.Version); g.LeagueStart = 1;
         var life = g.Life!;
         life.Fans.RivalId = clubs.Where(c => c.Id != g.ClubId).OrderBy(c => ClubLife.Seed(g, "rival:" + g.ClubId + ":" + c.Id)).First().Id;
         life.Board.TargetPosition = ClubLife.BoardTarget(g);

@@ -57,7 +57,7 @@ public static class SerieD
             Source = $"Grupo {group} da Série D de 2026, conforme as tabelas da página da edição na Wikipédia (fatos públicos), lidas em 23/11/2026. Siglas, cores e forças são estimativas do projeto, ainda a conferir.",
             License = "Elencos, agentes livres e atributos simulados pelo futbrx. Escudos genéricos, sem imagens oficiais.",
             Clubs = clubs,
-            Players = clubs.SelectMany((club, index) => Game.Players(index * 100).Select(player => new CatalogPlayer(club.Id, player)))
+            Players = clubs.SelectMany((club, index) => Game.Players(index * 100, club.Strength).Select(player => new CatalogPlayer(club.Id, player)))
                 .Concat(Game.Players(10000).Take(12).Select(player => new CatalogPlayer("", player))).ToList()
         };
     }
@@ -83,18 +83,22 @@ public static class SerieD
         g.SerieD.Results.Clear(); g.SerieD.Qualified.Clear(); g.SerieD.Promoted.Clear();
     }
 
-    public static IEnumerable<Club> AllClubs(GameState g) => g.Clubs.Concat(g.SerieD?.Others ?? []);
+    public static IEnumerable<Club> AllClubs(GameState g) => g.Clubs.Concat(g.SerieD?.Others ?? []).Concat(g.KnownClubs);
     public static int Strength(GameState g, string id) => AllClubs(g).FirstOrDefault(c => c.Id == id)?.Strength ?? 50;
 
     // A club the user meets for the first time gets its squad now, so the save only holds squads that were needed.
     public static void EnsureSquad(GameState g, string clubId)
     {
-        var club = g.SerieD?.Others.Find(c => c.Id == clubId);
+        var club = g.SerieD?.Others.Find(c => c.Id == clubId) ?? g.KnownClubs.Find(c => c.Id == clubId);
         if (club == null || clubId == g.ClubId || g.OpponentSquads.ContainsKey(clubId)) return;
         int offset = Math.Max(800_000, g.Squad.Concat(g.Market).Concat(g.Academy).Concat(g.OpponentSquads.Values.SelectMany(s => s)).Max(p => p.Id) + 100);
-        var squad = Game.Players(offset); g.OpponentSquads[clubId] = squad; g.ClubBalances.TryAdd(clubId, 5_000_000);
+        var squad = Game.Players(offset, club.Strength); g.OpponentSquads[clubId] = squad; g.ClubBalances.TryAdd(clubId, 5_000_000);
         foreach (var p in squad) g.Contracts[p.Id] = new() { PlayerId = p.Id, ClubId = clubId, StartSeason = g.Season, StartRound = 1, EndSeason = g.Season + 3, Wage = p.Wage };
+        PrepareSquads(g);
     }
+
+    // New squads get the development profiles and detailed skills that every loaded career has.
+    public static void PrepareSquads(GameState g) { Training.Upgrade(g); FootballSkills.Upgrade(g); }
 
     static int Poisson(Random rng, double mean)
     {

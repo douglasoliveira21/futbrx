@@ -44,7 +44,7 @@ export default function CompetitionCenter({ c }: { c: Career }) {
       <section className="panel" style={{ padding: 24 }}>
         <h2>Competição e acesso</h2>
         <p>
-          {c.state.serieD ? "10 rodadas de grupo, em turno e returno, e a fase final de mata-matas de ida e volta (22 semanas no total)" : `${seasonRounds(c.state)} rodadas, turno e returno`}. Desempate: pontos, vitórias, saldo, gols
+          {c.state.serieD ? "10 rodadas de grupo, em turno e returno, e a fase final de mata-matas de ida e volta (22 semanas no total)" : c.state.dataVersion.startsWith("serie-c-") ? "Primeira fase em turno único (19 rodadas); os oito melhores jogam a segunda fase, em dois grupos de quatro, e os líderes decidem a final. Sobem os dois primeiros de cada grupo; descem os dois últimos da primeira fase" : c.state.dataVersion.startsWith("serie-b-") ? "38 rodadas, turno e returno. Sobem os dois primeiros e os vencedores dos playoffs entre 3º×6º e 4º×5º (ida e volta, sem pênaltis); descem os quatro últimos" : `${seasonRounds(c.state)} rodadas, turno e returno`}. Desempate: pontos, vitórias, saldo, gols
           pró, confronto direto entre dois clubes, menos vermelhos, menos
           amarelos e sorteio persistente na carreira.
         </p>

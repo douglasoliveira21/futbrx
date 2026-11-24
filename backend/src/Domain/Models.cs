@@ -24,6 +24,8 @@ public class GameState
     public DivisionSeason? Divisions { get; set; }
     // Série D: the club's group of six is the league; the other 90 clubs only exist as names and strengths.
     public SerieDState? SerieD { get; set; }
+    // Clubs that take part in competitions of the career (state championship) without a squad until they are met.
+    public List<Club> KnownClubs { get; set; } = [];
     public List<LoanDeal> Loans { get; set; } = [];
     public List<TransferPayment> TransferPayments { get; set; } = [];
     public int YouthVersion { get; set; }

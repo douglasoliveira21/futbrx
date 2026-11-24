@@ -183,6 +183,8 @@ export type State = {
   calendarSource?: string;
   division?: string;
   otherClubs?: Club[];
+  // Clubs of the state championship that have no squad until the club meets them.
+  knownClubs?: Club[];
   // Série D: the 90 clubs of the other groups, the final tables of the 16 groups and the six promoted clubs.
   serieD?: {
     group: number;

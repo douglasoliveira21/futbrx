@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { seasonRounds } from "./season";
-import { aggregate, legLabel, played, stageLabel, visibleMatches } from "./ties";
+import { aggregate, groupStandings, legLabel, played, stageLabel, visibleMatches } from "./ties";
 import { SerieDPanel } from "./SerieDPanel";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
@@ -38,6 +38,8 @@ type Cup = {
   prize: number;
   legs?: number;
   light?: boolean;
+  groupStage?: boolean;
+  advanced?: string[];
   promotion?: boolean;
   matches: { id: string; stage: number; tie?: string; leg?: number; winner: string; fixture: Fixture }[];
 };
@@ -232,7 +234,7 @@ export default function ClubLifeCenter({
         <Button onClick={() => void query.refetch()}>Tentar novamente</Button>
       </div>
     );
-  const clubs = [...c.state.clubs, ...life.extraClubs, ...(c.state.serieD?.others ?? [])],
+  const clubs = [...c.state.clubs, ...life.extraClubs, ...(c.state.serieD?.others ?? []), ...(c.state.knownClubs ?? [])],
     club = (id: string) => clubs.find((c) => c.id === id)?.name ?? id;
   const pendingInterview = life.press.find(
     (s) => s.kind === "Coletiva" && !s.answer && s.season === c.state.season,
@@ -784,6 +786,22 @@ export default function ClubLifeCenter({
                   {cup.matches.filter((m) => m.stage === cup.stage && played(m)).length} de {cup.matches.filter((m) => m.stage === cup.stage).length} jogos da fase atual disputados. Só as partidas do seu clube aparecem aqui; as demais são decididas pela força dos clubes.
                 </p>
               )}
+              {cup.groupStage &&
+                [...new Set(cup.matches.map((m) => m.tie ?? ""))].map((tie, group) => (
+                  <table className="life-table" key={tie}>
+                    <caption>Grupo {group + 1}</caption>
+                    <thead>
+                      <tr><th>#</th><th>Clube</th><th>P</th><th>J</th><th>V</th><th>SG</th></tr>
+                    </thead>
+                    <tbody>
+                      {groupStandings(cup.matches, tie).map((row, i) => (
+                        <tr key={row.club} className={row.club === c.state.clubId ? "managed" : (cup.advanced ?? []).includes(row.club) ? "qualified" : ""}>
+                          <td>{i + 1}</td><td>{club(row.club)}</td><td>{row.points}</td><td>{row.played}</td><td>{row.wins}</td><td>{row.goals - row.against}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ))}
               <div className="life-grid">
                 {visibleMatches(cup.light, cup.matches, c.state.clubId).map((m) => (
                   <div

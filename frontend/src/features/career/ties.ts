@@ -28,3 +28,22 @@ export const stageLabel = (competitionId: string, stage: number) =>
 export function visibleMatches<T extends { fixture: { home: string; away: string } }>(light: boolean | undefined, matches: T[], clubId: string) {
   return light ? matches.filter((m) => m.fixture.home === clubId || m.fixture.away === clubId) : matches;
 }
+
+// Standings of one group of a group-stage competition (Série C second phase), by points, wins, goal difference and goals.
+export function groupStandings(matches: CupMatchView[], tie: string) {
+  const rows = new Map<string, { club: string; played: number; wins: number; points: number; goals: number; against: number }>();
+  const row = (club: string) => {
+    if (!rows.has(club)) rows.set(club, { club, played: 0, wins: 0, points: 0, goals: 0, against: 0 });
+    return rows.get(club)!;
+  };
+  for (const m of matches.filter((x) => x.tie === tie)) {
+    const home = row(m.fixture.home);
+    const away = row(m.fixture.away);
+    if (m.fixture.homeGoals == null || m.fixture.awayGoals == null) continue;
+    const [h, a] = [m.fixture.homeGoals, m.fixture.awayGoals];
+    home.played++; away.played++;
+    home.goals += h; home.against += a; away.goals += a; away.against += h;
+    if (h > a) { home.points += 3; home.wins++; } else if (a > h) { away.points += 3; away.wins++; } else { home.points++; away.points++; }
+  }
+  return [...rows.values()].sort((x, y) => y.points - x.points || y.wins - x.wins || (y.goals - y.against) - (x.goals - x.against) || y.goals - x.goals);
+}

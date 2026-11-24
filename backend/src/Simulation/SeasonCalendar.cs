@@ -13,7 +13,7 @@ public static class SeasonCalendar
     {
         for (int i = values.Count - 1; i > 0; i--) { int j = rng.Next(i + 1); (values[i], values[j]) = (values[j], values[i]); }
     }
-    public static List<Fixture> Generate(List<Club> clubs, int season, string careerSeed, string division = "A", int startRound = 1)
+    public static List<Fixture> Generate(List<Club> clubs, int season, string careerSeed, string division = "A", int startRound = 1, bool singleRound = false)
     {
         // Twenty clubs (Séries A to C) or the six of a Série D group, in double round robin.
         int n = clubs.Count, half = n / 2;
@@ -28,7 +28,8 @@ public static class SeasonCalendar
             {
                 var home = ids[i]; var away = ids[n - 1 - i]; if (round % 2 == 0) (home, away) = (away, home);
                 fixtures.Add(new() { Round = round + startRound - 1, Home = home, Away = away, Seed = rng.Next() });
-                fixtures.Add(new() { Round = round + (n - 1) + startRound - 1, Home = away, Away = home, Seed = rng.Next() });
+                var back = new Fixture { Round = round + (n - 1) + startRound - 1, Home = away, Away = home, Seed = rng.Next() };
+                if (!singleRound) fixtures.Add(back);
             }
             var last = ids[^1]; ids.RemoveAt(n - 1); ids.Insert(1, last);
         }

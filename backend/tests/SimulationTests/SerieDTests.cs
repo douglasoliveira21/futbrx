@@ -97,8 +97,8 @@ public static class SerieDTests
         foreach (var m in up.Life.Competitions.SelectMany(c => c.Matches).Where(m => m.Fixture.HomeGoals == null)) { m.Fixture.HomeGoals = 1; m.Fixture.AwayGoals = 0; m.Winner = m.Fixture.Home; }
         var upId = up.ClubId;
         TransferMarket.NextSeason(up);
-        Check(up.DataVersion == Game.SerieC2026Version && up.SerieD == null && up.Clubs.Count == 20 && up.Clubs.Any(c => c.Id == upId) && up.SeasonRounds == 38, "Clube que sobe passa a disputar a Série C com vinte clubes e 38 rodadas");
-        Check(up.Fixtures.Count == 380 && up.Fixtures.Any(f => f.Home == upId || f.Away == upId) && up.Season == 2027 && up.Round == 1, "Calendário da Série C é gerado para a nova temporada");
+        Check(up.DataVersion == Game.SerieC2026Version && up.SerieD == null && up.Clubs.Count == 20 && up.Clubs.Any(c => c.Id == upId) && up.SeasonRounds == 27, "Clube que sobe passa a disputar a Série C com vinte clubes e 27 semanas");
+        Check(up.Fixtures.Count == 190 && up.Fixtures.Any(f => f.Home == upId || f.Away == upId) && up.Season == 2027 && up.Round == 1, "Calendário da Série C é gerado para a nova temporada");
         Check(up.Clubs.Where(c => c.Id != upId).All(c => up.OpponentSquads.ContainsKey(c.Id)) && !up.OpponentSquads.Keys.Any(id => catalogs[2].Clubs.Any(c => c.Id == id) && id != upId), "Elencos da nova divisão existem e os do grupo antigo foram descartados");
         Check(up.Life!.Competitions.Any(c => c.Id == "copa") && up.Life.Fans.RivalId != "" && up.Clubs.Any(c => c.Id == up.Life.Fans.RivalId), "Copas voltam e o rival é da nova divisão");
         Game.Advance(up);

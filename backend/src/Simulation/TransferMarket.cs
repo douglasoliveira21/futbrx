@@ -20,7 +20,7 @@ public static class TransferMarket
         foreach (var club in g.Clubs.Where(c => c.Id != g.ClubId))
         {
             if (!g.OpponentSquads.TryGetValue(club.Id, out var squad))
-                g.OpponentSquads[club.Id] = squad = Game.Players(g.Clubs.IndexOf(club) * 100);
+                g.OpponentSquads[club.Id] = squad = Game.Players(g.Clubs.IndexOf(club) * 100, club.Strength);
             foreach (var p in squad) { if (!used.Add(p.Id)) { while (used.Contains(next)) next++; p.Id = next++; used.Add(p.Id); } }
             g.ClubBalances.TryAdd(club.Id, (long)((30_000_000L + Math.Max(0, club.Strength - 60) * 2_000_000L) * Game.EconomyFactor(g.DataVersion)));
         }
@@ -234,7 +234,7 @@ public static class TransferMarket
             foreach (var p in squad) { var contract = g.Contracts[p.Id]; if (contract.EndSeason <= g.Season) { contract.EndSeason = g.Season + 3; contract.Revision++; } }
         SeriesMovement.Apply(g, standings);
         Divisions.NextSeason(g);
-        g.Season++; g.Round = 1; g.Fixtures = SeasonCalendar.Generate(g.Clubs, g.Season, g.LotterySeed, g.Divisions?.ManagedDivision ?? "A", g.LeagueStart); g.CalendarSource = SeasonCalendar.Source; g.CalendarVersion = 2;
+        g.Season++; g.Round = 1; g.Fixtures = SeasonCalendar.Generate(g.Clubs, g.Season, g.LotterySeed, g.Divisions?.ManagedDivision ?? "A", g.LeagueStart, SeriesFormats.SingleRound(g)); g.CalendarSource = SeasonCalendar.Source; g.CalendarVersion = 2;
         AdvancedMarket.Settle(g);
         foreach (var p in g.Squad.Concat(g.Market).Concat(g.OpponentSquads.Values.SelectMany(s => s))) p.YellowCards = 0;
         g.PlayerStats.Clear(); g.PlayerStatsFromRound = 1; g.Substitutions.Clear();

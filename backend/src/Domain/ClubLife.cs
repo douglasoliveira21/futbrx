@@ -116,6 +116,14 @@ public sealed class ClubCompetition
     public bool Light {get;set;}
     // Promotion: the winner of the tie earns a place in the next division instead of a title.
     public bool Promotion {get;set;}
+    // GroupStage: a mini league (every club plays the others home and away); the matches have no winner, the table decides.
+    public bool GroupStage {get;set;}
+    // The first club of each tie hosts the first leg (no draw of the venues).
+    public bool KeepOrder {get;set;}
+    // A level aggregate is decided for the club that hosts the second leg (the better placed): no extra time, no penalties.
+    public bool NoPenalties {get;set;}
+    // GroupStage: the clubs that go on once the groups are over.
+    public List<string> Advanced {get;set;}=[];
     public List<CupMatch> Matches {get;set;}=[];
     public string Champion {get;set;}="";
     public long Prize {get;set;}

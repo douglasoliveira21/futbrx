@@ -5,7 +5,8 @@ public static partial class CoachCareer
     static void Evaluate(GameState g,CoachPerson p,Fixture fixture)
     {
         var w=World(g);var b=w.Boards[p.ClubId];var contract=Active(g,p.Id);if(contract==null)return;
-        bool isPlayer=p.Id==w.PlayerId;var club=Clubs(g).First(c=>c.Id==p.ClubId);var last=p.Results[^1];var opponent=Clubs(g).FirstOrDefault(c=>c.Id==(fixture.Home==p.ClubId?fixture.Away:fixture.Home));int result=Math.Sign(last.Scored-last.Against),effective=result;
+        bool isPlayer=p.Id==w.PlayerId;var club=Clubs(g).FirstOrDefault(c=>c.Id==p.ClubId);if(club==null)return; // the coach belongs to a club of a division the career has left
+        var last=p.Results[^1];var opponent=Clubs(g).FirstOrDefault(c=>c.Id==(fixture.Home==p.ClubId?fixture.Away:fixture.Home));int result=Math.Sign(last.Scored-last.Against),effective=result;
         if(effective==0&&fixture.HomePenalties.HasValue)effective=Math.Sign((fixture.Home==p.ClubId?fixture.HomePenalties!.Value:fixture.AwayPenalties!.Value)-(fixture.Home==p.ClubId?fixture.AwayPenalties!.Value:fixture.HomePenalties!.Value));
         var recent=p.Results.Where(r=>r.ContractId==contract.Id).TakeLast(20).ToList();
         double expected=Math.Clamp(.5+(club.Strength-(opponent?.Strength??club.Strength))*.018,.18,.82),earned=result>0?1:result==0?.4:0;

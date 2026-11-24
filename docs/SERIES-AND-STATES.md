@@ -33,10 +33,10 @@ Regras de id: até 20 caracteres (limite do catálogo). A Série A mantém os id
 
 ## Limites atuais
 
-- Séries B e C usam, por enquanto, o formato da Série A (38 rodadas, pontos corridos). Os formatos reais de B e C (grupos e
-  mata-mata) e os estaduais reais ainda não existem; o acesso e o descenso entre as séries existem (ver abaixo).
-- A força dos clubes de B e C só afeta diretoria, mercado de técnicos e caixa; o resultado das partidas vem das notas
-  dos jogadores (elencos simulados, iguais para todos os clubes).
+- Séries B e C têm formatos próprios, o campeonato estadual segue o estado do clube e o acesso e o descenso entre as
+  séries existem (ver abaixo). O regulamento das federações estaduais não é reproduzido.
+- A força dos clubes molda as notas dos elencos (ver "Força dos clubes nos elencos"); o restante do jogo (caixa,
+  diretoria, mercado de técnicos) já a usava.
 
 ## Calendário por competição (etapa 1: fundação)
 
@@ -95,14 +95,44 @@ Como o jogo faz isso (`backend/src/Simulation/SerieD.cs`):
 - Economia em 10% da Série A; meta da diretoria: ficar entre os 4 primeiros do grupo. Tela de Competições mostra as
   16 tabelas e quem subiu.
 
+## Formatos de B e C (edição de 2026)
+
+`SeriesFormats` (`backend/src/Simulation/SeriesFormats.cs`):
+
+- **Série B**: 38 rodadas; ao fim, dois playoffs de ida e volta (3º×6º e 4º×5º, semanas 39 e 40), com a segunda partida
+  na casa do mais bem colocado. Empate no agregado dá a vaga ao mais bem colocado: não há prorrogação nem pênaltis.
+- **Série C**: primeira fase em turno único (19 rodadas); os 8 melhores formam dois grupos de 4 (1º, 4º, 5º, 8º e 2º, 3º,
+  6º, 7º) em ida e volta (semanas 20 a 25); os dois primeiros de cada grupo sobem e os líderes decidem a final em ida e
+  volta (semanas 26 e 27). A página não diz como o agregado empatado da final é decidido; o jogo usa pênaltis.
+- Calendário da carreira: A 38 semanas, B 40, C 27, D 22 (`SeriesFormats.SeasonRoundsFor`). Fases em grupos usam
+  `ClubCompetition.GroupStage` (todos contra todos, sem vencedor por jogo; a tabela decide).
+
+## Campeonato estadual
+
+Carreiras com dados reais disputam o campeonato do **estado do clube** (`SeriesFormats.CreateState`): oito clubes da base
+daquele estado (os mais fortes; estados com poucos clubes na base completam com os dos estados mais próximos), turno
+único (semanas 2 a 8), semifinais e final em ida e volta entre os quatro primeiros (semanas 9 a 12). Os demais clubes
+não têm elenco: seus jogos saem da força (`Light`) e o elenco de um adversário só é criado quando o clube o enfrenta
+(`GameState.KnownClubs`). O formato é simplificado e **não reproduz o regulamento de cada federação**; carreiras
+demonstrativas continuam com o circuito genérico de quatro clubes.
+
+## Força dos clubes nos elencos
+
+`Game.Players(offset, strength)` desloca a nota dos atletas pela força do clube em relação a 70 (a Série A, que fica como
+era): em média A 72, B 68, C 58 e D 44; dentro de uma série o clube mais forte tem o elenco melhor. Vale para os
+catálogos das séries, para elencos criados depois (adversários do estadual, Série D, mudança de divisão) e para o
+elenco inicial do clube do jogador. A base demonstrativa não muda.
+
 ## Acesso e descenso entre as séries
 
 `SeriesMovement` (`backend/src/Simulation/SeriesMovement.cs`), chamado em `TransferMarket.NextSeason` com a classificação
 final, move só o **clube do jogador**; os demais clubes da divisão são os da base de dados de cada série.
 
-- Série A: os 4 últimos caem para a B. Série B: os 4 primeiros sobem para a A e os 4 últimos caem para a C.
-  Série C: os 4 primeiros sobem para a B e os 4 últimos caem para a D. Série D: sobem os 6 do mata-mata (ver acima);
-  não há descenso.
+- Série A: os 3 últimos (18º a 20º) caem para a B. Série B: os 2 primeiros sobem direto e os vencedores dos playoffs
+  3º×6º e 4º×5º também; caem os 4 últimos. Série C: sobem os 2 primeiros de cada grupo da segunda fase (4 clubes) e
+  caem os 2 últimos da primeira fase. Série D: sobem os 6 do mata-mata (ver acima); não há descenso.
+  Fonte: páginas das edições de 2026 (Wikipédia, lidas em 24/11/2026). Na Série A a quantidade de rebaixados não está
+  escrita no regulamento lido; a tabela da página marca do 18º ao 20º lugar como rebaixados, e é isso que o jogo usa.
 - Quem sobe toma o lugar do clube mais fraco da nova divisão; quem cai toma o lugar do mais forte. Se o clube volta a
   uma divisão da qual saiu, retoma a própria vaga.
 - Quem cai para a D entra no grupo oficial do seu estado (o grupo com mais clubes do mesmo estado; se o clube já era da
@@ -112,5 +142,5 @@ final, move só o **clube do jogador**; os demais clubes da divisão são os da 
   adversários seguem a nova divisão. Rebaixamento tira 20 pontos de confiança da diretoria.
 - Carreiras demonstrativas e bases importadas por administradores não têm escada de divisões.
 
-Limites: a força dos clubes ainda não altera os elencos, e a Série D não disputa Copa do Brasil nem
+Limites: o regulamento de cada federação estadual não é reproduzido, e a Série D não disputa Copa do Brasil nem
 copas continentais; o Estadual continua demonstrativo.

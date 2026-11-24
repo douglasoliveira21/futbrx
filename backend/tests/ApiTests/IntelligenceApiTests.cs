@@ -21,7 +21,7 @@ public static class IntelligenceApiTests
         var restored=await Json(await owner.PostAsJsonAsync(path+"/tactical-plan",new{revision,plan,formation="4-2-3-1",mentality="Ofensiva"}));revision=restored.GetProperty("revision").GetInt32();
         Check((await owner.PostAsJsonAsync(path+"/advance-week",new{revision})).StatusCode==HttpStatusCode.BadRequest,"Semana com partida do clube não avança sem transmissão");
         var life=await Json(await owner.GetAsync(path+"/life"));var stateCup=life.GetProperty("competitions").EnumerateArray().First(x=>x.GetProperty("id").GetString()=="state");
-        Check(stateCup.GetProperty("legs").GetInt32()==2&&stateCup.GetProperty("matches").EnumerateArray().Any(m=>m.GetProperty("leg").GetInt32()==2&&m.GetProperty("fixture").GetProperty("leg").GetInt32()==2),"API entrega o Estadual com partidas de ida e volta");
+        Check(stateCup.GetProperty("name").GetString()=="Campeonato Paulista"&&stateCup.GetProperty("groupStage").GetBoolean()&&stateCup.GetProperty("matches").GetArrayLength()==28&&stateCup.GetProperty("light").GetBoolean(),"API entrega o Campeonato Paulista do clube em turno único com oito clubes");
         var directory=await Json(await owner.GetAsync("/api/directory"));
         Check(directory.GetProperty("clubs").GetArrayLength()==156&&directory.GetProperty("versions").GetProperty("B")[0].GetString()=="serie-b-2026-clubes-reais-v1","API entrega o diretório de 156 clubes e as versões por série");
         var catalogs=await Json(await owner.GetAsync("/api/catalogs"));var versions=catalogs.EnumerateArray().Select(x=>x.GetProperty("version").GetString()).ToList();

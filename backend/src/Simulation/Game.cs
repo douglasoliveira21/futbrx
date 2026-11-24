@@ -33,7 +33,7 @@ public static class Game
             License = "Elencos, agentes livres e atributos simulados pelo futbrx. Escudos com créditos próprios.",
             Clubs = source.Clubs,
             Players = source.Clubs.SelectMany((club, index) =>
-                Players(index * 100).Select(player => new CatalogPlayer(club.Id, player)))
+                Players(index * 100, club.Strength).Select(player => new CatalogPlayer(club.Id, player)))
                 .Concat(Players(10000).Take(12).Select(player => new CatalogPlayer("", player))).ToList()
         };
     }
@@ -70,7 +70,7 @@ public static class Game
             License = "Elencos, agentes livres e atributos simulados pelo futbrx. Escudos genéricos, sem imagens oficiais.",
             Clubs = clubs,
             Players = clubs.SelectMany((club, index) =>
-                Players(index * 100).Select(player => new CatalogPlayer(club.Id, player)))
+                Players(index * 100, club.Strength).Select(player => new CatalogPlayer(club.Id, player)))
                 .Concat(Players(10000).Take(12).Select(player => new CatalogPlayer("", player))).ToList()
         };
     }
@@ -156,7 +156,8 @@ public static class Game
         g.Market = copy.Players.Where(p => p.ClubId == "").Select(p => p.Player).ToList();
         foreach (var p in g.Market) p.Starter = false;
         if (SerieD.IsVersion(copy.Version)) { g.SerieD = SerieD.Create(copy); g.SeasonRounds = SerieD.SeasonRounds; }
-        g.Fixtures = SeasonCalendar.Generate(g.Clubs, g.Season, g.LotterySeed);
+        g.SeasonRounds = SeriesFormats.SeasonRoundsFor(copy.Version);
+        g.Fixtures = SeasonCalendar.Generate(g.Clubs, g.Season, g.LotterySeed, "A", 1, SeriesFormats.SingleRound(g));
         g.CalendarSource = SeasonCalendar.Source; g.CalendarVersion = 2;
         TransferMarket.Upgrade(g);
         Sports.Upgrade(g);
@@ -165,6 +166,9 @@ public static class Game
         ClubLife.Upgrade(g);
         return g;
     }
+    // Squad of a club of the given strength: the same generated players, shifted so that a club of strength 70 (Série A) keeps
+    // them as they were and weaker clubs (Séries B to D) field weaker players.
+    public static List<Player> Players(int offset, int strength) { var list = Players(offset); int shift = strength - 70; if (shift != 0) foreach (var p in list) p.Rating = Math.Clamp(p.Rating + shift, 30, 99); return list; }
     public static List<Player> Players(int offset) { string[] first = ["Rafael", "Lucas", "Gabriel", "Matheus", "Pedro", "André", "Bruno", "Caio", "Diego", "Felipe", "Igor", "João", "Luan", "Marcos", "Nicolas", "Otávio", "Paulo", "Renan", "Samuel", "Thiago", "Vitor", "Wesley", "Davi"]; string[] last = ["Almeida", "Costa", "Silveira", "Mendes", "Rocha", "Barros", "Lima"]; return Enumerable.Range(0, 23).Select(i => new Player { Id = i + offset, Name = first[(i + offset) % first.Length] + " " + last[(i * 3 + offset) % last.Length], Position = i < 2 ? "GOL" : i < 6 ? "ZAG" : i < 10 ? "LAT" : i < 16 ? "MEI" : "ATA", Age = 18 + (i * 7 + offset) % 17, Rating = 65 + (i * 7 + offset) % 21, Value = (3 + (i * 7) % 20) * 1000000, Wage = (30 + i * 4) * 1000, Starter = new[] { 0, 2, 3, 6, 7, 10, 11, 12, 16, 17, 18 }.Contains(i) }).ToList(); }
     public static List<Fixture> Schedule(List<Club> clubs) => SeasonCalendar.Generate(clubs, 2026, Guid.NewGuid().ToString("N"));
     public static object[] Table(GameState g) => LeagueRules.Table(g.Clubs, g.Fixtures, g.LotterySeed + ":" + g.Season).Select(r => new { club = r.Club, played = r.Played, wins = r.Wins, draws = r.Draws, losses = r.Losses, goals = r.Goals, against = r.Against, difference = r.Difference, points = r.Points, redCards = r.RedCards, yellowCards = r.YellowCards }).Cast<object>().ToArray();
@@ -206,6 +210,7 @@ public static class Game
         ClubLife.AfterRound(g);
         ClubCompetitions.Advance(g);
         SerieD.AfterRound(g);
+        SeriesFormats.AfterRound(g);
         CoachCareer.SettleRound(g);
         CoachCareer.ProcessCompleted(g);
         g.Round++;

@@ -2,7 +2,8 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { ArrowRight, BarChart3, Eye, EyeOff, Gamepad2, Loader2, Lock, Network, Trophy, User } from "lucide-react";
 import { api, setToken } from "../../services/api";
-import { CompetitionEmblem, LoginLogo, type Emblem } from "./LoginArt";
+import { CompetitionEmblem, type Emblem } from "./LoginArt";
+import { FutbrxLogo } from "../../components/FutbrxLogo";
 import { COMPACT_WIDTH, stageScale } from "./loginLayout";
 import "./login.css";
 
@@ -244,7 +245,7 @@ export default function LoginScreen({ onLogin }: { onLogin: (name: string) => vo
   const content = (
     <>
       <div className="login-logo">
-        <LoginLogo />
+        <FutbrxLogo />
       </div>
       <p className="login-subtitle">
         <i /> <span>FOOTBALL MANAGER</span> <i />

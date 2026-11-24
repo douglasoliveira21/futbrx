@@ -1,40 +1,5 @@
-// Original vector art for the login screen: the wordmark and one emblem per competition. These are the game's own
+// Original vector art for the login screen: one emblem per competition. These are the game's own
 // representations, not official logos of the competitions.
-export function LoginLogo() {
-  return (
-    <svg viewBox="0 0 472 152" role="img" aria-label="FUTBRX" className="login-logo-art">
-      <defs>
-        <linearGradient id="lg-metal" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#ffffff" />
-          <stop offset=".55" stopColor="#d9dee3" />
-          <stop offset="1" stopColor="#8e98a2" />
-        </linearGradient>
-        <linearGradient id="lg-neon" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#a6ff3b" />
-          <stop offset="1" stopColor="#19c200" />
-        </linearGradient>
-        <linearGradient id="lg-swoosh" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#3dff00" stopOpacity="0" />
-          <stop offset=".55" stopColor="#3dff00" />
-          <stop offset="1" stopColor="#1e7bff" />
-        </linearGradient>
-      </defs>
-      <path d="M92 52 C170 24 262 14 346 22 C292 28 196 38 112 66 Z" fill="url(#lg-swoosh)" />
-      <g transform="translate(366 4)">
-        <circle cx="30" cy="30" r="28" fill="#f4f6f8" stroke="#10181b" strokeWidth="2.4" />
-        <polygon points="30,14 41,22 37,35 23,35 19,22" fill="#10181b" />
-        <path d="M30 14 L30 4 M41 22 L52 18 M37 35 L45 46 M23 35 L15 46 M19 22 L8 18" stroke="#10181b" strokeWidth="2" fill="none" />
-      </g>
-      <g fontFamily="Montserrat, 'Arial Black', Impact, sans-serif" fontWeight="900" fontStyle="italic" fontSize="104" transform="skewX(-8)">
-        <text x="40" y="132" textLength="312" lengthAdjust="spacingAndGlyphs" fill="#000" opacity=".4" transform="translate(5 6)">FUTBR</text>
-        <text x="40" y="132" textLength="312" lengthAdjust="spacingAndGlyphs" fill="url(#lg-metal)" stroke="#222c30" strokeWidth="1.2">FUTBR</text>
-        <text x="362" y="132" textLength="70" lengthAdjust="spacingAndGlyphs" fill="#000" opacity=".4" transform="translate(5 6)">X</text>
-        <text x="362" y="132" textLength="70" lengthAdjust="spacingAndGlyphs" fill="url(#lg-neon)" stroke="#0b5a00" strokeWidth="1.2">X</text>
-      </g>
-    </svg>
-  );
-}
-
 export type Emblem = "brasileirao" | "copa" | "libertadores" | "sulamericana" | "estaduais";
 
 export function CompetitionEmblem({ name }: { name: Emblem }) {

@@ -132,3 +132,21 @@ Se precisar de ajuda com um erro, copie o trecho final do log sem senhas, tokens
 - Builds e contexto Docker: https://easypanel.io/docs/builders
 
 Os arquivos foram preparados para esta topologia. Um teste local sem Docker não comprova o funcionamento dos contêineres; consulte o resultado do workflow **EasyPanel containers** e faça os testes do passo 7 no seu servidor antes de abrir para usuários.
+
+## Entrar e registrar com Google
+
+O botão "Fazer login com o Google" só aparece quando o servidor tem um Client ID configurado. Sem ele, a tela mostra apenas
+e-mail e senha.
+
+1. No Google Cloud Console, crie um **ID do cliente OAuth** do tipo **Aplicativo da Web**.
+2. Em **Origens JavaScript autorizadas**, informe o endereço público do jogo (por exemplo `https://jogo.seudominio.com`; para testes
+   locais, `http://localhost:5173`). Não é preciso URI de redirecionamento: o botão usa o fluxo de token de identidade.
+3. No serviço `jogo`, em **Environment / Ambiente**, acrescente `Google__ClientId` com o ID do cliente (termina em
+   `.apps.googleusercontent.com`; não é um segredo).
+4. A política de segurança do proxy (`infrastructure/proxy/nginx.conf`) já libera os domínios do Google Identity Services.
+
+Como funciona: o navegador recebe um token de identidade do Google e a API o valida em `oauth2.googleapis.com/tokeninfo`
+(destinatário igual ao Client ID, emissor, validade e e-mail verificado) antes de abrir a sessão normal. O primeiro acesso cria a
+conta com o nome e o e-mail do Google, sem senha. Uma conta já criada por e-mail e senha **não** é vinculada automaticamente ao
+Google (o e-mail nunca foi verificado no cadastro por senha): o jogador recebe "Já existe uma conta com este e-mail. Entre com a
+senha.". "Lembrar de mim" vale também para o login com Google.

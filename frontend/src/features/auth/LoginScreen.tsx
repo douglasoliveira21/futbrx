@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { ArrowRight, BarChart3, Eye, EyeOff, Gamepad2, Loader2, Lock, Network, Trophy, User } from "lucide-react";
 import { api, setToken } from "../../services/api";
 import { CompetitionEmblem, LoginLogo, type Emblem } from "./LoginArt";
@@ -35,6 +35,25 @@ function useViewport() {
 }
 
 type Mode = "login" | "register" | "recover";
+type LoginResult = { token: string; user: { name: string } };
+
+// Google Identity Services, loaded only when the server has a Google client ID.
+const GOOGLE_SCRIPT = "https://accounts.google.com/gsi/client";
+let googleScript: Promise<void> | null = null;
+function loadGoogle(): Promise<void> {
+  googleScript ??= new Promise((resolve, reject) => {
+    const el = document.createElement("script");
+    el.src = GOOGLE_SCRIPT;
+    el.async = true;
+    el.onload = () => resolve();
+    el.onerror = () => {
+      googleScript = null;
+      reject(new Error("Não foi possível carregar o login do Google."));
+    };
+    document.head.appendChild(el);
+  });
+  return googleScript;
+}
 
 export default function LoginScreen({ onLogin }: { onLogin: (name: string) => void }) {
   const [mode, setMode] = useState<Mode>("login");
@@ -45,6 +64,9 @@ export default function LoginScreen({ onLogin }: { onLogin: (name: string) => vo
   const [show, setShow] = useState(false);
   const [problem, setProblem] = useState("");
   const submitting = useRef(false);
+  const googleBox = useRef<HTMLDivElement>(null);
+  const rememberNow = useRef(remember);
+  rememberNow.current = remember;
   const view = useViewport();
   const compact = view.width < COMPACT_WIDTH;
   const scale = stageScale(view.width, view.height);
@@ -67,6 +89,33 @@ export default function LoginScreen({ onLogin }: { onLogin: (name: string) => vo
     },
   });
 
+  const config = useQuery({ queryKey: ["auth-config"], queryFn: () => api<{ googleClientId: string | null }>("/auth/config"), staleTime: Infinity, retry: false });
+  const googleId = config.data?.googleClientId ?? null;
+  const google = useMutation({
+    mutationFn: (credential: string) => api<LoginResult>("/auth/google", { credential, remember: rememberNow.current }),
+    onSuccess: (r) => {
+      setToken(r.token);
+      onLogin(r.user.name);
+    },
+  });
+  const googleSubmit = google.mutate;
+  // Renders Google's own button (the only way to get a valid ID token) in the form of the current tab.
+  useEffect(() => {
+    if (!googleId || mode === "recover") return;
+    let cancelled = false;
+    loadGoogle()
+      .then(() => {
+        const api = (window as unknown as { google?: { accounts: { id: { initialize: (o: object) => void; renderButton: (el: HTMLElement, o: object) => void } } } }).google;
+        if (cancelled || !api || !googleBox.current) return;
+        api.accounts.id.initialize({ client_id: googleId, callback: (r: { credential: string }) => googleSubmit(r.credential), ux_mode: "popup" });
+        api.accounts.id.renderButton(googleBox.current, { theme: "filled_black", size: "large", shape: "rectangular", width: 380, locale: "pt-BR", text: mode === "register" ? "signup_with" : "signin_with", logo_alignment: "left" });
+      })
+      .catch(() => undefined);
+    return () => {
+      cancelled = true;
+    };
+  }, [googleId, mode, googleSubmit]);
+
   const validate = () => {
     if (register && !name.trim()) return "Informe o nome do treinador.";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) return "Informe um e-mail válido.";
@@ -88,7 +137,7 @@ export default function LoginScreen({ onLogin }: { onLogin: (name: string) => vo
     setProblem("");
     m.reset();
   };
-  const error = problem || (m.error ? m.error.message : "");
+  const error = problem || (m.error ? m.error.message : "") || (google.error ? google.error.message : "");
 
   const panel = (
     <section className={"login-panel" + (register ? " is-register" : "") + (mode === "recover" ? " is-recover" : "")} aria-label="Acesso ao jogo">
@@ -164,11 +213,19 @@ export default function LoginScreen({ onLogin }: { onLogin: (name: string) => vo
               {error}
             </p>
           )}
-          <button type="submit" className="login-cta" disabled={m.isPending} aria-busy={m.isPending}>
+          <button type="submit" className="login-cta" disabled={m.isPending || google.isPending} aria-busy={m.isPending || google.isPending}>
             {m.isPending ? <Loader2 className="spin" size={24} aria-hidden /> : null}
             <span>{m.isPending ? "Conectando…" : register ? "Criar conta e entrar" : "Entrar no Jogo"}</span>
             {!m.isPending && <ArrowRight size={24} aria-hidden />}
           </button>
+          {googleId && (
+            <div className="login-google">
+              <p>
+                <i /> <span>ou</span> <i />
+              </p>
+              <div ref={googleBox} className="login-google-button" aria-label={register ? "Registrar com o Google" : "Entrar com o Google"} />
+            </div>
+          )}
         </form>
       )}
       {!register && mode !== "recover" && (
@@ -213,7 +270,7 @@ export default function LoginScreen({ onLogin }: { onLogin: (name: string) => vo
       {compact ? (
         <div className="login-flow">{content}</div>
       ) : (
-        <div className="login-canvas" style={{ transform: `translate(-50%, -50%) scale(${scale})` }}>
+        <div className={"login-canvas" + (googleId ? " has-google" : "")} style={{ transform: `translate(-50%, -50%) scale(${scale})` }}>
           {content}
         </div>
       )}

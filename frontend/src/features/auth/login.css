@@ -528,3 +528,45 @@
   position: static;
   align-self: flex-start;
 }
+
+/* Entrar com Google (only when the server has a client ID) */
+.login-google {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+.login-google p {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  width: 100%;
+  color: var(--muted);
+  font-size: 14px;
+}
+.login-google p i {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+.login-google-button {
+  min-height: 44px;
+  display: flex;
+  justify-content: center;
+}
+.has-google .login-panel {
+  min-height: 520px;
+}
+.has-google .login-features {
+  margin-top: 14px;
+}
+.has-google .login-champs-title {
+  top: 781px;
+}
+.has-google .login-champs {
+  top: 796px;
+  height: 120px;
+  padding-top: 20px;
+}

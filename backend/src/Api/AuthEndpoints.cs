@@ -51,6 +51,7 @@ public static class AuthEndpoints
     public static void MapAuthEndpoints(this WebApplication app)
     {
         var auth = app.MapGroup("/api/auth");
+        auth.MapGoogleSignIn();
         auth.MapPost("/register", async (Credentials r, GameDb db, AuthSession sessions, HttpContext ctx) =>
         {
             var email = (r.Email ?? "").Trim().ToLowerInvariant();
@@ -67,6 +68,7 @@ public static class AuthEndpoints
         {
             if (string.IsNullOrWhiteSpace(r.Email) || string.IsNullOrEmpty(r.Password) || r.Password.Length > 128) return Results.Unauthorized();
             var a = await db.Accounts.SingleOrDefaultAsync(a => a.Email == r.Email.Trim().ToLowerInvariant());
+            if (a != null && GoogleSignIn.IsGoogleAccount(a)) return Results.Json(new { message = "Esta conta entra com o Google." }, statusCode: 401);
             if (a == null || new PasswordHasher<Account>().VerifyHashedPassword(a, a.PasswordHash, r.Password) == PasswordVerificationResult.Failed)
                 return Results.Json(new { message = "E-mail ou senha incorretos." }, statusCode: 401);
             db.Audits.Add(new() { UserId = a.Id, Action = "auth:login" });

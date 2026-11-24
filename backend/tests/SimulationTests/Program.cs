@@ -13,6 +13,7 @@ if (args.Contains("--knockout")) { KnockoutLegsTests.Run(); return; }
 if (args.Contains("--serie-d")) { SerieDTests.Run(); return; }
 if (args.Contains("--movement")) { SeriesMovementTests.Run(); return; }
 if (args.Contains("--state")) { StateAndStrengthTests.Run(); return; }
+if (args.Contains("--copa")) { CopaPrizeTests.Run(); return; }
 if (args.Contains("--contact")) { ContactTests.Run(); return; }
 if (args.Contains("--broadcast")) { BroadcastTests.Run(); return; }
 if (args.Contains("--calendar")) { CalendarTests.Run(); return; }
@@ -75,6 +76,7 @@ KnockoutLegsTests.Run();
 SerieDTests.Run();
 SeriesMovementTests.Run();
 StateAndStrengthTests.Run();
+CopaPrizeTests.Run();
 
 Check(season.PlayerStats.Values.Sum(p => p.Goals) == season.Fixtures.Sum(f => f.HomeGoals!.Value + f.AwayGoals!.Value), "Estatísticas individuais conservam todos os gols da temporada");
 var archivedGoals = season.PlayerStats.Values.Sum(p => p.Goals); TransferMarket.NextSeason(season);

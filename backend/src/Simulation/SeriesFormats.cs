@@ -142,6 +142,23 @@ public static class SeriesFormats
         g.News.Insert(0, groups.Name + ": fim da primeira fase. Os quatro primeiros seguem para as semifinais.");
     }
 
+    // Copa do Brasil 2026 cotas (CBF), accumulated by phase. The game plays the last sixteen clubs, so the club receives on its
+    // first match the cotas of the phases it would already have played: Série A enters in the 5th phase, Série B in the 2nd,
+    // the others in the 1st. Then: oitavas 3, quartas 4, semifinal 9 (R$ mi), runner-up 34, champion 78.
+    public static void ApplyCopaPrizes(GameState g, ClubCompetition copa)
+    {
+        long mi = 1_000_000;
+        long entry = (SeriesMovement.SeriesOf(g) ?? "A") switch
+        {
+            "A" => 2 * mi,
+            "B" => 1_380_000 + 1_530_000 + 1_680_000 + 2 * mi,
+            _ => 400_000 + 830_000 + 950_000 + 1_070_000 + 2 * mi
+        };
+        copa.StagePrizes = [entry + 3 * mi, 4 * mi, 9 * mi, 0];
+        copa.RunnerUpPrize = 34 * mi;
+        copa.Format += " Cotas da CBF para 2026, acumuladas por fase: oitavas R$ 3 mi, quartas R$ 4 mi, semifinal R$ 9 mi, vice R$ 34 mi e campeão R$ 78 mi, além das fases anteriores conforme a série.";
+    }
+
     // The mini league of one group of the Série C second phase.
     public static List<LeagueRules.Standing> GroupTable(GameState g, ClubCompetition competition, string tie)
     {

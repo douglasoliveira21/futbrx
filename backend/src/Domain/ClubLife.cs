@@ -117,6 +117,9 @@ public sealed class ClubCompetition
     // Promotion: the winner of the tie earns a place in the next division instead of a title.
     public bool Promotion {get;set;}
     // GroupStage: a mini league (every club plays the others home and away); the matches have no winner, the table decides.
+    // Cota paid to the managed club when its tie of that stage is decided (index = stage), and the runner-up prize of the final.
+    public List<long> StagePrizes {get;set;}=[];
+    public long RunnerUpPrize {get;set;}
     public bool GroupStage {get;set;}
     // The first club of each tie hosts the first leg (no draw of the venues).
     public bool KeepOrder {get;set;}

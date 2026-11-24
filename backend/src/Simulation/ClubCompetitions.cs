@@ -15,7 +15,7 @@ public static class ClubCompetitions
         if(g.Round<=2&&!SeriesFormats.CreateState(g))Add(g,"state","Estadual · circuito do clube",Field(4),[2,4],1_500_000,2);
         SerieD.NewSeason(g);
         // Série D clubs play the state circuit and their own knockout; the national and continental cups are for the upper series.
-        if(g.Round<=6&&g.SerieD==null)Add(g,"copa","Copa do Brasil",Field(16),[6,14,24,34],12_000_000);
+        if(g.Round<=6&&g.SerieD==null)SeriesFormats.ApplyCopaPrizes(g,Add(g,"copa","Copa do Brasil",Field(16),[6,14,24,34],78_000_000));
         if(g.Round<=10&&g.SerieD==null){var last=g.PastSeasons.LastOrDefault();bool elite=last!=null?last.Table.FindIndex(t=>t.ClubId==g.ClubId) is >=0 and <6:g.Clubs.Find(c=>c.Id==g.ClubId)!.Strength>=78;var domestic=Field(4);var participants=domestic.SelectMany((id,i)=>new[]{id,life.ExtraClubs[i].Id}).ToList();Add(g,"continental",elite?"Libertadores":"Sul-Americana",participants,[10,22,36],elite?18_000_000:8_000_000);}
     }
     static string Name(GameState g,string club)=>g.Clubs.Concat(g.Life!.ExtraClubs).Concat(g.SerieD?.Others??[]).Concat(g.KnownClubs).FirstOrDefault(c=>c.Id==club)?.Name??club;
@@ -88,7 +88,7 @@ public static class ClubCompetitions
             var first=competition.Matches.First(m=>m.Tie==match.Tie&&m.Leg==1);
             if(first.Fixture.HomeGoals==null||first.Fixture.AwayGoals==null)throw new GameRuleException("Jogue a partida de ida antes da volta.");
             int homeTotal=f.HomeGoals.Value+first.Fixture.AwayGoals.Value,awayTotal=f.AwayGoals.Value+first.Fixture.HomeGoals.Value;
-            if(homeTotal==awayTotal&&competition.NoPenalties){match.Winner=first.Winner=f.Home;Progress(g,competition);return;}
+            if(homeTotal==awayTotal&&competition.NoPenalties){match.Winner=first.Winner=f.Home;PayStage(g,competition,match);Progress(g,competition);return;}
             if(homeTotal==awayTotal&&(f.HomePenalties==null||f.HomePenalties==f.AwayPenalties))throw new GameRuleException("Empate no agregado exige decisão nos pênaltis.");
             match.Winner=first.Winner=homeTotal!=awayTotal?(homeTotal>awayTotal?f.Home:f.Away):(f.HomePenalties>f.AwayPenalties?f.Home:f.Away);
         }
@@ -97,7 +97,18 @@ public static class ClubCompetitions
             if(f.HomeGoals==f.AwayGoals&&(f.HomePenalties==null||f.HomePenalties==f.AwayPenalties))throw new GameRuleException("Empate eliminatório exige decisão nos pênaltis.");
             match.Winner=f.HomeGoals!=f.AwayGoals?(f.HomeGoals>f.AwayGoals?f.Home:f.Away):(f.HomePenalties>f.AwayPenalties?f.Home:f.Away);
         }
+        PayStage(g,competition,match);
         Progress(g,competition);
+    }
+    // Cotas by stage and the runner-up prize go to the managed club when its tie is decided; the title prize is paid in Progress.
+    static void PayStage(GameState g,ClubCompetition competition,CupMatch match)
+    {
+        var f=match.Fixture;if(f.Home!=g.ClubId&&f.Away!=g.ClubId)return;
+        void Pay(string text,long amount){g.Balance+=amount;g.Ledger.Add(new(g.Round,text,amount,g.Season));}
+        long stage=competition.StagePrizes.ElementAtOrDefault(match.Stage);
+        if(stage>0)Pay(competition.Name+": cota da fase",stage);
+        bool isFinal=competition.Matches.Count(m=>m.Stage==match.Stage&&m.Leg==1)==1;
+        if(isFinal&&match.Winner!=g.ClubId&&competition.RunnerUpPrize>0)Pay(competition.Name+": vice-campeão",competition.RunnerUpPrize);
     }
     static void Progress(GameState g,ClubCompetition competition)
     {

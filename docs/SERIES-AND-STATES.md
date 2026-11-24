@@ -116,6 +116,30 @@ não têm elenco: seus jogos saem da força (`Light`) e o elenco de um adversár
 (`GameState.KnownClubs`). O formato é simplificado e **não reproduz o regulamento de cada federação**; carreiras
 demonstrativas continuam com o circuito genérico de quatro clubes.
 
+## Premiação da Copa do Brasil (cotas da CBF para 2026)
+
+Valores informados pelo usuário a partir das cotas divulgadas pela CBF (cumulativas por fase; em R$ mi):
+
+| Fase | Série A | Série B | Séries C, D e outros |
+|---|---|---|---|
+| 1ª fase | — | — | 0,4 |
+| 2ª fase | — | 1,38 | 0,83 |
+| 3ª fase | — | 1,53 | 0,95 |
+| 4ª fase | — | 1,68 | 1,07 |
+| 5ª fase | 2 | 2 | 2 |
+| Oitavas | 3 | 3 | 3 |
+| Quartas | 4 | 4 | 4 |
+| Semifinal | 9 | 9 | 9 |
+| Vice-campeão | 34 | 34 | 34 |
+| Campeão | 78 | 78 | 78 |
+
+O jogo disputa só os 16 últimos clubes. A cota de cada fase é paga ao clube do jogador quando ele decide o seu jogo da
+fase (`ClubCompetition.StagePrizes`, `RunnerUpPrize` e `Prize`); na primeira partida o clube recebe também as cotas das
+fases anteriores que a série dele teria disputado (A: 5ª fase; B: 2ª a 5ª; demais: 1ª a 5ª). Tudo é cumulativo: o campeão
+da A recebe 96 mi, da B 100,59 mi e da C 99,25 mi; o vice da A, 52 mi. A Série D ainda não disputa a Copa do Brasil.
+Os demais prêmios (libertadores, sul-americana, estadual, liga e Série D) seguem com valores do projeto, iguais para todas
+as séries; a liga paga `(21 − posição) × 500 mil`.
+
 ## Força dos clubes nos elencos
 
 `Game.Players(offset, strength)` desloca a nota dos atletas pela força do clube em relação a 70 (a Série A, que fica como

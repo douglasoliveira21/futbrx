@@ -87,6 +87,8 @@ public static class SeriesMovement
         }
         g.Clubs = clubs; g.DataVersion = catalog.Version;
         SerieD.PrepareSquads(g);
+        // A club that has just come up has no international place for the next season.
+        g.Qualification = to == "A" ? new QualificationState { Season = g.Season + 1 } : null;
         g.SerieD = to == "D" ? SerieD.ForGroup(group) : null;
         if (g.SerieD != null) g.SerieD.Others.RemoveAll(c => c.Id == replaced.Id || c.Id == g.ClubId);
         g.SeasonRounds = SeriesFormats.SeasonRoundsFor(catalog.Version); g.LeagueStart = 1;

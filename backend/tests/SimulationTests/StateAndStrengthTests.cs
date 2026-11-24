@@ -20,7 +20,7 @@ public static class StateAndStrengthTests
         var field = state.Matches.SelectMany(m => new[] { m.Fixture.Home, m.Fixture.Away }).Distinct().ToList();
         Check(field.Count == 8 && field.Contains("pal") && state.Matches.Count == 28 && field.Count(id => SeriesFormats.StateOf(id) == "SP") == 8, "Oito clubes paulistas, em turno único (28 jogos)");
         Check(state.Matches.All(m => m.Fixture.Round is >= 2 and <= 8) && state.Matches.GroupBy(m => m.Fixture.Round).All(r => r.Count() == 4) && field.All(id => state.Matches.Count(m => m.Fixture.Home == id || m.Fixture.Away == id) == 7), "Sete rodadas, quatro jogos por rodada, cada clube joga sete vezes");
-        Check(g.KnownClubs.Count == field.Count(id => g.Clubs.All(c => c.Id != id)) && g.KnownClubs.All(c => !g.OpponentSquads.ContainsKey(c.Id)), "Clubes de fora da liga são conhecidos pelo nome, sem elenco");
+        Check(field.Where(id => g.Clubs.All(c => c.Id != id)).All(id => g.KnownClubs.Any(k => k.Id == id)) && g.KnownClubs.All(c => !g.OpponentSquads.ContainsKey(c.Id)), "Clubes de fora da liga são conhecidos pelo nome, sem elenco");
         Check(state.Matches.All(m => m.Fixture.Home != "pal" && m.Fixture.Away != "pal" || m.Fixture.CompetitionName == state.Name), "Jogos do clube levam o nome do campeonato");
 
         // A small state borrows clubs from its neighbours.

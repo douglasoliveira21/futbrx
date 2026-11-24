@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';
+import {zoneOf,hasZones,zoneBadge,zoneColors,zoneLabels} from '../src/features/career/zones.ts';
+import {stageLabel,legLabel} from '../src/features/career/ties.ts';
+
+const c={state:{qualification:{zones:{pal:{zone:'libertadores',origin:'Brasileirão (1º)',other:false},fla:{zone:'libertadores',origin:'Copa do Brasil (campeão)',other:true},bot:{zone:'relegation',origin:'',other:false}}}}};
+assert.equal(hasZones(c),true,'carreira da Série A tem zonas');
+assert.equal(hasZones({state:{}}),false,'carreira sem zonas não colore a tabela');
+assert.equal(zoneOf(c,'pal').zone,'libertadores');
+assert.equal(zoneBadge(zoneOf(c,'pal')),'','vaga pela tabela não leva ícone');
+assert.equal(zoneBadge(zoneOf(c,'fla')),'★ Copa do Brasil (campeão)','vaga conquistada em outra competição mostra a origem');
+assert.equal(zoneOf(c,'xxx'),undefined,'clube sem zona');
+assert.equal(Object.keys(zoneColors).length,5);assert.equal(Object.keys(zoneLabels).length,5,'cinco zonas com cor e nome');
+assert.equal(stageLabel('libertadores',0),'Oitavas de final');
+assert.equal(stageLabel('sul-americana',0),'Playoffs');
+assert.equal(stageLabel('pre-libertadores',2),'Terceira fase');
+assert.equal(stageLabel('copa',3),'Final');
+assert.equal(stageLabel('qualquer',1),'Fase 2','competição sem nomes numera as fases');
+const two={legs:2,matches:[{fixture:{leg:1}},{fixture:{leg:0}}]};
+assert.equal(legLabel(two,{leg:1,fixture:{leg:0}}),'','final em jogo único não tem ida nem volta');
+console.log('PASS: zonas da tabela, origem das vagas e nomes das fases continentais.');

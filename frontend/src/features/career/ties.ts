@@ -5,7 +5,7 @@ export type CupMatchView = { id: string; stage: number; tie?: string; leg?: numb
 export type CupView = { legs?: number; matches: CupMatchView[] };
 
 export const legLabel = (cup: CupView, match: CupMatchView) =>
-  (cup.legs ?? 1) === 2 ? (match.leg === 2 ? "Volta" : "Ida") : "";
+  (cup.legs ?? 1) === 2 && match.fixture.leg !== 0 ? (match.leg === 2 ? "Volta" : "Ida") : "";
 
 // Goals of both clubs over the legs already played, from the point of view of the match's home and away club.
 export function aggregate(cup: CupView, match: CupMatchView) {
@@ -21,8 +21,18 @@ export const played = (match: CupMatchView) => match.fixture.homeGoals != null;
 
 // Stage names of the Série D knockout; any other competition just numbers its phases.
 const serieDStages = ["Primeira fase", "Segunda fase", "Oitavas de final", "Quartas de final", "Semifinais", "Final"];
-export const stageLabel = (competitionId: string, stage: number) =>
-  competitionId === "serie-d" ? (serieDStages[stage] ?? `Fase ${stage + 1}`) : `Fase ${stage + 1}`;
+const stageNames: Record<string, string[]> = {
+  "serie-d": serieDStages,
+  copa: ["Oitavas de final", "Quartas de final", "Semifinais", "Final"],
+  libertadores: ["Oitavas de final", "Quartas de final", "Semifinais", "Final"],
+  "sul-americana": ["Playoffs", "Oitavas de final", "Quartas de final", "Semifinais", "Final"],
+  "pre-libertadores": ["Primeira fase", "Segunda fase", "Terceira fase"],
+  "copa-nordeste": ["Quartas de final", "Semifinais", "Final"],
+  "copa-verde": ["Segunda fase", "Semifinais", "Final"],
+  "state-final": ["Semifinais", "Final"],
+  supercopa: ["Final"],
+};
+export const stageLabel = (competitionId: string, stage: number) => stageNames[competitionId]?.[stage] ?? `Fase ${stage + 1}`;
 
 // Competitions marked `light` only broadcast the club's own matches; the others are summarised.
 export function visibleMatches<T extends { fixture: { home: string; away: string } }>(light: boolean | undefined, matches: T[], clubId: string) {

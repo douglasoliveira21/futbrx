@@ -140,6 +140,41 @@ da A recebe 96 mi, da B 100,59 mi e da C 99,25 mi; o vice da A, 52 mi. A Série 
 Os demais prêmios (libertadores, sul-americana, estadual, liga e Série D) seguem com valores do projeto, iguais para todas
 as séries; a liga paga `(21 − posição) × 500 mil`.
 
+## Premiações da temporada
+
+Tabelas informadas pelo usuário (as de liga são propostas de balanceamento do jogo, não pagamentos oficiais):
+
+- **Liga**: Série A por posição, de R$ 54 mi (1º) a R$ 13 mi (16º), nada do 17º ao 20º; Série B de R$ 6 mi (campeão) a R$ 600 mil (8º). Série C paga por fase (grupo: R$ 900 mil aos
+  dois primeiros e R$ 350 mil aos outros dois; final: campeão R$ 2 mi no total, vice R$ 1,5 mi) e Série D pelo mata-mata (campeão R$ 800 mil, vice R$ 500 mil, semifinalistas R$ 275 mil, eliminados nas
+  quartas R$ 93,75 mil). Carreiras demonstrativas mantêm a tabela antiga.
+- **Supercopa**: campeão R$ 11,64 mi, vice R$ 6,35 mi, entre o campeão do Brasileirão e o da Copa do Brasil da temporada anterior (só aparece quando o clube é um dos dois).
+- **Copa do Nordeste** (clubes do Nordeste) e **Copa Verde** (Norte, Centro-Oeste e ES): mata-mata de oito clubes, com a cota de participação do grupo do ranking nacional (A = grupo 1 ... D = grupo 4),
+  cotas por fase, vice e campeão. Máximo acumulado: R$ 4,6 mi e R$ 950 mil.
+- **Estaduais**: campeão e vice por estado (R$ 5 mi/1,65 mi no Paulista, até R$ 10 mi/5,5 mi no Carioca, ... R$ 50 mil/25 mil no Amapaense) e cota de participação dos clubes da Série A (Paulista R$ 35 mi;
+  Carioca R$ 8,3 mi, ponto médio de R$ 6,6 a 10 mi). O Ceará não estava na tabela fornecida e usa R$ 400 mil/200 mil (estimativa).
+- **Libertadores**: Pré R$ 2 mi, 2,5 mi e 3 mi por fase; grupos R$ 15 mi + R$ 1,7 mi por vitória; oitavas R$ 6,25 mi; quartas R$ 8,5 mi; semifinal R$ 11,5 mi; vice R$ 35 mi; campeão R$ 125 mi.
+- **Sul-Americana**: grupos R$ 4,5 mi + R$ 625 mil por vitória; playoffs R$ 2,5 mi; oitavas R$ 3 mi; quartas R$ 3,5 mi; semifinal R$ 4 mi; vice R$ 12,5 mi; campeão R$ 50 mi. A primeira fase (só para
+  outros países) e a pré-temporada de outros clubes não existem no jogo.
+
+## Vagas internacionais (Libertadores, Pré-Libertadores e Sul-Americana)
+
+Motor central em `Qualification.cs` (função pura `Resolve`), com o regulamento por temporada em `Qualification.Rules` (2026: 4 vagas diretas pela liga, 1 vaga na Pré, 6 na Sul-Americana, campeões
+continentais com vaga adicional). Resolve, no fim de cada temporada de uma carreira na Série A, a partir da tabela final, do campeão e do vice da Copa do Brasil e dos campeões continentais:
+
+- vagas diretas do 1º ao 4º; campeão da Copa fora desse grupo ocupa vaga direta; se já estava no grupo, a vaga direta da Copa passa ao vice (e a vaga do vice na Pré vai à tabela);
+- campeão continental que já tem vaga libera a vaga ao próximo da tabela (a zona se expande, do G5 ao G9); fora do grupo, ocupa vaga adicional;
+- Pré-Libertadores: 5º colocado (ou o próximo elegível) e vice da Copa; Sul-Americana: os seis melhores seguintes, sempre ignorando quem já está classificado;
+- clubes rebaixados (quatro últimos) não participam; ninguém ocupa duas vagas (testado em 400 combinações aleatórias).
+
+A origem de cada vaga fica em `GameState.Qualification` (vagas da temporada e histórico) e é mostrada na tabela da Série A: cores (verde-escuro Libertadores, verde-claro Pré, azul Sul-Americana, cinza
+permanência, vermelho rebaixamento) e uma estrela com a origem para quem conquistou a vaga fora do campeonato. O treinador é notificado ao garantir a vaga, quando a vaga de outro clube é remanejada e
+quando a classificação é garantida matematicamente (G4, G5 e G11). Na primeira temporada, sem resultados anteriores, as vagas seguem a força dos clubes. Quem acabou de subir à Série A não tem vaga.
+
+Competições (`Continental.cs`): Pré-Libertadores (três fases de jogo único; o vencedor vai aos grupos da Libertadores e o eliminado na terceira fase à Sul-Americana), fase de grupos (grupo de quatro com
+adversários ilustrativos de outros países; os outros sete grupos saem da força dos clubes), mata-mata (final em jogo único) e, na Sul-Americana, playoffs contra terceiros da Libertadores, com os líderes
+entrando nas oitavas; o terceiro colocado do grupo da Libertadores é transferido aos playoffs da Sul-Americana. Limites: os adversários estrangeiros são fictícios, não há sorteio por ranking
+continental nem Recopa, e os bônus financeiros de classificação de contratos não existem no jogo.
+
 ## Força dos clubes nos elencos
 
 `Game.Players(offset, strength)` desloca a nota dos atletas pela força do clube em relação a 70 (a Série A, que fica como

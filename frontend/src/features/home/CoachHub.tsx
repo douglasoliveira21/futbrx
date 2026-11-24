@@ -33,6 +33,7 @@ import {
   type InboxSender,
 } from "./inbox";
 import "./coachHub.css";
+import { hasZones, zoneBadge, zoneColors, zoneLabels, zoneOf, type Zone } from "../career/zones";
 
 const senderIcon: Record<InboxSender, React.ComponentType<{ size?: number }>> = {
   president: Building2,
@@ -351,6 +352,8 @@ export default function CoachHub({
                     (row.club.id === g.clubId ? "is-own" : "") +
                     (i > 0 && rank - rows[i - 1].position > 1 ? " gap" : "")
                   }
+                  style={hasZones(c) ? { boxShadow: `inset 3px 0 0 ${zoneColors[(zoneOf(c, row.club.id)?.zone ?? "stay") as Zone]}` } : undefined}
+                  title={hasZones(c) ? zoneLabels[(zoneOf(c, row.club.id)?.zone ?? "stay") as Zone] + (zoneBadge(zoneOf(c, row.club.id)) ? " · " + zoneOf(c, row.club.id)?.origin : "") : undefined}
                 >
                   <span>{rank}</span>
                   <Crest club={row.club} />

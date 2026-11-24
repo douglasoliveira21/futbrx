@@ -107,7 +107,7 @@ public static class SerieD
         return k - 1;
     }
     // Goals of a match played without squads: the stronger club scores more, with home advantage.
-    static (int Home, int Away) Score(int homeStrength, int awayStrength, int seed)
+    internal static (int Home, int Away) Score(int homeStrength, int awayStrength, int seed)
     {
         var rng = new Random(seed); double edge = (homeStrength - awayStrength) / 100.0;
         return (Poisson(rng, Math.Clamp(1.35 + edge * 1.6, .35, 3.2)), Poisson(rng, Math.Clamp(1.05 - edge * 1.6, .25, 3.0)));
@@ -117,7 +117,13 @@ public static class SerieD
     {
         var f = match.Fixture; var (home, away) = Score(Strength(g, f.Home), Strength(g, f.Away), f.Seed);
         f.HomeGoals = home; f.AwayGoals = away;
-        if (competition.Legs == 2 && match.Leg == 2)
+        // A single match that has to produce a winner (single-leg cups, finals in one match) goes to penalties when level.
+        if (!competition.GroupStage && home == away && (competition.Legs == 1 || match.Single))
+        {
+            var shoot = new Random(f.Seed ^ 0x5151); int taken = shoot.Next(3, 6), other = shoot.Next(0, taken);
+            bool homeWinsShootout = shoot.Next(2) == 0; f.HomePenalties = homeWinsShootout ? taken : other; f.AwayPenalties = homeWinsShootout ? other : taken;
+        }
+        if (competition.Legs == 2 && !match.Single && match.Leg == 2)
         {
             var first = competition.Matches.First(m => m.Tie == match.Tie && m.Leg == 1).Fixture;
             if (home + first.AwayGoals == away + first.HomeGoals)
@@ -176,8 +182,10 @@ public static class SerieD
             .ThenByDescending(x => Strength(g, x.Row.ClubId)).ThenBy(x => x.Row.ClubId, StringComparer.Ordinal).Select(x => x.Row.ClubId).ToList();
         state.Qualified = qualified;
         var seeds = BracketOrder(qualified.Count).Select(seed => qualified[seed - 1]).ToList();
-        var competition = ClubCompetitions.Add(g, "serie-d", "Série D · fase final", seeds, [.. KnockoutRounds], 600_000, 2);
-        competition.Light = true;
+        var competition = ClubCompetitions.Add(g, "serie-d", "Série D · fase final", seeds, [.. KnockoutRounds], 800_000, 2);
+        competition.Light = true; competition.RunnerUpPrize = 500_000;
+        // Eliminated in the quarterfinals: 5th to 8th places of the prize table (150, 100, 75 and 50 mil, on average); in the semifinals: 3rd and 4th (300 and 250 mil).
+        competition.LoserPrizes = [0, 0, 0, 93_750, 275_000, 0];
         competition.Format = "Os quatro primeiros de cada um dos 16 grupos (64 clubes) jogam mata-matas de ida e volta até a final. Vence o melhor agregado e, no empate, os pênaltis. Sobem seis clubes: os dois finalistas, os dois semifinalistas e os dois vencedores da repescagem entre os eliminados nas quartas.";
         int position = state.Results.First(r => r.Group == state.Group).Table.FindIndex(r => r.ClubId == g.ClubId) + 1;
         g.News.Insert(0, position <= 4
@@ -194,7 +202,7 @@ public static class SerieD
         if (losers.Count != 4) return;
         for (int i = 0; i < 2; i++)
         {
-            var playoff = ClubCompetitions.Add(g, $"serie-d-playoff-{i + 1}", $"Série D · repescagem do acesso {i + 1}", [losers[i], losers[3 - i]], [PlayoffRound], 200_000, 2);
+            var playoff = ClubCompetitions.Add(g, $"serie-d-playoff-{i + 1}", $"Série D · repescagem do acesso {i + 1}", [losers[i], losers[3 - i]], [PlayoffRound], 0, 2);
             playoff.Light = true; playoff.Promotion = true;
             playoff.Format = "Repescagem entre eliminados nas quartas de final: ida e volta e o vencedor sobe para a Série C.";
         }

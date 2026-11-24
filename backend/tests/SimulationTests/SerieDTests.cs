@@ -33,7 +33,7 @@ public static class SerieDTests
         Check(g.Fixtures.Count == 30 && g.Fixtures.Min(f => f.Round) == 1 && g.Fixtures.Max(f => f.Round) == 10 && g.Fixtures.All(f => f.Round >= 1), "Grupo joga 10 rodadas de ida e volta");
         Check(g.Fixtures.GroupBy(f => f.Round).All(r => r.Count() == 3 && r.SelectMany(f => new[] { f.Home, f.Away }).Distinct().Count() == 6), "Cada rodada tem três jogos e todos os clubes jogam");
         Check(g.Clubs.Where(c => c.Id != mine).All(c => g.OpponentSquads.ContainsKey(c.Id)) && !g.SerieD.Others.Any(c => g.OpponentSquads.ContainsKey(c.Id)), "Só os cinco adversários do grupo têm elenco; os outros 90 clubes não");
-        Check(g.Life!.Competitions.All(c => c.Id == "state") && g.Life.Board.TargetPosition == 4, "Série D tem só o circuito estadual e a meta é classificar-se entre os quatro primeiros");
+        Check(g.Life!.Competitions.All(c => c.Id is "state" or "copa-nordeste" or "copa-verde") && g.Life.Board.TargetPosition == 4, "Série D tem só o circuito estadual e a meta é classificar-se entre os quatro primeiros");
 
         // Group stage. The state circuit shares the weeks, so every week is played through Advance or AdvanceWeek.
         void Week() { if (Game.HasLeagueMatch(g) || ClubCompetitions.NextDue(g) != null) Game.Advance(g); else Game.AdvanceWeek(g); }
@@ -87,7 +87,7 @@ public static class SerieDTests
         // The next season starts again from round 1.
         state.Promoted.Remove(mine); // the club may have been promoted by chance; promotion has its own scenario below
         TransferMarket.NextSeason(g);
-        Check(g.Season == 2027 && g.Round == 1 && g.SeasonRounds == 22 && g.Fixtures.Count == 30 && g.SerieD!.Qualified.Count == 0 && g.Life.Competitions.All(c => c.Id == "state"), "Nova temporada recomeça na fase de grupos");
+        Check(g.Season == 2027 && g.Round == 1 && g.SeasonRounds == 22 && g.Fixtures.Count == 30 && g.SerieD!.Qualified.Count == 0 && g.Life.Competitions.All(c => c.Id is "state" or "copa-nordeste" or "copa-verde"), "Nova temporada recomeça na fase de grupos");
 
         // Promotion changes the division: the next season is played in Série C.
         var up = Game.New(catalogs[2].Clubs[0].Id, catalogs[2]);

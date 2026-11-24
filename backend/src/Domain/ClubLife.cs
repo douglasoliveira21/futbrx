@@ -120,6 +120,17 @@ public sealed class ClubCompetition
     // Cota paid to the managed club when its tie of that stage is decided (index = stage), and the runner-up prize of the final.
     public List<long> StagePrizes {get;set;}=[];
     public long RunnerUpPrize {get;set;}
+    // Paid to the managed club when its tie of that stage is lost (index = stage), e.g. quarterfinal and semifinal exits.
+    public List<long> LoserPrizes {get;set;}=[];
+    // Participation cota, paid once when the managed club decides its first match of the competition.
+    public long EntryPrize {get;set;}
+    public bool EntryPaid {get;set;}
+    // GroupStage: paid to the managed club for each victory.
+    public long WinPrize {get;set;}
+    // The last stage is a single match even when the others are home and away.
+    public bool FinalSingle {get;set;}
+    // Clubs that join at the second stage (group winners entering the Sul-Americana round of 16).
+    public List<string> Inject {get;set;}=[];
     public bool GroupStage {get;set;}
     // The first club of each tie hosts the first leg (no draw of the venues).
     public bool KeepOrder {get;set;}
@@ -138,6 +149,8 @@ public sealed class CupMatch
     // Both legs of a tie share the Tie id; Leg is 1 or 2 (1 for single-match ties).
     public string Tie {get;set;}="";
     public int Leg {get;set;}=1;
+    // A single match in a home-and-away competition (the final of the continental cups).
+    public bool Single {get;set;}
     public Fixture Fixture {get;set;}=new();
     // Set on every leg of the tie once it is decided.
     public string Winner {get;set;}="";

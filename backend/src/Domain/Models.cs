@@ -26,6 +26,8 @@ public class GameState
     public SerieDState? SerieD { get; set; }
     // Clubs that take part in competitions of the career (state championship) without a squad until they are met.
     public List<Club> KnownClubs { get; set; } = [];
+    // International places (Libertadores, Pré-Libertadores, Sul-Americana) of the Série A career.
+    public QualificationState? Qualification { get; set; }
     public List<LoanDeal> Loans { get; set; } = [];
     public List<TransferPayment> TransferPayments { get; set; } = [];
     public int YouthVersion { get; set; }

@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { seasonRounds } from "../career/season";
+import { hasZones, zoneBadge, zoneColors, zoneLabels, zoneOf, type Zone } from "../career/zones";
 import {
   api,
   type Career,
@@ -112,6 +113,7 @@ export default function CompetitionCenter({ c }: { c: Career }) {
         {
           title: d ? `Sua divisão · ${d.managedDivision}` : "Classificação",
           rows: q.data?.managedTable ?? c.table,
+          zones: !d && hasZones(c),
         },
         {
           title:
@@ -119,12 +121,20 @@ export default function CompetitionCenter({ c }: { c: Career }) {
               ? "Série B demonstrativa"
               : "Série A demonstrativa",
           rows: q.data?.otherTable ?? [],
+          zones: false,
         },
       ]
         .filter((x) => x.rows.length > 0)
         .map((t) => (
           <section key={t.title} className="panel" style={{ padding: 24 }}>
             <h2>{t.title}</h2>
+            {t.zones && (
+              <ul className="zone-legend" style={{ display: "flex", flexWrap: "wrap", gap: 12, listStyle: "none", padding: 0, fontSize: 12 }}>
+                {(Object.keys(zoneLabels) as Zone[]).map((z) => (
+                  <li key={z}><i style={{ display: "inline-block", width: 10, height: 10, borderRadius: 2, background: zoneColors[z], marginRight: 6 }} />{zoneLabels[z]}</li>
+                ))}
+              </ul>
+            )}
             <div style={{ overflow: "auto" }}>
               <table className="data-table">
                 <thead>
@@ -140,9 +150,9 @@ export default function CompetitionCenter({ c }: { c: Career }) {
                 </thead>
                 <tbody>
                   {t.rows.map((r, i) => (
-                    <tr key={r.club.id}>
+                    <tr key={r.club.id} className={t.zones ? "zone-" + (zoneOf(c, r.club.id)?.zone ?? "stay") : undefined} style={t.zones ? { boxShadow: `inset 4px 0 0 ${zoneColors[(zoneOf(c, r.club.id)?.zone ?? "stay") as Zone]}` } : undefined}>
                       <td>{i + 1}</td>
-                      <td>{r.club.name}</td>
+                      <td>{r.club.name}{t.zones && zoneBadge(zoneOf(c, r.club.id)) && <small title={zoneBadge(zoneOf(c, r.club.id))}> ★ {zoneOf(c, r.club.id)?.origin}</small>}</td>
                       <td>{r.points}</td>
                       <td>{r.played}</td>
                       <td>{r.wins}</td>

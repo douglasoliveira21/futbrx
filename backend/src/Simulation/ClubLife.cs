@@ -112,7 +112,7 @@ public static class ClubLife
         }
         foreach(var report in life.Reports.Where(r=>!r.Complete&&r.Season==g.Season&&r.DueRound<=g.Round)){report.Complete=true;Story(g,"Olheiros","Relatório de observação concluído","Confira as estimativas de potencial no painel de olheiros.");}
         // Contextual evaluations and dismissals belong to CoachCareer, after all results settle.
-        if(g.Round==g.SeasonRounds){Money(g,"Premiação da liga",Math.Max(500_000,(21-place)*500_000L));if(place>economy.SponsorTarget)Money(g,"Meta de patrocínio não cumprida",-economy.SponsorWeekly);}
+        if(g.Round==g.SeasonRounds){{long league=SeriesFormats.LeaguePrize(g,place);if(league>0)Money(g,"Premiação da liga",league);}if(place>economy.SponsorTarget)Money(g,"Meta de patrocínio não cumprida",-economy.SponsorWeekly);}
         if(g.AutoReplaceUnavailable)Sports.RepairSelection(g.Squad,true);Sports.RefreshBench(g);
         foreach(var oldPress in life.Press.Where(s=>s.Kind=="Coletiva"&&s.Answer==""))oldPress.Answer="Sem declaração";
         Story(g,"Coletiva","Coletiva após a rodada "+g.Round,"Como você avalia o momento da equipe?");

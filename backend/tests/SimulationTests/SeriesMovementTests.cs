@@ -121,7 +121,7 @@ public static class SeriesMovementTests
         var cdown = Career("C", 2); var cdId = cdown.ClubId; Season(cdown, false);
         Check(Series(cdown) == "D" && cdown.SerieD != null && cdown.Clubs.Count == 6 && cdown.SeasonRounds == 22 && cdown.Fixtures.Count == 30 && cdown.Clubs.Any(x => x.Id == cdId), "Rebaixado da C joga um grupo da Série D, com seis clubes e 22 semanas");
         Check(SeriesMovement.Destination(c, "C", 19) == "D" && SeriesMovement.Destination(c, "C", 18) == null, "Série C rebaixa apenas os dois últimos");
-        Check(cdown.Clubs.Where(x => x.Id != cdId).All(x => cdown.OpponentSquads.ContainsKey(x.Id)) && cdown.Life!.Competitions.All(x => x.Id == "state") && cdown.Life.Board.TargetPosition == 4, "Série D: elencos do grupo, sem copas nacionais e meta entre os quatro primeiros");
+        Check(cdown.Clubs.Where(x => x.Id != cdId).All(x => cdown.OpponentSquads.ContainsKey(x.Id)) && cdown.Life!.Competitions.All(x => x.Id is "state" or "copa-nordeste" or "copa-verde") && cdown.Life.Board.TargetPosition == 4, "Série D: elencos do grupo, sem copas nacionais e meta entre os quatro primeiros");
         for (int i = 0; i < SerieD.GroupRounds; i++) { Heal(cdown); Game.Advance(cdown); }
         Check(cdown.SerieD!.Qualified.Count == 64 && cdown.Life.Competitions.Any(x => x.Id == "serie-d"), "Clube rebaixado completa a fase de grupos da Série D e a fase final é criada");
 

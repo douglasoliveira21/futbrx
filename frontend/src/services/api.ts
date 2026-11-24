@@ -185,6 +185,12 @@ export type State = {
   otherClubs?: Club[];
   // Clubs of the state championship that have no squad until the club meets them.
   knownClubs?: Club[];
+  // International places of a Série A career: zone of every club of the table, the places of the season and the history.
+  qualification?: {
+    zones: Record<string, { zone: string; origin: string; other: boolean }>;
+    berths: { clubId: string; competition: string; origin: string }[];
+    history: { season: number; berths: { clubId: string; competition: string; origin: string }[] }[];
+  } | null;
   // Série D: the 90 clubs of the other groups, the final tables of the 16 groups and the six promoted clubs.
   serieD?: {
     group: number;

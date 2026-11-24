@@ -211,6 +211,7 @@ public static class Game
         ClubCompetitions.Advance(g);
         SerieD.AfterRound(g);
         SeriesFormats.AfterRound(g);
+        Qualification.AfterRound(g);
         CoachCareer.SettleRound(g);
         CoachCareer.ProcessCompleted(g);
         g.Round++;

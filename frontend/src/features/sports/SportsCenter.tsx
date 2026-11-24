@@ -8,7 +8,8 @@ import {
   type SubstitutionPlan,
 } from "../../services/api";
 import { Button } from "../../components/ui/button";
-import { Shirt } from "./SquadRoom";
+import { Shirt } from "./SquadRoom";
+import { Loader } from "../../components/Loader";
 
 export default function SportsCenter({
   c,
@@ -254,7 +255,7 @@ export default function SportsCenter({
             </p>
           )}
           {stats.isPending ? (
-            <p>Carregando…</p>
+            <Loader variant="panel" label="Carregando…" />
           ) : (
             <>
               <p>

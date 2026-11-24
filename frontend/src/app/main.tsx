@@ -59,7 +59,8 @@ import { seasonRounds } from "../features/career/season";
 import { leagueName, releaseFor, type Directory, type DirectoryClub } from "../features/career/directory";
 import { areas, areaOf, type AreaId } from "../features/navigation/areas";
 import "../features/navigation/areas.css";
-import "../styles/index.css";
+import "../styles/index.css";
+import { Loader } from "../components/Loader";
 i18n.use(initReactI18next).init({
   lng: "pt-BR",
   fallbackLng: "pt-BR",
@@ -178,7 +179,7 @@ function Panel({
 }
 function Auth({ onLogin }: { onLogin: (name: string) => void }) {
   return (
-    <Suspense fallback={<main className="auth" />}>
+    <Suspense fallback={<Loader variant="screen" label="Abrindo o acesso…" />}>
       <LoginScreen onLogin={onLogin} />
     </Suspense>
   );
@@ -253,7 +254,7 @@ function CareerPicker({
           <Button variant="outline" onClick={() => setAccountView("")}>
             Voltar às carreiras
           </Button>
-          <Suspense fallback={<p className="empty">Carregando…</p>}>
+          <Suspense fallback={<Loader variant="panel" label="Carregando…" />}>
             {accountView === "admin" ? (
               <AdminCatalog />
             ) : (
@@ -492,7 +493,7 @@ function Module({
   const g = c.state;
   if (["diretoria", "minha-carreira", "mercado-tecnicos"].includes(path))
     return (
-      <Suspense fallback={<p>Abrindo carreira…</p>}>
+      <Suspense fallback={<Loader variant="panel" label="Abrindo carreira…" />}>
         <CoachCareerCenter
           c={c}
           initialTab={
@@ -507,32 +508,32 @@ function Module({
     );
   if (path === "gestao-avancada")
     return (
-      <Suspense fallback={<p>Carregando gestão…</p>}>
+      <Suspense fallback={<Loader variant="panel" label="Carregando gestão…" />}>
         <AdvancedMarketCenter c={c} />
       </Suspense>
     );
   if (path === "visual")
     return (
-      <Suspense fallback={<p>Carregando jogador…</p>}>
+      <Suspense fallback={<Loader variant="panel" label="Carregando jogador…" />}>
         <PlayerStudio clubs={g.clubs} />
       </Suspense>
     );
   if (path === "fontes")
     return (
-      <Suspense fallback={<p>Carregando fontes…</p>}>
+      <Suspense fallback={<Loader variant="panel" label="Carregando fontes…" />}>
         <DataSources />
       </Suspense>
     );
   if (path === "elenco")
     return (
-      <Suspense fallback={<p className="empty">Abrindo vestiário…</p>}>
+      <Suspense fallback={<Loader variant="panel" label="Abrindo vestiário…" />}>
         <SquadRoom c={c} action={action} busy={busy} />
       </Suspense>
     );
   if (path === "transferencias" || path === "contratos")
     return (
       <Suspense
-        fallback={<p className="empty">Preparando central de negociações…</p>}
+        fallback={<Loader variant="panel" label="Preparando central de negociações…" />}
       >
         <ManagementCenter
           c={c}
@@ -542,19 +543,19 @@ function Module({
     );
   if (path === "historico")
     return (
-      <Suspense fallback={<p className="empty">Abrindo histórico…</p>}>
+      <Suspense fallback={<Loader variant="panel" label="Abrindo histórico…" />}>
         <SeasonHistory c={c} onReplay={onReplay} />
       </Suspense>
     );
   if (path === "taticas")
     return (
       <>
-        <Suspense fallback={<p className="empty">Abrindo prancheta…</p>}>
+        <Suspense fallback={<Loader variant="panel" label="Abrindo prancheta…" />}>
           <TacticsDesk c={c} busy={busy} />
         </Suspense>
         <details className="scheduled-substitutions">
           <summary>Substituições programadas e reposição automática</summary>
-          <Suspense fallback={<p>Carregando banco…</p>}>
+          <Suspense fallback={<Loader variant="panel" label="Carregando banco…" />}>
             <SportsCenter key={c.revision} c={c} mode="plan" />
           </Suspense>
         </details>
@@ -562,7 +563,7 @@ function Module({
     );
   if (path === "competicoes")
     return (
-      <Suspense fallback={<p>Carregando competição…</p>}>
+      <Suspense fallback={<Loader variant="panel" label="Carregando competição…" />}>
         <ClubLifeCenter c={c} initialTab="cups" onReplay={onReplay} showTabs={false} />
         <CompetitionCenter c={c} />
       </Suspense>
@@ -570,7 +571,7 @@ function Module({
   if (path === "calendario")
     return (
       <>
-        <Suspense fallback={<p>Abrindo agenda…</p>}>
+        <Suspense fallback={<Loader variant="panel" label="Abrindo agenda…" />}>
           <ClubLifeCenter c={c} initialTab="calendar" onReplay={onReplay} showTabs={false} />
         </Suspense>
         <div className="toolbar">
@@ -621,7 +622,7 @@ function Module({
   if (path === "financas")
     return (
       <>
-        <Suspense fallback={<p>Abrindo finanças…</p>}>
+        <Suspense fallback={<Loader variant="panel" label="Abrindo finanças…" />}>
           <ClubLifeCenter c={c} initialTab="finance" onReplay={onReplay} showTabs={false} />
         </Suspense>
         <div className="financial-summary">
@@ -680,20 +681,20 @@ function Module({
     );
   if (path === "treinamentos")
     return (
-      <Suspense fallback={<p>Carregando planejamento semanal…</p>}>
+      <Suspense fallback={<Loader variant="panel" label="Carregando planejamento semanal…" />}>
         <TrainingCenter c={c} />
       </Suspense>
     );
   if (path === "medico")
     return (
-      <Suspense fallback={<p>Carregando disponibilidade…</p>}>
+      <Suspense fallback={<Loader variant="panel" label="Carregando disponibilidade…" />}>
         <ClubLifeCenter c={c} initialTab="medical" onReplay={onReplay} showTabs={false} />
         <SportsCenter key={c.revision} c={c} mode="medical" />
       </Suspense>
     );
   if (path === "base")
     return (
-      <Suspense fallback={<p>Carregando categorias de base…</p>}>
+      <Suspense fallback={<Loader variant="panel" label="Carregando categorias de base…" />}>
         <ClubLifeCenter c={c} initialTab="academy" onReplay={onReplay} showTabs={false} />
         <YouthCenter c={c} />
       </Suspense>
@@ -709,13 +710,13 @@ function Module({
   };
   if (lifeTabs[path])
     return (
-      <Suspense fallback={<p>Abrindo bastidores…</p>}>
+      <Suspense fallback={<Loader variant="panel" label="Abrindo bastidores…" />}>
         <ClubLifeCenter c={c} initialTab={lifeTabs[path]} onReplay={onReplay} showTabs={false} />
       </Suspense>
     );
   if (path === "estatisticas")
     return (
-      <Suspense fallback={<p>Carregando estatísticas…</p>}>
+      <Suspense fallback={<Loader variant="panel" label="Carregando estatísticas…" />}>
         <SportsCenter c={c} mode="statistics" />
       </Suspense>
     );
@@ -805,7 +806,7 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
   };
   if (!ui.career) return <CareerPicker onLogout={onLogout} />;
   if (q.isPending)
-    return <div className="loading">Preparando o centro de comando…</div>;
+    return <Loader variant="screen" label="Preparando o centro de comando…" hint="Carregando a sua carreira" />;
   if (q.error || !q.data)
     return (
       <div className="picker-wrap">
@@ -826,6 +827,7 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
   const club = c.state.clubs.find((x) => x.id === c.state.clubId)!;
   return (
     <div className={"app-shell " + (ui.collapsed ? "nav-open" : "")}>
+      {startMatch.isPending && !live && <Loader variant="match" label="Entrando em campo…" hint="Preparando a transmissão da partida" />}
       <aside className="sidebar" inert={!!live}>
         <div className="brand">
           <FutbrxLogo />
@@ -981,7 +983,7 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
           )}
           {c.state.coach?.employed === false ||
           c.state.coach?.unreadDismissal ? (
-            <Suspense fallback={<p>Abrindo mercado de treinadores…</p>}>
+            <Suspense fallback={<Loader variant="panel" label="Abrindo mercado de treinadores…" />}>
               {location.pathname === "/conta" ? (
                 <AccountSessions onLogout={onLogout} />
               ) : (
@@ -1002,7 +1004,7 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
                 path="/administracao"
                 element={
                   <Suspense
-                    fallback={<p className="empty">Carregando editor…</p>}
+                    fallback={<Loader variant="panel" label="Carregando editor…" />}
                   >
                     <AdminCatalog />
                   </Suspense>
@@ -1012,7 +1014,7 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
                 path="/conta"
                 element={
                   <Suspense
-                    fallback={<p className="empty">Carregando sessões…</p>}
+                    fallback={<Loader variant="panel" label="Carregando sessões…" />}
                   >
                     <AccountSessions onLogout={onLogout} />
                   </Suspense>
@@ -1096,7 +1098,7 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
           aria-label="Transmissão ao vivo"
         >
           <Suspense
-            fallback={<div className="loading">Acendendo os refletores…</div>}
+            fallback={<Loader variant="match" label="Acendendo os refletores…" hint="Montando estádio, elencos e transmissão" />}
           >
             <Match3D
               key={live.id}
@@ -1136,7 +1138,7 @@ function GameApp({ user, onLogout }: { user: string; onLogout: () => void }) {
               </Button>
             </div>
             <Suspense
-              fallback={<p className="empty">Carregando estádio 3D…</p>}
+              fallback={<Loader variant="panel" label="Carregando estádio 3D…" />}
             >
               <Match3D
                 fixture={replay}
@@ -1178,7 +1180,7 @@ export default function App() {
       alert(e instanceof Error ? e.message : "Não foi possível sair.");
     }
   }
-  if (!ready) return <div className="loading">Abrindo o vestiário…</div>;
+  if (!ready) return <Loader variant="screen" label="Abrindo o vestiário…" />;
   return user ? (
     <GameApp user={user} onLogout={logout} />
   ) : (

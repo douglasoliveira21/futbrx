@@ -10,7 +10,8 @@ import {
 } from "../../services/api";
 import { Button } from "../../components/ui/button";
 import { DataTable } from "../../components/DataTable";
-import type { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import { Loader } from "../../components/Loader";
 
 export default function SeasonHistory({
   c,
@@ -105,7 +106,7 @@ export default function SeasonHistory({
           )}
         </div>
       </section>
-      {q.isFetching && <p className="empty">Abrindo a temporada arquivada…</p>}
+      {q.isFetching && <Loader variant="panel" label="Abrindo a temporada arquivada…" />}
       {q.error && (
         <p className="error-banner" role="alert">
           {q.error.message}

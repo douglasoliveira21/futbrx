@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api, money, type Career } from "../../services/api";
-import { Button } from "../../components/ui/button";
+import { Button } from "../../components/ui/button";
+import { Loader } from "../../components/Loader";
 
 type Result = {
   contractId: string;
@@ -352,7 +353,7 @@ export default function CoachCareerCenter({
     },
     busy = mutation.isPending || !!c.state.liveMatch;
   if (query.isPending)
-    return <p className="empty">Abrindo sua carreira de treinador…</p>;
+    return <Loader variant="panel" label="Abrindo sua carreira de treinador…" />;
   const v = query.data;
   if (!v)
     return (

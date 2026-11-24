@@ -1,0 +1,240 @@
+.fx-loader {
+  --neon: #45ff00;
+  --lime: #85ff20;
+  --cyan: #36dce8;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  color: #dff5e6;
+  text-align: center;
+  font-family: Montserrat, "Segoe UI", system-ui, sans-serif;
+}
+.fx-screen,
+.fx-match {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 42%, rgba(18, 62, 40, 0.95), #061014 62%), #061014;
+}
+.fx-panel {
+  min-height: 260px;
+  padding: 40px 16px;
+}
+.fx-inline {
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 12px;
+  padding: 8px 0;
+}
+.fx-grid {
+  position: absolute;
+  inset: -40% -10% 0;
+  background:
+    linear-gradient(rgba(69, 255, 0, 0.12) 1px, transparent 1px) 0 0 / 56px 56px,
+    linear-gradient(90deg, rgba(69, 255, 0, 0.12) 1px, transparent 1px) 0 0 / 56px 56px;
+  transform: perspective(520px) rotateX(62deg);
+  transform-origin: 50% 100%;
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent 75%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent 75%);
+  animation: fx-grid 2.4s linear infinite;
+  pointer-events: none;
+}
+.fx-pitch {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(640px, 80vw);
+  transform: translate(-50%, -50%);
+  fill: none;
+  stroke: rgba(69, 255, 0, 0.32);
+  stroke-width: 1.6;
+  pointer-events: none;
+}
+.fx-pitch * {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: fx-draw 2.6s ease-in-out infinite alternate;
+}
+.fx-core {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 120px;
+  height: 120px;
+}
+.fx-inline .fx-core {
+  width: 32px;
+  height: 32px;
+}
+.fx-panel .fx-core {
+  width: 96px;
+  height: 96px;
+}
+.fx-rings {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 6px rgba(69, 255, 0, 0.55));
+}
+.fx-ring {
+  fill: none;
+  stroke-linecap: round;
+  transform-origin: 60px 60px;
+}
+.fx-ring.a {
+  stroke: var(--neon);
+  stroke-width: 3;
+  stroke-dasharray: 34 66;
+  animation: fx-spin 1.6s linear infinite;
+}
+.fx-ring.b {
+  stroke: var(--cyan);
+  stroke-width: 2.4;
+  stroke-dasharray: 22 78;
+  animation: fx-spin 2.4s linear infinite reverse;
+}
+.fx-ring.c {
+  stroke: rgba(133, 255, 32, 0.55);
+  stroke-width: 1.6;
+  stroke-dasharray: 8 92;
+  animation: fx-spin 1.1s linear infinite;
+}
+.fx-ball {
+  width: 40%;
+  height: 40%;
+  animation: fx-pulse 1.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(69, 255, 0, 0.5));
+}
+.fx-scan {
+  position: absolute;
+  left: -30%;
+  right: -30%;
+  height: 2px;
+  top: 0;
+  background: linear-gradient(90deg, transparent, var(--neon), transparent);
+  box-shadow: 0 0 14px 2px rgba(69, 255, 0, 0.6);
+  animation: fx-scan 1.8s ease-in-out infinite alternate;
+}
+.fx-label {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #e9fbe9;
+}
+.fx-inline .fx-label {
+  font-size: 13px;
+  letter-spacing: 1.5px;
+}
+.fx-screen .fx-label,
+.fx-match .fx-label {
+  font-size: 17px;
+}
+.fx-label b {
+  display: inline-flex;
+  gap: 3px;
+}
+.fx-label b i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--neon);
+  animation: fx-dot 1.2s ease-in-out infinite;
+}
+.fx-label b i:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.fx-label b i:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.fx-hint {
+  margin-top: -8px;
+  color: #8fb09b;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+.fx-bar {
+  position: relative;
+  width: min(280px, 64vw);
+  height: 3px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.fx-bar i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, transparent, var(--neon), var(--lime), transparent);
+  box-shadow: 0 0 10px var(--neon);
+  animation: fx-bar 1.5s ease-in-out infinite;
+}
+
+@keyframes fx-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fx-pulse {
+  50% {
+    transform: scale(1.12) rotate(8deg);
+    filter: drop-shadow(0 0 18px rgba(69, 255, 0, 0.85));
+  }
+}
+@keyframes fx-scan {
+  to {
+    top: 100%;
+  }
+}
+@keyframes fx-bar {
+  from {
+    left: -45%;
+  }
+  to {
+    left: 105%;
+  }
+}
+@keyframes fx-dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+@keyframes fx-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes fx-grid {
+  to {
+    background-position: 0 56px, 0 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-loader *,
+  .fx-loader *::before {
+    animation-duration: 6s !important;
+  }
+  .fx-grid,
+  .fx-scan {
+    animation: none !important;
+  }
+}

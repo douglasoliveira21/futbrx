@@ -12,7 +12,8 @@ import {
 } from "lucide-react";
 import { api, type DataRelease, type SeasonCatalog } from "../../services/api";
 import { useIdentity } from "../../hooks/useIdentity";
-import { Button } from "../../components/ui/button";
+import { Button } from "../../components/ui/button";
+import { Loader } from "../../components/Loader";
 
 function download(name: string, content: string, type: string) {
   const url = URL.createObjectURL(new Blob([content], { type }));
@@ -284,7 +285,7 @@ export default function AdminCatalog() {
               </span>
             </button>
           ))}
-          {releases.isPending && <p className="notice">Carregando versões…</p>}
+          {releases.isPending && <Loader variant="inline" label="Carregando versões…" />}
           <div className="notice">
             Versões publicadas são imutáveis. Duplique uma versão para atualizar
             elencos.

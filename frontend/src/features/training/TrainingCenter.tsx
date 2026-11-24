@@ -8,7 +8,8 @@ import {
   type TrainingData,
   type TrainingPlan,
 } from "../../services/api";
-import { Button } from "../../components/ui/button";
+import { Button } from "../../components/ui/button";
+import { Loader } from "../../components/Loader";
 
 function TrainingEditor({
   data,
@@ -133,7 +134,7 @@ export default function TrainingCenter({ c }: { c: Career }) {
       void qc.invalidateQueries({ queryKey: ["career", c.id] });
     },
   });
-  if (query.isPending) return <p>Carregando treinos…</p>;
+  if (query.isPending) return <Loader variant="panel" label="Carregando treinos…" />;
   if (query.error)
     return (
       <p className="error" role="alert">

@@ -8,7 +8,8 @@ import {
   type Fixture,
   type Row,
 } from "../../services/api";
-import { Button } from "../../components/ui/button";
+import { Button } from "../../components/ui/button";
+import { Loader } from "../../components/Loader";
 type Divisions = {
   managedDivision: string;
   otherClubs: Club[];
@@ -49,7 +50,7 @@ export default function CompetitionCenter({ c }: { c: Career }) {
           pró, confronto direto entre dois clubes, menos vermelhos, menos
           amarelos e sorteio persistente na carreira.
         </p>
-        {q.isPending && <p>Carregando competição…</p>}
+        {q.isPending && <Loader variant="panel" label="Carregando competição…" />}
         {q.error && <p role="alert">{q.error.message}</p>}
         {!d ? (
           <>

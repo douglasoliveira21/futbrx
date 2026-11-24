@@ -1,3 +1,4 @@
+import { Loader } from "../../components/Loader";
 import MatchCeremony, { AssistantReferee } from "./MatchCeremony";
 import { FutbrxLogo } from "../../components/FutbrxLogo";
 import MatchManagement from "./MatchManagement";
@@ -1046,9 +1047,7 @@ export default function Match3D({
   }, [visible, playing, ended]);
   if (fixture.setup && replay.isPending)
     return (
-      <div className="loading">
-        {broadcast.error || "Preparando a transmissão…"}
-      </div>
+      <Loader variant="match" label={String(broadcast.error || "Preparando a transmissão…")} hint="Sincronizando a partida com o servidor" />
     );
   if (fixture.setup && replay.error)
     return (

@@ -11,7 +11,8 @@ import {
 import { useIdentity } from "../../hooks/useIdentity";
 import { Button } from "../../components/ui/button";
 import { Crest } from "../../components/Crest";
-import type { Directory, DirectoryClub, SeriesId } from "../career/directory";
+import type { Directory, DirectoryClub, SeriesId } from "../career/directory";
+import { Loader } from "../../components/Loader";
 
 const AdminCatalog = lazy(() => import("../catalog/AdminCatalog"));
 const POSITIONS = ["GOL", "ZAG", "LAT", "MEI", "ATA"];
@@ -177,7 +178,7 @@ function AccountsTab() {
           </tbody>
         </table>
       </div>
-      {accounts.isPending && <p className="notice">Carregando contas…</p>}
+      {accounts.isPending && <Loader variant="inline" label="Carregando contas…" />}
       {accounts.data?.length === 0 && (
         <p className="notice">Nenhuma conta encontrada.</p>
       )}
@@ -418,7 +419,7 @@ function TeamsTab() {
           </tbody>
         </table>
       </div>
-      {catalog.isPending && !!rid && <p className="notice">Carregando times…</p>}
+      {catalog.isPending && !!rid && <Loader variant="inline" label="Carregando times…" />}
       {catalog.error && (
         <p className="error notice" role="alert">
           {catalog.error.message}
@@ -918,7 +919,7 @@ export default function AdminPanel() {
   if (identity.data?.isAdmin !== true)
     // A tela de catálogo já explica como autorizar a conta.
     return (
-      <Suspense fallback={<p className="empty">Carregando…</p>}>
+      <Suspense fallback={<Loader variant="panel" label="Carregando…" />}>
         <AdminCatalog />
       </Suspense>
     );
@@ -951,7 +952,7 @@ export default function AdminPanel() {
         {tab === "series" && <SeriesTab />}
         {tab === "jogadores" && <PlayersTab />}
         {tab === "dados" && (
-          <Suspense fallback={<p className="empty">Carregando…</p>}>
+          <Suspense fallback={<Loader variant="panel" label="Carregando…" />}>
             <AdminCatalog />
           </Suspense>
         )}

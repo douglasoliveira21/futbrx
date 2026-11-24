@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api, moneyExact as money, type Career } from "../../services/api";
 import { Button } from "../../components/ui/button";
-import { DialogShell } from "../../components/ui/dialog";
+import { DialogShell } from "../../components/ui/dialog";
+import { Loader } from "../../components/Loader";
 type Candidate = {
   id: number;
   name: string;
@@ -106,7 +107,7 @@ export default function AdvancedMarketCenter({ c }: { c: Career }) {
   const name = (id: string) =>
     c.state.clubs.concat(c.state.otherClubs ?? []).find((x) => x.id === id)
       ?.name ?? id;
-  if (q.isPending) return <p>Carregando gestão avançada…</p>;
+  if (q.isPending) return <Loader variant="panel" label="Carregando gestão avançada…" />;
   if (q.error) return <p role="alert">{q.error.message}</p>;
   const d = q.data!,
     candidates = d.candidates.filter(

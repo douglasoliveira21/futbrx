@@ -11,7 +11,8 @@ import {
 } from "../../services/api";
 import { Button } from "../../components/ui/button";
 import { DialogShell } from "../../components/ui/dialog";
-import { Shirt } from "../sports/SquadRoom";
+import { Shirt } from "../sports/SquadRoom";
+import { Loader } from "../../components/Loader";
 
 type Choice =
   | { kind: "search"; region: string; position: string }
@@ -64,7 +65,7 @@ export default function YouthCenter({ c }: { c: Career }) {
     change.reset();
     setChoice(selected);
   };
-  if (q.isPending) return <p>Carregando a base…</p>;
+  if (q.isPending) return <Loader variant="panel" label="Carregando a base…" />;
   if (q.error)
     return (
       <p className="error" role="alert">

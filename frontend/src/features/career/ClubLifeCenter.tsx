@@ -12,6 +12,7 @@ import {
   type Club,
 } from "../../services/api";
 import { Button } from "../../components/ui/button";
+import { Loader } from "../../components/Loader";
 type Mind = {
   morale: number;
   ambition: number;
@@ -226,7 +227,7 @@ export default function ClubLifeCenter({
   const life = query.data,
     busy = mutation.isPending || !!c.state.liveMatch;
   if (query.isPending)
-    return <p className="empty">Abrindo os bastidores do clube…</p>;
+    return <Loader variant="panel" label="Abrindo os bastidores do clube…" />;
   if (!life)
     return (
       <div role="alert" className="error">

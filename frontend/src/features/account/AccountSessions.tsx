@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Monitor, ShieldCheck } from "lucide-react";
 import { api } from "../../services/api";
 import { useIdentity } from "../../hooks/useIdentity";
-import { Button } from "../../components/ui/button";
+import { Button } from "../../components/ui/button";
+import { Loader } from "../../components/Loader";
 type Session = {
   id: string;
   created: string;
@@ -57,7 +58,7 @@ export default function AccountSessions({
             já emitidos. Cookies de sessão expiram em até 14 dias.
           </p>
         </div>
-        {q.isPending && <p className="notice">Carregando sessões…</p>}
+        {q.isPending && <Loader variant="inline" label="Carregando sessões…" />}
         {q.data?.map((s) => (
           <div className="session-row" key={s.id}>
             <Monitor size={23} />

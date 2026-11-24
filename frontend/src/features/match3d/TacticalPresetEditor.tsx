@@ -3,7 +3,8 @@ import {useMutation,useQuery,useQueryClient} from "@tanstack/react-query";
 import {api,type Career,type TacticalPlan} from "../../services/api";
 import TacticalPositionEditor from "./TacticalPositionEditor";
 import TacticalInstructions,{defaultTacticalPlan} from "../sports/TacticalInstructions";
-import "./tacticalDesk.css";
+import "./tacticalDesk.css";
+import { Loader } from "../../components/Loader";
 
 type Point={x:number;z:number};
 type Formation={id:string;label:string;category:string;positions:Point[]};
@@ -21,7 +22,7 @@ export default function TacticalPresetEditor({career}:{career:Career}){
  const catalogue=query.data;
  function selectFormation(f:Formation){setFormationId(f.id);const positions=Object.fromEntries(starters.map((p,i)=>[p.id,f.positions[i]]).filter(([,point])=>point));setPlan(p=>({...p,positions}));}
  function open(p:Preset){setId(p.id);setName(p.name);setFormationId(p.formationId);setMentality(p.mentality);setPlan(p.plan);setNotice("")}
- if(query.isPending)return <p>Carregando formações…</p>;
+ if(query.isPending)return <Loader variant="panel" label="Carregando formações…" />;
  if(!catalogue)return <p role="alert">{query.error?.message??"Não foi possível carregar os planos."}</p>;
  return <div className="preset-editor"><div className="preset-controls"><label>Categoria<select value={category} onChange={e=>setCategory(e.target.value)}>{["Todas",...new Set(catalogue.formations.map(f=>f.category))].map(c=><option key={c}>{c}</option>)}</select></label><label>Formação<select value={formationId} onChange={e=>{const f=catalogue.formations.find(x=>x.id===e.target.value);if(f)selectFormation(f)}}>{catalogue.formations.filter(f=>category==="Todas"||f.category===category||f.id===formationId).map(f=><option key={f.id} value={f.id}>{f.label}</option>)}</select></label><label>Mentalidade<select value={mentality} onChange={e=>setMentality(e.target.value)}><option>Defensiva</option><option>Equilibrada</option><option>Ofensiva</option></select></label><label>Nome do plano<input maxLength={60} value={name} onChange={e=>setName(e.target.value)}/></label><TacticalInstructions plan={plan} onChange={setPlan} players={career.state.squad} disabled={mutation.isPending}/></div>
  <div><p>Arraste um atleta ou use as setas do teclado para ajustar sua posição de referência.</p><TacticalPositionEditor players={starters} plan={plan} onChange={setPlan} disabled={mutation.isPending}/>{starters.length!==11&&<p role="alert">Escale onze atletas aptos antes de aplicar uma formação.</p>}</div>

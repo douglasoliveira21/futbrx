@@ -73,7 +73,7 @@ public static class AdminEndpoints
         });
         admin.MapPost("/accounts/{id:guid}/reset-password", async (Guid id, PasswordRequest r, GameDb db, ClaimsPrincipal u) =>
         {
-            if (string.IsNullOrEmpty(r.Password) || r.Password.Length is < 12 or > 128) return Bad("A senha deve ter de 12 a 128 caracteres.");
+            if (string.IsNullOrEmpty(r.Password) || r.Password.Length is < 6 or > 128) return Bad("A senha deve ter de 6 a 128 caracteres.");
             var a = await db.Accounts.FindAsync(id); if (a == null) return Results.NotFound();
             a.PasswordHash = new PasswordHasher<Account>().HashPassword(a, r.Password);
             db.Sessions.RemoveRange(db.Sessions.Where(s => s.UserId == id));

@@ -41,7 +41,7 @@ No PowerShell, dentro desta pasta:
 ./scripts/dev.ps1 -ConnectionString 'Host=localhost;Database=brasileirao;Username=manager;Password=SUA_SENHA'
 ```
 
-Abra **http://127.0.0.1:5173**, crie uma conta (senha com pelo menos 12 caracteres), escolha um clube e avance a rodada. O script mantém os serviços ativos até pressionar Enter. Não há conta ou senha padrão. Logs em `.runtime/`. O JWT fica somente em memória do navegador; o refresh token fica em cookie HttpOnly.
+Abra **http://127.0.0.1:5173**, crie uma conta (senha com pelo menos 6 caracteres), escolha um clube e avance a rodada. O script mantém os serviços ativos até pressionar Enter. Não há conta ou senha padrão. Logs em `.runtime/`. O JWT fica somente em memória do navegador; o refresh token fica em cookie HttpOnly.
 
 Alternativa com persistência em containers:
 

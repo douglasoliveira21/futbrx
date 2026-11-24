@@ -38,7 +38,7 @@ public static class PasswordResetApiTests
         Check(!(await Json(await offClient.GetAsync("/api/auth/config"))).GetProperty("passwordReset").GetBoolean() && (await offClient.PostAsJsonAsync("/api/auth/forgot", new { email = "a@example.test" })).StatusCode == HttpStatusCode.ServiceUnavailable, "Sem servidor de e-mail a recuperação de senha fica desligada e avisa");
 
         var mail = new FakeMail();
-        using var on = factory.WithWebHostBuilder(b => { b.UseSetting("App:PublicUrl", "https://jogo.example.test/"); b.ConfigureServices(s => s.AddSingleton<IEmailSender>(mail)); });
+        using var on = factory.WithWebHostBuilder(b => { b.UseSetting("App:PublicUrl", "https://jogo.example.test/"); b.UseSetting("RateLimit:AuthPermits", "200"); b.ConfigureServices(s => s.AddSingleton<IEmailSender>(mail)); });
         using var client = on.CreateClient(new() { HandleCookies = false });
         Check((await Json(await client.GetAsync("/api/auth/config"))).GetProperty("passwordReset").GetBoolean(), "Com e-mail e endereço públicos configurados a tela de login oferece a recuperação");
 
@@ -70,6 +70,12 @@ public static class PasswordResetApiTests
         Check(PasswordResetTokens.Read(fresh, now.AddMinutes(61), key) == null && PasswordResetTokens.Read(fresh, now, key + "outra") == null, "Token expira em uma hora e não vale com outra chave de assinatura");
         account.PasswordHash = "outro-hash";
         Check(!PasswordResetTokens.Matches(account, PasswordResetTokens.Read(fresh, now, key)!.Value.Fingerprint), "Trocar a senha invalida os links antigos");
+
+        // Minimum password length: six characters.
+        string shortEmail = "curta-" + Guid.NewGuid().ToString("N") + "@example.test";
+        Check((await client.PostAsJsonAsync("/api/auth/register", new { email = shortEmail, password = "abc12", name = "Curta" })).StatusCode == HttpStatusCode.BadRequest, "Cadastro com 5 caracteres é recusado");
+        Check((await client.PostAsJsonAsync("/api/auth/register", new { email = shortEmail, password = "abc123", name = "Curta" })).IsSuccessStatusCode, "Cadastro com 6 caracteres é aceito");
+        Check((await client.PostAsJsonAsync("/api/auth/login", new { email = shortEmail, password = "abc123" })).IsSuccessStatusCode, "Entra com a senha de 6 caracteres");
 
         // A Google account has no password to reset: no mail is sent.
         var before = mail.Sent.Count;

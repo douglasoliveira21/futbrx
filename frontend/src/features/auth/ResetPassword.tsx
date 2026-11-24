@@ -15,7 +15,7 @@ export default function ResetPassword() {
   const submit = (e: FormEvent) => {
     e.preventDefault();
     if (reset.isPending) return;
-    if (password.length < 12) return setProblem("A senha precisa ter pelo menos 12 caracteres.");
+    if (password.length < 6) return setProblem("A senha precisa ter pelo menos 6 caracteres.");
     if (password !== again) return setProblem("As duas senhas precisam ser iguais.");
     setProblem("");
     reset.mutate();
@@ -55,7 +55,7 @@ export default function ResetPassword() {
                 <Lock size={23} aria-hidden />
                 <input type={show ? "text" : "password"} value={again} onChange={(e) => setAgain(e.target.value)} placeholder="Repita a nova senha" maxLength={128} autoComplete="new-password" aria-label="Repita a nova senha" />
               </label>
-              <small className="login-hint">Mínimo de 12 caracteres. Ao trocar, todos os aparelhos precisam entrar de novo.</small>
+              <small className="login-hint">Mínimo de 6 caracteres. Ao trocar, todos os aparelhos precisam entrar de novo.</small>
               {(problem || reset.error) && (
                 <p className="login-error" role="alert">
                   {problem || reset.error?.message}

@@ -123,7 +123,7 @@ export default function LoginScreen({ onLogin }: { onLogin: (name: string) => vo
     if (register && !name.trim()) return "Informe o nome do treinador.";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) return "Informe um e-mail válido.";
     if (!password) return "Informe a senha.";
-    if (register && password.length < 12) return "A senha precisa ter pelo menos 12 caracteres.";
+    if (register && password.length < 6) return "A senha precisa ter pelo menos 6 caracteres.";
     return "";
   };
   const submit = (e: FormEvent) => {
@@ -228,7 +228,7 @@ export default function LoginScreen({ onLogin }: { onLogin: (name: string) => vo
               {show ? <EyeOff size={24} /> : <Eye size={24} />}
             </button>
           </label>
-          {register && <small className="login-hint">Mínimo de 12 caracteres.</small>}
+          {register && <small className="login-hint">Mínimo de 6 caracteres.</small>}
           <div className="login-row">
             <label className="login-check">
               <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} />

@@ -56,8 +56,8 @@ public static class AuthEndpoints
         auth.MapPost("/register", async (Credentials r, GameDb db, AuthSession sessions, HttpContext ctx) =>
         {
             var email = (r.Email ?? "").Trim().ToLowerInvariant();
-            if (!System.Net.Mail.MailAddress.TryCreate(email, out _) || email.Length > 254 || string.IsNullOrEmpty(r.Password) || r.Password.Length is < 12 or > 128 || string.IsNullOrWhiteSpace(r.Name) || r.Name.Length > 60)
-                return Results.BadRequest(new { message = "Informe nome, e-mail válido e senha entre 12 e 128 caracteres." });
+            if (!System.Net.Mail.MailAddress.TryCreate(email, out _) || email.Length > 254 || string.IsNullOrEmpty(r.Password) || r.Password.Length is < 6 or > 128 || string.IsNullOrWhiteSpace(r.Name) || r.Name.Length > 60)
+                return Results.BadRequest(new { message = "Informe nome, e-mail válido e senha entre 6 e 128 caracteres." });
             if (await db.Accounts.AnyAsync(a => a.Email == email)) return Results.Conflict(new { message = "Não foi possível cadastrar este e-mail." });
             var a = new Account { Email = email, Name = r.Name.Trim() };
             a.PasswordHash = new PasswordHasher<Account>().HashPassword(a, r.Password);

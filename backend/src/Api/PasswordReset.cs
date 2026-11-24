@@ -94,7 +94,7 @@ public static class PasswordResetEndpoints
 
         auth.MapPost("/reset", async (ResetRequest r, IConfiguration config, GameDb db, TimeProvider clock) =>
         {
-            if (string.IsNullOrEmpty(r.Password) || r.Password.Length is < 12 or > 128) return Results.BadRequest(new { message = "A senha precisa ter de 12 a 128 caracteres." });
+            if (string.IsNullOrEmpty(r.Password) || r.Password.Length is < 6 or > 128) return Results.BadRequest(new { message = "A senha precisa ter de 6 a 128 caracteres." });
             var token = PasswordResetTokens.Read(r.Token, clock.GetUtcNow(), config["Jwt:Key"]!);
             var account = token == null ? null : await db.Accounts.FindAsync(token.Value.UserId);
             if (token == null || account == null || GoogleSignIn.IsGoogleAccount(account) || !PasswordResetTokens.Matches(account, token.Value.Fingerprint))

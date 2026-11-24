@@ -43,6 +43,8 @@ assert.equal(releaseFor(clubs[0],directory,releases).source,'y','devolve o regis
 
 assert.equal(leagueName({dataVersion:'serie-b-2026-clubes-reais-v1'}),'Brasileirão Série B');
 assert.equal(leagueName({dataVersion:'serie-c-2026-clubes-reais-v1'}),'Brasileirão Série C');
+assert.equal(leagueName({dataVersion:'serie-d-2026-grupo-07-v1'}),'Brasileirão Série D');
+{const d={...clubs[6],group:7,version:'serie-d-2026-grupo-07-v1'};const dir={versions:{...directory.versions,D:['serie-d-2026-grupo-07-v1']}};const rel=[{id:'g7',version:'serie-d-2026-grupo-07-v1'}];assert.equal(isPlayable(d,dir),true,'Série D jogável quando há versões');assert.equal(releaseFor(d,dir,rel).id,'g7','clube da Série D começa pela versão do seu grupo');assert.equal(releaseFor(d,dir,[{id:'x',version:'serie-d-2026-grupo-08-v1'}]),undefined,'sem a versão do grupo não há carreira');}
 assert.equal(leagueName({dataVersion:'serie-a-2026-misto-candidatos-v2'}),'Brasileirão Série A');
 assert.equal(leagueName({dataVersion:'fictional-2026-v1',division:'B'}),'Brasileirão Série B','divisão demonstrativa continua valendo fora das bases reais');
 assert.equal(Object.keys(stateNames).length,27,'27 unidades da federação');

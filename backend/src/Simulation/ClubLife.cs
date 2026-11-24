@@ -38,6 +38,7 @@ public static class ClubLife
     static int BoardTarget(GameState g)
     {
         var club=g.Clubs.Find(c=>c.Id==g.ClubId)!;
+        if(g.SerieD!=null)return 4; // the four best of each group go through to the final phase
         if(g.DataVersion.StartsWith("serie-b-2026",StringComparison.Ordinal)||g.DataVersion.StartsWith("serie-c-2026",StringComparison.Ordinal))
         {
             var rank=g.Clubs.OrderByDescending(c=>c.Strength).ThenBy(c=>c.Id,StringComparer.Ordinal).ToList().FindIndex(c=>c.Id==club.Id);

@@ -34,6 +34,7 @@ public static class ManagementEndpoints
             g.CalendarVersion,
             division = g.Divisions?.ManagedDivision ?? "A",
             otherClubs = g.Divisions?.OtherClubs ?? [],
+            serieD = g.SerieD == null ? null : new { g.SerieD.Group, g.SerieD.Others, g.SerieD.Qualified, g.SerieD.Promoted, g.SerieD.Results },
             g.Season,
             g.SeasonRounds,
             g.LeagueStart,

@@ -10,6 +10,9 @@ export type DirectoryClub = {
   city: string;
   uf: string;
   check?: string;
+  // Série D clubs start in the data version of their group of six.
+  group?: number;
+  version?: string;
 };
 export type Directory = {
   season: number;
@@ -73,7 +76,7 @@ export function releaseFor<R extends ReleaseRef>(
   releases: R[],
   preferred = "",
 ): R | undefined {
-  const versions = directory.versions[club.series] ?? [];
+  const versions = club.version ? [club.version] : (directory.versions[club.series] ?? []);
   const version = versions.includes(preferred) ? preferred : versions.find((v) => releases.some((r) => r.version === v));
   return releases.find((release) => release.version === version);
 }
@@ -90,6 +93,8 @@ export function leagueName(state: { dataVersion: string; division?: string }) {
     ? "B"
     : state.dataVersion.startsWith("serie-c-")
       ? "C"
-      : (state.division ?? "A");
+      : state.dataVersion.startsWith("serie-d-")
+        ? "D"
+        : (state.division ?? "A");
   return `Brasileirão Série ${series}`;
 }

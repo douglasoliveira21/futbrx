@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { seasonRounds } from "./season";
-import { aggregate, legLabel, played } from "./ties";
+import { aggregate, legLabel, played, stageLabel, visibleMatches } from "./ties";
+import { SerieDPanel } from "./SerieDPanel";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   api,
@@ -36,6 +37,8 @@ type Cup = {
   champion: string;
   prize: number;
   legs?: number;
+  light?: boolean;
+  promotion?: boolean;
   matches: { id: string; stage: number; tie?: string; leg?: number; winner: string; fixture: Fixture }[];
 };
 type Life = {
@@ -229,7 +232,7 @@ export default function ClubLifeCenter({
         <Button onClick={() => void query.refetch()}>Tentar novamente</Button>
       </div>
     );
-  const clubs = [...c.state.clubs, ...life.extraClubs],
+  const clubs = [...c.state.clubs, ...life.extraClubs, ...(c.state.serieD?.others ?? [])],
     club = (id: string) => clubs.find((c) => c.id === id)?.name ?? id;
   const pendingInterview = life.press.find(
     (s) => s.kind === "Coletiva" && !s.answer && s.season === c.state.season,
@@ -760,6 +763,7 @@ export default function ClubLifeCenter({
             liga. Não há avanço automático dessas partidas. Os formatos abaixo
             são demonstrativos e gerados para esta carreira.
           </p>
+          {c.state.serieD && <SerieDPanel c={c} club={club} />}
           {life.competitions.map((cup) => (
             <article className="life-card cup-dossier" key={cup.id}>
               <div className="life-card-heading">
@@ -767,7 +771,7 @@ export default function ClubLifeCenter({
                   <span className="eyebrow">
                     {cup.champion
                       ? "COMPETIÇÃO ENCERRADA"
-                      : `FASE ${cup.stage + 1}`}
+                      : stageLabel(cup.id, cup.stage).toUpperCase()}
                   </span>
                   <h3>{cup.name}</h3>
                 </div>
@@ -775,8 +779,13 @@ export default function ClubLifeCenter({
               </div>
               <p>{cup.format}</p>
               {cup.champion && <h4>Campeão: {club(cup.champion)}</h4>}
+              {cup.light && (
+                <p className="muted">
+                  {cup.matches.filter((m) => m.stage === cup.stage && played(m)).length} de {cup.matches.filter((m) => m.stage === cup.stage).length} jogos da fase atual disputados. Só as partidas do seu clube aparecem aqui; as demais são decididas pela força dos clubes.
+                </p>
+              )}
               <div className="life-grid">
-                {cup.matches.map((m) => (
+                {visibleMatches(cup.light, cup.matches, c.state.clubId).map((m) => (
                   <div
                     key={m.id}
                     className={
@@ -788,7 +797,7 @@ export default function ClubLifeCenter({
                     }
                   >
                     <span>
-                      Fase {m.stage + 1}
+                      {stageLabel(cup.id, m.stage)}
                       {legLabel(cup, m) && ` · ${legLabel(cup, m)}`} · R
                       {m.fixture.round} · {m.fixture.date}
                     </span>

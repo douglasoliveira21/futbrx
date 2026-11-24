@@ -17,6 +17,8 @@ public static class CatalogEndpoints
         if (!existing.Contains(Game.Candidate2026Version)) catalogs.Add(Game.Candidate2026Catalog());
         if (!existing.Contains(Game.SerieB2026Version)) catalogs.Add(Game.SeriesCatalog("B"));
         if (!existing.Contains(Game.SerieC2026Version)) catalogs.Add(Game.SeriesCatalog("C"));
+        for (int group = 1; group <= SerieD.GroupCount; group++)
+            if (!existing.Contains(SerieD.Version(group))) catalogs.Add(SerieD.Catalog(group));
         foreach (var data in catalogs)
         {
             CatalogImport.Validate(data);
@@ -25,7 +27,7 @@ public static class CatalogEndpoints
                 Version = data.Version, Season = data.Season, Source = data.Source, License = data.License,
                 // The newest published version is the default for new careers. The Série B and C bases are
                 // chosen explicitly in the club picker, so they are dated early and never take over the default.
-                Published = true, PublishedAt = data.Version is Game.SerieB2026Version or Game.SerieC2026Version ? new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc) : DateTime.UtcNow
+                Published = true, PublishedAt = data.Version is Game.SerieB2026Version or Game.SerieC2026Version || SerieD.IsVersion(data.Version) ? new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc) : DateTime.UtcNow
             };
             db.Add(release);
             new CatalogStore(db).AddRows(release.Id, data);

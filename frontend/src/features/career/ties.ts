@@ -18,3 +18,13 @@ export function aggregate(cup: CupView, match: CupMatchView) {
   return { home: b.homeGoals + a.awayGoals, away: b.awayGoals + a.homeGoals };
 }
 export const played = (match: CupMatchView) => match.fixture.homeGoals != null;
+
+// Stage names of the Série D knockout; any other competition just numbers its phases.
+const serieDStages = ["Primeira fase", "Segunda fase", "Oitavas de final", "Quartas de final", "Semifinais", "Final"];
+export const stageLabel = (competitionId: string, stage: number) =>
+  competitionId === "serie-d" ? (serieDStages[stage] ?? `Fase ${stage + 1}`) : `Fase ${stage + 1}`;
+
+// Competitions marked `light` only broadcast the club's own matches; the others are summarised.
+export function visibleMatches<T extends { fixture: { home: string; away: string } }>(light: boolean | undefined, matches: T[], clubId: string) {
+  return light ? matches.filter((m) => m.fixture.home === clubId || m.fixture.away === clubId) : matches;
+}

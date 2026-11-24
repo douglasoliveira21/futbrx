@@ -112,6 +112,10 @@ public sealed class ClubCompetition
     public int Legs {get;set;}=1;
     // Weeks between the first and the second leg.
     public int LegGap {get;set;}=1;
+    // Light: ties between clubs the user does not manage are played without squads, from club strength only.
+    public bool Light {get;set;}
+    // Promotion: the winner of the tie earns a place in the next division instead of a title.
+    public bool Promotion {get;set;}
     public List<CupMatch> Matches {get;set;}=[];
     public string Champion {get;set;}="";
     public long Prize {get;set;}

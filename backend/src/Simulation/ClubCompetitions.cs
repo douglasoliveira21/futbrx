@@ -5,7 +5,7 @@ public static class ClubCompetitions
     public static void NewSeason(GameState g)
     {
         var life=g.Life!;
-        foreach(var c in life.Competitions.Where(c=>c.Champion!=""))life.Honours.Add($"{life.Season-1}: {c.Name} — {Name(g,c.Champion)}");
+        foreach(var c in life.Competitions.Where(c=>c.Champion!=""&&!c.Promotion))life.Honours.Add($"{life.Season-1}: {c.Name} — {Name(g,c.Champion)}");
         life.CupHistory.AddRange(life.Competitions.Select(c=>new ArchivedCompetition(g.Season-1,c)));
         life.Competitions.Clear();
         if(life.ExtraClubs.Count==0)life.ExtraClubs=[new("demo-andes","Andes FC","AND","#cc6b38",76),new("demo-plata","Atlético del Plata","PLA","#72a7e8",79),new("demo-pacifico","Unión del Pacífico","PAC","#e1c56b",74),new("demo-sur","Deportivo Sur","SUR","#7bbd96",75)];
@@ -13,10 +13,12 @@ public static class ClubCompetitions
         foreach(var c in life.ExtraClubs){if(!g.OpponentSquads.ContainsKey(c.Id)){int offset=500_000+life.ExtraClubs.IndexOf(c)*100;g.OpponentSquads[c.Id]=Game.Players(offset);foreach(var p in g.OpponentSquads[c.Id]){while(!usedIds.Add(p.Id))p.Id++;g.Contracts[p.Id]=new(){PlayerId=p.Id,ClubId=c.Id,StartSeason=g.Season,EndSeason=g.Season+3,Wage=p.Wage};}g.ClubBalances.TryAdd(c.Id,30_000_000);}}
         List<string> Field(int count)=>new[]{g.ClubId}.Concat(g.Clubs.Where(c=>c.Id!=g.ClubId).OrderBy(c=>ClubLife.Seed(g,"entry:"+g.Season+":"+c.Id)).Take(count-1).Select(c=>c.Id)).ToList();
         if(g.Round<=2)Add(g,"state","Estadual · circuito do clube",Field(4),[2,4],1_500_000,2);
-        if(g.Round<=6)Add(g,"copa","Copa do Brasil",Field(16),[6,14,24,34],12_000_000);
-        if(g.Round<=10){var last=g.PastSeasons.LastOrDefault();bool elite=last!=null?last.Table.FindIndex(t=>t.ClubId==g.ClubId) is >=0 and <6:g.Clubs.Find(c=>c.Id==g.ClubId)!.Strength>=78;var domestic=Field(4);var participants=domestic.SelectMany((id,i)=>new[]{id,life.ExtraClubs[i].Id}).ToList();Add(g,"continental",elite?"Libertadores":"Sul-Americana",participants,[10,22,36],elite?18_000_000:8_000_000);}
+        SerieD.NewSeason(g);
+        // Série D clubs play the state circuit and their own knockout; the national and continental cups are for the upper series.
+        if(g.Round<=6&&g.SerieD==null)Add(g,"copa","Copa do Brasil",Field(16),[6,14,24,34],12_000_000);
+        if(g.Round<=10&&g.SerieD==null){var last=g.PastSeasons.LastOrDefault();bool elite=last!=null?last.Table.FindIndex(t=>t.ClubId==g.ClubId) is >=0 and <6:g.Clubs.Find(c=>c.Id==g.ClubId)!.Strength>=78;var domestic=Field(4);var participants=domestic.SelectMany((id,i)=>new[]{id,life.ExtraClubs[i].Id}).ToList();Add(g,"continental",elite?"Libertadores":"Sul-Americana",participants,[10,22,36],elite?18_000_000:8_000_000);}
     }
-    static string Name(GameState g,string club)=>g.Clubs.Concat(g.Life!.ExtraClubs).FirstOrDefault(c=>c.Id==club)?.Name??club;
+    static string Name(GameState g,string club)=>g.Clubs.Concat(g.Life!.ExtraClubs).Concat(g.SerieD?.Others??[]).FirstOrDefault(c=>c.Id==club)?.Name??club;
     public static ClubCompetition Add(GameState g,string id,string name,List<string> participants,List<int> rounds,long prize,int legs=1)
     {
         var competition=new ClubCompetition{Id=id,Name=name,Rounds=rounds,Prize=prize,Legs=legs,Format=id=="state"?"Circuito estadual demonstrativo de quatro clubes do catálogo. Mata-mata em jogo único; empate nos pênaltis. Não reproduz o regulamento oficial.":id=="continental"?"Circuito continental demonstrativo: oito clubes, incluindo quatro adversários fictícios internacionais. Jogo único e pênaltis. Qualificação inicial por força do clube; próximas temporadas por colocação.":"Copa gerada com dezesseis clubes do catálogo, jogo único e pênaltis; formato simplificado."};
@@ -45,6 +47,7 @@ public static class ClubCompetitions
     public static MatchSetup Setup(GameState g,ClubCompetition competition,CupMatch match)
     {
         var f=match.Fixture;int lead=0;
+        SerieD.EnsureSquad(g,f.Home);SerieD.EnsureSquad(g,f.Away);
         if(competition.Legs==2&&match.Leg==2)
         {
             var first=competition.Matches.First(m=>m.Tie==match.Tie&&m.Leg==1).Fixture;
@@ -58,11 +61,12 @@ public static class ClubCompetitions
     public static void Advance(GameState g,bool includeManaged=false)
     {
         if(g.Life==null)return;
-        foreach(var competition in g.Life.Competitions){
+        foreach(var competition in g.Life.Competitions.ToList()){
             for(int pass=0;pass<6&&competition.Champion=="";pass++){
                 int stage=competition.Stage;
                 foreach(var match in competition.Matches.Where(m=>m.Stage==stage&&m.Fixture.HomeGoals==null&&m.Fixture.Round<=g.Round).ToList()){
                     if(!includeManaged&&(match.Fixture.Home==g.ClubId||match.Fixture.Away==g.ClubId))continue;
+                    if(competition.Light&&match.Fixture.Home!=g.ClubId&&match.Fixture.Away!=g.ClubId){SerieD.LightPlay(g,competition,match);Complete(g,match);continue;}
                     if(includeManaged)Sports.RepairSelection(g.Squad,true);
                     match.Fixture.Setup=Setup(g,competition,match);
                     Game.ApplyResult(match.Fixture,MatchSimulation.Run(match.Fixture.Setup,match.Fixture.Seed,false));Complete(g,match);
@@ -97,8 +101,8 @@ public static class ClubCompetitions
     {
         if(competition.Champion!="")return;
         var current=competition.Matches.Where(m=>m.Stage==competition.Stage).ToList();if(current.Any(m=>m.Winner==""))return;var ties=current.Where(m=>m.Leg==1).ToList();
-        if(ties.Count==1){competition.Champion=ties[0].Winner;g.News.Insert(0,competition.Name+": campeão "+Name(g,competition.Champion)+".");if(competition.Champion==g.ClubId){g.Balance+=competition.Prize;g.Ledger.Add(new(g.Round,"Título: "+competition.Name,competition.Prize,g.Season));g.Life!.Board.Confidence=Math.Min(100,g.Life.Board.Confidence+12);}return;}
-        competition.Stage++;CreateStage(g,competition,ties.Select(m=>m.Winner).ToList());
+        if(ties.Count==1){competition.Champion=ties[0].Winner;g.News.Insert(0,competition.Promotion?competition.Name+": "+Name(g,competition.Champion)+" garante o acesso.":competition.Name+": campeão "+Name(g,competition.Champion)+".");SerieD.OnChampion(g,competition);if(competition.Champion==g.ClubId){g.Balance+=competition.Prize;g.Ledger.Add(new(g.Round,"Título: "+competition.Name,competition.Prize,g.Season));g.Life!.Board.Confidence=Math.Min(100,g.Life.Board.Confidence+12);}return;}
+        competition.Stage++;CreateStage(g,competition,ties.Select(m=>m.Winner).ToList());SerieD.OnStage(g,competition);
     }
     public static object Calendar(GameState g)=>new {
         notice="Datas e deslocamentos estimados pelo jogo. Pausas de seleções geradas, sem compromisso com a tabela oficial.",

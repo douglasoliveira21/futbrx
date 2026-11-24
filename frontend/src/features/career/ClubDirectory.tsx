@@ -158,7 +158,7 @@ export default function ClubDirectory({
                     title={
                       playable
                         ? undefined
-                        : "A Série D ainda não é jogável: seu formato (grupos e mata-mata de ida e volta) vem em uma próxima etapa."
+                        : "Este clube ainda não tem uma base de dados para jogar."
                     }
                   >
                     <Crest club={club} />

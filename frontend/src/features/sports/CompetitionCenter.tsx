@@ -44,7 +44,7 @@ export default function CompetitionCenter({ c }: { c: Career }) {
       <section className="panel" style={{ padding: 24 }}>
         <h2>Competição e acesso</h2>
         <p>
-          {seasonRounds(c.state)} rodadas, turno e returno. Desempate: pontos, vitórias, saldo, gols
+          {c.state.serieD ? "10 rodadas de grupo, em turno e returno, e a fase final de mata-matas de ida e volta (22 semanas no total)" : `${seasonRounds(c.state)} rodadas, turno e returno`}. Desempate: pontos, vitórias, saldo, gols
           pró, confronto direto entre dois clubes, menos vermelhos, menos
           amarelos e sorteio persistente na carreira.
         </p>

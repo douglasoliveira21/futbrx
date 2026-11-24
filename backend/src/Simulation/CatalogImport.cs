@@ -41,8 +41,10 @@ public static class CatalogImport
         if (string.IsNullOrWhiteSpace(d.License) || d.License.Length > 500) errors.Add("Informe a licença/autorização dos dados (até 500 caracteres).");
         if (d.Clubs is null || d.Players is null) throw new GameRuleException("Listas clubs e players são obrigatórias.");
         if (d.Players.Any(p => p is null || p.Player is null || p.ClubId is null)) throw new GameRuleException("Registros de jogador e vínculo não podem ser nulos.");
-        if (d.Clubs.Count != 20 || d.Clubs.Any(c => c is null) || d.Clubs.Select(c => c.Id).Distinct().Count() != 20)
-            errors.Add("O catálogo da Série A deve conter exatamente vinte clubes com IDs distintos.");
+        // A Série D data version is one group of six clubs; every other version has twenty.
+        int expectedClubs = (d.Version ?? "").StartsWith(Game.SerieDVersionPrefix, StringComparison.Ordinal) ? 6 : 20;
+        if (d.Clubs.Count != expectedClubs || d.Clubs.Any(c => c is null) || d.Clubs.Select(c => c.Id).Distinct().Count() != expectedClubs)
+            errors.Add($"O catálogo deve conter exatamente {(expectedClubs == 6 ? "seis" : "vinte")} clubes com IDs distintos.");
         if (d.Clubs.Any(c => c is null)) throw new GameRuleException(string.Join(" ", errors));
         foreach (var c in d.Clubs)
             if (!Regex.IsMatch(c.Id ?? "", @"^[a-z0-9-]{2,20}$") || string.IsNullOrWhiteSpace(c.Name) || c.Name.Length > 80 ||

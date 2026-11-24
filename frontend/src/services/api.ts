@@ -183,6 +183,17 @@ export type State = {
   calendarSource?: string;
   division?: string;
   otherClubs?: Club[];
+  // Série D: the 90 clubs of the other groups, the final tables of the 16 groups and the six promoted clubs.
+  serieD?: {
+    group: number;
+    others: Club[];
+    qualified: string[];
+    promoted: string[];
+    results: {
+      group: number;
+      table: { clubId: string; points: number; played: number; wins: number; draws: number; losses: number; goals: number; against: number; difference: number }[];
+    }[];
+  } | null;
   sportsVersion: number;
   benchIds: number[];
   substitutions: SubstitutionPlan[];

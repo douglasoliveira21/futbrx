@@ -22,6 +22,8 @@ public class GameState
     public int SeasonRounds { get; set; } = 38;
     public int LeagueStart { get; set; } = 1;
     public DivisionSeason? Divisions { get; set; }
+    // Série D: the club's group of six is the league; the other 90 clubs only exist as names and strengths.
+    public SerieDState? SerieD { get; set; }
     public List<LoanDeal> Loans { get; set; } = [];
     public List<TransferPayment> TransferPayments { get; set; } = [];
     public int YouthVersion { get; set; }

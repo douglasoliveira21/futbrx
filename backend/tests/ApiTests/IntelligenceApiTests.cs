@@ -26,6 +26,11 @@ public static class IntelligenceApiTests
         Check(directory.GetProperty("clubs").GetArrayLength()==156&&directory.GetProperty("versions").GetProperty("B")[0].GetString()=="serie-b-2026-clubes-reais-v1","API entrega o diretório de 156 clubes e as versões por série");
         var catalogs=await Json(await owner.GetAsync("/api/catalogs"));var versions=catalogs.EnumerateArray().Select(x=>x.GetProperty("version").GetString()).ToList();
         Check(versions.Contains("serie-b-2026-clubes-reais-v1")&&versions.Contains("serie-c-2026-clubes-reais-v1"),"Catálogos das Séries B e C estão publicados");
+        var dClub=directory.GetProperty("clubs").EnumerateArray().First(x=>x.GetProperty("series").GetString()=="D");var dVersion=dClub.GetProperty("version").GetString()!;
+        Check(directory.GetProperty("versions").GetProperty("D").GetArrayLength()==16&&versions.Count(v=>v!.StartsWith("serie-d-2026-grupo-"))==16&&versions.Contains(dVersion),"Série D tem 16 versões de dados publicadas, uma por grupo");
+        var dRelease=catalogs.EnumerateArray().First(x=>x.GetProperty("version").GetString()==dVersion).GetProperty("id").GetString();
+        var dCareer=await Json(await owner.PostAsJsonAsync("/api/careers/",new{name="Série D",clubId=dClub.GetProperty("id").GetString(),releaseId=dRelease}));var dState=(await Json(await owner.GetAsync("/api/careers/"+dCareer.GetProperty("id").GetString()))).GetProperty("state");
+        Check(dState.GetProperty("seasonRounds").GetInt32()==22&&dState.GetProperty("clubs").GetArrayLength()==6&&dState.GetProperty("fixtures").GetArrayLength()==30&&dState.GetProperty("serieD").GetProperty("others").GetArrayLength()==90,"Carreira da Série D abre com o grupo de seis, 30 jogos e os outros 90 clubes");
         Check((await owner.PostAsJsonAsync(path+"/tactical-plan",new{revision=revision-1,plan})).StatusCode==HttpStatusCode.Conflict,"Revisão impede sobrescrever plano por uma tela antiga");
         var catalog=await Json(await owner.GetAsync(path+"/sports/tactical-catalog"));Check(catalog.GetProperty("formations").GetArrayLength()>=40,"Catálogo de formações disponível ao dono da carreira");
         Check((await other.GetAsync(path+"/sports/tactical-catalog")).StatusCode==HttpStatusCode.NotFound,"Catálogo e planos da carreira não ficam disponíveis para outra conta");

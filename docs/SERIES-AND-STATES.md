@@ -1,7 +1,7 @@
 # Clubes por série e estado
 
 Estado desta etapa (23/11/2026): o jogo tem 156 clubes reais das Séries A a D de 2026, a escolha de clube
-filtra por divisão, estado e nome, e as Séries A, B e C são jogáveis. A Série D está listada, mas ainda não é jogável.
+filtra por divisão, estado e nome, e as Séries A, B, C e D são jogáveis.
 
 ## Dados
 
@@ -65,20 +65,36 @@ um ou dois jogos em uma mesma semana (como já acontecia com as copas).
   estão decididos. Transmissão, tela inicial e aba de copas mostram "Ida"/"Volta" e o agregado.
 - O Estadual demonstrativo passou a ser em ida e volta; a Copa do Brasil continua em jogo único.
 
-Ainda não existe: competições com formato próprio (grupos, estaduais reais), uma tela de calendário agrupada por
-competição e a simulação leve dos jogos de outros clubes.
+Ainda não existe: estaduais reais e uma tela de calendário agrupada por competição. A simulação leve de jogos de
+outros clubes existe na Série D.
 
-## Série D (desenho aprovado, ainda não implementado)
+## Série D (jogável)
 
-Formato lido na página da edição de 2026 (parte do regulamento; fases e grupos ainda a conferir):
+Formato (regulamento de 2026, lido na página da edição; fases e grupos ainda a conferir):
 
-- 96 clubes em 16 grupos de 6, por distribuição geográfica; ida e volta, 10 rodadas.
-- Os 4 primeiros de cada grupo avançam (64 clubes) para mata-matas de ida e volta até a fase final.
-- Sobem 6 para a Série C: os 2 finalistas, os 2 semifinalistas e 2 vencedores de playoffs entre eliminados nas quartas.
-- Não há rebaixamento: a cada ano os clubes entram pelos campeonatos estaduais e pelos rebaixados da Série C.
-- Início em abril e fim em setembro.
+- 96 clubes em 16 grupos de 6, ida e volta, 10 rodadas. Os 4 primeiros de cada grupo (64 clubes) avançam.
+- Mata-matas de ida e volta em seis fases (64, 32, 16, quartas, semifinais e final), uma por quinzena: semanas 11 a 22.
+- Sobem 6 para a Série C: os 2 finalistas, os 2 semifinalistas eliminados e os 2 vencedores da repescagem entre os
+  4 eliminados nas quartas (repescagem de ida e volta, jogada junto com as semifinais).
+- Não há rebaixamento; início em abril e fim em setembro (o jogo usa as mesmas semanas das outras séries).
 
-Decisão (opção A): seguir o regulamento, com o grupo real de 6 clubes e mata-matas de ida e volta. Os outros 15 grupos
-são simulados em segundo plano guardando só a classificação, e os elencos dos adversários são gerados sob demanda,
-para o save não crescer. Depende de um **calendário por competição** (grupos, mata-mata de ida e volta, estaduais),
-que é o próximo passo, seguido dos estaduais e da Série D.
+Como o jogo faz isso (`backend/src/Simulation/SerieD.cs`):
+
+- Cada grupo é uma versão de dados com seis clubes (`serie-d-2026-grupo-01-v1` a `-16-v1`); a versão de cada clube vem
+  no diretório (`group`, `version`). O catálogo da Série D tem seis clubes em vez de vinte.
+- **Grupos formados pelo projeto**, por proximidade geográfica (ordem dos estados do norte ao sul), porque os grupos
+  oficiais ainda não foram lidos. Trocar para os oficiais é só reordenar a lista no diretório.
+- A carreira joga o grupo de seis (`SeasonCalendar` gera 10 rodadas para seis clubes). Os outros 90 clubes existem só
+  como nome e força (`GameState.SerieD.Others`); **os elencos deles só são criados quando o clube enfrenta o
+  adversário** (`SerieD.EnsureSquad`), então o save não cresce.
+- Ao terminar o grupo, os outros 15 grupos são simulados de uma vez pela força dos clubes, guardando só a tabela
+  final; os 64 classificados entram em ordem de campanha (melhor contra pior, chave padrão).
+- Jogos do mata-mata entre outros clubes (`ClubCompetition.Light`) saem de gols sorteados pela força dos dois, sem
+  elencos nem transmissão, com agregado e pênaltis como nos demais mata-matas. Só os jogos do clube são transmitidos.
+- Clube eliminado passa as semanas restantes com "Avançar semana" até o fim da temporada.
+- Economia em 10% da Série A; meta da diretoria: ficar entre os 4 primeiros do grupo. Tela de Competições mostra as
+  16 tabelas e quem subiu.
+
+Limites: o acesso e o descenso entre séries ainda não mudam a divisão do clube na temporada seguinte (a carreira
+recomeça no mesmo grupo), a força dos clubes ainda não altera os elencos, e a Série D não disputa Copa do Brasil nem
+copas continentais; o Estadual continua demonstrativo.

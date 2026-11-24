@@ -15,20 +15,22 @@ public static class SeasonCalendar
     }
     public static List<Fixture> Generate(List<Club> clubs, int season, string careerSeed, string division = "A", int startRound = 1)
     {
-        if (clubs.Count != 20 || clubs.Select(c => c.Id).Distinct().Count() != 20) throw new GameRuleException("O calendário exige vinte clubes distintos.");
+        // Twenty clubs (Séries A to C) or the six of a Série D group, in double round robin.
+        int n = clubs.Count, half = n / 2;
+        if (n is not (20 or 6) || clubs.Select(c => c.Id).Distinct().Count() != n) throw new GameRuleException("O calendário exige vinte clubes distintos (ou seis, na Série D).");
         if (season is < 1 or > 9999) throw new GameRuleException("Ano fora do intervalo suportado pelo calendário.");
         var rng = RandomFor(season, careerSeed, division);
         var ids = clubs.Select(c => c.Id).Order(StringComparer.Ordinal).ToList(); Shuffle(ids, rng);
         List<Fixture> fixtures = [];
-        for (int round = 1; round <= 19; round++)
+        for (int round = 1; round <= n - 1; round++)
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < half; i++)
             {
-                var home = ids[i]; var away = ids[19 - i]; if (round % 2 == 0) (home, away) = (away, home);
+                var home = ids[i]; var away = ids[n - 1 - i]; if (round % 2 == 0) (home, away) = (away, home);
                 fixtures.Add(new() { Round = round + startRound - 1, Home = home, Away = away, Seed = rng.Next() });
-                fixtures.Add(new() { Round = round + 19 + startRound - 1, Home = away, Away = home, Seed = rng.Next() });
+                fixtures.Add(new() { Round = round + (n - 1) + startRound - 1, Home = away, Away = home, Seed = rng.Next() });
             }
-            var last = ids[^1]; ids.RemoveAt(19); ids.Insert(1, last);
+            var last = ids[^1]; ids.RemoveAt(n - 1); ids.Insert(1, last);
         }
         fixtures = fixtures.OrderBy(f => f.Round).ThenBy(f => f.Home, StringComparer.Ordinal).ToList();
         AssignDates(fixtures, season, careerSeed, division, false);

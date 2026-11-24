@@ -40,13 +40,16 @@ public static class Game
 
     public const string SerieB2026Version = "serie-b-2026-clubes-reais-v1";
     public const string SerieC2026Version = "serie-c-2026-clubes-reais-v1";
+    // Série D has one data version per group of six clubs: "serie-d-2026-grupo-01-v1" to "-16-v1".
+    public const string SerieDVersionPrefix = "serie-d-2026-grupo-";
     private sealed record SeriesClub(string Id, string Series, string Name, string Short, string Color, int Strength);
     private sealed record SeriesSource(List<SeriesClub> Clubs);
 
     // The lower series move less money: starting cash and the cash of the other clubs scale with it.
     public static double EconomyFactor(string version) =>
         version.StartsWith("serie-b-2026", StringComparison.Ordinal) ? .45
-        : version.StartsWith("serie-c-2026", StringComparison.Ordinal) ? .2 : 1;
+        : version.StartsWith("serie-c-2026", StringComparison.Ordinal) ? .2
+        : version.StartsWith(SerieDVersionPrefix, StringComparison.Ordinal) ? .1 : 1;
 
     // Real clubs of Série B or C 2026 (20 each), from the researched directory in series-2026.json.
     public static SeasonCatalog SeriesCatalog(string series)
@@ -83,7 +86,14 @@ public static class Game
             ["A"] = new System.Text.Json.Nodes.JsonArray(Candidate2026Version, Clubs2026Version),
             ["B"] = new System.Text.Json.Nodes.JsonArray(SerieB2026Version),
             ["C"] = new System.Text.Json.Nodes.JsonArray(SerieC2026Version),
+            ["D"] = new System.Text.Json.Nodes.JsonArray(SerieD.Versions().Select(v => (System.Text.Json.Nodes.JsonNode?)v).ToArray()),
         };
+        // Every Série D club starts in the data version of its group.
+        foreach (var club in node["clubs"]!.AsArray().OfType<System.Text.Json.Nodes.JsonObject>().Where(c => c["series"]!.GetValue<string>() == "D"))
+        {
+            var (group, version) = SerieD.Entry(club["id"]!.GetValue<string>());
+            club["group"] = group; club["version"] = version;
+        }
         return node.ToJsonString();
     });
     public static string DirectoryJson() => directory.Value;
@@ -145,6 +155,7 @@ public static class Game
         }
         g.Market = copy.Players.Where(p => p.ClubId == "").Select(p => p.Player).ToList();
         foreach (var p in g.Market) p.Starter = false;
+        if (SerieD.IsVersion(copy.Version)) { g.SerieD = SerieD.Create(copy); g.SeasonRounds = SerieD.SeasonRounds; }
         g.Fixtures = SeasonCalendar.Generate(g.Clubs, g.Season, g.LotterySeed);
         g.CalendarSource = SeasonCalendar.Source; g.CalendarVersion = 2;
         TransferMarket.Upgrade(g);
@@ -194,6 +205,7 @@ public static class Game
         Sports.AfterRound(g, g.Fixtures.Concat(g.Divisions?.OtherFixtures ?? []).Where(f => f.Round == g.Round).ToList());
         ClubLife.AfterRound(g);
         ClubCompetitions.Advance(g);
+        SerieD.AfterRound(g);
         CoachCareer.SettleRound(g);
         CoachCareer.ProcessCompleted(g);
         g.Round++;

@@ -5,7 +5,7 @@ namespace Brasileirao;
 public static class LiveBroadcast
 {
     // Série B and C careers play their own league; every other base keeps the plain league name.
-    static string LeagueTitle(GameState g)=>g.DataVersion.StartsWith("serie-b-2026",StringComparison.Ordinal)?"Brasileirão Série B":g.DataVersion.StartsWith("serie-c-2026",StringComparison.Ordinal)?"Brasileirão Série C":"Brasileirão";
+    static string LeagueTitle(GameState g)=>g.DataVersion.StartsWith("serie-b-2026",StringComparison.Ordinal)?"Brasileirão Série B":g.DataVersion.StartsWith("serie-c-2026",StringComparison.Ordinal)?"Brasileirão Série C":g.SerieD!=null?"Brasileirão Série D":"Brasileirão";
     public const int EntranceSeconds = 12;
     public const int Speed = PositionalV5.TimeScale;
     public static double MatchSecond(LiveMatch live) => Math.Clamp(Math.Round((live.WatchedSeconds - EntranceSeconds) * Speed, 6), 0, live.Duration);

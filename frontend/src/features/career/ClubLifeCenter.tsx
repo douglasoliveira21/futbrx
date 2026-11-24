@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { seasonRounds } from "./season";
+import { aggregate, legLabel, played } from "./ties";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   api,
@@ -34,7 +35,8 @@ type Cup = {
   stage: number;
   champion: string;
   prize: number;
-  matches: { id: string; stage: number; winner: string; fixture: Fixture }[];
+  legs?: number;
+  matches: { id: string; stage: number; tie?: string; leg?: number; winner: string; fixture: Fixture }[];
 };
 type Life = {
   board: {
@@ -786,7 +788,9 @@ export default function ClubLifeCenter({
                     }
                   >
                     <span>
-                      Fase {m.stage + 1} · R{m.fixture.round} · {m.fixture.date}
+                      Fase {m.stage + 1}
+                      {legLabel(cup, m) && ` · ${legLabel(cup, m)}`} · R
+                      {m.fixture.round} · {m.fixture.date}
                     </span>
                     <h4>
                       {club(m.fixture.home)}{" "}
@@ -804,7 +808,19 @@ export default function ClubLifeCenter({
                         {m.fixture.awayPenalties}
                       </p>
                     )}
-                    {m.winner ? (
+                    {(() => {
+                      const total = aggregate(cup, m);
+                      return (
+                        total && (
+                          <p>
+                            Agregado: {club(m.fixture.home)} {total.home}–
+                            {total.away} {club(m.fixture.away)}
+                            {m.winner && ` · classificado: ${club(m.winner)}`}
+                          </p>
+                        )
+                      );
+                    })()}
+                    {played(m) ? (
                       <Button
                         variant="ghost"
                         onClick={() => onReplay?.(m.fixture)}

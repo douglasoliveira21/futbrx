@@ -13,7 +13,8 @@ public static class PositionalV8
         MatchReplay? final=null;
         foreach(var step in PositionalV7.Stream(setup with{EngineVersion=PositionalV7.Version},seed,captureFrames,intelligence,delayedKeeper,physicalShots,continuousContacts,realisticThrowIns,throwInSupport)){
             var replay=step.Replay with{EngineVersion=Version,Setup=setup};
-            if(step.Finished&&setup.Knockout&&replay.HomeGoals==replay.AwayGoals){final=replay;break;}
+            // A second leg is level when this match plus the goals already scored in the first leg are equal.
+            if(step.Finished&&setup.Knockout&&replay.HomeGoals+setup.AggregateLead==replay.AwayGoals){final=replay;break;}
             yield return step with{Replay=replay};
         }
         if(final==null)yield break;

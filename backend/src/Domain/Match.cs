@@ -3,7 +3,7 @@ namespace Brasileirao;
 public sealed record MatchPlayer(int Id, string Name, string Position, int Rating, int Fitness, string NaturalPosition = "",Dictionary<string,int>? Skills=null,string PreferredFoot="Não informado");
 public sealed record MatchTeam(string Id, string Formation, string Mentality, List<MatchPlayer> Players, List<MatchPlayer>? Bench = null, List<SubstitutionPlan>? Substitutions = null, bool AutoSubstitute = true,TacticalPlan? Plan=null,bool ComputerControlled=false);
 public sealed record MatchInstruction(int Second, string Team, string Type, string Formation = "", string Mentality = "", int OutPlayerId = 0, int InPlayerId = 0, bool AtHalfTime = false,TacticalPlan? Plan=null);
-public sealed record MatchSetup(string EngineVersion, MatchTeam Home, MatchTeam Away, List<MatchInstruction>? Instructions = null, bool Knockout = false);
+public sealed record MatchSetup(string EngineVersion, MatchTeam Home, MatchTeam Away, List<MatchInstruction>? Instructions = null, bool Knockout = false, int AggregateLead = 0);
 public sealed record Position3(double X, double Y, double Z);
 public sealed record ReplayDiagnostics(string State, string? Restart, int? EventIndex);
 public sealed record PlayerPose(int Id, int Team, double X, double Z, double Yaw, string Action, bool Active = true, string Name = "", string Position = "", int ActionSecond = -1, [property:System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] int? Fitness = null);

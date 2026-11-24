@@ -54,8 +54,19 @@ um ou dois jogos em uma mesma semana (como já acontecia com as copas).
 - Na tela inicial, o botão vira "Avançar semana" quando o próximo jogo está em outra semana; a barra superior mostra
   "Rodada X de N" com N da carreira.
 
-Ainda não existe: competições com formato próprio (grupos, mata-mata de ida e volta, estaduais reais), uma tela de
-calendário agrupada por competição e a simulação leve dos jogos de outros clubes.
+## Mata-mata de ida e volta (etapa 2)
+
+`ClubCompetition.Legs` (1 ou 2) e `LegGap` (semanas entre ida e volta) definem o formato; o padrão segue em jogo único.
+
+- Cada confronto gera duas partidas (`CupMatch.Tie`, `Leg` 1 e 2): a volta fica na semana seguinte, com o mando invertido.
+- A ida pode terminar empatada, sem pênaltis. A volta decide e soma a ida (`MatchSetup.AggregateLead`): o motor só
+  cobra pênaltis se o agregado estiver empatado. Não há gol fora de casa.
+- O vencedor é gravado nas duas partidas; a fase só avança (ou o campeão só é definido) quando todos os confrontos
+  estão decididos. Transmissão, tela inicial e aba de copas mostram "Ida"/"Volta" e o agregado.
+- O Estadual demonstrativo passou a ser em ida e volta; a Copa do Brasil continua em jogo único.
+
+Ainda não existe: competições com formato próprio (grupos, estaduais reais), uma tela de calendário agrupada por
+competição e a simulação leve dos jogos de outros clubes.
 
 ## Série D (desenho aprovado, ainda não implementado)
 

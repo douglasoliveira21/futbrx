@@ -23,8 +23,8 @@ public static class LiveBroadcast
         Fixture fixture;
         if(cup!=null){Sports.Prepare(prepared);ClubLife.Travel(prepared,cup.Fixture,ClubCompetitions.CompetitionName(prepared,cup) is "Libertadores" or "Sul-Americana");fixture=cup.Fixture;}
         else{Game.PrepareRound(prepared);fixture=prepared.Fixtures.SingleOrDefault(f=>f.Round==g.Round&&(f.Home==g.ClubId||f.Away==g.ClubId))??throw new GameRuleException("Seu clube não joga nesta semana. Avance a semana para o próximo compromisso.");}
-        fixture.Setup=new(MatchSimulation.Version,Sports.BuildTeam(prepared,fixture.Home),Sports.BuildTeam(prepared,fixture.Away),Knockout:cup!=null);
-        return g.LiveMatch=new(){CompetitionMatchId=cup?.Id??"",CompetitionName=cup==null?LeagueTitle(g):ClubCompetitions.CompetitionName(prepared,cup),ManagedTeam=g.ClubId,StartingBalance=g.Balance,Incremental=true,PreparedState=JsonSerializer.Serialize(prepared,Game.Json),Fixture=fixture,Season=g.Season,Duration=MatchSimulation.Duration,LastHeartbeat=now};
+        fixture.Setup=cup!=null?ClubCompetitions.Setup(prepared,prepared.Life!.Competitions.First(c=>c.Matches.Contains(cup)),cup):new(MatchSimulation.Version,Sports.BuildTeam(prepared,fixture.Home),Sports.BuildTeam(prepared,fixture.Away));
+        return g.LiveMatch=new(){CompetitionMatchId=cup?.Id??"",CompetitionName=cup==null?LeagueTitle(g):ClubCompetitions.CompetitionName(prepared,cup)+(cup.Fixture.Leg==1?" · Ida":cup.Fixture.Leg==2?" · Volta":""),ManagedTeam=g.ClubId,StartingBalance=g.Balance,Incremental=true,PreparedState=JsonSerializer.Serialize(prepared,Game.Json),Fixture=fixture,Season=g.Season,Duration=MatchSimulation.Duration,LastHeartbeat=now};
     }
 
     public static void Tick(LiveMatch live, DateTimeOffset now, bool playing, string clientId = "")
@@ -74,6 +74,6 @@ public static class LiveBroadcast
         live.Id,live.CompetitionName,live.CompetitionMatchId, live.Season, live.WatchedSeconds, live.Duration, live.SimulatedSecond, live.Incremental,
         entranceSeconds = EntranceSeconds, speed = MatchSimulation.SupportsControls(live.Fixture.Setup?.EngineVersion) ? live.PlaybackSpeed : Speed,
         live.ManagedTeam, live.PauseAfterSecond, live.StoppagePaused, live.HalfTimeAwaiting, live.HalfTimeAccepted, matchSecond=MatchSecond(live), controlsEnabled=MatchSimulation.SupportsControls(live.Fixture.Setup?.EngineVersion),
-        fixture = new { live.Fixture.Round, live.Fixture.Home, live.Fixture.Away, live.Fixture.Seed, live.Fixture.Setup, live.Fixture.Date, live.Fixture.Kickoff,live.Fixture.CompetitionMatchId,live.Fixture.CompetitionName, homeGoals = (int?)null, awayGoals = (int?)null, events = Array.Empty<MatchEvent>() }
+        fixture = new { live.Fixture.Round, live.Fixture.Home, live.Fixture.Away, live.Fixture.Seed, live.Fixture.Setup, live.Fixture.Date, live.Fixture.Kickoff,live.Fixture.CompetitionMatchId,live.Fixture.CompetitionName, live.Fixture.Leg, homeGoals = (int?)null, awayGoals = (int?)null, events = Array.Empty<MatchEvent>() }
     };
 }

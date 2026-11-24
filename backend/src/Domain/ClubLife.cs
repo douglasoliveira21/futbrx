@@ -108,6 +108,10 @@ public sealed class ClubCompetition
     public string Format {get;set;}="Mata-mata em jogo único; empate decidido nos pênaltis. Formato gerado e simplificado.";
     public List<int> Rounds {get;set;}=[];
     public int Stage {get;set;}
+    // 1 = single match per tie; 2 = home and away legs, decided on aggregate goals and then penalties.
+    public int Legs {get;set;}=1;
+    // Weeks between the first and the second leg.
+    public int LegGap {get;set;}=1;
     public List<CupMatch> Matches {get;set;}=[];
     public string Champion {get;set;}="";
     public long Prize {get;set;}
@@ -116,7 +120,11 @@ public sealed class CupMatch
 {
     public string Id {get;set;}=Guid.NewGuid().ToString("N");
     public int Stage {get;set;}
+    // Both legs of a tie share the Tie id; Leg is 1 or 2 (1 for single-match ties).
+    public string Tie {get;set;}="";
+    public int Leg {get;set;}=1;
     public Fixture Fixture {get;set;}=new();
+    // Set on every leg of the tie once it is decided.
     public string Winner {get;set;}="";
 }
 

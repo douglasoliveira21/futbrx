@@ -32,6 +32,7 @@ export type MatchEvent = {
   injuryDays?: number;
 };
 export type Fixture = {
+  leg?: number;
   competitionMatchId?: string;
   competitionName?: string;
   homePenalties?: number | null;

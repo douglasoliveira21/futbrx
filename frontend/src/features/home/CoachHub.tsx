@@ -130,7 +130,7 @@ export default function CoachHub({
         <div className="hub-match-top">
           <span className="hub-eyebrow">
             {next
-              ? `${next.competitionName || leagueName(g)} · Rodada ${next.round}`
+              ? `${next.competitionName || leagueName(g)}${next.leg === 1 ? " · Ida" : next.leg === 2 ? " · Volta" : ""} · Rodada ${next.round}`
               : `Temporada ${g.season}`}
           </span>
           {next && (

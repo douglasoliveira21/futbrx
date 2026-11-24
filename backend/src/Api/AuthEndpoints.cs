@@ -11,10 +11,15 @@ namespace Brasileirao;
 public static class AdminAccess
 {
     // IDs de contas existentes, definidos pelo operador. Cadastro público nunca concede o papel.
-    public static bool Allowed(IConfiguration config, ClaimsPrincipal user) =>
-        Guid.TryParse(user.FindFirstValue(ClaimTypes.NameIdentifier), out var id) &&
-        (config["Admin:UserIds"] ?? "").Split([',', ';'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-            .Any(s => Guid.TryParse(s, out var configured) && configured == id);
+    // A lista aceita IDs de conta ou e-mails. O cadastro não confirma o e-mail: crie a conta do administrador antes de abrir o jogo.
+    public static bool Allowed(IConfiguration config, ClaimsPrincipal user)
+    {
+        if (!Guid.TryParse(user.FindFirstValue(ClaimTypes.NameIdentifier), out var id)) return false;
+        var email = user.FindFirstValue(ClaimTypes.Email)?.Trim().ToLowerInvariant();
+        return (config["Admin:UserIds"] ?? "").Split([',', ';'], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Any(s => Guid.TryParse(s, out var configured) ? configured == id
+                : email != null && s.Contains('@') && string.Equals(s, email, StringComparison.OrdinalIgnoreCase));
+    }
 }
 
 public sealed class AuthSession(GameDb db, IConfiguration config, IWebHostEnvironment environment)
@@ -33,7 +38,7 @@ public sealed class AuthSession(GameDb db, IConfiguration config, IWebHostEnviro
         context.Response.Cookies.Append("bm_refresh", raw, new() { HttpOnly = true, Secure = !environment.IsDevelopment(), SameSite = SameSiteMode.Strict, Path = "/api/auth", MaxAge = TimeSpan.FromDays(14) });
         var key = config["Jwt:Key"]!;
         var jwt = new JwtSecurityToken(config["Jwt:Issuer"], config["Jwt:Audience"],
-            [new(ClaimTypes.NameIdentifier, account.Id.ToString()), new(ClaimTypes.Name, account.Name), new("session_id", session.Id.ToString())],
+            [new(ClaimTypes.NameIdentifier, account.Id.ToString()), new(ClaimTypes.Name, account.Name), new(ClaimTypes.Email, account.Email), new("session_id", session.Id.ToString())],
             expires: DateTime.UtcNow.AddMinutes(15), signingCredentials: new(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)), SecurityAlgorithms.HmacSha256));
         return Results.Ok(new { token = new JwtSecurityTokenHandler().WriteToken(jwt), user = new { account.Id, account.Name, account.Email } });
     }

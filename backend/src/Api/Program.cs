@@ -59,6 +59,7 @@ app.UseAuthentication(); app.UseAuthorization(); app.UseRateLimiter();
 app.MapHealthChecks("/api/health");
 app.MapAuthEndpoints();
 app.MapCatalogEndpoints();
+app.MapAdminEndpoints();
 app.MapManagementEndpoints();
 app.MapSportsEndpoints();
 app.MapLiveMatchEndpoints();

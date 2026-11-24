@@ -33,6 +33,8 @@ public sealed class ClubData
     public string Short { get; set; } = "";
     public string Color { get; set; } = "";
     public int Strength { get; set; }
+    // Escudo enviado pelo administrador (data URI de imagem). Vazio = escudo padrão.
+    public string Logo { get; set; } = "";
 }
 
 public sealed class PlayerData

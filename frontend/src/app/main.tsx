@@ -91,7 +91,7 @@ const SquadRoom = lazy(() => import("../features/sports/SquadRoom"));
 const TacticsDesk = lazy(() => import("../features/tactics/TacticsDesk"));
 const SportsCenter = lazy(() => import("../features/sports/SportsCenter"));
 const Match3D = lazy(() => import("../features/match3d/Match3D"));
-const AdminCatalog = lazy(() => import("../features/catalog/AdminCatalog"));
+const AdminCatalog = lazy(() => import("../features/admin/AdminPanel"));
 const ManagementCenter = lazy(
   () => import("../features/transfers/ManagementCenter"),
 );

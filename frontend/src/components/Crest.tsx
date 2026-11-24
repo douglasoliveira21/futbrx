@@ -16,15 +16,30 @@ export function Crest({ club, size = "" }: { club?: Club; size?: string }) {
     },
     staleTime: Infinity,
   });
+  // Escudo enviado pelo administrador tem prioridade sobre o escudo incluído no projeto.
+  const logos = useQuery<{ clubId: string; v: string }[]>({
+    queryKey: ["logos"],
+    queryFn: async () => {
+      const r = await fetch("/api/logos");
+      if (!r.ok) throw new Error("Escudos indisponíveis");
+      return r.json();
+    },
+    staleTime: 60_000,
+  });
+  const uploaded = logos.data?.find((l) => l.clubId === club?.id);
   const [failed, setFailed] = useState(false);
-  const crest = credits.data?.clubs.find(
+  const crest = uploaded
+    ? { path: `/api/logos/${uploaded.clubId}?v=${uploaded.v}`, status: "included", clubId: uploaded.clubId }
+    : undefined;
+  const bundled = credits.data?.clubs.find(
     (c) => c.clubId === club?.id && c.status === "included",
   );
-  if (crest?.path && !failed)
+  const shown = crest ?? bundled;
+  if (shown?.path && !failed)
     return (
       <span className={"crest " + size}>
         <img
-          src={crest.path}
+          src={shown.path}
           alt={"Escudo de " + club?.name}
           title="Créditos e licença em Dados e licenças"
           style={{

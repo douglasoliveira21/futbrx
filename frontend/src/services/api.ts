@@ -344,9 +344,10 @@ export async function api<T>(
   path: string,
   body?: unknown,
   retry = true,
+  method?: "DELETE",
 ): Promise<T> {
   const r = await fetch("/api" + path, {
-    method: body === undefined ? "GET" : "POST",
+    method: method ?? (body === undefined ? "GET" : "POST"),
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
@@ -370,7 +371,7 @@ export async function api<T>(
         refresh = null;
       });
     await refresh;
-    return api(path, body, false);
+    return api(path, body, false, method);
   }
   if (!r.ok) {
     const e = await r.json().catch(() => ({}));

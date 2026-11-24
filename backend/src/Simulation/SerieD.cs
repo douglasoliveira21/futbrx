@@ -14,12 +14,13 @@ public static class SerieD
     public const int PlayoffRound = 19;
     public static readonly string[] StageNames = ["Primeira fase", "Segunda fase", "Oitavas de final", "Quartas de final", "Semifinais", "Final"];
 
-    sealed record Row(string Id, string Series, string Name, string Short, string Color, int Strength, string Uf, string City);
+    sealed record Row(string Id, string Series, string Name, string Short, string Color, int Strength, string Uf, string City, int Group = 0);
     sealed record Source(List<Row> Clubs);
     // Geographic order (north to south, west to east) used to form groups of neighbouring states.
     static readonly string[] UfOrder = ["AC", "RO", "AM", "RR", "AP", "PA", "TO", "MA", "PI", "CE", "RN", "PB", "PE", "AL", "SE", "BA", "MT", "MS", "GO", "DF", "MG", "ES", "RJ", "SP", "PR", "SC", "RS"];
 
-    // The 16 groups, 6 clubs each. The official groups are not read yet, so they are formed by geography.
+    // The 16 groups, 6 clubs each: the official groups A1 to A16 when the directory has them (field group), otherwise
+    // groups formed by geography.
     static readonly Lazy<List<List<Row>>> groups = new(() =>
     {
         using var stream = typeof(Game).Assembly.GetManifestResourceStream("Brasileirao.Series2026.json")
@@ -28,6 +29,8 @@ public static class SerieD
         var ordered = source.Clubs.Where(c => c.Series == "D")
             .OrderBy(c => Math.Max(0, Array.IndexOf(UfOrder, c.Uf))).ThenBy(c => c.City, StringComparer.Ordinal).ThenBy(c => c.Id, StringComparer.Ordinal).ToList();
         if (ordered.Count != 96) throw new InvalidOperationException($"A Série D precisa de 96 clubes no diretório (encontrados {ordered.Count}).");
+        var official = ordered.GroupBy(c => c.Group).Where(g => g.Key is >= 1 and <= 16).OrderBy(g => g.Key).Select(g => g.OrderBy(c => c.Id, StringComparer.Ordinal).ToList()).ToList();
+        if (official.Count == 16 && official.All(g => g.Count == 6)) return official;
         return ordered.Chunk(6).Select(chunk => chunk.ToList()).ToList();
     });
 
@@ -51,7 +54,7 @@ public static class SerieD
         {
             Version = Version(group),
             Season = 2026,
-            Source = $"Grupo {group} da Série D de 2026, formado pelo projeto por proximidade geográfica a partir da tabela de participantes da Wikipédia (fatos públicos). Os grupos oficiais, siglas, cores e forças ainda estão por conferir.",
+            Source = $"Grupo {group} da Série D de 2026, conforme as tabelas da página da edição na Wikipédia (fatos públicos), lidas em 23/11/2026. Siglas, cores e forças são estimativas do projeto, ainda a conferir.",
             License = "Elencos, agentes livres e atributos simulados pelo futbrx. Escudos genéricos, sem imagens oficiais.",
             Clubs = clubs,
             Players = clubs.SelectMany((club, index) => Game.Players(index * 100).Select(player => new CatalogPlayer(club.Id, player)))
@@ -62,9 +65,9 @@ public static class SerieD
     public static (int Group, string Version) Entry(string clubId) { int g = GroupOf(clubId); return (g, g == 0 ? "" : Version(g)); }
 
     // State of a new Série D career: the group is the league, the other clubs are names and strengths.
-    public static SerieDState Create(SeasonCatalog catalog)
+    public static SerieDState Create(SeasonCatalog catalog) => ForGroup(GroupOfVersion(catalog.Version));
+    public static SerieDState ForGroup(int group)
     {
-        int group = GroupOfVersion(catalog.Version);
         var state = new SerieDState { Group = group };
         for (int i = 0; i < groups.Value.Count; i++)
             foreach (var c in groups.Value[i])
@@ -203,37 +206,5 @@ public static class SerieD
         string Name(string id) => AllClubs(g).FirstOrDefault(c => c.Id == id)?.Name ?? id;
         g.News.Insert(0, "Série D: sobem para a Série C " + string.Join(", ", g.SerieD.Promoted.Select(Name)) + ".");
         if (g.SerieD.Promoted.Contains(g.ClubId)) { g.History.Add($"Temporada {g.Season}: acesso à Série C conquistado."); g.Life.Board.Confidence = Math.Min(100, g.Life.Board.Confidence + 15); }
-    }
-
-    // A promoted club moves to the Série C league of the next season, replacing its weakest club. The squads of the
-    // group are dropped and the other 19 clubs of the division get theirs, so the career continues in the new league.
-    public static void Promote(GameState g)
-    {
-        var state = g.SerieD;
-        if (state == null || !state.Promoted.Contains(g.ClubId)) return;
-        var catalog = Game.SeriesCatalog("C");
-        var me = g.Clubs.First(c => c.Id == g.ClubId);
-        var dropped = catalog.Clubs.OrderBy(c => c.Strength).ThenBy(c => c.Id, StringComparer.Ordinal).First();
-        var clubs = catalog.Clubs.Where(c => c.Id != dropped.Id).Append(me).ToList();
-        var oldClubs = g.Clubs.Select(c => c.Id).Concat(state.Others.Select(c => c.Id)).ToHashSet();
-        foreach (var id in oldClubs.Where(id => id != g.ClubId && g.OpponentSquads.ContainsKey(id)).ToList())
-        {
-            foreach (var p in g.OpponentSquads[id]) g.Contracts.Remove(p.Id);
-            g.OpponentSquads.Remove(id); g.ClubBalances.Remove(id);
-        }
-        int offset = Math.Max(900_000, g.Squad.Concat(g.Market).Concat(g.Academy).Concat(g.OpponentSquads.Values.SelectMany(s => s)).Max(p => p.Id) + 100);
-        foreach (var club in clubs.Where(c => c.Id != g.ClubId))
-        {
-            var squad = Game.Players(offset); offset += 100;
-            Sports.RepairSelection(squad, false);
-            g.OpponentSquads[club.Id] = squad; g.ClubBalances[club.Id] = (long)(30_000_000 * Game.EconomyFactor(Game.SerieC2026Version));
-            foreach (var p in squad) g.Contracts[p.Id] = new() { PlayerId = p.Id, ClubId = club.Id, StartSeason = g.Season + 1, StartRound = 1, EndSeason = g.Season + 4, Wage = p.Wage };
-        }
-        g.Clubs = clubs; g.DataVersion = Game.SerieC2026Version; g.SerieD = null;
-        g.SeasonRounds = 38; g.LeagueStart = 1;
-        var life = g.Life!; life.Fans.RivalId = clubs.Where(c => c.Id != g.ClubId).OrderBy(c => ClubLife.Seed(g, "rival:" + g.ClubId + ":" + c.Id)).First().Id;
-        life.Board.TargetPosition = 16;
-        g.History.Add($"Temporada {g.Season}: o clube sobe para a Série C, no lugar do {dropped.Name}.");
-        g.News.Insert(0, $"Acesso confirmado: na próxima temporada o clube disputa a Série C ({dropped.Name} deixa a divisão).");
     }
 }

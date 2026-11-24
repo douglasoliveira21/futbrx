@@ -35,7 +35,7 @@ public static class ClubLife
         CoachCareer.Upgrade(g);
     }
     // Série B and C clubs are measured against their own league: the four strongest aim for promotion.
-    static int BoardTarget(GameState g)
+    public static int BoardTarget(GameState g)
     {
         var club=g.Clubs.Find(c=>c.Id==g.ClubId)!;
         if(g.SerieD!=null)return 4; // the four best of each group go through to the final phase

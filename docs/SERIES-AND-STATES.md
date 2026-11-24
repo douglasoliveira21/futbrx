@@ -33,8 +33,8 @@ Regras de id: até 20 caracteres (limite do catálogo). A Série A mantém os id
 
 ## Limites atuais
 
-- Séries B e C usam, por enquanto, o formato da Série A (38 rodadas, pontos corridos). Os formatos reais, o acesso e
-  o descenso entre as séries e os estaduais ainda não existem.
+- Séries B e C usam, por enquanto, o formato da Série A (38 rodadas, pontos corridos). Os formatos reais de B e C (grupos e
+  mata-mata) e os estaduais reais ainda não existem; o acesso e o descenso entre as séries existem (ver abaixo).
 - A força dos clubes de B e C só afeta diretoria, mercado de técnicos e caixa; o resultado das partidas vem das notas
   dos jogadores (elencos simulados, iguais para todos os clubes).
 
@@ -82,8 +82,8 @@ Como o jogo faz isso (`backend/src/Simulation/SerieD.cs`):
 
 - Cada grupo é uma versão de dados com seis clubes (`serie-d-2026-grupo-01-v1` a `-16-v1`); a versão de cada clube vem
   no diretório (`group`, `version`). O catálogo da Série D tem seis clubes em vez de vinte.
-- **Grupos formados pelo projeto**, por proximidade geográfica (ordem dos estados do norte ao sul), porque os grupos
-  oficiais ainda não foram lidos. Trocar para os oficiais é só reordenar a lista no diretório.
+- **Grupos oficiais A1 a A16**, lidos das tabelas da página da edição de 2026 (campo `group` no diretório; o número do
+  grupo é o número oficial). Se o diretório perder o campo, o jogo volta a formar grupos por proximidade geográfica.
 - A carreira joga o grupo de seis (`SeasonCalendar` gera 10 rodadas para seis clubes). Os outros 90 clubes existem só
   como nome e força (`GameState.SerieD.Others`); **os elencos deles só são criados quando o clube enfrenta o
   adversário** (`SerieD.EnsureSquad`), então o save não cresce.
@@ -95,11 +95,22 @@ Como o jogo faz isso (`backend/src/Simulation/SerieD.cs`):
 - Economia em 10% da Série A; meta da diretoria: ficar entre os 4 primeiros do grupo. Tela de Competições mostra as
   16 tabelas e quem subiu.
 
-Acesso (`SerieD.Promote`, chamado em `TransferMarket.NextSeason`): se o clube está entre os seis que sobem, a próxima
-temporada é na Série C. Ele entra no lugar do clube mais fraco da C (que sai da liga), a carreira passa à versão de
-dados da Série C (20 clubes, 38 rodadas, Copa do Brasil e copa continental de volta, meta de evitar o descenso), os
-elencos do grupo antigo são descartados e os dos 19 clubes da C são criados. Clube que não sobe segue no mesmo grupo.
+## Acesso e descenso entre as séries
 
-Limites: o descenso da Série C para a D e os acessos de B e C ainda não existem (as outras séries recomeçam na mesma
-divisão), a força dos clubes ainda não altera os elencos, e a Série D não disputa Copa do Brasil nem
+`SeriesMovement` (`backend/src/Simulation/SeriesMovement.cs`), chamado em `TransferMarket.NextSeason` com a classificação
+final, move só o **clube do jogador**; os demais clubes da divisão são os da base de dados de cada série.
+
+- Série A: os 4 últimos caem para a B. Série B: os 4 primeiros sobem para a A e os 4 últimos caem para a C.
+  Série C: os 4 primeiros sobem para a B e os 4 últimos caem para a D. Série D: sobem os 6 do mata-mata (ver acima);
+  não há descenso.
+- Quem sobe toma o lugar do clube mais fraco da nova divisão; quem cai toma o lugar do mais forte. Se o clube volta a
+  uma divisão da qual saiu, retoma a própria vaga.
+- Quem cai para a D entra no grupo oficial do seu estado (o grupo com mais clubes do mesmo estado; se o clube já era da
+  D, volta ao próprio grupo).
+- A carreira passa à versão de dados da nova divisão (20 clubes e 38 rodadas; na D, 6 clubes e 22 semanas), os elencos da
+  divisão antiga são descartados e os dos novos adversários são criados. Copas, rival, meta da diretoria e economia dos
+  adversários seguem a nova divisão. Rebaixamento tira 20 pontos de confiança da diretoria.
+- Carreiras demonstrativas e bases importadas por administradores não têm escada de divisões.
+
+Limites: a força dos clubes ainda não altera os elencos, e a Série D não disputa Copa do Brasil nem
 copas continentais; o Estadual continua demonstrativo.

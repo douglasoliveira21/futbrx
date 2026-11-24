@@ -9,7 +9,7 @@
     "D": "https://pt.wikipedia.org/wiki/Campeonato_Brasileiro_de_Futebol_de_2026_-_S%C3%A9rie_D"
   },
   "notes": [
-    "A Série D de 2026 tem 96 clubes (ampliada de 64), segundo a página; os grupos A1 a A16 ainda não foram lidos.",
+    "A Série D de 2026 tem 96 clubes (ampliada de 64), em 16 grupos de 6. Os grupos A1 a A16 (campo group) foram lidos das tabelas da página da edição em 23/11/2026; o grupo do clube sem nome idêntico (União-MT = União Rondonópolis) foi associado por estado.",
     "Nomes são os usados na tabela de participantes (abreviações); o nome completo oficial ainda precisa ser registrado.",
     "Clubes com o campo check foram lidos de resumo automático, não do texto da tabela.",
     "Séries B e C: sigla, cor e força são estimativas do projeto (campo attributes) e precisam de conferência.",
@@ -681,6 +681,7 @@
     {
       "id": "abc",
       "series": "D",
+      "group": 8,
       "name": "ABC",
       "city": "Natal",
       "uf": "RN",
@@ -692,6 +693,7 @@
     {
       "id": "abecat",
       "series": "D",
+      "group": 11,
       "name": "ABECAT",
       "city": "Ouvidor",
       "uf": "GO",
@@ -703,6 +705,7 @@
     {
       "id": "agua-santa",
       "series": "D",
+      "group": 13,
       "name": "Água Santa",
       "city": "Diadema",
       "uf": "SP",
@@ -714,6 +717,7 @@
     {
       "id": "aguia-de-maraba",
       "series": "D",
+      "group": 5,
       "name": "Águia de Marabá",
       "city": "Marabá",
       "uf": "PA",
@@ -725,6 +729,7 @@
     {
       "id": "altos",
       "series": "D",
+      "group": 7,
       "name": "Altos",
       "city": "Altos",
       "uf": "PI",
@@ -736,6 +741,7 @@
     {
       "id": "america",
       "series": "D",
+      "group": 13,
       "name": "America",
       "city": "Rio de Janeiro",
       "uf": "RJ",
@@ -747,6 +753,7 @@
     {
       "id": "america-de-natal",
       "series": "D",
+      "group": 8,
       "name": "América de Natal",
       "city": "Natal",
       "uf": "RN",
@@ -758,6 +765,7 @@
     {
       "id": "aparecidense",
       "series": "D",
+      "group": 3,
       "name": "Aparecidense",
       "city": "Aparecida de Goiânia",
       "uf": "GO",
@@ -769,6 +777,7 @@
     {
       "id": "araguaina",
       "series": "D",
+      "group": 2,
       "name": "Araguaína",
       "city": "Araguaína",
       "uf": "TO",
@@ -780,6 +789,7 @@
     {
       "id": "asa",
       "series": "D",
+      "group": 10,
       "name": "ASA",
       "city": "Arapiraca",
       "uf": "AL",
@@ -791,6 +801,7 @@
     {
       "id": "atletico-cearense",
       "series": "D",
+      "group": 7,
       "name": "Atlético Cearense",
       "city": "Fortaleza",
       "uf": "CE",
@@ -802,6 +813,7 @@
     {
       "id": "atletico-de-alagoinh",
       "series": "D",
+      "group": 10,
       "name": "Atlético de Alagoinhas",
       "city": "Alagoinhas",
       "uf": "BA",
@@ -813,6 +825,7 @@
     {
       "id": "azuriz",
       "series": "D",
+      "group": 16,
       "name": "Azuriz",
       "city": "Pato Branco",
       "uf": "PR",
@@ -824,6 +837,7 @@
     {
       "id": "betim-futebol",
       "series": "D",
+      "group": 11,
       "name": "Betim Futebol",
       "city": "Betim",
       "uf": "MG",
@@ -835,6 +849,7 @@
     {
       "id": "brasil-de-pelotas",
       "series": "D",
+      "group": 16,
       "name": "Brasil de Pelotas",
       "city": "Pelotas",
       "uf": "RS",
@@ -846,6 +861,7 @@
     {
       "id": "brasiliense",
       "series": "D",
+      "group": 3,
       "name": "Brasiliense",
       "city": "Taguatinga",
       "uf": "DF",
@@ -857,6 +873,7 @@
     {
       "id": "blumenau",
       "series": "D",
+      "group": 16,
       "name": "Blumenau",
       "city": "Blumenau",
       "uf": "SC",
@@ -868,6 +885,7 @@
     {
       "id": "capital-df",
       "series": "D",
+      "group": 4,
       "name": "Capital-DF",
       "city": "Paranoá",
       "uf": "DF",
@@ -879,6 +897,7 @@
     {
       "id": "ceilandia",
       "series": "D",
+      "group": 4,
       "name": "Ceilândia",
       "city": "Ceilândia",
       "uf": "DF",
@@ -890,6 +909,7 @@
     {
       "id": "central",
       "series": "D",
+      "group": 8,
       "name": "Central",
       "city": "Caruaru",
       "uf": "PE",
@@ -901,6 +921,7 @@
     {
       "id": "cianorte",
       "series": "D",
+      "group": 15,
       "name": "Cianorte",
       "city": "Cianorte",
       "uf": "PR",
@@ -912,6 +933,7 @@
     {
       "id": "crac",
       "series": "D",
+      "group": 11,
       "name": "CRAC",
       "city": "Catalão",
       "uf": "GO",
@@ -923,6 +945,7 @@
     {
       "id": "csa",
       "series": "D",
+      "group": 10,
       "name": "CSA",
       "city": "Maceió",
       "uf": "AL",
@@ -934,6 +957,7 @@
     {
       "id": "cse",
       "series": "D",
+      "group": 10,
       "name": "CSE",
       "city": "Palmeira dos Índios",
       "uf": "AL",
@@ -945,6 +969,7 @@
     {
       "id": "decisao-goiana",
       "series": "D",
+      "group": 9,
       "name": "Decisão Goiana",
       "city": "Goiana",
       "uf": "PE",
@@ -956,6 +981,7 @@
     {
       "id": "democrata-gv",
       "series": "D",
+      "group": 12,
       "name": "Democrata GV",
       "city": "Governador Valadares",
       "uf": "MG",
@@ -967,6 +993,7 @@
     {
       "id": "fc-cascavel",
       "series": "D",
+      "group": 15,
       "name": "FC Cascavel",
       "city": "Cascavel",
       "uf": "PR",
@@ -978,6 +1005,7 @@
     {
       "id": "ferroviario",
       "series": "D",
+      "group": 7,
       "name": "Ferroviário",
       "city": "Fortaleza",
       "uf": "CE",
@@ -989,6 +1017,7 @@
     {
       "id": "fluminense-pi",
       "series": "D",
+      "group": 7,
       "name": "Fluminense-PI",
       "city": "Teresina",
       "uf": "PI",
@@ -1000,6 +1029,7 @@
     {
       "id": "galvez",
       "series": "D",
+      "group": 2,
       "name": "Galvez",
       "city": "Rio Branco",
       "uf": "AC",
@@ -1011,6 +1041,7 @@
     {
       "id": "gama",
       "series": "D",
+      "group": 3,
       "name": "Gama",
       "city": "Gama",
       "uf": "DF",
@@ -1022,6 +1053,7 @@
     {
       "id": "gas",
       "series": "D",
+      "group": 1,
       "name": "GAS",
       "city": "Boa Vista",
       "uf": "RR",
@@ -1033,6 +1065,7 @@
     {
       "id": "gazin-porto-velho",
       "series": "D",
+      "group": 2,
       "name": "Gazin Porto Velho",
       "city": "Porto Velho",
       "uf": "RO",
@@ -1044,6 +1077,7 @@
     {
       "id": "goiatuba",
       "series": "D",
+      "group": 4,
       "name": "Goiatuba",
       "city": "Goiatuba",
       "uf": "GO",
@@ -1055,6 +1089,7 @@
     {
       "id": "guapore",
       "series": "D",
+      "group": 2,
       "name": "Guaporé",
       "city": "Rolim de Moura",
       "uf": "RO",
@@ -1066,6 +1101,7 @@
     {
       "id": "guarany-de-bage",
       "series": "D",
+      "group": 15,
       "name": "Guarany de Bagé",
       "city": "Bagé",
       "uf": "RS",
@@ -1077,6 +1113,7 @@
     {
       "id": "humaita",
       "series": "D",
+      "group": 2,
       "name": "Humaitá",
       "city": "Porto Acre",
       "uf": "AC",
@@ -1088,6 +1125,7 @@
     {
       "id": "iape",
       "series": "D",
+      "group": 6,
       "name": "IAPE",
       "city": "São Luís",
       "uf": "MA",
@@ -1099,6 +1137,7 @@
     {
       "id": "iguatu",
       "series": "D",
+      "group": 6,
       "name": "Iguatu",
       "city": "Iguatu",
       "uf": "CE",
@@ -1110,6 +1149,7 @@
     {
       "id": "imperatriz",
       "series": "D",
+      "group": 5,
       "name": "Imperatriz",
       "city": "Imperatriz",
       "uf": "MA",
@@ -1121,6 +1161,7 @@
     {
       "id": "independencia",
       "series": "D",
+      "group": 2,
       "name": "Independência",
       "city": "Rio Branco",
       "uf": "AC",
@@ -1132,6 +1173,7 @@
     {
       "id": "inhumas",
       "series": "D",
+      "group": 3,
       "name": "Inhumas",
       "city": "Inhumas",
       "uf": "GO",
@@ -1143,6 +1185,7 @@
     {
       "id": "ivinhema",
       "series": "D",
+      "group": 11,
       "name": "Ivinhema",
       "city": "Ivinhema",
       "uf": "MS",
@@ -1154,6 +1197,7 @@
     {
       "id": "jacuipense",
       "series": "D",
+      "group": 10,
       "name": "Jacuipense",
       "city": "Riachão do Jacuípe",
       "uf": "BA",
@@ -1165,6 +1209,7 @@
     {
       "id": "joinville",
       "series": "D",
+      "group": 15,
       "name": "Joinville",
       "city": "Joinville",
       "uf": "SC",
@@ -1176,6 +1221,7 @@
     {
       "id": "juazeirense",
       "series": "D",
+      "group": 10,
       "name": "Juazeirense",
       "city": "Juazeiro",
       "uf": "BA",
@@ -1187,6 +1233,7 @@
     {
       "id": "lagarto",
       "series": "D",
+      "group": 9,
       "name": "Lagarto",
       "city": "Lagarto",
       "uf": "SE",
@@ -1198,6 +1245,7 @@
     {
       "id": "laguna",
       "series": "D",
+      "group": 8,
       "name": "Laguna",
       "city": "Tibau do Sul",
       "uf": "RN",
@@ -1209,6 +1257,7 @@
     {
       "id": "luverdense",
       "series": "D",
+      "group": 3,
       "name": "Luverdense",
       "city": "Lucas do Rio Verde",
       "uf": "MT",
@@ -1220,6 +1269,7 @@
     {
       "id": "madureira",
       "series": "D",
+      "group": 13,
       "name": "Madureira",
       "city": "Rio de Janeiro",
       "uf": "RJ",
@@ -1231,6 +1281,7 @@
     {
       "id": "maguary",
       "series": "D",
+      "group": 8,
       "name": "Maguary",
       "city": "Bonito",
       "uf": "PE",
@@ -1242,6 +1293,7 @@
     {
       "id": "manauara",
       "series": "D",
+      "group": 1,
       "name": "Manauara",
       "city": "Manaus",
       "uf": "AM",
@@ -1253,6 +1305,7 @@
     {
       "id": "manaus",
       "series": "D",
+      "group": 1,
       "name": "Manaus",
       "city": "Manaus",
       "uf": "AM",
@@ -1264,6 +1317,7 @@
     {
       "id": "maracana-ce",
       "series": "D",
+      "group": 6,
       "name": "Maracanã-CE",
       "city": "Maracanaú",
       "uf": "CE",
@@ -1275,6 +1329,7 @@
     {
       "id": "marcilio-dias",
       "series": "D",
+      "group": 16,
       "name": "Marcílio Dias",
       "city": "Itajaí",
       "uf": "SC",
@@ -1286,6 +1341,7 @@
     {
       "id": "marica",
       "series": "D",
+      "group": 14,
       "name": "Maricá",
       "city": "Maricá",
       "uf": "RJ",
@@ -1297,6 +1353,7 @@
     {
       "id": "mixto",
       "series": "D",
+      "group": 4,
       "name": "Mixto",
       "city": "Cuiabá",
       "uf": "MT",
@@ -1308,6 +1365,7 @@
     {
       "id": "monte-roraima",
       "series": "D",
+      "group": 1,
       "name": "Monte Roraima",
       "city": "Boa Vista",
       "uf": "RR",
@@ -1319,6 +1377,7 @@
     {
       "id": "moto-club",
       "series": "D",
+      "group": 6,
       "name": "Moto Club",
       "city": "São Luís",
       "uf": "MA",
@@ -1330,6 +1389,7 @@
     {
       "id": "nacional-am",
       "series": "D",
+      "group": 1,
       "name": "Nacional-AM",
       "city": "Manaus",
       "uf": "AM",
@@ -1341,6 +1401,7 @@
     {
       "id": "noroeste",
       "series": "D",
+      "group": 14,
       "name": "Noroeste",
       "city": "Bauru",
       "uf": "SP",
@@ -1352,6 +1413,7 @@
     {
       "id": "nova-iguacu",
       "series": "D",
+      "group": 14,
       "name": "Nova Iguaçu",
       "city": "Nova Iguaçu",
       "uf": "RJ",
@@ -1363,6 +1425,7 @@
     {
       "id": "operario-ms",
       "series": "D",
+      "group": 11,
       "name": "Operário-MS",
       "city": "Campo Grande",
       "uf": "MS",
@@ -1374,6 +1437,7 @@
     {
       "id": "operario-vg",
       "series": "D",
+      "group": 4,
       "name": "Operário VG",
       "city": "Várzea Grande",
       "uf": "MT",
@@ -1385,6 +1449,7 @@
     {
       "id": "oratorio",
       "series": "D",
+      "group": 5,
       "name": "Oratório",
       "city": "Macapá",
       "uf": "AP",
@@ -1396,6 +1461,7 @@
     {
       "id": "parnahyba",
       "series": "D",
+      "group": 6,
       "name": "Parnahyba",
       "city": "Parnaíba",
       "uf": "PI",
@@ -1407,6 +1473,7 @@
     {
       "id": "piaui",
       "series": "D",
+      "group": 7,
       "name": "Piauí",
       "city": "Teresina",
       "uf": "PI",
@@ -1418,6 +1485,7 @@
     {
       "id": "porto-ba",
       "series": "D",
+      "group": 12,
       "name": "Porto-BA",
       "city": "Porto Seguro",
       "uf": "BA",
@@ -1429,6 +1497,7 @@
     {
       "id": "portuguesa",
       "series": "D",
+      "group": 13,
       "name": "Portuguesa",
       "city": "São Paulo",
       "uf": "SP",
@@ -1440,6 +1509,7 @@
     {
       "id": "portuguesa-rj",
       "series": "D",
+      "group": 13,
       "name": "Portuguesa-RJ",
       "city": "Rio de Janeiro",
       "uf": "RJ",
@@ -1451,6 +1521,7 @@
     {
       "id": "pouso-alegre",
       "series": "D",
+      "group": 13,
       "name": "Pouso Alegre",
       "city": "Pouso Alegre",
       "uf": "MG",
@@ -1462,6 +1533,7 @@
     {
       "id": "primavera-mt",
       "series": "D",
+      "group": 3,
       "name": "Primavera-MT",
       "city": "Primavera do Leste",
       "uf": "MT",
@@ -1473,6 +1545,7 @@
     {
       "id": "real-noroeste",
       "series": "D",
+      "group": 12,
       "name": "Real Noroeste",
       "city": "Águia Branca",
       "uf": "ES",
@@ -1484,6 +1557,7 @@
     {
       "id": "retro",
       "series": "D",
+      "group": 9,
       "name": "Retrô",
       "city": "Camaragibe",
       "uf": "PE",
@@ -1495,6 +1569,7 @@
     {
       "id": "rio-branco-es",
       "series": "D",
+      "group": 12,
       "name": "Rio Branco-ES",
       "city": "Vitória",
       "uf": "ES",
@@ -1506,6 +1581,7 @@
     {
       "id": "sampaio-correa",
       "series": "D",
+      "group": 6,
       "name": "Sampaio Corrêa",
       "city": "São Luís",
       "uf": "MA",
@@ -1517,6 +1593,7 @@
     {
       "id": "sampaio-correa-rj",
       "series": "D",
+      "group": 14,
       "name": "Sampaio Corrêa-RJ",
       "city": "Saquarema",
       "uf": "RJ",
@@ -1528,6 +1605,7 @@
     {
       "id": "santa-catarina",
       "series": "D",
+      "group": 15,
       "name": "Santa Catarina",
       "city": "Rio do Sul",
       "uf": "SC",
@@ -1539,6 +1617,7 @@
     {
       "id": "sao-jose-rs",
       "series": "D",
+      "group": 16,
       "name": "São José-RS",
       "city": "Porto Alegre",
       "uf": "RS",
@@ -1550,6 +1629,7 @@
     {
       "id": "sao-joseense",
       "series": "D",
+      "group": 16,
       "name": "São Joseense",
       "city": "São José dos Pinhais",
       "uf": "PR",
@@ -1561,6 +1641,7 @@
     {
       "id": "sao-luiz",
       "series": "D",
+      "group": 15,
       "name": "São Luiz",
       "city": "Ijuí",
       "uf": "RS",
@@ -1572,6 +1653,7 @@
     {
       "id": "sao-raimundo-rr",
       "series": "D",
+      "group": 1,
       "name": "São Raimundo-RR",
       "city": "Boa Vista",
       "uf": "RR",
@@ -1583,6 +1665,7 @@
     {
       "id": "sergipe",
       "series": "D",
+      "group": 9,
       "name": "Sergipe",
       "city": "Aracaju",
       "uf": "SE",
@@ -1594,6 +1677,7 @@
     {
       "id": "serra-branca",
       "series": "D",
+      "group": 9,
       "name": "Serra Branca",
       "city": "Campina Grande",
       "uf": "PB",
@@ -1605,6 +1689,7 @@
     {
       "id": "sousa",
       "series": "D",
+      "group": 8,
       "name": "Sousa",
       "city": "Sousa",
       "uf": "PB",
@@ -1616,6 +1701,7 @@
     {
       "id": "tirol",
       "series": "D",
+      "group": 7,
       "name": "Tirol",
       "city": "Fortaleza",
       "uf": "CE",
@@ -1627,6 +1713,7 @@
     {
       "id": "tocantinopolis",
       "series": "D",
+      "group": 5,
       "name": "Tocantinópolis",
       "city": "Tocantinópolis",
       "uf": "TO",
@@ -1638,6 +1725,7 @@
     {
       "id": "tombense",
       "series": "D",
+      "group": 12,
       "name": "Tombense",
       "city": "Tombos",
       "uf": "MG",
@@ -1649,6 +1737,7 @@
     {
       "id": "trem",
       "series": "D",
+      "group": 5,
       "name": "Trem",
       "city": "Macapá",
       "uf": "AP",
@@ -1660,6 +1749,7 @@
     {
       "id": "treze",
       "series": "D",
+      "group": 9,
       "name": "Treze",
       "city": "Campina Grande",
       "uf": "PB",
@@ -1671,6 +1761,7 @@
     {
       "id": "tuna-luso",
       "series": "D",
+      "group": 5,
       "name": "Tuna Luso",
       "city": "Belém",
       "uf": "PA",
@@ -1682,6 +1773,7 @@
     {
       "id": "uberlandia",
       "series": "D",
+      "group": 11,
       "name": "Uberlândia",
       "city": "Uberlândia",
       "uf": "MG",
@@ -1694,6 +1786,7 @@
     {
       "id": "uniao-mt",
       "series": "D",
+      "group": 4,
       "name": "União-MT",
       "city": "Rondonópolis",
       "uf": "MT",
@@ -1706,6 +1799,7 @@
     {
       "id": "velo-clube",
       "series": "D",
+      "group": 14,
       "name": "Velo Clube",
       "city": "Rio Claro",
       "uf": "SP",
@@ -1718,6 +1812,7 @@
     {
       "id": "vitoria-es",
       "series": "D",
+      "group": 12,
       "name": "Vitória-ES",
       "city": "Vitória",
       "uf": "ES",
@@ -1730,6 +1825,7 @@
     {
       "id": "xv-de-piracicaba",
       "series": "D",
+      "group": 14,
       "name": "XV de Piracicaba",
       "city": "Piracicaba",
       "uf": "SP",

@@ -21,8 +21,8 @@ export function SerieDPanel({ c, club }: { c: Career; club: (id: string) => stri
       {serie.results.length === 0 ? (
         <p>
           O seu grupo tem seis clubes e dez rodadas. Os quatro primeiros de cada um dos 16 grupos avançam aos mata-matas
-          de ida e volta. As tabelas dos outros 15 grupos aparecem quando a fase de grupos termina; os grupos são
-          formados por proximidade geográfica, enquanto os oficiais não foram conferidos.
+          de ida e volta. As tabelas dos outros 15 grupos aparecem quando a fase de grupos termina. Os grupos
+          são os A1 a A16 da edição de 2026.
         </p>
       ) : (
         <>

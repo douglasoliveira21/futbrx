@@ -232,7 +232,7 @@ public static class TransferMarket
         }
         foreach (var (club, squad) in g.OpponentSquads)
             foreach (var p in squad) { var contract = g.Contracts[p.Id]; if (contract.EndSeason <= g.Season) { contract.EndSeason = g.Season + 3; contract.Revision++; } }
-        SerieD.Promote(g);
+        SeriesMovement.Apply(g, standings);
         Divisions.NextSeason(g);
         g.Season++; g.Round = 1; g.Fixtures = SeasonCalendar.Generate(g.Clubs, g.Season, g.LotterySeed, g.Divisions?.ManagedDivision ?? "A", g.LeagueStart); g.CalendarSource = SeasonCalendar.Source; g.CalendarVersion = 2;
         AdvancedMarket.Settle(g);

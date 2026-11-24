@@ -23,6 +23,8 @@ public static class SerieDTests
         var dClubs = directory["clubs"]!.AsArray().OfType<System.Text.Json.Nodes.JsonObject>().Where(c => c["series"]!.GetValue<string>() == "D").ToList();
         Check(dClubs.Count == 96 && dClubs.All(c => SerieD.IsVersion(c["version"]!.GetValue<string>())) && directory["versions"]!["D"]!.AsArray().Count == 16, "Diretório aponta a versão do grupo de cada clube da Série D");
 
+        // The groups are the official ones of the 2026 edition: group A8 is ABC, América de Natal, Maguary, Central, Sousa and Laguna.
+        Check(new[] { "abc", "america-de-natal", "maguary", "central", "sousa", "laguna" }.Count(id => SerieD.GroupOf(id) == 8) == 6 && SerieD.GroupOf("abc") == 8 && SerieD.GroupOf("manauara") == 1 && SerieD.GroupOf("gas") == 1, "Grupos seguem a composição oficial (A1 e A8)");
         // A career in a group.
         var catalog = catalogs[6];
         var mine = catalog.Clubs[2].Id;

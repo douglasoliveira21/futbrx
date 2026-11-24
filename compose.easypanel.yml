@@ -27,6 +27,9 @@ services:
       ConnectionStrings__Game: Host=db;Port=5432;Database=brasileirao;Username=manager;Password=${POSTGRES_PASSWORD}
       Database__Migrate: "true"
       Admin__UserIds: ${ADMIN_USER_IDS:-}
+      # Entrar com Google (ID do cliente OAuth, não é segredo) e e-mail de contato mostrado nas páginas de privacidade e termos.
+      Google__ClientId: ${GOOGLE_CLIENT_ID:-}
+      Legal__ContactEmail: ${LEGAL_CONTACT_EMAIL:-}
     depends_on:
       db:
         condition: service_healthy

@@ -141,8 +141,10 @@ e-mail e senha.
 1. No Google Cloud Console, crie um **ID do cliente OAuth** do tipo **Aplicativo da Web**.
 2. Em **Origens JavaScript autorizadas**, informe o endereço público do jogo (por exemplo `https://jogo.seudominio.com`; para testes
    locais, `http://localhost:5173`). Não é preciso URI de redirecionamento: o botão usa o fluxo de token de identidade.
-3. No serviço `jogo`, em **Environment / Ambiente**, acrescente `Google__ClientId` com o ID do cliente (termina em
-   `.apps.googleusercontent.com`; não é um segredo).
+3. No serviço `jogo`, em **Environment / Ambiente**, acrescente `GOOGLE_CLIENT_ID=SEU-ID.apps.googleusercontent.com` (o ID do
+   cliente; não é um segredo). O arquivo `compose.easypanel.yml` repassa essa variável à API como `Google__ClientId`; com o compose, só as
+   variáveis listadas nele chegam ao container, então o nome com dois underscores colocado direto no ambiente é ignorado. Reimplante
+   (**Deploy**) depois de salvar. Para mostrar um e-mail de contato nas páginas legais, use `LEGAL_CONTACT_EMAIL=seu@email`.
 4. A política de segurança do proxy (`infrastructure/proxy/nginx.conf`) já libera os domínios do Google Identity Services.
 
 Como funciona: o navegador recebe um token de identidade do Google e a API o valida em `oauth2.googleapis.com/tokeninfo`

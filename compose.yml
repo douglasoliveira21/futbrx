@@ -21,6 +21,8 @@ services:
    ConnectionStrings__Game: Host=db;Database=brasileirao;Username=manager;Password=${POSTGRES_PASSWORD}
    Database__Migrate: "true"
    Admin__UserIds: ${ADMIN_USER_IDS:-}
+   Google__ClientId: ${GOOGLE_CLIENT_ID:-}
+   Legal__ContactEmail: ${LEGAL_CONTACT_EMAIL:-}
   depends_on:
    db: {condition: service_healthy}
   restart: unless-stopped

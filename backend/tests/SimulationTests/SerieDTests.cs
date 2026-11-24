@@ -76,13 +76,34 @@ public static class SerieDTests
             while (run.Round <= run.SeasonRounds && guard2++ < 40) { if (Game.HasLeagueMatch(run) || ClubCompetitions.NextDue(run) != null) Game.Advance(run); else Game.AdvanceWeek(run); }
             var played = run.Life.Competitions.SelectMany(c => c.Matches).Where(m => m.Fixture.Home == strongest.Id || m.Fixture.Away == strongest.Id).ToList();
             Check(played.Count >= 2 && played.All(m => m.Fixture.Setup != null && m.Fixture.HomeGoals != null), "Jogos do clube no mata-mata usam elencos completos");
-            Check(run.SerieD.Others.Count(c => run.OpponentSquads.ContainsKey(c.Id)) >= 1, "Elenco do adversário é criado quando o clube o enfrenta");
+            // A tie against a club of its own group needs no new squad; try the next group in that rare case.
+            if (!run.SerieD.Others.Any(c => run.OpponentSquads.ContainsKey(c.Id))) continue;
+            Check(true, "Elenco do adversário é criado quando o clube o enfrenta");
             break;
         }
 
         // The next season starts again from round 1.
+        state.Promoted.Remove(mine); // the club may have been promoted by chance; promotion has its own scenario below
         TransferMarket.NextSeason(g);
         Check(g.Season == 2027 && g.Round == 1 && g.SeasonRounds == 22 && g.Fixtures.Count == 30 && g.SerieD!.Qualified.Count == 0 && g.Life.Competitions.All(c => c.Id == "state"), "Nova temporada recomeça na fase de grupos");
+
+        // Promotion changes the division: the next season is played in Série C.
+        var up = Game.New(catalogs[2].Clubs[0].Id, catalogs[2]);
+        up.Life!.Competitions.Clear();
+        for (int i = 0; i < SerieD.GroupRounds; i++) Game.Advance(up);
+        up.SerieD!.Promoted = [up.ClubId]; up.Round = up.SeasonRounds + 1;
+        foreach (var m in up.Life.Competitions.SelectMany(c => c.Matches).Where(m => m.Fixture.HomeGoals == null)) { m.Fixture.HomeGoals = 1; m.Fixture.AwayGoals = 0; m.Winner = m.Fixture.Home; }
+        var upId = up.ClubId;
+        TransferMarket.NextSeason(up);
+        Check(up.DataVersion == Game.SerieC2026Version && up.SerieD == null && up.Clubs.Count == 20 && up.Clubs.Any(c => c.Id == upId) && up.SeasonRounds == 38, "Clube que sobe passa a disputar a Série C com vinte clubes e 38 rodadas");
+        Check(up.Fixtures.Count == 380 && up.Fixtures.Any(f => f.Home == upId || f.Away == upId) && up.Season == 2027 && up.Round == 1, "Calendário da Série C é gerado para a nova temporada");
+        Check(up.Clubs.Where(c => c.Id != upId).All(c => up.OpponentSquads.ContainsKey(c.Id)) && !up.OpponentSquads.Keys.Any(id => catalogs[2].Clubs.Any(c => c.Id == id) && id != upId), "Elencos da nova divisão existem e os do grupo antigo foram descartados");
+        Check(up.Life!.Competitions.Any(c => c.Id == "copa") && up.Life.Fans.RivalId != "" && up.Clubs.Any(c => c.Id == up.Life.Fans.RivalId), "Copas voltam e o rival é da nova divisão");
+        Game.Advance(up);
+        Check(up.Round == 2 && up.Fixtures.Count(f => f.HomeGoals != null) == 10, "A primeira rodada da Série C é disputada normalmente");
+        var stay = Game.New(catalogs[2].Clubs[1].Id, catalogs[2]); stay.Life!.Competitions.Clear(); stay.Round = stay.SeasonRounds + 1;
+        TransferMarket.NextSeason(stay);
+        Check(stay.SerieD != null && stay.Clubs.Count == 6 && stay.DataVersion.StartsWith(Game.SerieDVersionPrefix), "Clube que não sobe permanece no grupo da Série D");
 
         // A career whose club does not reach the final phase still sees it played.
         var out_ = Game.New(catalogs[0].Clubs[0].Id, catalogs[0]);

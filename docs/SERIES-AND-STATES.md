@@ -95,6 +95,11 @@ Como o jogo faz isso (`backend/src/Simulation/SerieD.cs`):
 - Economia em 10% da Série A; meta da diretoria: ficar entre os 4 primeiros do grupo. Tela de Competições mostra as
   16 tabelas e quem subiu.
 
-Limites: o acesso e o descenso entre séries ainda não mudam a divisão do clube na temporada seguinte (a carreira
-recomeça no mesmo grupo), a força dos clubes ainda não altera os elencos, e a Série D não disputa Copa do Brasil nem
+Acesso (`SerieD.Promote`, chamado em `TransferMarket.NextSeason`): se o clube está entre os seis que sobem, a próxima
+temporada é na Série C. Ele entra no lugar do clube mais fraco da C (que sai da liga), a carreira passa à versão de
+dados da Série C (20 clubes, 38 rodadas, Copa do Brasil e copa continental de volta, meta de evitar o descenso), os
+elencos do grupo antigo são descartados e os dos 19 clubes da C são criados. Clube que não sobe segue no mesmo grupo.
+
+Limites: o descenso da Série C para a D e os acessos de B e C ainda não existem (as outras séries recomeçam na mesma
+divisão), a força dos clubes ainda não altera os elencos, e a Série D não disputa Copa do Brasil nem
 copas continentais; o Estadual continua demonstrativo.

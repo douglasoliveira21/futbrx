@@ -204,4 +204,36 @@ public static class SerieD
         g.News.Insert(0, "Série D: sobem para a Série C " + string.Join(", ", g.SerieD.Promoted.Select(Name)) + ".");
         if (g.SerieD.Promoted.Contains(g.ClubId)) { g.History.Add($"Temporada {g.Season}: acesso à Série C conquistado."); g.Life.Board.Confidence = Math.Min(100, g.Life.Board.Confidence + 15); }
     }
+
+    // A promoted club moves to the Série C league of the next season, replacing its weakest club. The squads of the
+    // group are dropped and the other 19 clubs of the division get theirs, so the career continues in the new league.
+    public static void Promote(GameState g)
+    {
+        var state = g.SerieD;
+        if (state == null || !state.Promoted.Contains(g.ClubId)) return;
+        var catalog = Game.SeriesCatalog("C");
+        var me = g.Clubs.First(c => c.Id == g.ClubId);
+        var dropped = catalog.Clubs.OrderBy(c => c.Strength).ThenBy(c => c.Id, StringComparer.Ordinal).First();
+        var clubs = catalog.Clubs.Where(c => c.Id != dropped.Id).Append(me).ToList();
+        var oldClubs = g.Clubs.Select(c => c.Id).Concat(state.Others.Select(c => c.Id)).ToHashSet();
+        foreach (var id in oldClubs.Where(id => id != g.ClubId && g.OpponentSquads.ContainsKey(id)).ToList())
+        {
+            foreach (var p in g.OpponentSquads[id]) g.Contracts.Remove(p.Id);
+            g.OpponentSquads.Remove(id); g.ClubBalances.Remove(id);
+        }
+        int offset = Math.Max(900_000, g.Squad.Concat(g.Market).Concat(g.Academy).Concat(g.OpponentSquads.Values.SelectMany(s => s)).Max(p => p.Id) + 100);
+        foreach (var club in clubs.Where(c => c.Id != g.ClubId))
+        {
+            var squad = Game.Players(offset); offset += 100;
+            Sports.RepairSelection(squad, false);
+            g.OpponentSquads[club.Id] = squad; g.ClubBalances[club.Id] = (long)(30_000_000 * Game.EconomyFactor(Game.SerieC2026Version));
+            foreach (var p in squad) g.Contracts[p.Id] = new() { PlayerId = p.Id, ClubId = club.Id, StartSeason = g.Season + 1, StartRound = 1, EndSeason = g.Season + 4, Wage = p.Wage };
+        }
+        g.Clubs = clubs; g.DataVersion = Game.SerieC2026Version; g.SerieD = null;
+        g.SeasonRounds = 38; g.LeagueStart = 1;
+        var life = g.Life!; life.Fans.RivalId = clubs.Where(c => c.Id != g.ClubId).OrderBy(c => ClubLife.Seed(g, "rival:" + g.ClubId + ":" + c.Id)).First().Id;
+        life.Board.TargetPosition = 16;
+        g.History.Add($"Temporada {g.Season}: o clube sobe para a Série C, no lugar do {dropped.Name}.");
+        g.News.Insert(0, $"Acesso confirmado: na próxima temporada o clube disputa a Série C ({dropped.Name} deixa a divisão).");
+    }
 }

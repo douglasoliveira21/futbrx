@@ -3924,3 +3924,10 @@ body {
   .auth-story { padding: 16px 16px 6px; }
   .auth-story .futbrx-logo { height: 76px; }
 }
+
+/* Login: a logo acompanha o fluxo da página (nunca flutua sobre os textos). */
+.auth-story .brand { position: static; margin: 0 0 clamp(14px, 3vh, 28px); justify-content: flex-start; }
+.auth-story > .eyebrow { margin-top: 0; }
+@media (max-width: 700px) {
+  .auth-story .brand { justify-content: center; }
+}

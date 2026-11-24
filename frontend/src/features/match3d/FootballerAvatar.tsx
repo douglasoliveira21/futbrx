@@ -293,6 +293,10 @@ export default function FootballerAvatar({
         (p.contactOffset ?? contactOffsets[p.action] ?? 0),
       elapsed = Math.max(0, seconds - start);
     const blend = isOneShot(p.action) ? Math.min(1, elapsed / 0.09) : 1;
+    // A hurt player lies on the pitch (engine v15 action "injured"): the body tips over in half a second and stays down.
+    const down = p.action === "injured" ? Math.min(1, elapsed / 0.5) : 0;
+    model.root.rotation.x = -(Math.PI / 2) * down;
+    model.root.position.y = 0.2 * down;
     model.actions.forEach((a) => {
       const target =
         a.getClip().name === clip

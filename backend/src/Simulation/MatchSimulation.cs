@@ -3,11 +3,12 @@ namespace Brasileirao;
 // Dispatch por versão: a implementação V1 permanece congelada para saves antigos.
 public static class MatchSimulation
 {
-    public const string Version = PositionalV14.Version;
-    public static bool SupportsControls(string? version)=>version is PositionalV7.Version or PositionalV8.Version or PositionalV9.Version or PositionalV10.Version or PositionalV11.Version or PositionalV12.Version or PositionalV13.Version or PositionalV14.Version;
+    public const string Version = PositionalV15.Version;
+    public static bool SupportsControls(string? version)=>version is PositionalV7.Version or PositionalV8.Version or PositionalV9.Version or PositionalV10.Version or PositionalV11.Version or PositionalV12.Version or PositionalV13.Version or PositionalV14.Version or PositionalV15.Version;
     public const int Duration = 90 * 60;
     public static MatchReplay Run(MatchSetup setup, int seed, bool captureFrames) => setup.EngineVersion switch
     {
+        PositionalV15.Version => PositionalV15.Run(setup,seed,captureFrames),
         PositionalV14.Version => PositionalV14.Run(setup,seed,captureFrames),
         PositionalV13.Version => PositionalV13.Run(setup,seed,captureFrames),
         PositionalV12.Version => PositionalV12.Run(setup,seed,captureFrames),

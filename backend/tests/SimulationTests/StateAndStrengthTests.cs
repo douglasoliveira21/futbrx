@@ -45,7 +45,8 @@ public static class StateAndStrengthTests
             if (Game.HasLeagueMatch(g) || ClubCompetitions.NextDue(g) != null) Game.Advance(g); else Game.AdvanceWeek(g);
         }
         Check(final.Champion != "" && state.Advanced.Contains(final.Champion) && final.Matches.All(m => m.Winner != ""), "Final do estadual define o campeão entre os quatro classificados");
-        Check(g.OpponentSquads.Keys.Count(id => g.KnownClubs.Any(k => k.Id == id)) <= 3, "Só os adversários realmente enfrentados ganham elenco");
+        var met = g.Life.Competitions.SelectMany(c => c.Matches).Select(m => m.Fixture).Where(f => f.Home == "pal" || f.Away == "pal").SelectMany(f => new[] { f.Home, f.Away }).ToHashSet();
+        Check(g.OpponentSquads.Keys.Where(id => g.KnownClubs.Any(k => k.Id == id)).All(met.Contains), "Só os adversários que o clube realmente enfrentou ganham elenco");
 
         // Club strength shapes the squads.
         var a = Game.New("pal", Game.Clubs2026Catalog()); var b = Game.New(Game.SeriesCatalog("B").Clubs[0].Id, Game.SeriesCatalog("B"));

@@ -39,7 +39,7 @@ public static class LiveBroadcast
         }
         // No credit for time offline, suspended tabs or long gaps. Multiple tabs share one clock.
         var gap = (now - live.LastHeartbeat).TotalSeconds;
-        if (live.WasPlaying && playing && !live.HalfTimeAwaiting && !live.StoppagePaused && gap is > 0 and <= 3)
+        if (live.WasPlaying && playing && !live.HalfTimeAwaiting && !live.InjuryAwaiting && !live.StoppagePaused && gap is > 0 and <= 3)
         {
             var entry = Math.Min(gap,Math.Max(0,EntranceSeconds-live.WatchedSeconds));
             var credit = entry + (gap-entry) * (MatchSimulation.SupportsControls(live.Fixture.Setup?.EngineVersion) ? live.PlaybackSpeed/(double)Speed : 1);
@@ -73,7 +73,7 @@ public static class LiveBroadcast
     {
         live.Id,live.CompetitionName,live.CompetitionMatchId, live.Season, live.WatchedSeconds, live.Duration, live.SimulatedSecond, live.Incremental,
         entranceSeconds = EntranceSeconds, speed = MatchSimulation.SupportsControls(live.Fixture.Setup?.EngineVersion) ? live.PlaybackSpeed : Speed,
-        live.ManagedTeam, live.PauseAfterSecond, live.StoppagePaused, live.HalfTimeAwaiting, live.HalfTimeAccepted, matchSecond=MatchSecond(live), controlsEnabled=MatchSimulation.SupportsControls(live.Fixture.Setup?.EngineVersion),
+        live.ManagedTeam, live.PauseAfterSecond, live.StoppagePaused, live.HalfTimeAwaiting, live.HalfTimeAccepted, live.InjuryAwaiting, live.InjuryPlayerId, matchSecond=MatchSecond(live), controlsEnabled=MatchSimulation.SupportsControls(live.Fixture.Setup?.EngineVersion),
         fixture = new { live.Fixture.Round, live.Fixture.Home, live.Fixture.Away, live.Fixture.Seed, live.Fixture.Setup, live.Fixture.Date, live.Fixture.Kickoff,live.Fixture.CompetitionMatchId,live.Fixture.CompetitionName, live.Fixture.Leg, homeGoals = (int?)null, awayGoals = (int?)null, events = Array.Empty<MatchEvent>() }
     };
 }

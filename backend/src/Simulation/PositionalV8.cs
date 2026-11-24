@@ -7,11 +7,11 @@ public static class PositionalV8
 {
     public const string Version="positional-v8";
     public static MatchReplay Run(MatchSetup setup,int seed,bool captureFrames)=>Stream(setup,seed,captureFrames).Last().Replay;
-    public static IEnumerable<Checkpoint> Stream(MatchSetup setup,int seed,bool captureFrames=true,FootballBrain? intelligence=null,bool delayedKeeper=false,bool physicalShots=false,bool continuousContacts=false,bool realisticThrowIns=false,bool throwInSupport=false)
+    public static IEnumerable<Checkpoint> Stream(MatchSetup setup,int seed,bool captureFrames=true,FootballBrain? intelligence=null,bool delayedKeeper=false,bool physicalShots=false,bool continuousContacts=false,bool realisticThrowIns=false,bool throwInSupport=false,bool injuryRealism=false)
     {
         if(setup.EngineVersion!=Version)throw new GameRuleException("Versão do motor inválida.");
         MatchReplay? final=null;
-        foreach(var step in PositionalV7.Stream(setup with{EngineVersion=PositionalV7.Version},seed,captureFrames,intelligence,delayedKeeper,physicalShots,continuousContacts,realisticThrowIns,throwInSupport)){
+        foreach(var step in PositionalV7.Stream(setup with{EngineVersion=PositionalV7.Version},seed,captureFrames,intelligence,delayedKeeper,physicalShots,continuousContacts,realisticThrowIns,throwInSupport,injuryRealism)){
             var replay=step.Replay with{EngineVersion=Version,Setup=setup};
             // A second leg is level when this match plus the goals already scored in the first leg are equal.
             if(step.Finished&&setup.Knockout&&replay.HomeGoals+setup.AggregateLead==replay.AwayGoals){final=replay;break;}

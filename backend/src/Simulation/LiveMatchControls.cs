@@ -10,6 +10,12 @@ public static class LiveMatchControls
         try { foreach(var change in substitutions){if(change==null)throw new GameRuleException("Substituição inválida.");Apply(live,replay,"substitution",12,"","",change.OutPlayerId,change.InPlayerId,now);} }
         catch {live.Fixture.Setup=setup;throw;}
     }
+    // The coach decided about the injured player: the broadcast can go on.
+    static void ResolveInjury(LiveMatch live, int playerId)
+    {
+        if (!live.InjuryAwaiting || live.InjuryPlayerId != playerId) return;
+        live.InjuryResolved.Add(playerId); live.InjuryAwaiting = false; live.InjuryPlayerId = 0;
+    }
     public static void Apply(LiveMatch live, MatchReplay replay, string type, int speed, string formation, string mentality, int outgoing, int incoming, DateTimeOffset now,TacticalPlan? plan=null)
     {
         var setup=live.Fixture.Setup!;
@@ -32,8 +38,8 @@ public static class LiveMatchControls
         }
         if(type=="tactics")
         {
-            if(!Tactics.Formations.Contains(formation)||!(setup.EngineVersion is PositionalV10.Version or PositionalV11.Version or PositionalV12.Version or PositionalV13.Version or PositionalV14.Version ? Tactics.Mentalities : Tactics.LegacyMentalities).Contains(mentality))throw new GameRuleException("Estratégia inválida.");
-            if(setup.EngineVersion is not (PositionalV9.Version or PositionalV10.Version or PositionalV11.Version or PositionalV12.Version or PositionalV13.Version or PositionalV14.Version)&&(plan!=null||formation=="4-2-3-1"))throw new GameRuleException("As instruções avançadas estão disponíveis nas novas partidas.");
+            if(!Tactics.Formations.Contains(formation)||!(setup.EngineVersion is PositionalV10.Version or PositionalV11.Version or PositionalV12.Version or PositionalV13.Version or PositionalV14.Version or PositionalV15.Version ? Tactics.Mentalities : Tactics.LegacyMentalities).Contains(mentality))throw new GameRuleException("Estratégia inválida.");
+            if(setup.EngineVersion is not (PositionalV9.Version or PositionalV10.Version or PositionalV11.Version or PositionalV12.Version or PositionalV13.Version or PositionalV14.Version or PositionalV15.Version)&&(plan!=null||formation=="4-2-3-1"))throw new GameRuleException("As instruções avançadas estão disponíveis nas novas partidas.");
             if(plan!=null)
             {
                 // O plano da carreira pode citar atletas fora dos relacionados; eles não participam da partida.
@@ -56,8 +62,17 @@ public static class LiveMatchControls
             if(replaced.Count+pending.Count>=5)throw new GameRuleException("Limite de cinco substituições atingido.");
             var half=replay.Events.FirstOrDefault(e=>e.Type=="second_half")?.Second;
             var stops=replaced.Where(e=>half==null||e.Second!=half&&e.Second!=half+2).Select(e=>e.Second).Concat(pending.Where(c=>!c.AtHalfTime).Select(c=>c.Second)).Distinct().Count();
-            if(!live.HalfTimeAwaiting&&stops>=3&&!pending.Any(c=>c.Second==second))throw new GameRuleException("As três paradas de substituição já foram utilizadas.");
+            bool injurySwap=replay.Events.Any(e=>e.Type=="injury"&&e.Team==team.Id&&e.Player==outgoing);
+            if(!live.HalfTimeAwaiting&&!injurySwap&&stops>=3&&!pending.Any(c=>c.Second==second))throw new GameRuleException("As três paradas de substituição já foram utilizadas.");
             commands.Add(new(second,team.Id,"substitution",OutPlayerId:outgoing,InPlayerId:incoming,AtHalfTime:live.HalfTimeAwaiting));
+            ResolveInjury(live,outgoing);
+        }
+        else if(type=="injury_retire")
+        {
+            // Playing on with ten: only for an injured player of the managed team whose decision is pending.
+            if(!live.InjuryAwaiting||live.InjuryPlayerId!=outgoing)throw new GameRuleException("Este atleta não está aguardando decisão por lesão.");
+            commands.Add(new(second,team.Id,"injury_retire",OutPlayerId:outgoing));
+            ResolveInjury(live,outgoing);
         }
         else throw new GameRuleException("Comando de partida inválido.");
         live.Fixture.Setup=setup with{Instructions=commands};

@@ -31,6 +31,8 @@ public static class PositionalV7
         public int ActionUntil;
         public int ActionSecond;
         public bool Active = true;
+        // V15: hurt but still on the pitch (waiting for the substitution, or playing on with reduced performance).
+        public bool Injured;
     }
     sealed record Flight(double X, double Z, double TargetX, double TargetZ, int Start, int End, int Recipient, string Result, int Shooter, int Team, MatchPlayer ShooterPlayer, string Delivery = "ground", double StartY = .24, double EndY = .24, bool OffsideRecipient = false, bool Reviewed = false, string Infringement = "");
     static (int HalfEnd,int Duration) EnsurePenaltyTime(int second,int halfEnd,int duration)
@@ -44,7 +46,7 @@ public static class PositionalV7
     static double Rating(MatchPlayer p) => p.Rating * (.65 + .35 * p.Fitness / 100.0);
 
     public static MatchReplay Run(MatchSetup setup, int seed, bool captureFrames) => Stream(setup, seed, captureFrames).Last().Replay;
-    public static IEnumerable<Checkpoint> Stream(MatchSetup setup, int seed, bool captureFrames = true,FootballBrain? intelligence=null,bool delayedKeeper=false,bool physicalShots=false,bool continuousContacts=false,bool realisticThrowIns=false,bool throwInSupport=false)
+    public static IEnumerable<Checkpoint> Stream(MatchSetup setup, int seed, bool captureFrames = true,FootballBrain? intelligence=null,bool delayedKeeper=false,bool physicalShots=false,bool continuousContacts=false,bool realisticThrowIns=false,bool throwInSupport=false,bool injuryRealism=false)
     {
         if (setup.EngineVersion != Version) throw new GameRuleException("Versão do motor não suportada para esta reprodução.");
         if (setup.Home.Players.Count != 11 || setup.Away.Players.Count != 11) throw new GameRuleException("Uma partida exige duas equipes de onze jogadores.");
@@ -83,11 +85,11 @@ public static class PositionalV7
         double HeadHeight(Agent player,int at)=>AerialPlay.HeadHeight(jumps.TryGetValue(player.Index,out var start)?(at-start)/(double)TimeScale:-1,FootballSkills.Get(player.Player,"Força"),FootballSkills.Get(player.Player,"Agilidade"));
         double ContactRadius(Agent a)=>a.Slot==0 && a.Action is "dive_left" or "dive_right" or "dive_low" ? .85 : .42;
         FootballObservation ObserveAgent(Agent a)=>new(a.Index,a.Player,a.Team,a.Slot,a.X,a.Z,a.Yaw,a.VelocityX,a.VelocityZ,a.Active);
-        FootballContext Observe(int second)=>new(second,halfEnd,duration,possession,carrier,ballX,ballY,ballZ,teams,agents.Select(a=>new FootballObservation(a.Index,a.Player,a.Team,a.Slot,a.X,a.Z,a.Yaw,a.VelocityX,a.VelocityZ,a.Active)).ToArray(),flight==null?null:new(flight.Recipient,flight.Team,flight.TargetX,flight.TargetZ,flight.Start,flight.End,flight.Delivery,flight.Result is "goal" or "save" or "miss"),homeGoals,awayGoals);
+        FootballContext Observe(int second)=>new(second,halfEnd,duration,possession,carrier,ballX,ballY,ballZ,teams,agents.Select(a=>new FootballObservation(a.Index,a.Player,a.Team,a.Slot,a.X,a.Z,a.Yaw,a.VelocityX,a.VelocityZ,a.Active&&!(a.Injured&&a.Action=="injured"&&a.ActionUntil>=second))).ToArray(),flight==null?null:new(flight.Recipient,flight.Team,flight.TargetX,flight.TargetZ,flight.Start,flight.End,flight.Delivery,flight.Result is "goal" or "save" or "miss"),homeGoals,awayGoals);
         int headerCarrier = -1; bool forceCapture = false;
         void Pose(Agent a, string action, int second, int until) { a.ActionSecond = second; a.Action = action; a.ActionUntil = until; forceCapture = true; }
 
-        void Event(int second, string type, int team, int player, string text, int? related = null, int injuryDays = 0) => events.Add(new(Math.Max(1, (int)Math.Ceiling(second / 60.0)), type, teams[team].Id, player, text, second, related, injuryDays));
+        void Event(int second, string type, int team, int player, string text, int? related = null, int injuryDays = 0, string injuryName = "") => events.Add(new(Math.Max(1, (int)Math.Ceiling(second / 60.0)), type, teams[team].Id, player, text, second, related, injuryDays, injuryName));
         void Capture(int second)
         {
             if (!captureFrames || frames.Count > 0 && frames[^1].Second == second) return;
@@ -123,20 +125,48 @@ public static class PositionalV7
         }
         bool Replace(Agent outgoing, MatchPlayer incoming, int second, string reason, bool halfTimeChange = false)
         {
-            if (!halfTimeChange && second != halfEnd && !substitutionStops[outgoing.Team].Contains(second) && substitutionStops[outgoing.Team].Count >= 3) return false;
+            bool injurySwap = outgoing.Injured; // an injury substitution is not a substitution stop, but still counts as one of the five changes
+            if (!halfTimeChange && !injurySwap && second != halfEnd && !substitutionStops[outgoing.Team].Contains(second) && substitutionStops[outgoing.Team].Count >= 3) return false;
             if (substitutions[outgoing.Team] >= 5 || !outgoing.Active || !unused[outgoing.Team].Any(p => p.Id == incoming.Id)) return false;
             var original = outgoing.Player;
             if(intelligence!=null&&teams[outgoing.Team].Plan is {Positions:not null} customPlan){var positions=new Dictionary<int,TacticalPoint>(customPlan.Positions);var roles=new Dictionary<int,string>(customPlan.Roles??[]);if(positions.TryGetValue(original.Id,out var point)){positions.Remove(original.Id);positions[incoming.Id]=point;}if(roles.TryGetValue(original.Id,out var role)){roles.Remove(original.Id);roles[incoming.Id]=role;}teams[outgoing.Team]=teams[outgoing.Team] with{Plan=customPlan with{Positions=positions,Roles=roles}};}
             if (outgoing.Slot == 0 && incoming.Position != "GOL") incoming = incoming with { NaturalPosition = incoming.Position, Position = "GOL", Rating = Math.Max(20, incoming.Rating / 2) };
-            if (!halfTimeChange && second != halfEnd) substitutionStops[outgoing.Team].Add(second);
+            if (!halfTimeChange && !injurySwap && second != halfEnd) substitutionStops[outgoing.Team].Add(second);
+            outgoing.Injured = false;
             unused[outgoing.Team].RemoveAll(p => p.Id == incoming.Id); substitutions[outgoing.Team]++; outgoing.Player = incoming; outgoing.Action = "enter"; outgoing.ActionUntil = second + 8;
             Event(second, "substitution", outgoing.Team, original.Id, $"Sai {original.Name}; entra {incoming.Name}. {reason}", incoming.Id);
             return true;
         }
         MatchPlayer? Reserve(Agent outgoing) => unused[outgoing.Team].Where(p => outgoing.Slot == 0 ? p.Position == "GOL" : p.Position != "GOL")
             .OrderByDescending(p => (p.Position == outgoing.Player.Position ? 30 : 0) + Rating(p)).FirstOrDefault();
+        // ---- V15 injuries: contact and fatigue injuries with a type and a severity ----
+        var autoInjury = new List<(Agent Agent, int Due)>();
+        (string Name, int Min, int Max)[] contactInjuries = [("Contusão", 3, 7), ("Entorse de tornozelo", 10, 24), ("Lesão no joelho", 45, 120), ("Fratura", 90, 180)];
+        int[] contactWeights = [48, 30, 14, 8];
+        (string Name, int Min, int Max)[] fatigueInjuries = [("Lesão muscular", 10, 28), ("Distensão", 7, 14), ("Tendinite", 5, 12)];
+        int[] fatigueWeights = [55, 30, 15];
+        const int InjuredDown = 150;
+        bool Injure(Agent victim, bool contact, int second)
+        {
+            int team = victim.Team;
+            if (injuryOccurred[team] || !victim.Active || victim.Injured || agents.Count(a => a.Active && a.Team == team) <= 7) return false;
+            injuryOccurred[team] = true;
+            var table = contact ? contactInjuries : fatigueInjuries; var weights = contact ? contactWeights : fatigueWeights;
+            int roll = medical.Next(weights.Sum()), k = 0; while (roll >= weights[k]) { roll -= weights[k]; k++; }
+            var kind = table[k]; int days = medical.Next(kind.Min, kind.Max + 1);
+            victim.Injured = true;
+            victim.Player = victim.Player with { Fitness = Math.Min(victim.Player.Fitness, 25), Rating = (int)(victim.Player.Rating * .78) };
+            // A ball carrier who goes down hands the ball to the nearest team-mate so play is not frozen.
+            if (carrier == victim.Index) { var mate = agents.Where(a => a.Active && a.Team == team && a.Index != victim.Index).OrderBy(a => (a.X - victim.X) * (a.X - victim.X) + (a.Z - victim.Z) * (a.Z - victim.Z)).FirstOrDefault(); if (mate != null) carrier = mate.Index; }
+            Event(second, "injury", team, victim.Player.Id, $"{victim.Player.Name} se lesiona: {kind.Name.ToLowerInvariant()}. Previsão: {days} dias.", null, days, kind.Name);
+            Pose(victim, "injured", second, second + InjuredDown);
+            // With automatic substitution the physio looks at him first and the assistant makes the change; otherwise the coach must decide.
+            if (teams[team].AutoSubstitute) autoInjury.Add((victim, second + 90));
+            return true;
+        }
         void Remove(Agent agent, int second)
         {
+            agent.Injured = false;
             agent.Active = false; agent.Action = "leave"; agent.ActionUntil = Duration;
             if (agent.Slot == 0)
             {
@@ -196,6 +226,11 @@ public static class PositionalV7
                     if(outgoing==null||incoming==null||!Replace(outgoing,incoming,second,"Decisão do treinador.",command.AtHalfTime))
                         Event(second,"substitution_cancelled",team,command.OutPlayerId,"Troca não realizada: atleta indisponível ou limite atingido.",command.InPlayerId);
                     else {Pose(outgoing,"enter",second,second+12); if(!command.AtHalfTime)kickoffUntil=Math.Max(kickoffUntil,second+12);}
+                }
+                else if(command.Type=="injury_retire")
+                {
+                    var hurt=agents.FirstOrDefault(a=>a.Active&&a.Injured&&a.Team==team&&a.Player.Id==command.OutPlayerId);
+                    if(hurt!=null){Event(second,"injury_retire",team,hurt.Player.Id,$"{hurt.Player.Name} deixa o campo e a equipe segue com um a menos.");Remove(hurt,second);}
                 }
             }
             if (flight != null)
@@ -593,10 +628,27 @@ public static class PositionalV7
                         var incoming = unused[team].Find(p => p.Id == plan.InPlayerId);
                         if (outgoing == null || incoming == null || !Replace(outgoing, incoming, second, "Troca programada.")) Event(second, "substitution_cancelled", team, plan.OutPlayerId, "Troca programada cancelada: atleta indisponível ou limite atingido.", plan.InPlayerId);
                     }
+                if (injuryRealism && autoInjury.Count > 0)
+                    foreach (var due in autoInjury.Where(x => x.Due <= second).ToList())
+                    {
+                        autoInjury.Remove(due); var hurt = due.Agent;
+                        if (!hurt.Active || !hurt.Injured) continue;
+                        var reserve = Reserve(hurt);
+                        if (reserve == null || !Replace(hurt, reserve, second, "Substituição por lesão.")) Remove(hurt, second);
+                    }
                 if (second % 60 == 0 && second < 5100)
                     for (int team = 0; team < 2; team++)
                     {
                         var active = agents.Where(a => a.Active && a.Team == team).ToArray();
+                        if (injuryRealism)
+                        {
+                            // Fatigue injury: the more tired a player is, the likelier he is the one who gets hurt.
+                            if (injuryOccurred[team] || active.Length <= 7 || medical.NextDouble() > .003 + Math.Max(0, 80 - active.Average(a => a.Player.Fitness)) * .0007) continue;
+                            int total = active.Sum(a => Math.Max(5, 110 - a.Player.Fitness)), pick = medical.Next(total), index = 0;
+                            while (pick >= Math.Max(5, 110 - active[index].Player.Fitness)) { pick -= Math.Max(5, 110 - active[index].Player.Fitness); index++; }
+                            Injure(active[index], false, second);
+                            continue;
+                        }
                         if (injuryOccurred[team] || active.Length <= 7 || medical.NextDouble() > .003 + Math.Max(0, 80 - active.Average(a => a.Player.Fitness)) * .0007) continue;
                         injuryOccurred[team] = true;
                         var injured = active[medical.Next(active.Length)]; int days = new[] { 7, 14, 21, 28 }[medical.Next(4)];
@@ -629,9 +681,10 @@ public static class PositionalV7
                         { bookings[offender.Player.Id] = 1; Event(second, "yellow_card", offender.Team, offender.Player.Id, $"Cartão amarelo para {offender.Player.Name}."); }
                         Pose(offender, "tackle", second, second + 24);
                         Pose(victim, "fall", second, second + 38);
+                        if (injuryRealism && !MatchRules.InPenaltyArea(victim.X, victim.Z, (possession == 0 ? 1 : -1) * (second >= halfEnd ? -1 : 1)) && medical.NextDouble() < (yellow ? .04 : .018)) Injure(victim, true, second); // no injury on a penalty: the victim takes it
                         bool penalty = MatchRules.InPenaltyArea(victim.X, victim.Z, (possession == 0 ? 1 : -1) * (second >= halfEnd ? -1 : 1));
                         bool playAdvantage = RefereeDecisions.Advantage(!penalty && sanction != FootballDecisions.Sanction.Red && !(yellow && bookings.GetValueOrDefault(offender.Player.Id) > 0), true, victim.X * attackDirection > 12);
-                        if (playAdvantage)
+                        if (playAdvantage && !victim.Injured)
                         {
                             Pose(victim, "shield", second, second + 14);
                             advantage = (second + 36, possession, victim.X, victim.Z, victim.Player.Id);
@@ -713,7 +766,7 @@ public static class PositionalV7
                 if(intelligence!=null)topSpeed=intelligence.TopSpeed(ObserveAgent(a),intelligentTarget?.Sprint??sprint);
                 var physicalDelta = Tick / (double)TimeScale;
                 if((a.Index==throwCarrier && second<=throwRelease)||(penaltyKick && a.Index==carrier)){targetX=a.X;targetZ=a.Z;dx=0;dz=0;distance=0;a.VelocityX=a.VelocityZ=0;}
-                var grounded = a.ActionUntil >= second && a.Action is "fall" or "tackle" or "air_duel";
+                var grounded = a.ActionUntil >= second && a.Action is "fall" or "tackle" or "air_duel" or "injured";
                 var striking = a.ActionUntil >= second && a.Action is "pass" or "shot" or "cross" or "header";
                 var speed = Math.Min(grounded ? 0 : striking ? 1 : topSpeed, distance / physicalDelta);
                 var desiredX = distance > .01 ? dx / distance * speed : 0;
@@ -766,6 +819,7 @@ public static class PositionalV7
                     {
                         Event(second, "tackle", challenger.Team, challenger.Player.Id, $"{challenger.Player.Name} chega na bola e desarma {holder.Player.Name}.", holder.Player.Id);
                         Pose(holder, sliding ? "fall" : "stumble", second, second + (sliding ? 36 : 18));
+                        if (injuryRealism && sliding && medical.NextDouble() < .009) Injure(medical.NextDouble() < .15 ? challenger : holder, true, second);
                         possession = challenger.Team; carrier = challenger.Index; decisionAt = second + 30;
                         if (physicalShots) physicalContact = RecordContact(challenger.Player.Id, challenger.Team, "desarme", second, ballX, ballY, ballZ, "disputa");
                     }

@@ -30,6 +30,7 @@ export type MatchEvent = {
   second?: number;
   relatedPlayer?: number | null;
   injuryDays?: number;
+  injuryName?: string;
 };
 export type Fixture = {
   leg?: number;
@@ -154,6 +155,9 @@ export type BroadcastSession = {
   stoppagePaused?: boolean;
   halfTimeAwaiting?: boolean;
   halfTimeAccepted?: boolean;
+  // V15: an injured player of the managed team waits for the coach (the broadcast stays paused).
+  injuryAwaiting?: boolean;
+  injuryPlayerId?: number;
   matchSecond?: number;
   incremental?: boolean;
   simulatedSecond?: number;

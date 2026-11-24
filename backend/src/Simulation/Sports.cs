@@ -121,7 +121,7 @@ public static class Sports
             {
                 var p = registered.Find(p => p.Id == group.Key); if (p == null) continue;
                 int newInjury = group.Where(e => e.Type == "injury").Select(e => e.InjuryDays).DefaultIfEmpty(0).Max();
-                if (newInjury > 0) { p.InjuryDays = Math.Max(p.InjuryDays, newInjury); p.InjuryName = "Desconforto muscular"; }
+                if (newInjury > 0) { p.InjuryDays = Math.Max(p.InjuryDays, newInjury); p.InjuryName = group.Where(e => e.Type == "injury" && e.InjuryDays == newInjury).Select(e => e.InjuryName).FirstOrDefault(n => n != "") ?? "Desconforto muscular"; }
                 int yellow = group.Count(e => e.Type is "yellow_card" or "second_yellow"); p.YellowCards += yellow;
                 bool accumulation = p.YellowCards >= 3; p.YellowCards %= 3;
                 if (accumulation || group.Any(e => e.Type == "red_card")) p.SuspensionMatches++;

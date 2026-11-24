@@ -15,6 +15,7 @@ if (args.Contains("--movement")) { SeriesMovementTests.Run(); return; }
 if (args.Contains("--state")) { StateAndStrengthTests.Run(); return; }
 if (args.Contains("--copa")) { CopaPrizeTests.Run(); return; }
 if (args.Contains("--prizes")) { PrizeTests.Run(); return; }
+if (args.Contains("--injuries")) { InjuryTests.Run(true); return; }
 if (args.Contains("--qualification")) { QualificationTests.Run(); return; }
 if (args.Contains("--contact")) { ContactTests.Run(); return; }
 if (args.Contains("--broadcast")) { BroadcastTests.Run(); return; }
@@ -80,6 +81,7 @@ SeriesMovementTests.Run();
 StateAndStrengthTests.Run();
 CopaPrizeTests.Run();
 PrizeTests.Run();
+InjuryTests.Run();
 QualificationTests.Run();
 
 Check(season.PlayerStats.Values.Sum(p => p.Goals) == season.Fixtures.Sum(f => f.HomeGoals!.Value + f.AwayGoals!.Value), "Estatísticas individuais conservam todos os gols da temporada");

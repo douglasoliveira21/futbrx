@@ -35,6 +35,7 @@ import { BALL_RADIUS, footballGeometry } from "./footballGeometry";
 import StadiumDetails, { PerformanceMeter } from "./StadiumDetails";
 import MatchdayDetails, { useGrassTexture } from "./MatchdayDetails";
 import { useBroadcast } from "./useBroadcast";
+import { InjuryDecision } from "./InjuryDecision";
 import { StadiumAudio } from "./StadiumAudio";
 import {
   resolvePresentationPose,
@@ -767,6 +768,7 @@ export default function Match3D({
       "positional-v12",
       "positional-v13",
       "positional-v14",
+      "positional-v15",
     ].includes(replay.data?.engineVersion ?? "")
       ? 12
       : 1;
@@ -1472,6 +1474,9 @@ export default function Match3D({
           )}
         </div>
       )}
+      {live && broadcast.packet?.session.injuryAwaiting && (
+        <InjuryDecision packet={broadcast.packet} busy={broadcast.controlBusy} error={broadcast.controlError} control={broadcast.control} />
+      )}
       {live && managerOpen && broadcast.packet && (
         <MatchManagement
           packet={broadcast.packet}
@@ -1592,6 +1597,7 @@ export default function Match3D({
                   "second_yellow",
                   "red_card",
                   "injury",
+                  "injury_retire",
                   "substitution",
                   "emergency_keeper",
                   "second_half",

@@ -19,7 +19,7 @@ public sealed class LiveSimulation : IDisposable
             if (checkpoint != null && checkpoint.Second > target) { engine?.Dispose(); engine = null; checkpoint = null; }
             if (engine == null)
             {
-                engine = (setup.EngineVersion == PositionalV14.Version ? PositionalV14.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV13.Version ? PositionalV13.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV12.Version ? PositionalV12.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV11.Version ? PositionalV11.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV10.Version ? PositionalV10.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV9.Version ? PositionalV9.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV8.Version ? PositionalV8.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV7.Version ? PositionalV7.Stream(setup, live.Fixture.Seed) : setup.EngineVersion == PositionalV6.Version
+                engine = (setup.EngineVersion == PositionalV15.Version ? PositionalV15.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV14.Version ? PositionalV14.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV13.Version ? PositionalV13.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV12.Version ? PositionalV12.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV11.Version ? PositionalV11.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV10.Version ? PositionalV10.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV9.Version ? PositionalV9.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV8.Version ? PositionalV8.Stream(setup,live.Fixture.Seed) : setup.EngineVersion == PositionalV7.Version ? PositionalV7.Stream(setup, live.Fixture.Seed) : setup.EngineVersion == PositionalV6.Version
                     ? PositionalV6.Stream(setup, live.Fixture.Seed)
                     : PositionalV5.Stream(setup, live.Fixture.Seed)).GetEnumerator();
                 engine.MoveNext(); checkpoint = engine.Current;
@@ -30,6 +30,15 @@ public sealed class LiveSimulation : IDisposable
                 int previousEventCount = checkpoint.Replay.Events.Count;
                 if (!engine.MoveNext()) break;
                 checkpoint = engine.Current;
+                // V15: an injury of the managed team (without automatic substitution) stops the broadcast until the coach decides.
+                var hurt = checkpoint.Replay.Events.Skip(previousEventCount).FirstOrDefault(e => e.Type == "injury" && e.Team == live.ManagedTeam && !live.InjuryResolved.Contains(e.Player));
+                if (hurt != null && setup.EngineVersion == PositionalV15.Version && !(live.ManagedTeam == setup.Home.Id ? setup.Home : setup.Away).AutoSubstitute)
+                {
+                    live.InjuryAwaiting = true; live.InjuryPlayerId = hurt.Player; live.PauseAfterSecond = null; live.StoppagePaused = false;
+                    live.WasPlaying = false; live.Viewers.Clear();
+                    live.WatchedSeconds = LiveBroadcast.EntranceSeconds + checkpoint.Second / (double)LiveBroadcast.Speed;
+                    break;
+                }
                 if (live.PauseAfterSecond is int armedAt &&
                     checkpoint.Replay.Events.Skip(previousEventCount).Any(e => e.Second > armedAt && Stoppages.Contains(e.Type)))
                 {

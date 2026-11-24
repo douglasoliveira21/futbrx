@@ -648,3 +648,42 @@
 .compact .login-legal {
   position: static;
 }
+
+/* Narrow screens: a little smaller than the first version. */
+.compact .login-logo {
+  width: min(180px, 46vw);
+}
+.compact .login-panel {
+  width: min(88vw, 480px);
+}
+.compact .login-field {
+  height: 50px;
+}
+.compact .login-field input {
+  font-size: 16px;
+}
+.compact .login-cta {
+  height: 52px;
+  font-size: 20px;
+}
+.compact .login-google-card {
+  height: 50px;
+  font-size: 16px;
+}
+.compact .login-tabs button {
+  height: 42px;
+  font-size: 16px;
+}
+.compact .login-features li,
+.compact .login-champs li {
+  font-size: 13px;
+}
+
+.login-recover-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.login-recover-form .login-cta {
+  width: 100%;
+}

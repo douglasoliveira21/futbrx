@@ -90,8 +90,10 @@ export default function LoginScreen({ onLogin }: { onLogin: (name: string) => vo
     },
   });
 
-  const config = useQuery({ queryKey: ["auth-config"], queryFn: () => api<{ googleClientId: string | null }>("/auth/config"), staleTime: Infinity, retry: false });
+  const config = useQuery({ queryKey: ["auth-config"], queryFn: () => api<{ googleClientId: string | null; passwordReset?: boolean }>("/auth/config"), staleTime: Infinity, retry: false });
   const googleId = config.data?.googleClientId ?? null;
+  const canReset = !!config.data?.passwordReset;
+  const forgot = useMutation({ mutationFn: () => api<{ message: string }>("/auth/forgot", { email: email.trim() }) });
   const google = useMutation({
     mutationFn: (credential: string) => api<LoginResult>("/auth/google", { credential, remember: rememberNow.current }),
     onSuccess: (r) => {
@@ -139,6 +141,13 @@ export default function LoginScreen({ onLogin }: { onLogin: (name: string) => vo
     m.reset();
   };
   const error = problem || (m.error ? m.error.message : "") || (google.error ? google.error.message : "");
+  const sendLink = (e: FormEvent) => {
+    e.preventDefault();
+    if (forgot.isPending) return;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) return setProblem("Informe um e-mail válido.");
+    setProblem("");
+    forgot.mutate();
+  };
 
   const panel = (
     <section className={"login-panel" + (register ? " is-register" : "") + (mode === "recover" ? " is-recover" : "")} aria-label="Acesso ao jogo">
@@ -153,10 +162,33 @@ export default function LoginScreen({ onLogin }: { onLogin: (name: string) => vo
       {mode === "recover" ? (
         <div className="login-body login-recover" key="recover">
           <h2>Recuperar acesso</h2>
-          <p>
-            Ainda não há envio de e-mail para redefinir a senha. Peça a redefinição ao administrador do jogo: ele cria uma
-            nova senha e encerra as sessões antigas. Depois é só entrar de novo.
-          </p>
+          {canReset ? (
+            forgot.isSuccess ? (
+              <p role="status">{forgot.data.message} Confira também a caixa de spam.</p>
+            ) : (
+              <form onSubmit={sendLink} noValidate className="login-recover-form">
+                <p>Informe o e-mail da sua conta. Enviaremos um link para você criar uma nova senha.</p>
+                <label className="login-field">
+                  <User size={24} aria-hidden />
+                  <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-mail" maxLength={254} autoComplete="email" aria-label="E-mail" autoFocus />
+                </label>
+                {(problem || forgot.error) && (
+                  <p className="login-error" role="alert">
+                    {problem || forgot.error?.message}
+                  </p>
+                )}
+                <button type="submit" className="login-cta" disabled={forgot.isPending} aria-busy={forgot.isPending}>
+                  {forgot.isPending ? <Loader2 className="spin" size={24} aria-hidden /> : null}
+                  <span>{forgot.isPending ? "Enviando…" : "Enviar link"}</span>
+                </button>
+              </form>
+            )
+          ) : (
+            <p>
+              A recuperação por e-mail ainda não está ativa neste servidor. Peça a redefinição ao administrador do jogo: ele cria uma
+              nova senha e encerra as sessões antigas. Depois é só entrar de novo.
+            </p>
+          )}
           <button type="button" className="login-link" onClick={() => choose("login")}>
             Voltar ao login
           </button>

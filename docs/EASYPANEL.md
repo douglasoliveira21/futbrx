@@ -166,3 +166,28 @@ Em **Domínio do app** (Google Auth Platform → Branding), preencha com o ender
 As páginas são públicas (abrem sem login) e a tela de login tem links para as duas. Para mostrar um e-mail de contato nelas, crie
 no serviço `jogo` a variável `Legal__ContactEmail`; sem ela, o texto manda falar com o administrador do serviço. Inclua também o
 domínio em **Domínios autorizados** do Google. O texto das páginas é um modelo baseado na LGPD: revise antes de publicar.
+
+## Recuperação de senha por e-mail ("Esqueceu sua senha?")
+
+O link só envia e-mail quando o servidor conhece o endereço público do jogo e um servidor SMTP. Sem isso a tela apenas orienta a
+pedir a redefinição ao administrador. No serviço `jogo`, em **Environment / Ambiente**, acrescente (troque pelos seus dados):
+
+```dotenv
+APP_PUBLIC_URL=https://futbrx.euporiagames.com
+SMTP_HOST=smtp.seuprovedor.com
+SMTP_PORT=587
+SMTP_USER=usuario-do-smtp
+SMTP_PASSWORD=senha-do-smtp
+SMTP_FROM=nao-responda@seudominio.com
+SMTP_ENABLE_SSL=true
+```
+
+- `SMTP_FROM` é o remetente; use um endereço do seu domínio (ou o que o provedor de e-mail autorizou).
+- Porta 587 com STARTTLS (`SMTP_ENABLE_SSL=true`) é o padrão da maioria dos provedores (Brevo, Mailgun, Amazon SES, Zoho,
+  Gmail com senha de app). A porta 465 com SSL implícito não é suportada.
+- Salve e faça **Deploy**. Confira em `/api/auth/config`: `passwordReset` deve estar `true`.
+
+Como funciona: o jogador informa o e-mail e recebe um link `.../redefinir-senha?token=...` válido por **1 hora**. O link é assinado,
+vale uma vez só (ao trocar a senha, os links antigos deixam de funcionar), e a troca encerra todas as sessões abertas. A resposta é
+a mesma para e-mail cadastrado ou não (não revela quem tem conta), há no máximo um e-mail por endereço a cada 2 minutos, e contas
+criadas pelo Google não recebem o e-mail, porque não têm senha.

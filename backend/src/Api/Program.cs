@@ -46,7 +46,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 builder.Services.AddAuthorization(o => o.AddPolicy("Admin", policy => policy.RequireAuthenticatedUser().RequireAssertion(ctx => AdminAccess.Allowed(builder.Configuration, ctx.User))));
 builder.Services.AddScoped<AuthSession>();
 builder.Services.AddHostedService<SessionCleanup>();
-builder.Services.AddHttpClient<IGoogleTokenVerifier, GoogleTokenVerifier>(c => c.Timeout = TimeSpan.FromSeconds(8)); builder.Services.AddMemoryCache(); builder.Services.AddSingleton<TimeProvider>(TimeProvider.System);
+builder.Services.AddSingleton<IEmailSender, SmtpEmailSender>(); builder.Services.AddHttpClient<IGoogleTokenVerifier, GoogleTokenVerifier>(c => c.Timeout = TimeSpan.FromSeconds(8)); builder.Services.AddMemoryCache(); builder.Services.AddSingleton<TimeProvider>(TimeProvider.System);
 builder.Services.AddSignalR(); builder.Services.AddHealthChecks();
 builder.Services.AddRateLimiter(o => { o.RejectionStatusCode = 429; o.AddPolicy("auth", ctx => RateLimitPartition.GetFixedWindowLimiter(ctx.Connection.RemoteIpAddress?.ToString() ?? "unknown", _ => new() { PermitLimit = 12, Window = TimeSpan.FromMinutes(1), QueueLimit = 0 })); o.AddPolicy("game", ctx => RateLimitPartition.GetFixedWindowLimiter(ctx.User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "anonymous", _ => new() { PermitLimit = builder.Configuration.GetValue<int?>("RateLimit:GamePerMinute") ?? 120, Window = TimeSpan.FromMinutes(1), QueueLimit = 0 })); });
 var app = builder.Build();

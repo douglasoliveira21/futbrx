@@ -52,6 +52,7 @@ public static class AuthEndpoints
     {
         var auth = app.MapGroup("/api/auth");
         auth.MapGoogleSignIn();
+        auth.MapPasswordReset();
         auth.MapPost("/register", async (Credentials r, GameDb db, AuthSession sessions, HttpContext ctx) =>
         {
             var email = (r.Email ?? "").Trim().ToLowerInvariant();

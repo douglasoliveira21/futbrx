@@ -50,7 +50,7 @@ public static class GoogleSignIn
     public static void MapGoogleSignIn(this RouteGroupBuilder auth)
     {
         // Public configuration of the login screen: the Client ID is not a secret, and no button is shown without it.
-        auth.MapGet("/config", (IConfiguration config) => Results.Ok(new { googleClientId = string.IsNullOrWhiteSpace(config["Google:ClientId"]) ? null : config["Google:ClientId"], contactEmail = string.IsNullOrWhiteSpace(config["Legal:ContactEmail"]) ? null : config["Legal:ContactEmail"] }));
+        auth.MapGet("/config", (IConfiguration config, IEmailSender mail) => Results.Ok(new { passwordReset = PasswordResetEndpoints.Available(config, mail), googleClientId = string.IsNullOrWhiteSpace(config["Google:ClientId"]) ? null : config["Google:ClientId"], contactEmail = string.IsNullOrWhiteSpace(config["Legal:ContactEmail"]) ? null : config["Legal:ContactEmail"] }));
         auth.MapPost("/google", async (GoogleLogin r, IConfiguration config, IGoogleTokenVerifier verifier, GameDb db, AuthSession sessions, HttpContext ctx) =>
         {
             var clientId = config["Google:ClientId"];

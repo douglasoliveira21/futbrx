@@ -36,6 +36,7 @@ public static class ManagementEndpoints
             otherClubs = g.Divisions?.OtherClubs ?? [],
             knownClubs = g.KnownClubs,
             qualification = Qualification.Projection(g),
+            southAmerica = g.SouthAmerica,
             serieD = g.SerieD == null ? null : new { g.SerieD.Group, g.SerieD.Others, g.SerieD.Qualified, g.SerieD.Promoted, g.SerieD.Results },
             g.Season,
             g.SeasonRounds,

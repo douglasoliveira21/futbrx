@@ -1,0 +1,1334 @@
+{
+  "season": 2026,
+  "asOf": "2026-11-24",
+  "status": "lista de clubes lida das páginas das edições de 2026 (Wikipédia); cidades das tabelas de estádios. Siglas, cores e forças são estimativas do projeto, ainda a conferir. Sem escudos oficiais (sem licença verificada): escudo genérico nas cores do clube.",
+  "countries": [
+    {
+      "code": "ARG",
+      "name": "Argentina",
+      "format": "Liga Profesional (Apertura e Clausura)",
+      "clubs": [
+        {
+          "id": "arg-aldosivi",
+          "name": "Aldosivi",
+          "short": "ALD",
+          "city": "Mar del Plata",
+          "color": "#f5d000",
+          "strength": 50
+        },
+        {
+          "id": "arg-argentinos-ju",
+          "name": "Argentinos Juniors",
+          "short": "ARJ",
+          "city": "Buenos Aires",
+          "color": "#d71920",
+          "strength": 58
+        },
+        {
+          "id": "arg-atletico-tucu",
+          "name": "Atlético Tucumán",
+          "short": "ATU",
+          "city": "San Miguel de Tucumán",
+          "color": "#7fb2e5",
+          "strength": 54
+        },
+        {
+          "id": "arg-banfield",
+          "name": "Banfield",
+          "short": "BAN",
+          "city": "Banfield",
+          "color": "#2e8b57",
+          "strength": 54
+        },
+        {
+          "id": "arg-barracas-cent",
+          "name": "Barracas Central",
+          "short": "BCE",
+          "city": "Buenos Aires",
+          "color": "#d71920",
+          "strength": 48
+        },
+        {
+          "id": "arg-belgrano",
+          "name": "Belgrano",
+          "short": "BEL",
+          "city": "Córdoba",
+          "color": "#4da6e8",
+          "strength": 58
+        },
+        {
+          "id": "arg-boca-juniors",
+          "name": "Boca Juniors",
+          "short": "BOC",
+          "city": "Buenos Aires",
+          "color": "#103f91",
+          "strength": 73
+        },
+        {
+          "id": "arg-central-cordo",
+          "name": "Central Córdoba (SdE)",
+          "short": "CCO",
+          "city": "Santiago del Estero",
+          "color": "#1a1a1a",
+          "strength": 50
+        },
+        {
+          "id": "arg-defensa-y-jus",
+          "name": "Defensa y Justicia",
+          "short": "DYJ",
+          "city": "Florencio Varela",
+          "color": "#f2c500",
+          "strength": 54
+        },
+        {
+          "id": "arg-deportivo-rie",
+          "name": "Deportivo Riestra",
+          "short": "RIE",
+          "city": "Buenos Aires",
+          "color": "#1a1a1a",
+          "strength": 46
+        },
+        {
+          "id": "arg-estudiantes-l",
+          "name": "Estudiantes (LP)",
+          "short": "EST",
+          "city": "La Plata",
+          "color": "#d71920",
+          "strength": 64
+        },
+        {
+          "id": "arg-estudiantes-r",
+          "name": "Estudiantes (RC)",
+          "short": "ERC",
+          "city": "Río Cuarto",
+          "color": "#d71920",
+          "strength": 46
+        },
+        {
+          "id": "arg-gimnasia-y-es",
+          "name": "Gimnasia y Esgrima (LP)",
+          "short": "GLP",
+          "city": "La Plata",
+          "color": "#1d4fa8",
+          "strength": 52
+        },
+        {
+          "id": "arg-gimnasia-y-es2",
+          "name": "Gimnasia y Esgrima (M)",
+          "short": "GME",
+          "city": "Mendoza",
+          "color": "#1d4fa8",
+          "strength": 46
+        },
+        {
+          "id": "arg-huracan",
+          "name": "Huracán",
+          "short": "HUR",
+          "city": "Buenos Aires",
+          "color": "#e8e8e8",
+          "strength": 56
+        },
+        {
+          "id": "arg-independiente",
+          "name": "Independiente",
+          "short": "IND",
+          "city": "Avellaneda",
+          "color": "#d71920",
+          "strength": 64
+        },
+        {
+          "id": "arg-independiente2",
+          "name": "Independiente Rivadavia",
+          "short": "IRV",
+          "city": "Mendoza",
+          "color": "#1d4fa8",
+          "strength": 56
+        },
+        {
+          "id": "arg-instituto",
+          "name": "Instituto",
+          "short": "INS",
+          "city": "Córdoba",
+          "color": "#d71920",
+          "strength": 50
+        },
+        {
+          "id": "arg-lanus",
+          "name": "Lanús",
+          "short": "LAN",
+          "city": "Lanús",
+          "color": "#8b1a2b",
+          "strength": 60
+        },
+        {
+          "id": "arg-newell-s-old",
+          "name": "Newell's Old Boys",
+          "short": "NOB",
+          "city": "Rosario",
+          "color": "#d71920",
+          "strength": 58
+        },
+        {
+          "id": "arg-platense",
+          "name": "Platense",
+          "short": "PLA",
+          "city": "Florida Este",
+          "color": "#6b3a1d",
+          "strength": 54
+        },
+        {
+          "id": "arg-racing",
+          "name": "Racing",
+          "short": "RAC",
+          "city": "Avellaneda",
+          "color": "#7fb2e5",
+          "strength": 66
+        },
+        {
+          "id": "arg-river-plate",
+          "name": "River Plate",
+          "short": "RIV",
+          "city": "Buenos Aires",
+          "color": "#e30613",
+          "strength": 74
+        },
+        {
+          "id": "arg-rosario-centr",
+          "name": "Rosario Central",
+          "short": "ROS",
+          "city": "Rosario",
+          "color": "#1d4fa8",
+          "strength": 62
+        },
+        {
+          "id": "arg-san-lorenzo",
+          "name": "San Lorenzo",
+          "short": "SLO",
+          "city": "Buenos Aires",
+          "color": "#1d3f8a",
+          "strength": 60
+        },
+        {
+          "id": "arg-sarmiento-j",
+          "name": "Sarmiento (J)",
+          "short": "SAR",
+          "city": "Junín",
+          "color": "#2e8b57",
+          "strength": 48
+        },
+        {
+          "id": "arg-talleres-c",
+          "name": "Talleres (C)",
+          "short": "TAL",
+          "city": "Córdoba",
+          "color": "#1d3f8a",
+          "strength": 62
+        },
+        {
+          "id": "arg-tigre",
+          "name": "Tigre",
+          "short": "TIG",
+          "city": "Victoria",
+          "color": "#1d3f8a",
+          "strength": 50
+        },
+        {
+          "id": "arg-union",
+          "name": "Unión",
+          "short": "UNI",
+          "city": "Santa Fe",
+          "color": "#d71920",
+          "strength": 54
+        },
+        {
+          "id": "arg-velez-sarsfie",
+          "name": "Vélez Sarsfield",
+          "short": "VEL",
+          "city": "Buenos Aires",
+          "color": "#1d3f8a",
+          "strength": 64
+        }
+      ]
+    },
+    {
+      "code": "URU",
+      "name": "Uruguai",
+      "format": "Liga AUF Uruguaya (Apertura, Intermedio e Clausura)",
+      "clubs": [
+        {
+          "id": "uru-albion",
+          "name": "Albion",
+          "short": "ALB",
+          "city": "Montevideo",
+          "color": "#1d3f8a",
+          "strength": 42
+        },
+        {
+          "id": "uru-boston-river",
+          "name": "Boston River",
+          "short": "BOS",
+          "city": "Florida",
+          "color": "#2e8b57",
+          "strength": 44
+        },
+        {
+          "id": "uru-central-espan",
+          "name": "Central Español",
+          "short": "CEN",
+          "city": "Montevideo",
+          "color": "#d71920",
+          "strength": 40
+        },
+        {
+          "id": "uru-cerro",
+          "name": "Cerro",
+          "short": "CER",
+          "city": "Montevideo",
+          "color": "#1d4fa8",
+          "strength": 42
+        },
+        {
+          "id": "uru-cerro-largo",
+          "name": "Cerro Largo",
+          "short": "CLA",
+          "city": "Melo",
+          "color": "#1d3f8a",
+          "strength": 44
+        },
+        {
+          "id": "uru-danubio",
+          "name": "Danubio",
+          "short": "DAN",
+          "city": "Montevideo",
+          "color": "#1d3f8a",
+          "strength": 50
+        },
+        {
+          "id": "uru-defensor-spor",
+          "name": "Defensor Sporting",
+          "short": "DEF",
+          "city": "Montevideo",
+          "color": "#6a1b9a",
+          "strength": 54
+        },
+        {
+          "id": "uru-deportivo-mal",
+          "name": "Deportivo Maldonado",
+          "short": "DMA",
+          "city": "Maldonado",
+          "color": "#1d3f8a",
+          "strength": 44
+        },
+        {
+          "id": "uru-juventud",
+          "name": "Juventud",
+          "short": "JUV",
+          "city": "Las Piedras",
+          "color": "#d71920",
+          "strength": 44
+        },
+        {
+          "id": "uru-liverpool",
+          "name": "Liverpool",
+          "short": "LIV",
+          "city": "Montevideo",
+          "color": "#1d3f8a",
+          "strength": 50
+        },
+        {
+          "id": "uru-montevideo-ci",
+          "name": "Montevideo City Torque",
+          "short": "MCT",
+          "city": "Montevideo",
+          "color": "#7fb2e5",
+          "strength": 58
+        },
+        {
+          "id": "uru-montevideo-wa",
+          "name": "Montevideo Wanderers",
+          "short": "MWA",
+          "city": "Montevideo",
+          "color": "#1a1a1a",
+          "strength": 52
+        },
+        {
+          "id": "uru-nacional",
+          "name": "Nacional",
+          "short": "NAC",
+          "city": "Montevideo",
+          "color": "#1d3f8a",
+          "strength": 68
+        },
+        {
+          "id": "uru-penarol",
+          "name": "Peñarol",
+          "short": "PEN",
+          "city": "Montevideo",
+          "color": "#f2c500",
+          "strength": 70
+        },
+        {
+          "id": "uru-progreso",
+          "name": "Progreso",
+          "short": "PRO",
+          "city": "Montevideo",
+          "color": "#d71920",
+          "strength": 42
+        },
+        {
+          "id": "uru-racing",
+          "name": "Racing",
+          "short": "RAC",
+          "city": "Montevideo",
+          "color": "#1a1a1a",
+          "strength": 42
+        }
+      ]
+    },
+    {
+      "code": "PAR",
+      "name": "Paraguai",
+      "format": "Primera División (Apertura e Clausura)",
+      "clubs": [
+        {
+          "id": "par-cerro-porteno",
+          "name": "Cerro Porteño",
+          "short": "CPO",
+          "city": "Asunción",
+          "color": "#1d3f8a",
+          "strength": 68
+        },
+        {
+          "id": "par-guarani",
+          "name": "Guaraní",
+          "short": "GUA",
+          "city": "Asunción",
+          "color": "#f2c500",
+          "strength": 54
+        },
+        {
+          "id": "par-libertad",
+          "name": "Libertad",
+          "short": "LIB",
+          "city": "Asunción",
+          "color": "#1a1a1a",
+          "strength": 62
+        },
+        {
+          "id": "par-nacional",
+          "name": "Nacional",
+          "short": "NAC",
+          "city": "Asunción",
+          "color": "#1d3f8a",
+          "strength": 52
+        },
+        {
+          "id": "par-olimpia",
+          "name": "Olimpia",
+          "short": "OLI",
+          "city": "Asunción",
+          "color": "#e8e8e8",
+          "strength": 70
+        },
+        {
+          "id": "par-recoleta-fc",
+          "name": "Recoleta FC",
+          "short": "REC",
+          "city": "Asunción",
+          "color": "#d71920",
+          "strength": 42
+        },
+        {
+          "id": "par-rubio-nu",
+          "name": "Rubio Ñu",
+          "short": "RUB",
+          "city": "Asunción",
+          "color": "#2e8b57",
+          "strength": 44
+        },
+        {
+          "id": "par-sportivo-2-de",
+          "name": "Sportivo 2 de Mayo",
+          "short": "S2M",
+          "city": "Pedro Juan Caballero",
+          "color": "#d71920",
+          "strength": 42
+        },
+        {
+          "id": "par-sportivo-amel",
+          "name": "Sportivo Ameliano",
+          "short": "AME",
+          "city": "Villeta",
+          "color": "#d71920",
+          "strength": 44
+        },
+        {
+          "id": "par-sportivo-luqu",
+          "name": "Sportivo Luqueño",
+          "short": "LUQ",
+          "city": "Luque",
+          "color": "#f2c500",
+          "strength": 50
+        },
+        {
+          "id": "par-sportivo-san",
+          "name": "Sportivo San Lorenzo",
+          "short": "SSL",
+          "city": "San Lorenzo",
+          "color": "#d71920",
+          "strength": 44
+        },
+        {
+          "id": "par-sportivo-trin",
+          "name": "Sportivo Trinidense",
+          "short": "TRI",
+          "city": "Asunción",
+          "color": "#2e8b57",
+          "strength": 44
+        }
+      ]
+    },
+    {
+      "code": "CHI",
+      "name": "Chile",
+      "format": "Liga de Primera (dois turnos)",
+      "clubs": [
+        {
+          "id": "chi-colo-colo",
+          "name": "Colo-Colo",
+          "short": "COL",
+          "city": "Santiago",
+          "color": "#e8e8e8",
+          "strength": 68
+        },
+        {
+          "id": "chi-universidad-d",
+          "name": "Universidad de Chile",
+          "short": "UCH",
+          "city": "Santiago",
+          "color": "#1d3f8a",
+          "strength": 64
+        },
+        {
+          "id": "chi-universidad-c",
+          "name": "Universidad Católica",
+          "short": "UCA",
+          "city": "Santiago",
+          "color": "#1d4fa8",
+          "strength": 62
+        },
+        {
+          "id": "chi-coquimbo-unid",
+          "name": "Coquimbo Unido",
+          "short": "COQ",
+          "city": "Coquimbo",
+          "color": "#f2c500",
+          "strength": 56
+        },
+        {
+          "id": "chi-deportes-lima",
+          "name": "Deportes Limache",
+          "short": "LIM",
+          "city": "Limache",
+          "color": "#f2c500",
+          "strength": 46
+        },
+        {
+          "id": "chi-everton",
+          "name": "Everton",
+          "short": "EVE",
+          "city": "Viña del Mar",
+          "color": "#f2c500",
+          "strength": 50
+        },
+        {
+          "id": "chi-deportes-la-s",
+          "name": "Deportes La Serena",
+          "short": "LSE",
+          "city": "La Serena",
+          "color": "#d71920",
+          "strength": 46
+        },
+        {
+          "id": "chi-deportes-conc",
+          "name": "Deportes Concepción",
+          "short": "DCO",
+          "city": "Concepción",
+          "color": "#7a1d8a",
+          "strength": 44
+        },
+        {
+          "id": "chi-palestino",
+          "name": "Palestino",
+          "short": "PAL",
+          "city": "Santiago",
+          "color": "#2e8b57",
+          "strength": 52
+        },
+        {
+          "id": "chi-nublense",
+          "name": "Ñublense",
+          "short": "NUB",
+          "city": "Chillán",
+          "color": "#d71920",
+          "strength": 48
+        },
+        {
+          "id": "chi-huachipato",
+          "name": "Huachipato",
+          "short": "HUA",
+          "city": "Talcahuano",
+          "color": "#1d3f8a",
+          "strength": 50
+        },
+        {
+          "id": "chi-o-higgins",
+          "name": "O'Higgins",
+          "short": "OHI",
+          "city": "Rancagua",
+          "color": "#7fb2e5",
+          "strength": 50
+        },
+        {
+          "id": "chi-audax-italian",
+          "name": "Audax Italiano",
+          "short": "AUD",
+          "city": "Santiago",
+          "color": "#2e8b57",
+          "strength": 46
+        },
+        {
+          "id": "chi-cobresal",
+          "name": "Cobresal",
+          "short": "COB",
+          "city": "El Salvador",
+          "color": "#f26b21",
+          "strength": 48
+        },
+        {
+          "id": "chi-union-la-cale",
+          "name": "Unión La Calera",
+          "short": "ULC",
+          "city": "La Calera",
+          "color": "#d71920",
+          "strength": 46
+        },
+        {
+          "id": "chi-universidad-d2",
+          "name": "Universidad de Concepción",
+          "short": "UDC",
+          "city": "Concepción",
+          "color": "#7a1d8a",
+          "strength": 44
+        }
+      ]
+    },
+    {
+      "code": "COL",
+      "name": "Colômbia",
+      "format": "Liga DIMAYOR (Apertura e Finalización)",
+      "clubs": [
+        {
+          "id": "col-aguilas-dorad",
+          "name": "Águilas Doradas",
+          "short": "AGU",
+          "city": "Medellín",
+          "color": "#f2c500",
+          "strength": 48
+        },
+        {
+          "id": "col-alianza",
+          "name": "Alianza",
+          "short": "ALI",
+          "city": "Valledupar",
+          "color": "#2e8b57",
+          "strength": 42
+        },
+        {
+          "id": "col-america-de-ca",
+          "name": "América de Cali",
+          "short": "AME",
+          "city": "Cali",
+          "color": "#d71920",
+          "strength": 58
+        },
+        {
+          "id": "col-atletico-buca",
+          "name": "Atlético Bucaramanga",
+          "short": "BUC",
+          "city": "Bucaramanga",
+          "color": "#f2c500",
+          "strength": 54
+        },
+        {
+          "id": "col-atletico-naci",
+          "name": "Atlético Nacional",
+          "short": "NAL",
+          "city": "Medellín",
+          "color": "#2e8b57",
+          "strength": 68
+        },
+        {
+          "id": "col-boyaca-chico",
+          "name": "Boyacá Chicó",
+          "short": "CHI",
+          "city": "Tunja",
+          "color": "#1d3f8a",
+          "strength": 44
+        },
+        {
+          "id": "col-cucuta-deport",
+          "name": "Cúcuta Deportivo",
+          "short": "CUC",
+          "city": "Cúcuta",
+          "color": "#d71920",
+          "strength": 44
+        },
+        {
+          "id": "col-deportes-toli",
+          "name": "Deportes Tolima",
+          "short": "TOL",
+          "city": "Ibagué",
+          "color": "#8b1a2b",
+          "strength": 58
+        },
+        {
+          "id": "col-deportivo-cal",
+          "name": "Deportivo Cali",
+          "short": "CAL",
+          "city": "Palmira",
+          "color": "#2e8b57",
+          "strength": 54
+        },
+        {
+          "id": "col-deportivo-pas",
+          "name": "Deportivo Pasto",
+          "short": "PAS",
+          "city": "Pasto",
+          "color": "#f2c500",
+          "strength": 46
+        },
+        {
+          "id": "col-deportivo-per",
+          "name": "Deportivo Pereira",
+          "short": "PER",
+          "city": "Pereira",
+          "color": "#f2c500",
+          "strength": 46
+        },
+        {
+          "id": "col-fortaleza",
+          "name": "Fortaleza",
+          "short": "FOR",
+          "city": "Bogotá",
+          "color": "#1d3f8a",
+          "strength": 42
+        },
+        {
+          "id": "col-independiente",
+          "name": "Independiente Medellín",
+          "short": "DIM",
+          "city": "Medellín",
+          "color": "#d71920",
+          "strength": 60
+        },
+        {
+          "id": "col-internacional",
+          "name": "Internacional de Bogotá",
+          "short": "INT",
+          "city": "Bogotá",
+          "color": "#d71920",
+          "strength": 40
+        },
+        {
+          "id": "col-jaguares",
+          "name": "Jaguares",
+          "short": "JAG",
+          "city": "Montería",
+          "color": "#1d4fa8",
+          "strength": 42
+        },
+        {
+          "id": "col-junior",
+          "name": "Junior",
+          "short": "JUN",
+          "city": "Barranquilla",
+          "color": "#d71920",
+          "strength": 66
+        },
+        {
+          "id": "col-llaneros",
+          "name": "Llaneros",
+          "short": "LLA",
+          "city": "Villavicencio",
+          "color": "#f26b21",
+          "strength": 40
+        },
+        {
+          "id": "col-millonarios",
+          "name": "Millonarios",
+          "short": "MIL",
+          "city": "Bogotá",
+          "color": "#1d3f8a",
+          "strength": 64
+        },
+        {
+          "id": "col-once-caldas",
+          "name": "Once Caldas",
+          "short": "ONC",
+          "city": "Manizales",
+          "color": "#e8e8e8",
+          "strength": 52
+        },
+        {
+          "id": "col-santa-fe",
+          "name": "Santa Fe",
+          "short": "SFE",
+          "city": "Bogotá",
+          "color": "#d71920",
+          "strength": 58
+        }
+      ]
+    },
+    {
+      "code": "ECU",
+      "name": "Equador",
+      "format": "LigaPro Serie A (dois turnos e hexagonais)",
+      "clubs": [
+        {
+          "id": "ecu-aucas",
+          "name": "Aucas",
+          "short": "AUC",
+          "city": "Quito",
+          "color": "#f2c500",
+          "strength": 50
+        },
+        {
+          "id": "ecu-barcelona",
+          "name": "Barcelona",
+          "short": "BSC",
+          "city": "Guayaquil",
+          "color": "#f2c500",
+          "strength": 66
+        },
+        {
+          "id": "ecu-delfin",
+          "name": "Delfín",
+          "short": "DEL",
+          "city": "Manta",
+          "color": "#1d3f8a",
+          "strength": 50
+        },
+        {
+          "id": "ecu-deportivo-cue",
+          "name": "Deportivo Cuenca",
+          "short": "CUE",
+          "city": "Cuenca",
+          "color": "#d71920",
+          "strength": 44
+        },
+        {
+          "id": "ecu-emelec",
+          "name": "Emelec",
+          "short": "EME",
+          "city": "Guayaquil",
+          "color": "#1d3f8a",
+          "strength": 62
+        },
+        {
+          "id": "ecu-guayaquil-cit",
+          "name": "Guayaquil City",
+          "short": "GYC",
+          "city": "Guayaquil",
+          "color": "#d71920",
+          "strength": 48
+        },
+        {
+          "id": "ecu-independiente",
+          "name": "Independiente del Valle",
+          "short": "IDV",
+          "city": "Quito",
+          "color": "#1d3f8a",
+          "strength": 72
+        },
+        {
+          "id": "ecu-ldu-quito",
+          "name": "LDU Quito",
+          "short": "LDU",
+          "city": "Quito",
+          "color": "#e8e8e8",
+          "strength": 68
+        },
+        {
+          "id": "ecu-leones",
+          "name": "Leones",
+          "short": "LEO",
+          "city": "Atuntaqui",
+          "color": "#f2c500",
+          "strength": 40
+        },
+        {
+          "id": "ecu-libertad",
+          "name": "Libertad",
+          "short": "LIB",
+          "city": "Loja",
+          "color": "#d71920",
+          "strength": 46
+        },
+        {
+          "id": "ecu-macara",
+          "name": "Macará",
+          "short": "MAC",
+          "city": "Ambato",
+          "color": "#1d3f8a",
+          "strength": 52
+        },
+        {
+          "id": "ecu-manta",
+          "name": "Manta",
+          "short": "MAN",
+          "city": "Manta",
+          "color": "#1d3f8a",
+          "strength": 42
+        },
+        {
+          "id": "ecu-mushuc-runa",
+          "name": "Mushuc Runa",
+          "short": "MUS",
+          "city": "Ambato",
+          "color": "#f2c500",
+          "strength": 46
+        },
+        {
+          "id": "ecu-orense",
+          "name": "Orense",
+          "short": "ORE",
+          "city": "Machala",
+          "color": "#2e8b57",
+          "strength": 46
+        },
+        {
+          "id": "ecu-tecnico-unive",
+          "name": "Técnico Universitario",
+          "short": "TEC",
+          "city": "Ambato",
+          "color": "#d71920",
+          "strength": 46
+        },
+        {
+          "id": "ecu-universidad-c",
+          "name": "Universidad Católica",
+          "short": "UCQ",
+          "city": "Quito",
+          "color": "#1d3f8a",
+          "strength": 52
+        }
+      ]
+    },
+    {
+      "code": "PER",
+      "name": "Peru",
+      "format": "Liga 1 (Apertura e Clausura)",
+      "clubs": [
+        {
+          "id": "per-adt",
+          "name": "ADT",
+          "short": "ADT",
+          "city": "Tarma",
+          "color": "#1d3f8a",
+          "strength": 42
+        },
+        {
+          "id": "per-alianza-atlet",
+          "name": "Alianza Atlético",
+          "short": "AAT",
+          "city": "Sullana",
+          "color": "#1d3f8a",
+          "strength": 42
+        },
+        {
+          "id": "per-alianza-lima",
+          "name": "Alianza Lima",
+          "short": "ALI",
+          "city": "Lima",
+          "color": "#1d3f8a",
+          "strength": 66
+        },
+        {
+          "id": "per-atletico-grau",
+          "name": "Atlético Grau",
+          "short": "GRA",
+          "city": "Sullana",
+          "color": "#1d3f8a",
+          "strength": 44
+        },
+        {
+          "id": "per-cajamarca",
+          "name": "Cajamarca",
+          "short": "CAJ",
+          "city": "Cajamarca",
+          "color": "#d71920",
+          "strength": 40
+        },
+        {
+          "id": "per-cienciano",
+          "name": "Cienciano",
+          "short": "CIE",
+          "city": "Cusco",
+          "color": "#d71920",
+          "strength": 52
+        },
+        {
+          "id": "per-comerciantes",
+          "name": "Comerciantes Unidos",
+          "short": "COM",
+          "city": "Cutervo",
+          "color": "#f2c500",
+          "strength": 40
+        },
+        {
+          "id": "per-cusco",
+          "name": "Cusco",
+          "short": "CUS",
+          "city": "Cusco",
+          "color": "#d71920",
+          "strength": 48
+        },
+        {
+          "id": "per-deportivo-gar",
+          "name": "Deportivo Garcilaso",
+          "short": "GAR",
+          "city": "Cusco",
+          "color": "#d71920",
+          "strength": 52
+        },
+        {
+          "id": "per-deportivo-moq",
+          "name": "Deportivo Moquegua",
+          "short": "MOQ",
+          "city": "Moquegua",
+          "color": "#d71920",
+          "strength": 40
+        },
+        {
+          "id": "per-juan-pablo-ii",
+          "name": "Juan Pablo II College",
+          "short": "JPC",
+          "city": "Chongoyape",
+          "color": "#1d3f8a",
+          "strength": 40
+        },
+        {
+          "id": "per-los-chankas",
+          "name": "Los Chankas",
+          "short": "CHA",
+          "city": "Andahuaylas",
+          "color": "#d71920",
+          "strength": 44
+        },
+        {
+          "id": "per-melgar",
+          "name": "Melgar",
+          "short": "MEL",
+          "city": "Arequipa",
+          "color": "#d71920",
+          "strength": 58
+        },
+        {
+          "id": "per-sport-boys",
+          "name": "Sport Boys",
+          "short": "SBO",
+          "city": "Callao",
+          "color": "#f2a0b0",
+          "strength": 46
+        },
+        {
+          "id": "per-sport-huancay",
+          "name": "Sport Huancayo",
+          "short": "HUA",
+          "city": "Huancayo",
+          "color": "#d71920",
+          "strength": 50
+        },
+        {
+          "id": "per-sporting-cris",
+          "name": "Sporting Cristal",
+          "short": "CRI",
+          "city": "Lima",
+          "color": "#7fb2e5",
+          "strength": 60
+        },
+        {
+          "id": "per-universitario",
+          "name": "Universitario",
+          "short": "UNI",
+          "city": "Lima",
+          "color": "#f2e8c0",
+          "strength": 66
+        },
+        {
+          "id": "per-utc",
+          "name": "UTC",
+          "short": "UTC",
+          "city": "Cajamarca",
+          "color": "#d71920",
+          "strength": 40
+        }
+      ]
+    },
+    {
+      "code": "BOL",
+      "name": "Bolívia",
+      "format": "División Profesional (dois turnos)",
+      "clubs": [
+        {
+          "id": "bol-abb",
+          "name": "ABB",
+          "short": "ABB",
+          "city": "El Alto",
+          "color": "#1d3f8a",
+          "strength": 40
+        },
+        {
+          "id": "bol-always-ready",
+          "name": "Always Ready",
+          "short": "ARE",
+          "city": "El Alto",
+          "color": "#d71920",
+          "strength": 58
+        },
+        {
+          "id": "bol-aurora",
+          "name": "Aurora",
+          "short": "AUR",
+          "city": "Cochabamba",
+          "color": "#1d3f8a",
+          "strength": 50
+        },
+        {
+          "id": "bol-blooming",
+          "name": "Blooming",
+          "short": "BLO",
+          "city": "Santa Cruz de la Sierra",
+          "color": "#7fb2e5",
+          "strength": 48
+        },
+        {
+          "id": "bol-bolivar",
+          "name": "Bolívar",
+          "short": "BOL",
+          "city": "La Paz",
+          "color": "#7fb2e5",
+          "strength": 64
+        },
+        {
+          "id": "bol-guabira",
+          "name": "Guabirá",
+          "short": "GUA",
+          "city": "Montero",
+          "color": "#2e8b57",
+          "strength": 42
+        },
+        {
+          "id": "bol-gv-san-jose",
+          "name": "GV San José",
+          "short": "GVS",
+          "city": "Oruro",
+          "color": "#1d3f8a",
+          "strength": 44
+        },
+        {
+          "id": "bol-independiente",
+          "name": "Independiente Petrolero",
+          "short": "IPE",
+          "city": "Sucre",
+          "color": "#d71920",
+          "strength": 44
+        },
+        {
+          "id": "bol-nacional-poto",
+          "name": "Nacional Potosí",
+          "short": "NPO",
+          "city": "Potosí",
+          "color": "#1d3f8a",
+          "strength": 44
+        },
+        {
+          "id": "bol-oriente-petro",
+          "name": "Oriente Petrolero",
+          "short": "ORI",
+          "city": "Santa Cruz de la Sierra",
+          "color": "#2e8b57",
+          "strength": 50
+        },
+        {
+          "id": "bol-real-oruro",
+          "name": "Real Oruro",
+          "short": "ROR",
+          "city": "Oruro",
+          "color": "#1d3f8a",
+          "strength": 40
+        },
+        {
+          "id": "bol-real-potosi",
+          "name": "Real Potosí",
+          "short": "RPO",
+          "city": "Potosí",
+          "color": "#1d3f8a",
+          "strength": 42
+        },
+        {
+          "id": "bol-real-tomayapo",
+          "name": "Real Tomayapo",
+          "short": "RTO",
+          "city": "Tarija",
+          "color": "#d71920",
+          "strength": 40
+        },
+        {
+          "id": "bol-san-antonio-b",
+          "name": "San Antonio Bulo Bulo",
+          "short": "SAB",
+          "city": "Entre Ríos",
+          "color": "#1d3f8a",
+          "strength": 40
+        },
+        {
+          "id": "bol-the-strongest",
+          "name": "The Strongest",
+          "short": "STR",
+          "city": "La Paz",
+          "color": "#f2c500",
+          "strength": 62
+        },
+        {
+          "id": "bol-universitario",
+          "name": "Universitario de Vinto",
+          "short": "UVI",
+          "city": "Cochabamba",
+          "color": "#1d3f8a",
+          "strength": 40
+        }
+      ]
+    },
+    {
+      "code": "VEN",
+      "name": "Venezuela",
+      "format": "Liga FUTVE (Apertura, Clausura e final)",
+      "clubs": [
+        {
+          "id": "ven-academia-puer",
+          "name": "Academia Puerto Cabello",
+          "short": "APC",
+          "city": "Puerto Cabello",
+          "color": "#d71920",
+          "strength": 50
+        },
+        {
+          "id": "ven-anzoategui",
+          "name": "Anzoátegui",
+          "short": "ANZ",
+          "city": "Puerto La Cruz",
+          "color": "#d71920",
+          "strength": 40
+        },
+        {
+          "id": "ven-carabobo",
+          "name": "Carabobo",
+          "short": "CAR",
+          "city": "Valencia",
+          "color": "#d71920",
+          "strength": 52
+        },
+        {
+          "id": "ven-caracas",
+          "name": "Caracas",
+          "short": "CCS",
+          "city": "Caracas",
+          "color": "#d71920",
+          "strength": 58
+        },
+        {
+          "id": "ven-deportivo-la",
+          "name": "Deportivo La Guaira",
+          "short": "DLG",
+          "city": "Caracas",
+          "color": "#1d3f8a",
+          "strength": 52
+        },
+        {
+          "id": "ven-deportivo-tac",
+          "name": "Deportivo Táchira",
+          "short": "TAC",
+          "city": "San Cristóbal",
+          "color": "#f2c500",
+          "strength": 54
+        },
+        {
+          "id": "ven-estudiantes-d",
+          "name": "Estudiantes de Mérida",
+          "short": "EME",
+          "city": "Mérida",
+          "color": "#d71920",
+          "strength": 46
+        },
+        {
+          "id": "ven-metropolitano",
+          "name": "Metropolitanos",
+          "short": "MET",
+          "city": "Caracas",
+          "color": "#d71920",
+          "strength": 50
+        },
+        {
+          "id": "ven-monagas",
+          "name": "Monagas",
+          "short": "MON",
+          "city": "Maturín",
+          "color": "#f2c500",
+          "strength": 48
+        },
+        {
+          "id": "ven-portuguesa",
+          "name": "Portuguesa",
+          "short": "POR",
+          "city": "Acarigua",
+          "color": "#d71920",
+          "strength": 46
+        },
+        {
+          "id": "ven-rayo-zuliano",
+          "name": "Rayo Zuliano",
+          "short": "RAY",
+          "city": "Maracaibo",
+          "color": "#1d3f8a",
+          "strength": 42
+        },
+        {
+          "id": "ven-trujillanos",
+          "name": "Trujillanos",
+          "short": "TRU",
+          "city": "Valera",
+          "color": "#d71920",
+          "strength": 42
+        },
+        {
+          "id": "ven-universidad-c",
+          "name": "Universidad Central",
+          "short": "UCV",
+          "city": "Caracas",
+          "color": "#d71920",
+          "strength": 46
+        },
+        {
+          "id": "ven-zamora",
+          "name": "Zamora",
+          "short": "ZAM",
+          "city": "Barinas",
+          "color": "#1d3f8a",
+          "strength": 50
+        }
+      ]
+    }
+  ]
+}

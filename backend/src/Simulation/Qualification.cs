@@ -92,6 +92,7 @@ public static class Qualification
         state.History.Add(new(g.Season, state.Berths)); // the places this season was played with
         state.Season = g.Season + 1; state.Berths = berths; state.Clinched.Clear();
         g.Qualification = state;
+        SouthAmerica.CloseSeason(g); // the other nine national championships of this season qualify clubs for the next one
         Announce(g, berths, "para a próxima temporada");
     }
 

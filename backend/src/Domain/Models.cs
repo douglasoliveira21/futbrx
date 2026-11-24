@@ -28,6 +28,8 @@ public class GameState
     public List<Club> KnownClubs { get; set; } = [];
     // International places (Libertadores, Pré-Libertadores, Sul-Americana) of the Série A career.
     public QualificationState? Qualification { get; set; }
+    // National championships of the other nine South American countries and the clubs they send to the continental cups.
+    public SouthAmericaState? SouthAmerica { get; set; }
     public List<LoanDeal> Loans { get; set; } = [];
     public List<TransferPayment> TransferPayments { get; set; } = [];
     public int YouthVersion { get; set; }

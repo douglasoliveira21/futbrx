@@ -189,6 +189,19 @@ export type State = {
   otherClubs?: Club[];
   // Clubs of the state championship that have no squad until the club meets them.
   knownClubs?: Club[];
+  // The other nine South American championships of the last season, which qualify clubs for the continental cups.
+  southAmerica?: {
+    season: number;
+    results: {
+      code: string;
+      season: number;
+      champion: string;
+      libertadores: string[];
+      sudamericana: string[];
+      table: { clubId: string; points: number; played: number; wins: number; draws: number; losses: number; goals: number; against: number; difference: number }[];
+      tournaments: { name: string; champion: string; table: { clubId: string; points: number; played: number }[] }[];
+    }[];
+  } | null;
   // International places of a Série A career: zone of every club of the table, the places of the season and the history.
   qualification?: {
     zones: Record<string, { zone: string; origin: string; other: boolean }>;

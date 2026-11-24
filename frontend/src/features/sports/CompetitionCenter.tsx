@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { seasonRounds } from "../career/season";
+import { SouthAmericaPanel } from "./SouthAmericaPanel";
 import { hasZones, zoneBadge, zoneColors, zoneLabels, zoneOf, type Zone } from "../career/zones";
 import {
   api,
@@ -110,6 +111,7 @@ export default function CompetitionCenter({ c }: { c: Career }) {
           </p>
         )}
       </section>
+      {c.state.southAmerica && <SouthAmericaPanel c={c} />}
       {[
         {
           title: d ? `Sua divisão · ${d.managedDivision}` : "Classificação",

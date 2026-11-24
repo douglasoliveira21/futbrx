@@ -156,6 +156,43 @@ Tabelas informadas pelo usuário (as de liga são propostas de balanceamento do 
 - **Sul-Americana**: grupos R$ 4,5 mi + R$ 625 mil por vitória; playoffs R$ 2,5 mi; oitavas R$ 3 mi; quartas R$ 3,5 mi; semifinal R$ 4 mi; vice R$ 12,5 mi; campeão R$ 50 mi. A primeira fase (só para
   outros países) e a pré-temporada de outros clubes não existem no jogo.
 
+## América do Sul: clubes e campeonatos nacionais
+
+`data/south-america/clubs-2026.json` tem os **158 clubes reais** das primeiras divisões de 2026 dos outros nove países (Argentina 30,
+Uruguai 16, Paraguai 12, Chile 16, Colômbia 20, Equador 16, Peru 18, Bolívia 16, Venezuela 14), lidos das páginas das edições de 2026
+(Wikipédia em 24/11/2026), com a cidade da tabela de estádios de cada página. **Siglas, cores e forças são estimativas do projeto**, a
+conferir. **Sem escudos oficiais**: sem licença verificada, o jogo usa o escudo genérico nas cores do clube (o mesmo critério dos clubes
+brasileiros sem escudo revisado); dá para acrescentar escudos por lote, com licença conferida.
+
+`SouthAmerica.cs` simula, em segundo plano e só pela força dos clubes, o campeonato nacional de cada país no formato dele (sem elencos):
+
+| País | Formato simulado |
+|---|---|
+| Argentina | Apertura e Clausura: duas zonas de 15 em turno único, oito de cada zona num mata-mata de jogo único; os dois campeões vão à Libertadores |
+| Uruguai | Apertura, Intermedio e Clausura em turno único; tabela somada; final de ida e volta entre os dois primeiros (simplificado) |
+| Paraguai | Apertura e Clausura em ida e volta (22 jogos cada); tabela somada |
+| Chile | Dois turnos, 30 rodadas |
+| Colômbia | Apertura (19 rodadas, oito no mata-mata) e Finalización (19 rodadas, dois grupos de quatro e final); tabela somada |
+| Equador | Dois turnos (30 jogos) e hexagonal dos seis primeiros com os pontos levados |
+| Peru | Apertura e Clausura em turno único (17 jogos); playoffs com os campeões e os melhores da tabela somada |
+| Bolívia | Dois turnos, 30 rodadas |
+| Venezuela | Apertura e Clausura (13 jogos, oito em dois grupos de quatro e final); final de ida e volta entre os campeões |
+
+Pontos que **não** estão confirmados na fonte: o formato exato do Uruguai, do Peru e da Venezuela (a página só chegou resumida); os
+conflitos de rebaixados do Paraguai e as vagas por copa nacional (não simuladas). Não há acesso nem descenso dos outros países: a lista de
+clubes de cada liga fica fixa.
+
+**Vagas** (alocação de 2027): Libertadores 4 vagas por país (Argentina 6; Brasil pelo motor de vagas), Sul-Americana 4 por país
+(Argentina 6; Brasil 6). Em cada país: campeões primeiro, depois a tabela, sem repetir clube. Os resultados de uma temporada qualificam os
+clubes da seguinte (na primeira, simula-se a temporada anterior) e ficam em `GameState.SouthAmerica`, mostrados em Competições →
+"América do Sul · campeonatos nacionais".
+
+**Libertadores e Sul-Americana com clubes reais**: a fase de grupos tem 32 clubes. Libertadores: Brasil (vagas diretas do motor), os dois
+primeiros de cada país (três da Argentina) e os vencedores da Pré (os demais classificados, em rodadas de jogo único) completam os
+32; sorteio em quatro potes por força, sem dois clubes do mesmo país no mesmo grupo. Sul-Americana: Brasil e Argentina entram direto, cada
+um dos outros países manda dois (vencedores de 1º×4º e 2º×3º) e os melhores restantes completam. Os terceiros dos grupos da Libertadores
+vão aos playoffs da Sul-Americana, como no regulamento. Só os jogos do clube têm elenco e transmissão.
+
 ## Vagas internacionais (Libertadores, Pré-Libertadores e Sul-Americana)
 
 Motor central em `Qualification.cs` (função pura `Resolve`), com o regulamento por temporada em `Qualification.Rules` (2026: 4 vagas diretas pela liga, 1 vaga na Pré, 6 na Sul-Americana, campeões
@@ -172,8 +209,7 @@ quando a classificação é garantida matematicamente (G4, G5 e G11). Na primeir
 
 Competições (`Continental.cs`): Pré-Libertadores (três fases de jogo único; o vencedor vai aos grupos da Libertadores e o eliminado na terceira fase à Sul-Americana), fase de grupos (grupo de quatro com
 adversários ilustrativos de outros países; os outros sete grupos saem da força dos clubes), mata-mata (final em jogo único) e, na Sul-Americana, playoffs contra terceiros da Libertadores, com os líderes
-entrando nas oitavas; o terceiro colocado do grupo da Libertadores é transferido aos playoffs da Sul-Americana. Limites: os adversários estrangeiros são fictícios, não há sorteio por ranking
-continental nem Recopa, e os bônus financeiros de classificação de contratos não existem no jogo.
+entrando nas oitavas; o terceiro colocado do grupo da Libertadores é transferido aos playoffs da Sul-Americana. Limites: não há Recopa nem rebaixamento dos clubes estrangeiros, e os bônus financeiros de classificação de contratos não existem no jogo.
 
 ## Força dos clubes nos elencos
 

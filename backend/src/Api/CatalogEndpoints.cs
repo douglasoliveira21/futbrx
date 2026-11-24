@@ -40,6 +40,8 @@ public static class CatalogEndpoints
     public static void MapCatalogEndpoints(this WebApplication app)
     {
         app.MapGet("/api/directory", async (GameDb db) => Results.Content(await AdminSeriesEndpoints.BuildDirectory(db), "application/json"));
+        // Clubs and championships of the other nine South American countries (static data; names and colours for the screens).
+        app.MapGet("/api/south-america", () => Results.Ok(SouthAmerica.Countries));
         app.MapGet("/api/catalogs", async (GameDb db) => await db.DataReleases.AsNoTracking().Where(r => r.Published).OrderByDescending(r => r.PublishedAt).ToListAsync());
         app.MapGet("/api/clubs", async (Guid? releaseId, GameDb db) =>
         {

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { ArrowRight, BarChart3, Eye, EyeOff, Gamepad2, Loader2, Lock, Network, Trophy, User } from "lucide-react";
 import { api, setToken } from "../../services/api";
-import { CompetitionEmblem, type Emblem } from "./LoginArt";
+import { CompetitionEmblem, GoogleMark, type Emblem } from "./LoginArt";
 import { FutbrxLogo } from "../../components/FutbrxLogo";
 import { COMPACT_WIDTH, stageScale } from "./loginLayout";
 import "./login.css";
@@ -109,7 +109,7 @@ export default function LoginScreen({ onLogin }: { onLogin: (name: string) => vo
         const api = (window as unknown as { google?: { accounts: { id: { initialize: (o: object) => void; renderButton: (el: HTMLElement, o: object) => void } } } }).google;
         if (cancelled || !api || !googleBox.current) return;
         api.accounts.id.initialize({ client_id: googleId, callback: (r: { credential: string }) => googleSubmit(r.credential), ux_mode: "popup" });
-        api.accounts.id.renderButton(googleBox.current, { theme: "filled_black", size: "large", shape: "rectangular", width: 380, locale: "pt-BR", text: mode === "register" ? "signup_with" : "signin_with", logo_alignment: "left" });
+        api.accounts.id.renderButton(googleBox.current, { theme: "filled_black", size: "large", shape: "rectangular", width: 400, locale: "pt-BR", text: mode === "register" ? "signup_with" : "signin_with", logo_alignment: "left" });
       })
       .catch(() => undefined);
     return () => {
@@ -214,19 +214,26 @@ export default function LoginScreen({ onLogin }: { onLogin: (name: string) => vo
               {error}
             </p>
           )}
+          {googleId && (
+            <div className="login-google">
+              <div className={"login-google-card" + (google.isPending ? " busy" : "")}>
+                <GoogleMark />
+                <span>{google.isPending ? "Conectando…" : register ? "Cadastrar com o Google" : "Entrar com o Google"}</span>
+                {/* Google's own button, invisible, stretched over the card: it provides the real ID token on click. */}
+                <div className="login-google-hit" aria-label={register ? "Cadastrar com o Google" : "Entrar com o Google"}>
+                  <div ref={googleBox} className="login-google-button" />
+                </div>
+              </div>
+              <p>
+                <i /> <span>ou use seu e-mail</span> <i />
+              </p>
+            </div>
+          )}
           <button type="submit" className="login-cta" disabled={m.isPending || google.isPending} aria-busy={m.isPending || google.isPending}>
             {m.isPending ? <Loader2 className="spin" size={24} aria-hidden /> : null}
             <span>{m.isPending ? "Conectando…" : register ? "Criar conta e entrar" : "Entrar no Jogo"}</span>
             {!m.isPending && <ArrowRight size={24} aria-hidden />}
           </button>
-          {googleId && (
-            <div className="login-google">
-              <p>
-                <i /> <span>ou</span> <i />
-              </p>
-              <div ref={googleBox} className="login-google-button" aria-label={register ? "Registrar com o Google" : "Entrar com o Google"} />
-            </div>
-          )}
         </form>
       )}
       {!register && mode !== "recover" && (

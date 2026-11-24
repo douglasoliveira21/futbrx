@@ -554,10 +554,59 @@
   height: 1px;
   background: rgba(255, 255, 255, 0.18);
 }
-.login-google-button {
-  min-height: 44px;
+.login-google-card {
+  box-sizing: border-box;
+  width: 100%;
+  position: relative;
   display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 14px;
+  height: 54px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  color: #f5f5f5;
+  font-size: 18px;
+  font-weight: 600;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 150ms, background 150ms, box-shadow 200ms, transform 100ms;
+}
+.login-google-card:hover {
+  border-color: var(--neon);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(69, 255, 0, 0.08));
+  box-shadow: 0 0 18px rgba(69, 255, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.login-google-card:active {
+  transform: translateY(1px);
+}
+.login-google-card:focus-within {
+  border-color: var(--neon);
+  box-shadow: 0 0 0 2px rgba(69, 255, 0, 0.4);
+}
+.login-google-card.busy {
+  pointer-events: none;
+  opacity: 0.7;
+}
+.login-google-g {
+  flex: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+/* Google's real button, kept invisible and stretched over the whole card so a click anywhere starts the sign-in. */
+.login-google-hit {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0.01;
+}
+.login-google-button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1.45, 1.6);
+  min-width: 400px;
 }
 .has-google .login-panel {
   min-height: 520px;
